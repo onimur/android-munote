@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.admin.munotes.com.example.admin.munote.activity.NotasActivity">
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home"
+        android:orderInCategory="99"
+        android:title="Home"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_galeria"
+        android:orderInCategory="100"
+        android:title="@string/title_galeria"
+        android:visible="true"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_notas"
+        android:orderInCategory="101"
+        android:title="@string/title_edit_notas"
+        android:visible="true"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_cartao"
+        android:orderInCategory="102"
+        android:title="@string/title_card_edit"
+        android:visible="true"
+        app:showAsAction="never" />
+</menu>

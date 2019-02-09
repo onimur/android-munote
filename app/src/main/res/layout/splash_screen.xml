@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="192dp"
+            android:layout_height="192dp"
+            android:background="@drawable/logo_192" />
+
+        <TextView
+            android:paddingTop="20dp"
+            android:layout_gravity="center"
+            style="@style/Splash_title"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+             android:text="@string/app_name">
+
+        </TextView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="4">
+
+    </View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ProgressBar
+                android:id="@+id/splash_screen_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/Splash_ProgressBar"
+                android:minHeight="65dp"
+                android:minWidth="65dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+
+                android:layout_alignStart="@+id/splash_screen_progress_bar"
+
+                android:layout_alignTop="@+id/splash_screen_progress_bar"
+                android:layout_alignEnd="@+id/splash_screen_progress_bar"
+                android:layout_alignBottom="@+id/splash_screen_progress_bar"
+                android:layout_marginStart="8dp"
+
+
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="5dp"
+
+                android:layout_marginBottom="16dp"
+                android:text="0%"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#FFFFFF" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>
