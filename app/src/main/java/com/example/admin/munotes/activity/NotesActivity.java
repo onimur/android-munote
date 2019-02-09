@@ -24,7 +24,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.admin.munotes.R;
 import com.example.admin.munotes.files.MenuToolbar;
-import com.example.admin.munotes.fragmentos.Notas_Fragment_1;
+import com.example.admin.munotes.fragmentos.NotesFragment1;
 
 import static com.example.admin.munotes.bancos.DBaseDirectory.createDirectoryDbase;
 
@@ -53,7 +53,7 @@ public class NotesActivity extends MenuToolbar {
         context = getBaseContext();
         toolbar = findViewById(R.id.toolbar);
         //
-        nF01 = new Notas_Fragment_1();
+        nF01 = new NotesFragment1();
         //
 
     }

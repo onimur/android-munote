@@ -35,7 +35,7 @@ import com.example.admin.munotes.Constants;
 
 import java.util.Objects;
 
-public class Notas_Fragment_3 extends Fragment {
+public class NotesFragment3 extends Fragment {
     private ListView lv_note_fragment;
     private View view;
     private Activity activity;
@@ -49,13 +49,13 @@ public class Notas_Fragment_3 extends Fragment {
         view = inflater.inflate(R.layout.note_fragment, container, false);
 
 
-        iniciarVariaveis();
-        iniciarAcoes();
+        startVariables();
+        startAction();
 
         return view;
     }
 
-    private void iniciarVariaveis() {
+    private void startVariables() {
         lv_note_fragment = view.findViewById(R.id.lv_note_fragment);
         NotesDao notesDao = new NotesDao(getContext());
         Bundle bundle = this.getArguments();
@@ -71,20 +71,20 @@ public class Notas_Fragment_3 extends Fragment {
     }
 
 
-    private void iniciarAcoes() {
+    private void startAction() {
         lv_note_fragment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HMAuxNotes item = (HMAuxNotes) parent.getItemAtPosition(position);
                 //
-                chamarFormulario(NotesViewActivity.class, Long.parseLong(Objects.requireNonNull(item.get(NotesDao.IDNOTAS))));
+                callActivityById(NotesViewActivity.class, Long.parseLong(Objects.requireNonNull(item.get(NotesDao.IDNOTAS))));
                 //
             }
         });
     }
 
-    public void chamarFormulario(Class<?> _class, long id) {
+    public void callActivityById(Class<?> _class, long id) {
         Intent mIntent = new Intent(getContext(), _class);
         mIntent.putExtra(Constants.ID_BANCO, id);
         //

@@ -30,26 +30,26 @@ import com.example.admin.munotes.bancos.banco.HMAuxNotes;
 import com.example.admin.munotes.bancos.banco.RecordListNotesMonthAdapter;
 import com.example.admin.munotes.bancos.dao.NotesDao;
 
-public class Notas_Fragment_2 extends Fragment {
+public class NotesFragment2 extends Fragment {
     private ListView lv_note_fragment;
     private View view;
     String data2;
     String data1;
     Bundle bundle;
 
-    private Notas_Fragment_3 nF03;
+    private NotesFragment3 nF03;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.note_fragment, container, false);
 
 
-        iniciarVariaveis();
-        iniciarAcoes();
+        startVariables();
+        startAction();
 
         return view;
     }
 
-    private void iniciarVariaveis() {
+    private void startVariables() {
         lv_note_fragment = view.findViewById(R.id.lv_note_fragment);
         NotesDao notesDao = new NotesDao(getContext());
         bundle = this.getArguments();
@@ -61,7 +61,7 @@ public class Notas_Fragment_2 extends Fragment {
         lv_note_fragment.setAdapter(adapter);
     }
 
-    private void iniciarAcoes() {
+    private void startAction() {
             lv_note_fragment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @TargetApi(Build.VERSION_CODES.KITKAT)
                 @Override
@@ -69,7 +69,7 @@ public class Notas_Fragment_2 extends Fragment {
                     HMAuxNotes item = (HMAuxNotes) parent.getItemAtPosition(position);
                     //
                     data2 = (item.get(NotesDao.MES));
-                    setFragmentoNotas();
+                    setNotesFragment();
                     //
 
                     //
@@ -77,8 +77,8 @@ public class Notas_Fragment_2 extends Fragment {
             });
        }
 
-    private void setFragmentoNotas() {
-        nF03 = new Notas_Fragment_3();
+    private void setNotesFragment() {
+        nF03 = new NotesFragment3();
         //Bundle criada pra passar a data pro fragment3;
         Bundle bundle = new Bundle();
         bundle.putString("data", data1);

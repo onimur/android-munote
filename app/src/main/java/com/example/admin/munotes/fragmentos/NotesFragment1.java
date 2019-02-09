@@ -30,7 +30,7 @@ import com.example.admin.munotes.bancos.banco.HMAuxNotes;
 import com.example.admin.munotes.bancos.banco.RecordListNotesYearAdapter;
 import com.example.admin.munotes.bancos.dao.NotesDao;
 
-public class Notas_Fragment_1 extends Fragment {
+public class NotesFragment1 extends Fragment {
     private ListView lv_note_fragment;
     private View view;
     private Fragment nF02;
@@ -40,13 +40,13 @@ public class Notas_Fragment_1 extends Fragment {
         view = inflater.inflate(R.layout.note_fragment, container, false);
 
 
-        iniciarVariaveis();
-        iniciarAcoes();
+        startVariables();
+        startAction();
 
         return view;
     }
 
-    private void iniciarVariaveis() {
+    private void startVariables() {
 
 
         lv_note_fragment = view.findViewById(R.id.lv_note_fragment);
@@ -55,23 +55,23 @@ public class Notas_Fragment_1 extends Fragment {
 
         RecordListNotesYearAdapter adapter = new RecordListNotesYearAdapter(getContext(), R.layout.celula_listview_ano_mes_notas, notesDao.getListYearNotes());
         lv_note_fragment.setAdapter(adapter);
-        nF02 = new Notas_Fragment_2();
+        nF02 = new NotesFragment2();
     }
 
 
-    private void iniciarAcoes() {
+    private void startAction() {
         lv_note_fragment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 item = (HMAuxNotes) parent.getItemAtPosition(position);
                 //
-                setFragmentoNotas();
+                setNotesFragment();
                 //
             }
         });
     }
-        private void setFragmentoNotas() {
+        private void setNotesFragment() {
         //Bundle criada pra passar a data pro fragment2;
         String data = (item.get(NotesDao.ANO));
         Bundle bundle = new Bundle();
