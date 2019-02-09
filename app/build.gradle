@@ -1,5 +1,17 @@
 apply plugin: 'com.android.application'
 
+/*
+ *
+ *  * Created by Murillo Comino on 09/02/19 12:26
+ *  * Github: github.com/MurilloComino
+ *  * StackOverFlow: pt.stackoverflow.com/users/128573
+ *  * Email: murillo_comino@hotmail.com
+ *  *
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 09/02/19 12:03
+ *
+ */
+
 // Carrega a chave API-key, que está em um arquivo ignorado pelo git
 def keystorePropertiesFile = rootProject.file("keystore.properties");
 def keystoreProperties = new Properties()

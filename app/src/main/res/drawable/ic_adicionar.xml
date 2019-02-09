@@ -1,3 +1,15 @@
+<!--
+  ~ /*
+  ~  * Created by Murillo Comino on 09/02/19 12:26
+  ~  * Github: github.com/MurilloComino
+  ~  * StackOverFlow: pt.stackoverflow.com/users/128573
+  ~  * Email: murillo_comino@hotmail.com
+  ~  *
+  ~  * Copyright (c) 2019 . All rights reserved.
+  ~  * Last modified 09/02/19 12:03
+  ~  */
+  -->
+
 <vector android:height="38dp" android:viewportHeight="135.46667"
     android:viewportWidth="135.46666" android:width="38dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillAlpha="1" android:fillColor="#367497"
