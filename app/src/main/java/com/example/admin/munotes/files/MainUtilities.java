@@ -332,10 +332,7 @@ public class MainUtilities extends AppCompatActivity {
 
                 switch (putType) {
                     case "notas": {
-                        ImageButton ib_foto;
 
-                        ib_foto = findViewById(R.id.ib_foto);
-                        final String tagName = String.valueOf(ib_foto.getTag());
                         if (validation(putType)) {
                             //Pega o String contido nos id das R.string.
                             String idTitle = getString(R.string.alert_title_update);

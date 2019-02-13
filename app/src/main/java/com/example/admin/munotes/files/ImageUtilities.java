@@ -42,7 +42,7 @@ public class ImageUtilities {
 
 
     public void createDirectory(String nomePasta) throws IOException {
-        File path;
+
         File dir;
 
         String timeYear;
@@ -56,8 +56,7 @@ public class ImageUtilities {
 
 
         //Cria pasta
-        path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        dir = new File(path, timeAll);
+        dir = createReturnDir(timeAll);
 
         //Verifica se a pasta não existe e não foi criado
         if (!dir.exists()) {
@@ -67,6 +66,15 @@ public class ImageUtilities {
         }
         caminhodirPath = dir.getAbsolutePath();
         fileDir = dir;
+    }
+
+    private File createReturnDir(String pathDir) {
+        File path;
+        File dir;
+        path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        dir = new File(path, pathDir);
+
+        return dir;
     }
 
     public File createImageFile() throws IOException {
