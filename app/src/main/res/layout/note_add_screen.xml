@@ -234,15 +234,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/ll_sp_parcelas_main">
 
                     <RadioGroup
-                        android:id="@+id/rb_credit_debit"
+                        android:id="@+id/rg_credit_debit"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="9"
                         android:checkedButton="@id/rb_credit"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:orientation="horizontal"
                         tools:ignore="UselessParent">
 
@@ -290,8 +291,8 @@
 
                         <Spinner
                             android:id="@+id/sp_parcelas"
-                            android:layout_width="match_parent"
-                            android:layout_height="38dp"
+                            android:layout_width="70dp"
+                            android:layout_height="35dp"
                             android:layout_gravity="center"
                             android:background="@drawable/spinner_background"
                             android:popupBackground="@drawable/spinner_background_checked"

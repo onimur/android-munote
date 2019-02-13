@@ -21,6 +21,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,6 +31,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -597,7 +600,7 @@ public class MainUtilities extends AppCompatActivity {
 
     }
 
-    private int convertToInt(String numero) {
+    protected int convertToInt(String numero) {
         try {
             return Integer.parseInt(numero);
         } catch (Exception e) {
@@ -696,6 +699,73 @@ public class MainUtilities extends AppCompatActivity {
                     return false;
                 }
                 return true;
+            }
+            case "spinner_action_credito_debito": {
+                int tipoCard;
+                HMAuxCard item;
+                Spinner sp_card;
+
+                RadioButton rb_credit;
+                RadioButton rb_debit;
+                LinearLayout ll_sp_parcelas;
+
+                rb_credit = findViewById(R.id.rb_credit);
+                rb_debit = findViewById(R.id.rb_debit);
+                sp_card = findViewById(R.id.sp_card);
+                ll_sp_parcelas = findViewById(R.id.ll_sp_parcelas);
+
+                ll_sp_parcelas.setEnabled(true);
+                ll_sp_parcelas.setVisibility(View.VISIBLE);
+                //Recupera o tipo do cartão
+                item = (HMAuxCard) sp_card.getSelectedItem();
+                tipoCard = convertToInt(item.get(CardDao.TIPO));
+                switch (tipoCard) {
+                    //Credito
+                    case 1: {
+
+
+                        rb_credit.setVisibility(View.VISIBLE);
+                        rb_credit.setEnabled(true);
+
+                        rb_debit.setVisibility(View.INVISIBLE);
+                        rb_debit.setEnabled(false);
+
+                        rb_credit.setChecked(true);
+
+                        return true;
+
+                    }
+                    //Debito
+                    case 2: {
+                        ll_sp_parcelas.setVisibility(View.INVISIBLE);
+                        ll_sp_parcelas.setEnabled(false);
+
+                        rb_credit.setVisibility(View.INVISIBLE);
+                        rb_credit.setEnabled(false);
+
+                        rb_debit.setVisibility(View.VISIBLE);
+                        rb_debit.setEnabled(true);
+                        rb_debit.setChecked(true);
+
+                        return true;
+
+                    }
+                    //Cred/Deb
+                    case 3: {
+                        rb_credit.setVisibility(View.VISIBLE);
+                        rb_credit.setEnabled(true);
+
+                        rb_debit.setVisibility(View.VISIBLE);
+                        rb_debit.setEnabled(true);
+                        rb_credit.setChecked(true);
+
+                        return true;
+
+                    }
+                }
+
+                return true;
+
             }
         }
         return true;
