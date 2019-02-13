@@ -90,4 +90,5 @@
     <string name="alert_register_card">Você não possui cartão cadastrado. Gostaria de registrar um cartão?</string>
     <string name="title_registered_card">Cartões Registrados</string>
     <string name="install_ES_File">Por favor, instale o aplicativo ES File Explorer</string>
+    <string name="desc_installments">Parcelas:</string>
 </resources>
