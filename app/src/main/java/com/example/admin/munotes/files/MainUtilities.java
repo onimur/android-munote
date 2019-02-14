@@ -45,6 +45,8 @@ import com.example.admin.munotes.bancos.dao.NotesDao;
 import com.example.admin.munotes.bancos.model.Card;
 import com.example.admin.munotes.bancos.model.Notes;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -704,18 +706,24 @@ public class MainUtilities extends AppCompatActivity {
                 int tipoCard;
                 HMAuxCard item;
                 Spinner sp_card;
+                Spinner sp_parcelas;
+                View view_sp_disabled;
+                TextView tv_sp_disabled;
 
                 RadioButton rb_credit;
                 RadioButton rb_debit;
-                LinearLayout ll_sp_parcelas;
 
                 rb_credit = findViewById(R.id.rb_credit);
                 rb_debit = findViewById(R.id.rb_debit);
                 sp_card = findViewById(R.id.sp_card);
-                ll_sp_parcelas = findViewById(R.id.ll_sp_parcelas);
+                sp_parcelas = findViewById(R.id.sp_parcelas);
+                view_sp_disabled = findViewById(R.id.view_sp_disabled);
+                tv_sp_disabled = findViewById(R.id.tv_sp_disabled);
 
-                ll_sp_parcelas.setEnabled(true);
-                ll_sp_parcelas.setVisibility(View.VISIBLE);
+                tv_sp_disabled.setEnabled(true);
+                view_sp_disabled.setVisibility(View.INVISIBLE);
+                sp_parcelas.setEnabled(true);
+
                 //Recupera o tipo do cartão
                 item = (HMAuxCard) sp_card.getSelectedItem();
                 tipoCard = convertToInt(item.get(CardDao.TIPO));
@@ -723,12 +731,10 @@ public class MainUtilities extends AppCompatActivity {
                     //Credito
                     case 1: {
 
-
-                        rb_credit.setVisibility(View.VISIBLE);
                         rb_credit.setEnabled(true);
 
-                        rb_debit.setVisibility(View.INVISIBLE);
                         rb_debit.setEnabled(false);
+
 
                         rb_credit.setChecked(true);
 
@@ -737,13 +743,13 @@ public class MainUtilities extends AppCompatActivity {
                     }
                     //Debito
                     case 2: {
-                        ll_sp_parcelas.setVisibility(View.INVISIBLE);
-                        ll_sp_parcelas.setEnabled(false);
+                        sp_parcelas.setEnabled(false);
+                        view_sp_disabled.setVisibility(View.VISIBLE);
 
-                        rb_credit.setVisibility(View.INVISIBLE);
                         rb_credit.setEnabled(false);
 
-                        rb_debit.setVisibility(View.VISIBLE);
+                        tv_sp_disabled.setEnabled(false);
+
                         rb_debit.setEnabled(true);
                         rb_debit.setChecked(true);
 

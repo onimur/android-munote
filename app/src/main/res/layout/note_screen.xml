@@ -40,7 +40,7 @@
             <TextView
                 style="@style/Text_title"
                 android:text="@string/title_invoice"
-                android:textColor="@color/colorText1" />
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
 
         <LinearLayout

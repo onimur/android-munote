@@ -35,7 +35,7 @@
             <TextView
                 style="@style/Text_title"
                 android:text="@string/title_add_invoice"
-                android:textColor="@color/colorText1" />
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
 
         <ScrollView
@@ -232,10 +232,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_sp_parcelas_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/ll_sp_parcelas_main">
+                    android:orientation="horizontal">
 
                     <RadioGroup
                         android:id="@+id/rg_credit_debit"
@@ -252,8 +252,9 @@
                             style="@style/Text_Description"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorText1"
+                            android:buttonTint="@color/selector_state_radiobutton"
                             android:text="@string/cb_credito"
+                            android:textColor="@color/selector_state_radiobutton"
                             tools:targetApi="lollipop" />
 
                         <View
@@ -266,8 +267,9 @@
                             style="@style/Text_Description"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorText1"
+                            android:buttonTint="@color/selector_state_radiobutton"
                             android:text="@string/cb_debito"
+                            android:textColor="@color/selector_state_radiobutton"
                             tools:targetApi="lollipop" />
                     </RadioGroup>
 
@@ -283,20 +285,36 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_sp_disabled"
                             style="@style/Text_Description_Menor"
+                            android:textColor="@color/selector_state_radiobutton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/desc_installments" />
 
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
-                        <Spinner
-                            android:id="@+id/sp_parcelas"
-                            android:layout_width="70dp"
-                            android:layout_height="35dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/spinner_background"
-                            android:popupBackground="@drawable/spinner_background_checked"
-                            android:spinnerMode="dropdown" />
+
+
+                            <Spinner
+                                android:id="@+id/sp_parcelas"
+                                android:layout_width="70dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/spinner_background"
+                                android:popupBackground="@drawable/spinner_background_checked"
+                                android:spinnerMode="dropdown" />
+                            <View
+                                android:id="@+id/view_sp_disabled"
+                                android:layout_width="70dp"
+                                android:background="@color/color_disabled"
+                                android:layout_height="35dp" >
+
+                            </View>
+                        </RelativeLayout>
+
                     </LinearLayout>
 
 

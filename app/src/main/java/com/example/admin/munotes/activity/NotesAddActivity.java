@@ -54,9 +54,12 @@ public class NotesAddActivity extends MenuToolbar {
     private Button btn_selec_date;
     private TextView tv_select_card;
     private TextView tv_click_image;
+    private TextView tv_sp_disabled;
     private LinearLayout ll_hint_spinner;
     private LinearLayout ll_sp_parcelas;
     private ImageButton ib_foto;
+    //
+    View view_sp_disabled;
     //
     private Spinner sp_card;
     private Spinner sp_parcelas;
@@ -107,6 +110,8 @@ public class NotesAddActivity extends MenuToolbar {
         ll_sp_parcelas = findViewById(R.id.ll_sp_parcelas);
         sp_card = findViewById(R.id.sp_card);
         sp_parcelas = findViewById(R.id.sp_parcelas);
+        view_sp_disabled = findViewById(R.id.view_sp_disabled);
+        tv_sp_disabled = findViewById(R.id.tv_sp_disabled);
         ib_foto = findViewById(R.id.ib_foto);
         tv_click_image = findViewById(R.id.tv_click_image);
         //
@@ -136,7 +141,7 @@ public class NotesAddActivity extends MenuToolbar {
         //
         setActionOnClick(R.id.btn_salvar, new OnButtonClickActionSave());
         setAlertDialogToReturnOnClickActivity(R.id.btn_cancelar, NotesActivity.class, "notas");
-        //Quando o Cartão possui credito ou debito, realiza a ação no RadioButton de esconder o spinner e o outro radiobutton
+        //Quando o Cartão possui credito ou debito, realiza a ação no RadioButton de desabilitar o spinner e o outro radiobutton
         setActionOnClick(R.id.rb_credit, new OnRadioButtonClickActionCredit());
         setActionOnClick(R.id.rb_debit, new OnRadioButtonClickActionDedit());
         //
@@ -284,6 +289,8 @@ public class NotesAddActivity extends MenuToolbar {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                    sp_card.setSelection(position);
+
+                   //valida o radiobutton e o spinner parcelas
           validation("spinner_action_credito_debito");
 
 
@@ -322,8 +329,9 @@ public class NotesAddActivity extends MenuToolbar {
 
         @Override
         public void onClick(View v) {
-            ll_sp_parcelas.setVisibility(View.VISIBLE);
-            ll_sp_parcelas.setEnabled(true);
+            tv_sp_disabled.setEnabled(true);
+            sp_parcelas.setEnabled(true);
+            view_sp_disabled.setVisibility(View.INVISIBLE);
 
         }
     }
@@ -332,8 +340,9 @@ public class NotesAddActivity extends MenuToolbar {
 
         @Override
         public void onClick(View v) {
-            ll_sp_parcelas.setVisibility(View.INVISIBLE);
-            ll_sp_parcelas.setEnabled(false);
+            view_sp_disabled.setVisibility(View.VISIBLE);
+            tv_sp_disabled.setEnabled(false);
+            sp_parcelas.setEnabled(false);
 
         }
     }

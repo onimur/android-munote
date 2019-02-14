@@ -50,7 +50,7 @@
     <string name="title_add_invoice">Adicionar Comprovantes</string>
     <string name="tv_desc_invoice">Descrição:</string>
     <string name="tv_title_invoice">Título:</string>
-    <string name="et_title_invoice">Ex: Bar do Viola</string>
+    <string name="et_title_invoice">Ex: Bar do Toninho</string>
     <string name="et_desc_invoice">Ex: 3 Refrigerantes</string>
     <string name="tv_invoice_card">Escolha um Cartão:</string>
     <string name="tv_value">Valor (R$)</string>

@@ -40,7 +40,7 @@
                 style="@style/Text_title"
 
                 android:text="@string/title_card_add"
-                android:textColor="@color/colorText1" />
+                android:textColor="@color/colorWhite" />
 
         </LinearLayout>
 
@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cb_credito"
-                    android:buttonTint="@color/colorText1"
+                    android:buttonTint="@color/colorWhite"
                     />
 
             </LinearLayout>
@@ -135,7 +135,7 @@
                    android:layout_height="wrap_content"
                    android:layout_gravity="end"
                    android:text="@string/cb_debito"
-                   android:buttonTint="@color/colorText1"
+                   android:buttonTint="@color/colorWhite"
 
                    />
 
