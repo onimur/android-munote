@@ -21,10 +21,6 @@ import com.example.admin.munotes.Constants;
 
 import java.io.File;
 
-/**
- * Created by Administrador on 18/09/2018.
- */
-
 public class Dao {
 
 
@@ -44,12 +40,12 @@ public class Dao {
 
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                Log.d("LabCamera", "Pasta não criada");
+                Log.d("Dao Dir:", "Pasta não criada");
             }
         }
 
         String caminhodbase = dir.getPath() + "/" + Constants.BANCO_NOME;
-        //FileUtilities.getUri(context, new File(caminhodbase));
+
 
 
 
@@ -59,6 +55,7 @@ public class Dao {
                 null,
                 Constants.VERSAO_BANCO
         );
+
         db = varHelp.getWritableDatabase(); // momento solicitacao banco
     }
     protected void closeDataBase(){
