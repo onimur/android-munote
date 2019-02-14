@@ -542,6 +542,8 @@ public class MainUtilities extends AppCompatActivity {
         EditText et_desc_invoice;
         Button btn_select_date;
         Spinner sp_card;
+        Spinner sp_parcelas;
+        RadioButton rb_debit;
 
         int year = -1;
         int month = -1;
@@ -558,6 +560,8 @@ public class MainUtilities extends AppCompatActivity {
         et_value = findViewById(R.id.et_value);
         btn_select_date = findViewById(R.id.btn_selec_date);
         sp_card = findViewById(R.id.sp_card);
+        sp_parcelas = findViewById(R.id.sp_parcelas);
+        rb_debit = findViewById(R.id.rb_debit);
         //Transforma a data do textview calendário em Date, formata e salva separado;
         String date = btn_select_date.getText().toString();
         SimpleDateFormat dateF = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -577,6 +581,9 @@ public class MainUtilities extends AppCompatActivity {
         HMAuxCard item = (HMAuxCard) sp_card.getSelectedItem();
         idCartao = item.get(CardDao.IDCARTAO);
         //
+       int positionSpParcelas = sp_parcelas.getSelectedItemPosition() + 1;
+
+        //
         cAux.setDesnotas(et_desc_invoice.getText().toString());
         cAux.setTitlenotas(et_title_invoice.getText().toString());
         cAux.setPreconotas(et_value.getText().toString());
@@ -586,6 +593,13 @@ public class MainUtilities extends AppCompatActivity {
         cAux.setMes(month);
         cAux.setDia(day);
         //
+        if (rb_debit.isChecked()) {
+            cAux.setTipo(2);
+            cAux.setParcelas(1);
+        } else {
+            cAux.setTipo(1);
+            cAux.setParcelas(positionSpParcelas);
+        }
 
         if (idAtual != -1) {
             cAux.setIdnotas(idAtual);
@@ -763,7 +777,6 @@ public class MainUtilities extends AppCompatActivity {
 
                         rb_debit.setVisibility(View.VISIBLE);
                         rb_debit.setEnabled(true);
-                        rb_credit.setChecked(true);
 
                         return true;
 

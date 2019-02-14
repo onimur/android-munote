@@ -56,10 +56,9 @@ public class NotesAddActivity extends MenuToolbar {
     private TextView tv_click_image;
     private TextView tv_sp_disabled;
     private LinearLayout ll_hint_spinner;
-    private LinearLayout ll_sp_parcelas;
     private ImageButton ib_foto;
     //
-    View view_sp_disabled;
+    private View view_sp_disabled;
     //
     private Spinner sp_card;
     private Spinner sp_parcelas;
@@ -107,7 +106,6 @@ public class NotesAddActivity extends MenuToolbar {
         btn_selec_date = findViewById(R.id.btn_selec_date);
         tv_select_card = findViewById(R.id.tv_select_card);
         ll_hint_spinner = findViewById(R.id.ll_hint_spinner);
-        ll_sp_parcelas = findViewById(R.id.ll_sp_parcelas);
         sp_card = findViewById(R.id.sp_card);
         sp_parcelas = findViewById(R.id.sp_parcelas);
         view_sp_disabled = findViewById(R.id.view_sp_disabled);
@@ -342,6 +340,7 @@ public class NotesAddActivity extends MenuToolbar {
         public void onClick(View v) {
             view_sp_disabled.setVisibility(View.VISIBLE);
             tv_sp_disabled.setEnabled(false);
+            sp_parcelas.setSelection(0);
             sp_parcelas.setEnabled(false);
 
         }

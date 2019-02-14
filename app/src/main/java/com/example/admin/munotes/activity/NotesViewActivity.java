@@ -18,7 +18,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -49,18 +51,24 @@ public class NotesViewActivity extends MenuToolbar {
     private TextView tv_title_invoice;
     private TextView tv_value;
     private TextView tv_desc_invoice;
+    private TextView tv_sp_disabled;
     private TextView tv_selec_date;
     //
+    private RadioButton rb_credit;
+    private RadioButton rb_debit;
     //
     private LinearLayout ll_hint_spinner;
     //
     private Spinner sp_card;
+    private Spinner sp_parcelas;
     //
     private int idCartao;
     private long idAtual;
     //
     private Toolbar toolbar;
     private String caminho;
+    //
+    private View view_sp_disabled;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,22 +91,36 @@ public class NotesViewActivity extends MenuToolbar {
         tv_desc_invoice = findViewById(R.id.tv_desc_invoice);
         tv_selec_date = findViewById(R.id.tv_selec_date);
         sp_card = findViewById(R.id.sp_card);
+        sp_parcelas = findViewById(R.id.sp_parcelas);
+        view_sp_disabled = findViewById(R.id.view_sp_disabled);
+        tv_sp_disabled = findViewById(R.id.tv_sp_disabled);
         ll_hint_spinner = findViewById(R.id.ll_hint_spinner);
-
-        adapter = new RecordSpinnerCardAdapter(context, R.layout.celula_spinner_card_layout, cardDao.getListCard());
-        sp_card.setAdapter(adapter);
-
+        rb_credit = findViewById(R.id.rb_credit);
+        rb_debit = findViewById(R.id.rb_debit);
 
     }
 
     private void startAction() {
         setSupportActionBar(toolbar);
 
+        setSpinnerCard();
+        setSpinnerParcel();
         setField();
 
         setActionOnClick(R.id.ib_foto, new OnButtonClickActionImage());
         setAlertDialogDeleteOnClickActivity(R.id.btn_deletar, NotesActivity.class, context, idAtual, "notas");
         setActionOnClickActivity(R.id.btn_editar, NotesEditActivity.class, idAtual);
+    }
+
+    private void setSpinnerParcel() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.parcelas_array, R.layout.celula_spinner_parcelas_layout);
+        adapter.setDropDownViewResource(R.layout.celular_spinner_dropdown_parcelas_layout);
+        sp_parcelas.setAdapter(adapter);
+    }
+
+    private void setSpinnerCard() {
+        adapter = new RecordSpinnerCardAdapter(context, R.layout.celula_spinner_card_layout, cardDao.getListCard());
+        sp_card.setAdapter(adapter);
     }
 
     private void setField() {
@@ -120,8 +142,27 @@ public class NotesViewActivity extends MenuToolbar {
             }
 
             sp_card.setEnabled(false);
+            sp_parcelas.setEnabled(false);
             hmAux = cardDao.getListCard();
             sp_card.setSelection(getSpinnerIndex(sp_card, String.valueOf(idCartao)));
+            sp_parcelas.setSelection(nAux.getParcelas() - 1);
+
+            rb_debit.setClickable(false);
+            rb_credit.setClickable(false);
+
+
+            if (nAux.getTipo() == 1) {
+                rb_credit.setChecked(true);
+                rb_debit.setEnabled(false);
+                tv_sp_disabled.setEnabled(true);
+                view_sp_disabled.setVisibility(View.INVISIBLE);
+
+            } else {
+                rb_debit.setChecked(true);
+                rb_credit.setEnabled(false);
+                view_sp_disabled.setVisibility(View.VISIBLE);
+                tv_sp_disabled.setEnabled(false);
+            }
 
             tv_title_invoice.setText(nAux.getTitlenotas());
             tv_value.setText(nAux.getPreconotas());

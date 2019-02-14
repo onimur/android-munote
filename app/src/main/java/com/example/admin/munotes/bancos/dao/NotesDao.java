@@ -39,6 +39,8 @@ public class NotesDao extends Dao {
     public static final String ANO = "ano";
     public static final String MES = "mes";
     public static final String DIA = "dia";
+    public static final String TIPO = "tipo";
+    public static final String PARCELAS = "parcelas";
 
 
     public NotesDao(Context context) {
@@ -58,6 +60,8 @@ public class NotesDao extends Dao {
         cv.put(ANO, notes.getAno());
         cv.put(MES, notes.getMes());
         cv.put(DIA, notes.getDia());
+        cv.put(TIPO,notes.getTipo());
+        cv.put(PARCELAS, notes.getParcelas());
         //
         db.insert(TABELANOTAS, null, cv);
         //
@@ -79,6 +83,8 @@ public class NotesDao extends Dao {
         cv.put(ANO, notes.getAno());
         cv.put(MES, notes.getMes());
         cv.put(DIA, notes.getDia());
+        cv.put(TIPO,notes.getTipo());
+        cv.put(PARCELAS, notes.getParcelas());
         //
         db.update(TABELANOTAS, cv, filtro, argumentos);
         //
@@ -136,6 +142,8 @@ public class NotesDao extends Dao {
                 cAux.setDesnotas(cursor.getString(cursor.getColumnIndex(DESNOTAS)));
                 cAux.setPreconotas(cursor.getString(cursor.getColumnIndex(PRECONOTAS)));
                 cAux.setFotonotas(cursor.getString(cursor.getColumnIndex(FOTONOTAS)));
+                cAux.setTipo(cursor.getInt(cursor.getColumnIndex(TIPO)));
+                cAux.setParcelas(cursor.getInt(cursor.getColumnIndex(PARCELAS)));
             }
             //
             cursor.close();
@@ -176,6 +184,8 @@ public class NotesDao extends Dao {
                 hmAux.put(DESNOTAS, cursor.getString(cursor.getColumnIndex(DESNOTAS)));
                 hmAux.put(TITLENOTAS, cursor.getString(cursor.getColumnIndex(TITLENOTAS)));
                 hmAux.put(PRECONOTAS, cursor.getString(cursor.getColumnIndex(PRECONOTAS)));
+                hmAux.put(TIPO, cursor.getString(cursor.getColumnIndex(TIPO)));
+                hmAux.put(PARCELAS, cursor.getString(cursor.getColumnIndex(PARCELAS)));
 
                 //
                 notas.add(hmAux);

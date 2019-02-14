@@ -232,7 +232,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_sp_parcelas_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -278,7 +277,6 @@
                         android:layout_height="0dp" />
 
                     <LinearLayout
-                        android:id="@+id/ll_sp_parcelas"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
@@ -287,15 +285,14 @@
                         <TextView
                             android:id="@+id/tv_sp_disabled"
                             style="@style/Text_Description_Menor"
-                            android:textColor="@color/selector_state_radiobutton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/desc_installments" />
+                            android:text="@string/desc_installments"
+                            android:textColor="@color/selector_state_radiobutton" />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
-
 
 
                             <Spinner
@@ -306,11 +303,12 @@
                                 android:background="@drawable/spinner_background"
                                 android:popupBackground="@drawable/spinner_background_checked"
                                 android:spinnerMode="dropdown" />
+
                             <View
                                 android:id="@+id/view_sp_disabled"
                                 android:layout_width="70dp"
-                                android:background="@color/color_disabled"
-                                android:layout_height="35dp" >
+                                android:layout_height="35dp"
+                                android:background="@color/color_disabled">
 
                             </View>
                         </RelativeLayout>
