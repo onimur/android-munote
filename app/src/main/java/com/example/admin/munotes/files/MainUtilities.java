@@ -21,6 +21,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,6 +31,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +44,8 @@ import com.example.admin.munotes.bancos.dao.CardDao;
 import com.example.admin.munotes.bancos.dao.NotesDao;
 import com.example.admin.munotes.bancos.model.Card;
 import com.example.admin.munotes.bancos.model.Notes;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.text.ParseException;
@@ -537,6 +542,8 @@ public class MainUtilities extends AppCompatActivity {
         EditText et_desc_invoice;
         Button btn_select_date;
         Spinner sp_card;
+        Spinner sp_parcelas;
+        RadioButton rb_debit;
 
         int year = -1;
         int month = -1;
@@ -553,6 +560,8 @@ public class MainUtilities extends AppCompatActivity {
         et_value = findViewById(R.id.et_value);
         btn_select_date = findViewById(R.id.btn_selec_date);
         sp_card = findViewById(R.id.sp_card);
+        sp_parcelas = findViewById(R.id.sp_parcelas);
+        rb_debit = findViewById(R.id.rb_debit);
         //Transforma a data do textview calendário em Date, formata e salva separado;
         String date = btn_select_date.getText().toString();
         SimpleDateFormat dateF = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -572,6 +581,9 @@ public class MainUtilities extends AppCompatActivity {
         HMAuxCard item = (HMAuxCard) sp_card.getSelectedItem();
         idCartao = item.get(CardDao.IDCARTAO);
         //
+       int positionSpParcelas = sp_parcelas.getSelectedItemPosition() + 1;
+
+        //
         cAux.setDesnotas(et_desc_invoice.getText().toString());
         cAux.setTitlenotas(et_title_invoice.getText().toString());
         cAux.setPreconotas(et_value.getText().toString());
@@ -581,6 +593,13 @@ public class MainUtilities extends AppCompatActivity {
         cAux.setMes(month);
         cAux.setDia(day);
         //
+        if (rb_debit.isChecked()) {
+            cAux.setTipo(2);
+            cAux.setParcelas(1);
+        } else {
+            cAux.setTipo(1);
+            cAux.setParcelas(positionSpParcelas);
+        }
 
         if (idAtual != -1) {
             cAux.setIdnotas(idAtual);
@@ -597,7 +616,7 @@ public class MainUtilities extends AppCompatActivity {
 
     }
 
-    private int convertToInt(String numero) {
+    protected int convertToInt(String numero) {
         try {
             return Integer.parseInt(numero);
         } catch (Exception e) {
@@ -696,6 +715,76 @@ public class MainUtilities extends AppCompatActivity {
                     return false;
                 }
                 return true;
+            }
+            case "spinner_action_credito_debito": {
+                int tipoCard;
+                HMAuxCard item;
+                Spinner sp_card;
+                Spinner sp_parcelas;
+                View view_sp_disabled;
+                TextView tv_sp_disabled;
+
+                RadioButton rb_credit;
+                RadioButton rb_debit;
+
+                rb_credit = findViewById(R.id.rb_credit);
+                rb_debit = findViewById(R.id.rb_debit);
+                sp_card = findViewById(R.id.sp_card);
+                sp_parcelas = findViewById(R.id.sp_parcelas);
+                view_sp_disabled = findViewById(R.id.view_sp_disabled);
+                tv_sp_disabled = findViewById(R.id.tv_sp_disabled);
+
+                tv_sp_disabled.setEnabled(true);
+                view_sp_disabled.setVisibility(View.INVISIBLE);
+                sp_parcelas.setEnabled(true);
+
+                //Recupera o tipo do cartão
+                item = (HMAuxCard) sp_card.getSelectedItem();
+                tipoCard = convertToInt(item.get(CardDao.TIPO));
+                switch (tipoCard) {
+                    //Credito
+                    case 1: {
+
+                        rb_credit.setEnabled(true);
+
+                        rb_debit.setEnabled(false);
+
+
+                        rb_credit.setChecked(true);
+
+                        return true;
+
+                    }
+                    //Debito
+                    case 2: {
+                        sp_parcelas.setEnabled(false);
+                        view_sp_disabled.setVisibility(View.VISIBLE);
+
+                        rb_credit.setEnabled(false);
+
+                        tv_sp_disabled.setEnabled(false);
+
+                        rb_debit.setEnabled(true);
+                        rb_debit.setChecked(true);
+
+                        return true;
+
+                    }
+                    //Cred/Deb
+                    case 3: {
+                        rb_credit.setVisibility(View.VISIBLE);
+                        rb_credit.setEnabled(true);
+
+                        rb_debit.setVisibility(View.VISIBLE);
+                        rb_debit.setEnabled(true);
+
+                        return true;
+
+                    }
+                }
+
+                return true;
+
             }
         }
         return true;

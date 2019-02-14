@@ -97,5 +97,6 @@
     <string name="alert_register_card">You don\'t have a registered card. Do you want to register a card?</string>
     <string name="title_registered_card">Registered Cards</string>
     <string name="install_ES_File">Please install the ES File Explorer</string>
+    <string name="desc_installments">Installments:</string>
 
 </resources>

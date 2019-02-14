@@ -21,6 +21,7 @@ import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -53,10 +54,14 @@ public class NotesAddActivity extends MenuToolbar {
     private Button btn_selec_date;
     private TextView tv_select_card;
     private TextView tv_click_image;
+    private TextView tv_sp_disabled;
     private LinearLayout ll_hint_spinner;
     private ImageButton ib_foto;
     //
+    private View view_sp_disabled;
+    //
     private Spinner sp_card;
+    private Spinner sp_parcelas;
     //
     private DatePickerDialog datePickerDialog;
     private Calendar calendar;
@@ -102,6 +107,9 @@ public class NotesAddActivity extends MenuToolbar {
         tv_select_card = findViewById(R.id.tv_select_card);
         ll_hint_spinner = findViewById(R.id.ll_hint_spinner);
         sp_card = findViewById(R.id.sp_card);
+        sp_parcelas = findViewById(R.id.sp_parcelas);
+        view_sp_disabled = findViewById(R.id.view_sp_disabled);
+        tv_sp_disabled = findViewById(R.id.tv_sp_disabled);
         ib_foto = findViewById(R.id.ib_foto);
         tv_click_image = findViewById(R.id.tv_click_image);
         //
@@ -116,8 +124,10 @@ public class NotesAddActivity extends MenuToolbar {
         //
         setSupportActionBar(toolbar);
         //
-        setSpinner();
-        //Verifica se tem cartão cadastrado, se não tiver desabilita o Spinner
+        setSpinnerCard();
+        setSpinnerParcel();
+        //Verifica se tem cartão cadastrado, se não tiver desabilita o Spinner.
+        //Recupera o tipo de cartão
         checkCard();
         //
         File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + Constants.FOLDER_NAME + Constants.FOLDER_NAME_NOTES));
@@ -129,10 +139,19 @@ public class NotesAddActivity extends MenuToolbar {
         //
         setActionOnClick(R.id.btn_salvar, new OnButtonClickActionSave());
         setAlertDialogToReturnOnClickActivity(R.id.btn_cancelar, NotesActivity.class, "notas");
+        //Quando o Cartão possui credito ou debito, realiza a ação no RadioButton de desabilitar o spinner e o outro radiobutton
+        setActionOnClick(R.id.rb_credit, new OnRadioButtonClickActionCredit());
+        setActionOnClick(R.id.rb_debit, new OnRadioButtonClickActionDedit());
         //
     }
 
-    private void setSpinner() {
+    private void setSpinnerParcel() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.parcelas_array, R.layout.celula_spinner_parcelas_layout);
+        adapter.setDropDownViewResource(R.layout.celular_spinner_dropdown_parcelas_layout);
+        sp_parcelas.setAdapter(adapter);
+    }
+
+    private void setSpinnerCard() {
         //
         RecordSpinnerCardAdapter adapter = new RecordSpinnerCardAdapter(context, R.layout.celula_spinner_card_layout, cardDao.getListCard());
         sp_card.setAdapter(adapter);
@@ -267,7 +286,11 @@ public class NotesAddActivity extends MenuToolbar {
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            sp_card.setSelection(position);
+                   sp_card.setSelection(position);
+
+                   //valida o radiobutton e o spinner parcelas
+          validation("spinner_action_credito_debito");
+
 
         }
 
@@ -297,6 +320,29 @@ public class NotesAddActivity extends MenuToolbar {
                 callActivity(context, NotesActivity.class);
 
             }
+        }
+    }
+
+    private class OnRadioButtonClickActionCredit implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            tv_sp_disabled.setEnabled(true);
+            sp_parcelas.setEnabled(true);
+            view_sp_disabled.setVisibility(View.INVISIBLE);
+
+        }
+    }
+
+    private class OnRadioButtonClickActionDedit implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            view_sp_disabled.setVisibility(View.VISIBLE);
+            tv_sp_disabled.setEnabled(false);
+            sp_parcelas.setSelection(0);
+            sp_parcelas.setEnabled(false);
+
         }
     }
 

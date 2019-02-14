@@ -50,7 +50,7 @@
     <string name="title_add_invoice">Adicionar Comprovantes</string>
     <string name="tv_desc_invoice">Descrição:</string>
     <string name="tv_title_invoice">Título:</string>
-    <string name="et_title_invoice">Ex: Bar do Viola</string>
+    <string name="et_title_invoice">Ex: Bar do Toninho</string>
     <string name="et_desc_invoice">Ex: 3 Refrigerantes</string>
     <string name="tv_invoice_card">Escolha um Cartão:</string>
     <string name="tv_value">Valor (R$)</string>
@@ -90,4 +90,5 @@
     <string name="alert_register_card">Você não possui cartão cadastrado. Gostaria de registrar um cartão?</string>
     <string name="title_registered_card">Cartões Registrados</string>
     <string name="install_ES_File">Por favor, instale o aplicativo ES File Explorer</string>
+    <string name="desc_installments">Parcelas:</string>
 </resources>

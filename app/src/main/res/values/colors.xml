@@ -16,11 +16,12 @@
     <color name="colorPrimaryDark">#4E6386</color>
     <color name="colorBackgroundEditext">#6585AA</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorText1">#ffffff</color>
+    <color name="colorWhite">#ffffff</color>
     <color name="colorText2">#384760</color>
     <color name="colorSpinner">#27A8F8</color>
 
     <color name="color_button_pressed">#19000000</color>
+    <color name="color_disabled">#33000000</color>
     <color name="color_normal_button">#384760</color>
     <color name="ripple_color">#26F3F1F1</color>
 </resources>

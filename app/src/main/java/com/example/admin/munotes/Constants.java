@@ -25,7 +25,7 @@ public class Constants {
 
     //
     public static final String BANCO_NOME = "munoteDB.db3";
-    public static final int VERSAO_BANCO = 4;
+    public static final int VERSAO_BANCO = 5;
     public static final String ID_BANCO = "id";
 
 

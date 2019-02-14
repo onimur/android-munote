@@ -24,6 +24,8 @@ public class Notes {
     private String desnotas;
     private String preconotas;
     private String fotonotas;
+    private int tipo;
+    private int parcelas;
 
     public Notes() {
         this.idcartao = -1L;
@@ -35,9 +37,12 @@ public class Notes {
         this.ano = -1L;
         this.mes = -1L;
         this.dia = -1L;
+        this.tipo = -1;
+        this.parcelas = -1;
     }
 
-    public Notes(long idcartao, long idnotas, long ano, long mes, long dia, String titlenotas, String desnotas, String preconotas, String fotonotas) {
+
+    public Notes(long idcartao, long idnotas, long ano, long mes, long dia, String titlenotas, String desnotas, String preconotas, String fotonotas, int tipo, int parcelas) {
         this.idcartao = idcartao;
         this.idnotas = idnotas;
         this.ano = ano;
@@ -47,6 +52,9 @@ public class Notes {
         this.desnotas = desnotas;
         this.preconotas = preconotas;
         this.fotonotas = fotonotas;
+        this.tipo = tipo;
+        this.parcelas = parcelas;
+
     }
 
     public long getIdcartao() {
@@ -120,5 +128,22 @@ public class Notes {
     public void setFotonotas(String fotonotas) {
         this.fotonotas = fotonotas;
     }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getParcelas() {
+        return parcelas;
+    }
+
+    public void setParcelas(int parcelas) {
+        this.parcelas = parcelas;
+    }
+
 }
 

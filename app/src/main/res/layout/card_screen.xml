@@ -45,7 +45,7 @@
                 style="@style/Text_title"
 
                 android:text="@string/title_registered_card"
-                android:textColor="@color/colorText1" />
+                android:textColor="@color/colorWhite" />
 
         </LinearLayout>
 
