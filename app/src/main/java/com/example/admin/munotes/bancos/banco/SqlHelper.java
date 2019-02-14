@@ -244,9 +244,7 @@ public class SqlHelper extends SQLiteOpenHelper {
                             "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDNOTAS + ")); \n"  +
                             "\n" +
                             "INSERT INTO " + TABLE_NOTAS_BCK + " (" + COLUNA_IDNOTAS + ", " + COLUNA_TITLENOTAS + ", " + COLUNA_DESNOTAS + ", " + COLUNA_PRECONOTAS + ", " + COLUNA_FOTONOTAS + ", " + COLUNA_IDCARTAO + ", " + COLUNA_ANO + ", " + COLUNA_MES + ", " + COLUNA_DIA + ", " + COLUNA_TIPO + ", " + COLUNA_PARCELAS +  ")\n" +
-                            "  SELECT " +       COLUNA_IDNOTAS + ", " + COLUNA_TITLENOTAS + ", " + COLUNA_DESNOTAS + ", " + COLUNA_PRECONOTAS + ", " + COLUNA_FOTONOTAS + ", " + COLUNA_IDCARTAO + ", " + COLUNA_ANO + ", " + COLUNA_MES + ", " + COLUNA_DIA + ",\n" +
-                            "(CASE  WHEN "+ COLUNA_IDCARTAO +" = 3 THEN 1 \n" +
-                            "WHEN "+ COLUNA_IDCARTAO + " = 1 THEN 1 ELSE 2 END) as "+ COLUNA_TIPO +", 1 \n" +
+                            "  SELECT " +       COLUNA_IDNOTAS + ", " + COLUNA_TITLENOTAS + ", " + COLUNA_DESNOTAS + ", " + COLUNA_PRECONOTAS + ", " + COLUNA_FOTONOTAS + ", " + COLUNA_IDCARTAO + ", " + COLUNA_ANO + ", " + COLUNA_MES + ", " + COLUNA_DIA + ", 1, 1 \n" +
                             "  FROM " + TABLE_NOTAS + ";\n" +
                             "DROP TABLE " + TABLE_NOTAS + ";\n" +
                             //Recria a tabela principal e recupera os dados da tabela de backup
