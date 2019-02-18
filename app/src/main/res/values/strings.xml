@@ -98,5 +98,10 @@
     <string name="title_registered_card">Registered Cards</string>
     <string name="install_ES_File">Please install the ES File Explorer</string>
     <string name="desc_installments">Installments:</string>
+    <string name="text_year">Year:</string>
+    <string name="text_month">Month:</string>
+    <string name="text_both">Both</string>
+
+    <string name="text_total">Total ($):</string>
 
 </resources>

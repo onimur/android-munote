@@ -49,8 +49,6 @@ public class SplashActivity extends MenuToolbar {
             setSplash();
         }
 
-
-
     }
 
     private void addPreferenceFirstEntry(SharedPreferences preferences) {

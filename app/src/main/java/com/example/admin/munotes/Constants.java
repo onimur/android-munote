@@ -34,4 +34,7 @@ public class Constants {
     public static final String CARTAO = "cartao";
     public static final String NOTASADDACTIVITY = "NotesAddActivity";
     public static final String CARDADDACTIVITY = "CardAddActivity";
+    //
+    public static final String DATA1 = "data1";
+    public static final String DATA2 = "data2";
 }

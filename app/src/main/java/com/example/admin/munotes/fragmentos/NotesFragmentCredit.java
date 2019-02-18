@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.admin.munotes.R;
 import com.example.admin.munotes.activity.NotesViewActivity;
@@ -35,10 +36,27 @@ import com.example.admin.munotes.Constants;
 
 import java.util.Objects;
 
-public class NotesFragment3 extends Fragment {
+import static com.example.admin.munotes.Constants.DATA1;
+import static com.example.admin.munotes.Constants.DATA2;
+import static com.example.admin.munotes.bancos.dao.NotesDao.TOTAL;
+
+public class NotesFragmentCredit extends Fragment {
+
+    private String mData1;
+    private String mData2;
     private ListView lv_note_fragment;
     private View view;
+    private TextView tv_total;
     private Activity activity;
+
+    public static NotesFragmentCredit newInstance(String data1, String data2) {
+        NotesFragmentCredit fragment = new NotesFragmentCredit();
+        Bundle args = new Bundle();
+        args.putString(DATA1, data1);
+        args.putString(DATA2, data2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -57,15 +75,22 @@ public class NotesFragment3 extends Fragment {
 
     private void startVariables() {
         lv_note_fragment = view.findViewById(R.id.lv_note_fragment);
+        tv_total = view.findViewById(R.id.tv_total);
+
         NotesDao notesDao = new NotesDao(getContext());
         Bundle bundle = this.getArguments();
-        assert bundle != null;
-        String data = bundle.getString("data");
-        String data2 = bundle.getString("data2");
+        if (bundle != null){
+            mData1 = bundle.getString(DATA1);
+            mData2 = bundle.getString(DATA2);
+        }
 
 
-        RecordListNotesAdapter adapter = new RecordListNotesAdapter(getContext(), R.layout.celula_listview_notas_layout, notesDao.getListDayNotes(data, data2));
+        RecordListNotesAdapter adapter = new RecordListNotesAdapter(getContext(), R.layout.celula_listview_notas_layout, notesDao.getListDayNotesCredit(mData1, mData2));
         lv_note_fragment.setAdapter(adapter);
+
+        HMAuxNotes text = notesDao.getNotesCreditTotal(mData1, mData2);
+        tv_total.setText(text.get(TOTAL));
+
 
 
     }

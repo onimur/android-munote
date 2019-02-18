@@ -17,6 +17,7 @@
     <color name="colorBackgroundEditext">#6585AA</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorWhiteTransparence">#4DFFFFFF</color>
     <color name="colorText2">#384760</color>
     <color name="colorSpinner">#27A8F8</color>
 

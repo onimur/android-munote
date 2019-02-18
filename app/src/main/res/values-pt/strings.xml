@@ -91,4 +91,8 @@
     <string name="title_registered_card">Cartões Registrados</string>
     <string name="install_ES_File">Por favor, instale o aplicativo ES File Explorer</string>
     <string name="desc_installments">Parcelas:</string>
+    <string name="text_total">Total (R$):</string>
+    <string name="text_year">Ano:</string>
+    <string name="text_month">Mês:</string>
+    <string name="text_both">Ambos</string>
 </resources>
