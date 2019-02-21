@@ -19,17 +19,20 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -48,6 +51,7 @@ import com.example.admin.munotes.bancos.model.Notes;
 import org.w3c.dom.Text;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,6 +60,8 @@ import java.util.Locale;
 import static com.example.admin.munotes.Constants.FOLDER_NAME;
 import static com.example.admin.munotes.Constants.FOLDER_NAME_NOTES;
 import static com.example.admin.munotes.Constants.ID_BANCO;
+import static com.example.admin.munotes.files.FileUtilities.isAndroidMarshmallowOrSuperiorVersion;
+import static com.example.admin.munotes.files.MoneyTextWatcher.formatPriceSave;
 
 public class MainUtilities extends AppCompatActivity {
 
@@ -562,6 +568,7 @@ public class MainUtilities extends AppCompatActivity {
         sp_card = findViewById(R.id.sp_card);
         sp_parcelas = findViewById(R.id.sp_parcelas);
         rb_debit = findViewById(R.id.rb_debit);
+
         //Transforma a data do textview calendário em Date, formata e salva separado;
         String date = btn_select_date.getText().toString();
         SimpleDateFormat dateF = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -586,13 +593,14 @@ public class MainUtilities extends AppCompatActivity {
         //
         cAux.setDesnotas(et_desc_invoice.getText().toString());
         cAux.setTitlenotas(et_title_invoice.getText().toString());
-        cAux.setPreconotas(et_value.getText().toString());
+        cAux.setPreconotas(formatPriceSave(et_value.getText().toString()));
         cAux.setIdcartao(convertToLong(idCartao));
         cAux.setFotonotas(caminhoFoto);
         cAux.setAno(year);
         cAux.setMes(month);
         cAux.setDia(day);
         //
+
         if (rb_debit.isChecked()) {
             cAux.setTipo(2);
             cAux.setParcelas(1);
@@ -653,8 +661,12 @@ public class MainUtilities extends AppCompatActivity {
                 btn_selec_date = findViewById(R.id.btn_selec_date);
                 tv_select_card = findViewById(R.id.tv_select_card);
                 //
-                title_invoice = et_title_invoice.getText().toString();
                 value = et_value.getText().toString();
+                title_invoice = et_title_invoice.getText().toString();
+                if (!value.isEmpty()){
+                    value = formatPriceSave(value);
+                }
+
                 select_date = btn_selec_date.getText().toString();
                 //
                 if (title_invoice.trim().isEmpty()) {
@@ -662,7 +674,7 @@ public class MainUtilities extends AppCompatActivity {
                     return false;
                 }
                 //
-                if (value.trim().isEmpty()) {
+                if (value.trim().isEmpty() || value.equals("0.00") ) {
                     setMessage(R.string.toast_value_required);
                     return false;
                 }
@@ -790,6 +802,25 @@ public class MainUtilities extends AppCompatActivity {
         return true;
     }
 
+    public boolean setArrowToSpinnerLowerVersion (){
+        ImageView iv_arrow;
+        ImageView iv_arrow2;
+
+        iv_arrow = findViewById(R.id.iv_arrow1);
+        iv_arrow2 = findViewById(R.id.iv_arrow2);
+
+        if (isAndroidMarshmallowOrSuperiorVersion()){
+            iv_arrow.setEnabled(false);
+            iv_arrow2.setEnabled(false);
+            iv_arrow.setVisibility(View.INVISIBLE);
+            iv_arrow2.setVisibility(View.INVISIBLE);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     public boolean setImageSaveToImageButton(final String caminho, final File imgFile) {
         TextView tv_click_image = findViewById(R.id.tv_click_image);
         ImageButton ib_foto = findViewById(R.id.ib_foto);
@@ -798,10 +829,11 @@ public class MainUtilities extends AppCompatActivity {
         //se o caminho for vazio ou se o caminho existir, mas a foto não.
         if (caminho.equals("") || !imgFile.exists()) {
             tv_click_image.setVisibility(View.INVISIBLE);
-            ib_foto.getLayoutParams().height = 1024;
-            ib_foto.getLayoutParams().width = 1024;
+            ib_foto.getLayoutParams().height = (int) (setWidthScreen()/1.5);
+            ib_foto.getLayoutParams().width = (int) (setWidthScreen()/1.5);
             ib_foto.setBackgroundResource(R.drawable.logo_512);
             ib_foto.setClickable(false);
+            ib_foto.setEnabled(false);
 
             return true;
         } else {
@@ -822,8 +854,8 @@ public class MainUtilities extends AppCompatActivity {
         //se o caminho for vazio ou se o caminho existir, mas a foto não.
         if (!imgFile.exists()) {
             tv_click_image.setVisibility(View.INVISIBLE);
-            ib_foto.getLayoutParams().height = 1024;
-            ib_foto.getLayoutParams().width = 1024;
+            ib_foto.getLayoutParams().height = (int) (setWidthScreen()/1.5);
+            ib_foto.getLayoutParams().width = (int) (setWidthScreen()/1.5);
             ib_foto.setBackgroundResource(R.drawable.logo_512);
             ib_foto.setClickable(false);
 
@@ -835,6 +867,12 @@ public class MainUtilities extends AppCompatActivity {
 
         }
     }
+
+    public int setWidthScreen() {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        return  displayMetrics.widthPixels;
+    }
+
 
     //formata a data para Ex: 01/01/2019 ao invés de ficar 1/1/2019
     protected String formatDate(String dateF) {

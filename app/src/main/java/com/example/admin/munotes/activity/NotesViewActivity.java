@@ -37,6 +37,9 @@ import com.example.admin.munotes.files.FileUtilities;
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.example.admin.munotes.files.MoneyTextWatcher.formatTextPrice;
+import static com.example.admin.munotes.files.MoneyTextWatcher.getCurrencySymbol;
+
 public class NotesViewActivity extends MenuToolbar {
 
     private Context context;
@@ -50,6 +53,7 @@ public class NotesViewActivity extends MenuToolbar {
     //
     private TextView tv_title_invoice;
     private TextView tv_value;
+    private TextView tv_value2;
     private TextView tv_desc_invoice;
     private TextView tv_sp_disabled;
     private TextView tv_selec_date;
@@ -88,6 +92,7 @@ public class NotesViewActivity extends MenuToolbar {
         toolbar = findViewById(R.id.toolbar);
         tv_title_invoice = findViewById(R.id.tv_title_invoice);
         tv_value = findViewById(R.id.tv_value);
+        tv_value2 = findViewById(R.id.tv_value2);
         tv_desc_invoice = findViewById(R.id.tv_desc_invoice);
         tv_selec_date = findViewById(R.id.tv_selec_date);
         sp_card = findViewById(R.id.sp_card);
@@ -97,6 +102,8 @@ public class NotesViewActivity extends MenuToolbar {
         ll_hint_spinner = findViewById(R.id.ll_hint_spinner);
         rb_credit = findViewById(R.id.rb_credit);
         rb_debit = findViewById(R.id.rb_debit);
+        //
+        tv_value.setText((getString(R.string.tv_value) + " ("+ getCurrencySymbol() + "):"));
 
     }
 
@@ -165,8 +172,13 @@ public class NotesViewActivity extends MenuToolbar {
             }
 
             tv_title_invoice.setText(nAux.getTitlenotas());
-            tv_value.setText(nAux.getPreconotas());
             tv_desc_invoice.setText(nAux.getDesnotas());
+            String price = nAux.getPreconotas();
+            //formata o valor como 0,00 ou 0.00
+            if (price != null) {
+                price = formatTextPrice(price);
+            }
+            tv_value2.setText(price);
 
             //formata a data
             String data = formatDate(String.valueOf((int) nAux.getDia() + "/" + nAux.getMes() + "/" + nAux.getAno()));

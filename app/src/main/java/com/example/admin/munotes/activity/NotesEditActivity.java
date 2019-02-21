@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -41,6 +42,7 @@ import com.example.admin.munotes.bancos.model.Notes;
 import com.example.admin.munotes.files.ImageUtilities;
 import com.example.admin.munotes.files.MenuToolbar;
 import com.example.admin.munotes.files.FileUtilities;
+import com.example.admin.munotes.files.MoneyTextWatcher;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,6 +52,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import static com.example.admin.munotes.files.FileUtilities.isAndroidMarshmallowOrSuperiorVersion;
+import static com.example.admin.munotes.files.MoneyTextWatcher.formatPrice;
+import static com.example.admin.munotes.files.MoneyTextWatcher.getCurrencySymbol;
 
 public class NotesEditActivity extends MenuToolbar {
 
@@ -74,6 +80,7 @@ public class NotesEditActivity extends MenuToolbar {
     private TextView tv_select_card;
     private TextView tv_click_image;
     private TextView tv_sp_disabled;
+    private TextView tv_value;
     //
     private RadioButton rb_credit;
     private RadioButton rb_debit;
@@ -94,8 +101,6 @@ public class NotesEditActivity extends MenuToolbar {
     private String caminho;
     //
     private Toolbar toolbar;
-
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +140,11 @@ public class NotesEditActivity extends MenuToolbar {
         tv_click_image = findViewById(R.id.tv_click_image);
         rb_credit = findViewById(R.id.rb_credit);
         rb_debit = findViewById(R.id.rb_debit);
+        tv_value = findViewById(R.id.tv_value);
+        //
+        et_value.addTextChangedListener(new MoneyTextWatcher(et_value));
+        //
+        tv_value.setText((getString(R.string.tv_value) + " ("+ getCurrencySymbol() + "):"));
 
 
     }
@@ -142,6 +152,7 @@ public class NotesEditActivity extends MenuToolbar {
     private void startAction(Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
         //
+        setArrowToSpinnerLowerVersion();
         setSpinnerCard();
         setSpinnerParcel();
 
@@ -170,7 +181,7 @@ public class NotesEditActivity extends MenuToolbar {
 
 
         setActionOnClick(R.id.btn_selec_date, new OnButtonClickActionCalendar());
-        //Se existir imagem já salve é possivel visualiza-la
+        //Se existir imagem já salva é possivel visualiza-la
         setActionOnClick(R.id.ib_foto, new OnButtonClickActionImage(imgFile));
         setActionOnClick(R.id.btn_cancelar, new OnButtonClickActionCancel());
         setActionOnClick(R.id.btn_picture, new OnButtonClickActionPicture(savedInstanceState));
@@ -220,7 +231,12 @@ public class NotesEditActivity extends MenuToolbar {
         }
 
         et_title_invoice.setText(nAux.getTitlenotas());
-        et_value.setText(nAux.getPreconotas());
+        String price = nAux.getPreconotas();
+        //formata o valor como 0,00 ou 0.00
+        if (price != null) {
+            price = formatPrice(price);
+        }
+        et_value.setText(price);
         et_desc_invoice.setText(nAux.getDesnotas());
         //formata a data
         String data = formatDate(String.valueOf((int) nAux.getDia() + "/" + nAux.getMes() + "/" + nAux.getAno()));
@@ -235,7 +251,9 @@ public class NotesEditActivity extends MenuToolbar {
             //envia a foto tirada para o ImageButton
             imageUtilities.setPhotoToBitmap(context, ib_foto);
             //Torna o imagem
+            ib_foto.setEnabled(true);
             ib_foto.setClickable(true);
+
             tv_click_image.setVisibility(View.VISIBLE);
             setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, "notas", caminhoSemPath, imgFile);
 

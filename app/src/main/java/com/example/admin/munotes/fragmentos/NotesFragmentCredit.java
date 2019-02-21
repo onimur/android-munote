@@ -34,11 +34,16 @@ import com.example.admin.munotes.bancos.banco.RecordListNotesAdapter;
 import com.example.admin.munotes.bancos.dao.NotesDao;
 import com.example.admin.munotes.Constants;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
+import static android.telephony.PhoneNumberUtils.formatNumber;
 import static com.example.admin.munotes.Constants.DATA1;
 import static com.example.admin.munotes.Constants.DATA2;
 import static com.example.admin.munotes.bancos.dao.NotesDao.TOTAL;
+import static com.example.admin.munotes.files.MoneyTextWatcher.formatPrice;
+import static com.example.admin.munotes.files.MoneyTextWatcher.formatTextPrice;
+import static com.example.admin.munotes.files.MoneyTextWatcher.getCurrencySymbol;
 
 public class NotesFragmentCredit extends Fragment {
 
@@ -47,7 +52,9 @@ public class NotesFragmentCredit extends Fragment {
     private ListView lv_note_fragment;
     private View view;
     private TextView tv_total;
+    private TextView tv_symbol1;
     private Activity activity;
+    private NotesDao notesDao;
 
     public static NotesFragmentCredit newInstance(String data1, String data2) {
         NotesFragmentCredit fragment = new NotesFragmentCredit();
@@ -76,8 +83,9 @@ public class NotesFragmentCredit extends Fragment {
     private void startVariables() {
         lv_note_fragment = view.findViewById(R.id.lv_note_fragment);
         tv_total = view.findViewById(R.id.tv_total);
+        tv_symbol1 = view.findViewById(R.id.tv_symbol1);
 
-        NotesDao notesDao = new NotesDao(getContext());
+        notesDao = new NotesDao(getContext());
         Bundle bundle = this.getArguments();
         if (bundle != null){
             mData1 = bundle.getString(DATA1);
@@ -87,16 +95,19 @@ public class NotesFragmentCredit extends Fragment {
 
         RecordListNotesAdapter adapter = new RecordListNotesAdapter(getContext(), R.layout.celula_listview_notas_layout, notesDao.getListDayNotesCredit(mData1, mData2));
         lv_note_fragment.setAdapter(adapter);
-
-        HMAuxNotes text = notesDao.getNotesCreditTotal(mData1, mData2);
-        tv_total.setText(text.get(TOTAL));
-
-
-
     }
 
-
     private void startAction() {
+
+        HMAuxNotes text = notesDao.getNotesCreditTotal(mData1, mData2);
+        String total = text.get(TOTAL);
+        if (total != null){
+            total = formatTextPrice(total);
+        }
+        tv_total.setText(total);
+        //
+        tv_symbol1.setText(getCurrencySymbol());
+
         lv_note_fragment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override

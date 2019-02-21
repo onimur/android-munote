@@ -22,7 +22,12 @@ import android.widget.TextView;
 import com.example.admin.munotes.R;
 import com.example.admin.munotes.bancos.dao.NotesDao;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import static com.example.admin.munotes.files.MoneyTextWatcher.formatPrice;
+import static com.example.admin.munotes.files.MoneyTextWatcher.formatTextPrice;
+import static com.example.admin.munotes.files.MoneyTextWatcher.getCurrencySymbol;
 
 public class RecordListNotesAdapter extends BaseAdapter {
 
@@ -55,7 +60,7 @@ public class RecordListNotesAdapter extends BaseAdapter {
 
     private class ViewHolder {
 
-        TextView celula_dia_notas, celula_title_notas, celula_desc_notas, celula_price_notas;
+        TextView celula_dia_notas, celula_title_notas, celula_desc_notas, celula_price_notas, tv_symbol2;
     }
 
     @Override
@@ -71,7 +76,7 @@ public class RecordListNotesAdapter extends BaseAdapter {
             holder.celula_title_notas = row.findViewById(R.id.celula_title_notas);
             holder.celula_desc_notas = row.findViewById(R.id.celula_desc_notas);
             holder.celula_price_notas = row.findViewById(R.id.celula_price_notas);
-
+            holder.tv_symbol2 = row.findViewById(R.id.tv_symbol2);
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
@@ -81,7 +86,12 @@ public class RecordListNotesAdapter extends BaseAdapter {
         holder.celula_dia_notas.setText(model.get(NotesDao.DIA));
         holder.celula_title_notas.setText(model.get(NotesDao.TITLENOTAS));
         holder.celula_desc_notas.setText(model.get(NotesDao.DESNOTAS));
-        holder.celula_price_notas.setText(model.get(NotesDao.PRECONOTAS));
+        String price = model.get(NotesDao.PRECONOTAS);
+        if (price != null){
+            price = formatTextPrice(price);
+        }
+        holder.celula_price_notas.setText(price);
+        holder.tv_symbol2.setText(getCurrencySymbol());
 
         return row;
     }

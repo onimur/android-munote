@@ -44,7 +44,7 @@ public class FileUtilities {
         return BuildConfig.APPLICATION_ID + ".provider";
     }
 
-    private static boolean isAndroidMarshmallowOrSuperiorVersion() {
+    public static boolean isAndroidMarshmallowOrSuperiorVersion() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 

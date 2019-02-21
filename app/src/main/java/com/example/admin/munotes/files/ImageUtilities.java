@@ -195,4 +195,5 @@ public class ImageUtilities {
     public static boolean checkDirectory() {
         return !fileDir.exists();
     }
+
 }

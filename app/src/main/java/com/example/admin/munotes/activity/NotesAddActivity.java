@@ -15,6 +15,7 @@ package com.example.admin.munotes.activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,7 +25,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,6 +39,7 @@ import com.example.admin.munotes.bancos.dao.CardDao;
 import com.example.admin.munotes.files.ImageUtilities;
 import com.example.admin.munotes.files.MenuToolbar;
 import com.example.admin.munotes.files.FileUtilities;
+import com.example.admin.munotes.files.MoneyTextWatcher;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,6 +50,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import static com.example.admin.munotes.bancos.DBaseDirectory.createDirectoryDbase;
+import static com.example.admin.munotes.files.FileUtilities.isAndroidMarshmallowOrSuperiorVersion;
+import static com.example.admin.munotes.files.MoneyTextWatcher.getCurrencySymbol;
 
 public class NotesAddActivity extends MenuToolbar {
 
@@ -57,6 +63,8 @@ public class NotesAddActivity extends MenuToolbar {
     private TextView tv_sp_disabled;
     private LinearLayout ll_hint_spinner;
     private ImageButton ib_foto;
+    private EditText et_value;
+    private TextView tv_value;
     //
     private View view_sp_disabled;
     //
@@ -111,10 +119,17 @@ public class NotesAddActivity extends MenuToolbar {
         view_sp_disabled = findViewById(R.id.view_sp_disabled);
         tv_sp_disabled = findViewById(R.id.tv_sp_disabled);
         ib_foto = findViewById(R.id.ib_foto);
+        et_value = findViewById(R.id.et_value);
         tv_click_image = findViewById(R.id.tv_click_image);
+        tv_value = findViewById(R.id.tv_value);
         //
         toolbar = findViewById(R.id.toolbar);
         //
+        et_value.setHint((getCurrencySymbol() +" " + getString(R.string.et_value) ));
+        et_value.addTextChangedListener(new MoneyTextWatcher(et_value));
+        //
+        tv_value.setText((getString(R.string.tv_value) + " ("+ getCurrencySymbol() + "):"));
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -124,6 +139,7 @@ public class NotesAddActivity extends MenuToolbar {
         //
         setSupportActionBar(toolbar);
         //
+        setArrowToSpinnerLowerVersion();
         setSpinnerCard();
         setSpinnerParcel();
         //Verifica se tem cartão cadastrado, se não tiver desabilita o Spinner.

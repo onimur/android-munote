@@ -407,7 +407,7 @@ public class NotesDao extends Dao {
             //
             while (cursor.moveToNext()) {
                 HMAuxNotes hmAux = new HMAuxNotes();
-                hmAux.put(TOTAL, cursor.getString(cursor.getColumnIndex(TOTAL)));
+                hmAux.put(TOTAL, String.valueOf(cursor.getDouble(cursor.getColumnIndex(TOTAL))));
 
                 //
                 notas = hmAux;
@@ -440,7 +440,7 @@ public class NotesDao extends Dao {
             //
             while (cursor.moveToNext()) {
                 HMAuxNotes hmAux = new HMAuxNotes();
-                hmAux.put(TOTAL, cursor.getString(cursor.getColumnIndex(TOTAL)));
+                hmAux.put(TOTAL, String.valueOf(cursor.getDouble(cursor.getColumnIndex(TOTAL))));
 
                 //
                 notas = hmAux;
@@ -473,7 +473,7 @@ public class NotesDao extends Dao {
             //
             while (cursor.moveToNext()) {
                 HMAuxNotes hmAux = new HMAuxNotes();
-                hmAux.put(TOTAL, cursor.getString(cursor.getColumnIndex(TOTAL)));
+                hmAux.put(TOTAL, String.valueOf(cursor.getDouble(cursor.getColumnIndex(TOTAL))));
 
                 //
                 notas = hmAux;

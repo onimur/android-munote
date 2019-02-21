@@ -60,8 +60,8 @@
     <string name="et_title_invoice">Ex: Corner Cafe</string>
     <string name="et_desc_invoice">Ex: 2 Coffees</string>
     <string name="tv_invoice_card">Choose Card:</string>
-    <string name="tv_value">Value ($):</string>
-    <string name="et_value">$ 0.00</string>
+    <string name="tv_value">Value</string>
+    <string name="et_value">0.00</string>
     <string name="tv_pay_date">Payment Date:</string>
     <string name="tv_selec_date">Select</string>
     <string name="credit_c">C</string>
@@ -102,6 +102,8 @@
     <string name="text_month">Month:</string>
     <string name="text_both">Both</string>
 
-    <string name="text_total">Total ($):</string>
+    <string name="text_total">Total:</string>
+    <string name="text_day">Day</string>
+    <string name="text_title_description">Title / Description</string>
 
 </resources>

@@ -53,8 +53,8 @@
     <string name="et_title_invoice">Ex: Bar do Toninho</string>
     <string name="et_desc_invoice">Ex: 3 Refrigerantes</string>
     <string name="tv_invoice_card">Escolha um Cartão:</string>
-    <string name="tv_value">Valor (R$)</string>
-    <string name="et_value">R$ 0.00</string>
+    <string name="tv_value">Valor</string>
+    <string name="et_value">0.00</string>
     <string name="tv_pay_date">Data do Pagamento:</string>
     <string name="tv_selec_date">Selecione</string>
     <string name="credit_c">C</string>
@@ -91,8 +91,10 @@
     <string name="title_registered_card">Cartões Registrados</string>
     <string name="install_ES_File">Por favor, instale o aplicativo ES File Explorer</string>
     <string name="desc_installments">Parcelas:</string>
-    <string name="text_total">Total (R$):</string>
+    <string name="text_total">Total:</string>
     <string name="text_year">Ano:</string>
     <string name="text_month">Mês:</string>
     <string name="text_both">Ambos</string>
+    <string name="text_day">Dia</string>
+    <string name="text_title_description">Título / Descrição</string>
 </resources>

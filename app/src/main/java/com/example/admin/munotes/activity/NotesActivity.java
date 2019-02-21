@@ -102,6 +102,8 @@ public class NotesActivity extends MenuToolbar {
         createDirectoryDbase(context);
         setSupportActionBar(toolbar);
         //
+        setArrowToSpinnerLowerVersion();
+        //
         RecordSpinnerNotesYearAdapter adapter = new RecordSpinnerNotesYearAdapter(context, R.layout.celula_spinner_year_layout, notesDao.getListYearNotes());
 
         countYear  = adapter.getCount();

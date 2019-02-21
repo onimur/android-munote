@@ -42,13 +42,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:gravity="center"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:paddingBottom="10dp"
-            android:baselineAligned="false">
+            android:paddingBottom="10dp">
 
 
             <LinearLayout
@@ -63,26 +63,43 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_year"
-                    android:textSize="13sp"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorWhite"
+                    android:textSize="13sp" />
+
                 <View
                     android:layout_width="5dp"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp" />
 
-                <Spinner
-                    android:id="@+id/sp_year"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/spinner_background"
-                    android:popupBackground="@drawable/spinner_background_checked"
-                    android:spinnerMode="dropdown" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <Spinner
+                        android:id="@+id/sp_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/spinner_background"
+                        android:popupBackground="@drawable/spinner_background_checked"
+                        android:spinnerMode="dropdown" />
+
+                    <ImageView
+                        android:id="@+id/iv_arrow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_alignEnd="@id/sp_year"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="2dp"
+                        android:src="@drawable/arrow" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 
             <View
                 android:layout_width="40dp"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -96,20 +113,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_month"
-                    android:textSize="13sp"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorWhite"
+                    android:textSize="13sp" />
+
                 <View
                     android:layout_width="5dp"
-                                   android:layout_height="1dp"/>
+                    android:layout_height="1dp" />
 
-                <Spinner
-                    android:id="@+id/sp_month"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/spinner_background"
-                    android:popupBackground="@drawable/spinner_background_checked"
-                    android:spinnerMode="dropdown" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <Spinner
+                        android:id="@+id/sp_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/spinner_background"
+                        android:popupBackground="@drawable/spinner_background_checked"
+                        android:spinnerMode="dropdown" />
+
+                    <ImageView
+                        android:id="@+id/iv_arrow2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_alignEnd="@id/sp_month"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="2dp"
+                        android:src="@drawable/arrow" />
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -118,20 +151,19 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:orientation="vertical"
-            android:paddingBottom="20dp">
+            android:orientation="vertical">
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tablayout_id"
                 android:layout_width="match_parent"
-                app:tabTextAppearance="@style/Text_Description_Bold"
                 android:layout_height="30dp"
-                app:tabTextColor="@color/colorWhiteTransparence"
-                app:tabSelectedTextColor="@color/colorWhite"
                 android:background="@color/colorText2"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/colorSpinner"
-                app:tabMode="fixed">
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/colorWhite"
+                app:tabTextAppearance="@style/Text_Description_Bold"
+                app:tabTextColor="@color/colorWhiteTransparence">
 
             </android.support.design.widget.TabLayout>
 
