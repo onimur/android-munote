@@ -12,61 +12,29 @@
   -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-
     <item android:state_pressed="true">
-
-
         <layer-list>
-
             <item>
-
                 <shape>
                     <corners android:radius="8dp"/>
                     <solid android:color="@color/color_normal_button" />
                 </shape>
-
             </item>
-            <item android:height="2dp" android:gravity="bottom" android:bottom="8dp" android:left="100dp" android:right="100dp">
+            <item>
                 <shape>
-                    <gradient android:startColor="#00FFFFFF" android:centerColor="#CCFAFAFA"  android:endColor="#00FFFFFF"/>
+                    <gradient android:startColor="#00FFFFFF" android:centerColor="#33FAFAFA"  android:endColor="#00FFFFFF"/>
                 </shape>
-
             </item>
-
-
         </layer-list>
-
     </item>
-
-
-
-
-
-
     <item>
         <layer-list>
-
             <item>
                 <shape>
                     <corners android:radius="8dp" />
                     <solid android:color="@color/color_normal_button" />
                 </shape>
             </item>
-
-            <item android:height="2dp" android:gravity="bottom" android:bottom="8dp" android:left="100dp" android:right="100dp">
-                <shape>
-
-
-                    <gradient android:startColor="#00FFFFFF" android:centerColor="#33FAFAFA" android:endColor="#00FFFFFF" />
-                </shape>
-
-            </item>
-
         </layer-list>
     </item>
-
-
-
-
 </selector>

@@ -32,13 +32,13 @@
     <item
         android:id="@+id/action_notas"
         android:orderInCategory="101"
-        android:title="@string/title_edit_notas"
+        android:title="@string/title_add_invoice"
         android:visible="true"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_cartao"
         android:orderInCategory="102"
-        android:title="@string/title_card_edit"
+        android:title="@string/title_card_add"
         android:visible="true"
         app:showAsAction="never" />
 </menu>

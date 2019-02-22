@@ -77,7 +77,7 @@
     <string name="month_outubro">Outubro</string>
     <string name="month_novembro">Novembro</string>
     <string name="month_dezembro">Dezembro</string>
-    <string name="tv_cliquenaimagem">Clique na imagem para vê-lá</string>
+    <string name="tv_cliquenaimagem">Clique na imagem para visualizá-la</string>
     <string name="tv_card_deleted">Cartão registrado deletado</string>
     <string name="tv_no_card">Não existe cartão</string>
     <string name="mensagem_register_card">Você precisa registrar um cartão primeiro</string>

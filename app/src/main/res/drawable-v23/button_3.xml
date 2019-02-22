@@ -17,22 +17,24 @@
             <item>
                 <shape>
                     <corners android:radius="5dp" />
-                    <solid android:color="@color/color_button_pressed" />
-                </shape>
-            </item>
-            <item>
-                <shape>
-                    <gradient android:centerColor="#33FAFAFA" android:endColor="#00FFFFFF" android:startColor="#00FFFFFF" />
+                    <solid android:color="@color/colorWhite" />
                 </shape>
             </item>
         </layer-list>
     </item>
     <item>
         <layer-list>
-            <item>
+            <item android:left="3dp" android:top="3dp">
                 <shape>
                     <corners android:radius="5dp" />
-                    <solid android:color="@color/color_normal_button" />
+                    <solid android:color="#3c000000" />
+                </shape>
+            </item>
+            <item android:bottom="3dp" android:right="3dp">
+                <shape>
+                    <solid android:color="@color/colorWhite" />
+
+                    <corners android:radius="5dp" />
                 </shape>
             </item>
         </layer-list>

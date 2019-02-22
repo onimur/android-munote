@@ -24,11 +24,9 @@
                 <shape>
                     <gradient android:angle="270"
                         android:endColor="@color/colorText2" android:startColor="@color/colorPrimaryDark" />
-
                     <corners android:radius="15dp" />
                 </shape>
             </item>
         </layer-list>
     </item>
-
 </selector>
