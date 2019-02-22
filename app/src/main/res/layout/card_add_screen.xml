@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~  * Created by Murillo Comino on 09/02/19 12:26
   ~  * Github: github.com/MurilloComino
@@ -12,6 +11,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
@@ -19,16 +19,14 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar">
-
-    </include>
+        layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:padding="20dp">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,12 +36,9 @@
 
             <TextView
                 style="@style/Text_title"
-
                 android:text="@string/title_card_add"
                 android:textColor="@color/colorWhite" />
-
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,11 +58,12 @@
                 style="@style/Text_EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="@string/text_desc_card"
                 android:hint="@string/et_desc_card"
                 android:inputType="textCapSentences"
                 android:maxLines="1"
-                android:nextFocusRight="@+id/et_number_card"/>
-
+                android:nextFocusRight="@+id/et_number_card"
+                tools:targetApi="o" />
         </LinearLayout>
 
         <LinearLayout
@@ -88,19 +84,20 @@
                 style="@style/Text_EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="@string/text_desc_card_num"
                 android:hint="@string/et_number_card"
+                android:inputType="number"
                 android:maxLines="1"
-                android:inputType="number" />
-
+                tools:targetApi="o" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
             android:baselineAligned="false"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:paddingStart="30dp"
             android:paddingEnd="30dp">
 
@@ -109,38 +106,37 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="start">
+
                 <CheckBox
                     android:id="@+id/cb_credito"
-                    android:textSize="20sp"
                     style="@style/Text_Description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cb_credito"
                     android:buttonTint="@color/colorWhite"
-                    />
+                    android:text="@string/cb_credito"
+                    android:textSize="20sp"
+                    tools:targetApi="lollipop" />
 
             </LinearLayout>
 
-           <LinearLayout
-               android:layout_width="0dp"
-               android:layout_weight="1"
-               android:layout_height="wrap_content"
-               android:gravity="end">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
 
-               <CheckBox
-                   android:textSize="20sp"
-                   android:id="@+id/cb_debito"
-                   style="@style/Text_Description"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_gravity="end"
-                   android:text="@string/cb_debito"
-                   android:buttonTint="@color/colorWhite"
+                <CheckBox
+                    android:id="@+id/cb_debito"
+                    style="@style/Text_Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:buttonTint="@color/colorWhite"
+                    android:text="@string/cb_debito"
+                    android:textSize="20sp"
+                    tools:targetApi="lollipop" />
 
-                   />
-
-
-           </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -183,13 +179,20 @@
 
                     android:layout_weight="1"
                     android:text="@string/btn_limpar" />
-
-
             </LinearLayout>
-
-
         </LinearLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/adUnitId" />
     </LinearLayout>
 </LinearLayout>

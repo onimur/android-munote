@@ -20,7 +20,8 @@
         android:orderInCategory="99"
         android:title="Home"
         android:visible="true"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        tools:ignore="HardcodedText" />
 
     <item
         android:id="@+id/action_galeria"

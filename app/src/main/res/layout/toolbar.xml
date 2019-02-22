@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~  * Created by Murillo Comino on 09/02/19 12:26
   ~  * Github: github.com/MurilloComino
@@ -12,13 +11,14 @@
   -->
 
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorText2"
     android:elevation="4dp"
     android:theme="@style/AppBarOverlay"
-    app:popupTheme="@style/PopupOverlay" />
+    app:popupTheme="@style/PopupOverlay"
+    tools:targetApi="lollipop" />
 
 

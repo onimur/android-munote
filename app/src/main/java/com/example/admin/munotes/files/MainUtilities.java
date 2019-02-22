@@ -47,6 +47,8 @@ import com.example.admin.munotes.bancos.dao.CardDao;
 import com.example.admin.munotes.bancos.dao.NotesDao;
 import com.example.admin.munotes.bancos.model.Card;
 import com.example.admin.munotes.bancos.model.Notes;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.w3c.dom.Text;
 
@@ -894,5 +896,11 @@ public class MainUtilities extends AppCompatActivity {
 
     public void setMessage(Context context, int idMessage) {
         Toast.makeText(context, context.getString(idMessage), Toast.LENGTH_SHORT).show();
+    }
+
+    public void setAds (){
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 }

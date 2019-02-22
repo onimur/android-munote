@@ -59,6 +59,8 @@ public class CardViewActivity extends MenuToolbar {
         tv_number_card = findViewById(R.id.tv_number_card);
         cb_credito = findViewById(R.id.cb_credito);
         cb_debito = findViewById(R.id.cb_debito);
+        //
+        setAds();
 
     }
     private void startAction() {

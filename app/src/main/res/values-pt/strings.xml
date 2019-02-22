@@ -57,8 +57,6 @@
     <string name="et_value">0.00</string>
     <string name="tv_pay_date">Data do Pagamento:</string>
     <string name="tv_selec_date">Selecione</string>
-    <string name="credit_c">C</string>
-    <string name="debit_d">D</string>
     <string name="tv_choose_card">Escolha um Cartão…</string>
     <string name="toast_ll_hint_spinner_enabled">Você precisa escolher um cartão</string>
     <string name="toast_title_invoice">Título: É obrigatório</string>
@@ -97,4 +95,10 @@
     <string name="text_both">Ambos</string>
     <string name="text_day">Dia</string>
     <string name="text_title_description">Título / Descrição</string>
+    <string name="text_desc_ib_foto">Imagem tirada do comprovante</string>
+    <string name="text_desc_titulo_nota">Título da nota</string>
+    <string name="text_desc_preco_notas">Valor cobrado</string>
+    <string name="text_desc_desc_notas">Descrição da nota</string>
+    <string name="text_desc_card">Descrição do cartão</string>
+    <string name="text_desc_card_num">Números finais do cartão</string>
 </resources>

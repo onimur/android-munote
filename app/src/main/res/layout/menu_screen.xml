@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~  * Created by Murillo Comino on 09/02/19 12:26
   ~  * Github: github.com/MurilloComino
@@ -15,22 +14,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    android:orientation="vertical"
-    android:padding="20dp">
-
-    <TextView
-        style="@style/Text_title_white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="100dp"
-        android:text="@string/title_menu" />
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="20dp">
 
+        <TextView
+            style="@style/Text_title_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="100dp"
+            android:text="@string/title_menu" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btn_menu_galeria"
@@ -39,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_gallery"
                 android:text="@string/title_galeria" />
+
             <Button
                 android:id="@+id/btn_menu_invoice"
                 style="@style/Button_2"
@@ -63,5 +68,19 @@
                 android:drawableStart="@drawable/ic_bank"
                 android:text="@string/title_bank" />
 
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/adUnitId" />
     </LinearLayout>
 </LinearLayout>

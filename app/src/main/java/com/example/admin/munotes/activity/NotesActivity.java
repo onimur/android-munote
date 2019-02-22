@@ -49,9 +49,6 @@ public class NotesActivity extends MenuToolbar {
 
     private Context context;
     private Toolbar toolbar;
-    private Fragment nF01;
-    private Fragment nF02;
-    private Fragment nF03;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Spinner sp_year;
@@ -61,7 +58,6 @@ public class NotesActivity extends MenuToolbar {
 
     private String anoAtual;
     private String mesAtual;
-    private int countYear;
     private int positionFragment = -1;
 
     //
@@ -89,10 +85,8 @@ public class NotesActivity extends MenuToolbar {
         sp_year = findViewById(R.id.sp_year);
         sp_month = findViewById(R.id.sp_month);
         //
-        nF01 = new NotesFragmentCredit();
-        nF02 = new NotesFragmentDebit();
-        nF03 = new NotesFragmentBoth();
-        //
+        setAds();
+
 
     }
 
@@ -105,8 +99,6 @@ public class NotesActivity extends MenuToolbar {
         setArrowToSpinnerLowerVersion();
         //
         RecordSpinnerNotesYearAdapter adapter = new RecordSpinnerNotesYearAdapter(context, R.layout.celula_spinner_year_layout, notesDao.getListYearNotes());
-
-        countYear  = adapter.getCount();
 
         sp_year.setAdapter(adapter);
         //

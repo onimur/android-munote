@@ -22,23 +22,24 @@
         android:baselineAligned="false"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingBottom="2dp"
         android:paddingStart="10dp"
+        android:paddingTop="10dp"
         android:paddingEnd="10dp"
-        android:paddingTop="10dp">
+        android:paddingBottom="2dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingStart="10sp">
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp">
 
             <TextView
                 style="@style/Text_Description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_day"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -48,15 +49,13 @@
             android:gravity="center"
             android:orientation="vertical">
 
-
             <TextView
                 android:id="@+id/celula_title_notas"
                 style="@style/Text_Description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_title_description"
-                android:textSize="11sp" />
-
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -67,16 +66,14 @@
             android:gravity="center"
             android:orientation="vertical">
 
-
             <TextView
                 android:id="@+id/celula_price_notas"
                 style="@style/Text_Description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
                 android:text="@string/tv_value"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -129,7 +126,6 @@
             <View
                 android:layout_width="5dp"
                 android:layout_height="1dp" />
-
 
             <TextView
                 android:id="@+id/tv_total"

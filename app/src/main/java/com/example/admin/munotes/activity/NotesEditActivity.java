@@ -145,6 +145,8 @@ public class NotesEditActivity extends MenuToolbar {
         et_value.addTextChangedListener(new MoneyTextWatcher(et_value));
         //
         tv_value.setText((getString(R.string.tv_value) + " ("+ getCurrencySymbol() + "):"));
+        //
+        setAds();
 
 
     }

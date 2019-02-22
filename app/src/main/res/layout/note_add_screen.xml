@@ -23,7 +23,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -38,136 +39,138 @@
                 android:textColor="@color/colorWhite" />
         </LinearLayout>
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:paddingBottom="10dp">
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="9"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Text_Description_Menor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tv_title_invoice" />
+
+                            <EditText
+                                android:id="@+id/et_title_invoice"
+                                style="@style/Text_EditText_Menor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:autofillHints="@string/text_desc_titulo_nota"
+                                android:hint="@string/et_title_invoice"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"
+                                android:maxLines="1"
+                                android:nextFocusForward="@+id/et_value"
+                                tools:targetApi="o" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="0dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="4"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_value"
+                                style="@style/Text_Description_Menor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <EditText
+                                android:id="@+id/et_value"
+                                style="@style/Text_EditText_Menor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:autofillHints="@string/text_desc_preco_notas"
+                                android:hint="@string/et_value"
+                                android:inputType="numberDecimal"
+                                android:maxLines="1"
+                                android:nextFocusRight="@+id/et_desc_invoice"
+                                tools:targetApi="o" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="9"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
 
                         <TextView
                             style="@style/Text_Description_Menor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/tv_title_invoice" />
+                            android:text="@string/tv_desc_invoice" />
 
                         <EditText
-                            android:id="@+id/et_title_invoice"
+                            android:id="@+id/et_desc_invoice"
                             style="@style/Text_EditText_Menor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/et_title_invoice"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapSentences"
-                            android:maxLines="1"
-                            android:nextFocusForward="@+id/et_value" />
+                            android:autofillHints="@string/text_desc_desc_notas"
+                            android:hint="@string/et_desc_invoice"
+                            android:inputType="text"
+                            android:maxLines="4"
+                            tools:targetApi="o" />
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="10dp"
-                        android:layout_height="0dp">
-
-                    </View>
-
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="4"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/Text_Description_Menor"
-                            android:layout_width="match_parent"
-                            android:id="@+id/tv_value"
-                            android:layout_height="wrap_content" />
-
-                        <EditText
-                            android:id="@+id/et_value"
-                            style="@style/Text_EditText_Menor"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/et_value"
-                            android:inputType="numberDecimal"
-                            android:maxLines="1"
-                            android:nextFocusRight="@+id/et_desc_invoice" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:paddingBottom="10dp">
-
-                    <TextView
-                        style="@style/Text_Description_Menor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/tv_desc_invoice" />
-
-                    <EditText
-                        android:id="@+id/et_desc_invoice"
-                        style="@style/Text_EditText_Menor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/et_desc_invoice"
-                        android:inputType="text"
-                        android:maxLines="4" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="10dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="9"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            style="@style/Text_Description_Menor"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/desc_card" />
-
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp">
 
                         <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="9"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
 
+                            <TextView
+                                android:id="@+id/tv_card_align"
+                                style="@style/Text_Description_Menor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/desc_card" />
 
                             <Spinner
                                 android:id="@+id/sp_card"
                                 android:layout_width="match_parent"
                                 android:layout_height="38dp"
+                                android:layout_below="@id/tv_card_align"
                                 android:layout_gravity="center"
                                 android:background="@drawable/spinner_background"
                                 android:popupBackground="@drawable/spinner_background_checked"
@@ -177,248 +180,252 @@
                                 android:id="@+id/iv_arrow1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="38dp"
+                                android:layout_below="@id/tv_card_align"
                                 android:layout_alignEnd="@id/sp_card"
                                 android:layout_marginEnd="0dp"
                                 android:paddingStart="0dp"
                                 android:paddingEnd="4dp"
-                                android:src="@drawable/arrow" />
+                                android:src="@drawable/arrow"
+                                tools:ignore="ContentDescription" />
 
                             <LinearLayout
                                 android:id="@+id/ll_hint_spinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="38dp"
+                                android:layout_below="@id/tv_card_align"
                                 android:layout_centerInParent="true"
                                 android:gravity="center"
-                                android:padding="2dp"
+                                android:paddingStart="2dp"
+                                android:paddingTop="2dp"
                                 android:paddingEnd="24dp"
+                                android:paddingBottom="2dp"
                                 android:visibility="gone">
-
 
                                 <TextView
                                     android:id="@+id/tv_select_card"
                                     style="@style/Text_Description"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="38dp"
                                     android:background="@color/colorBackgroundEditext"
                                     android:gravity="center"
                                     android:text="@string/tv_choose_card" />
 
                             </LinearLayout>
                         </RelativeLayout>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="10dp"
-                        android:layout_height="0dp">
-
-                    </View>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="4"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            style="@style/Text_Description_Menor"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/desc_date" />
-
-                        <Button
-                            android:id="@+id/btn_selec_date"
-                            style="@style/Button_2_menor"
-                            android:layout_width="match_parent"
-                            android:layout_height="38dp"
-                            android:drawableStart="@drawable/ic_calendar"
-                            android:text="@string/tv_selec_date" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioGroup
-                        android:id="@+id/rg_credit_debit"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="9"
-                        android:checkedButton="@id/rb_credit"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        tools:ignore="UselessParent">
-
-                        <RadioButton
-                            android:id="@+id/rb_credit"
-                            style="@style/Text_Description"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/selector_state_radiobutton"
-                            android:text="@string/cb_credito"
-                            android:textColor="@color/selector_state_radiobutton"
-                            tools:targetApi="lollipop" />
 
                         <View
+                            android:layout_width="10dp"
+                            android:layout_height="0dp" />
+
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
-
-                        <RadioButton
-                            android:id="@+id/rb_debit"
-                            style="@style/Text_Description"
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/selector_state_radiobutton"
-                            android:text="@string/cb_debito"
-                            android:textColor="@color/selector_state_radiobutton"
-                            tools:targetApi="lollipop" />
-                    </RadioGroup>
+                            android:layout_gravity="center"
+                            android:layout_weight="4"
+                            android:orientation="vertical">
 
-                    <View
-                        android:layout_width="10dp"
-                        android:layout_height="0dp" />
+                            <TextView
+                                style="@style/Text_Description_Menor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/desc_date" />
+
+                            <Button
+                                android:id="@+id/btn_selec_date"
+                                style="@style/Button_2_menor"
+                                android:layout_width="match_parent"
+                                android:layout_height="38dp"
+                                android:drawableStart="@drawable/ic_calendar"
+                                android:text="@string/tv_selec_date" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="4"
+                        android:orientation="horizontal">
+
+                        <RadioGroup
+                            android:id="@+id/rg_credit_debit"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="9"
+                            android:checkedButton="@id/rb_credit"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            tools:ignore="UselessParent">
+
+                            <RadioButton
+                                android:id="@+id/rb_credit"
+                                style="@style/Text_Description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="@color/selector_state_radiobutton"
+                                android:text="@string/cb_credito"
+                                android:textColor="@color/selector_state_radiobutton"
+                                tools:targetApi="lollipop" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <RadioButton
+                                android:id="@+id/rb_debit"
+                                style="@style/Text_Description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="@color/selector_state_radiobutton"
+                                android:text="@string/cb_debito"
+                                android:textColor="@color/selector_state_radiobutton"
+                                tools:targetApi="lollipop" />
+                        </RadioGroup>
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="0dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_sp_disabled"
+                                style="@style/Text_Description_Menor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/desc_installments"
+                                android:textColor="@color/selector_state_radiobutton" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <Spinner
+                                    android:id="@+id/sp_parcelas"
+                                    android:layout_width="70dp"
+                                    android:layout_height="35dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/spinner_background"
+                                    android:popupBackground="@drawable/spinner_background_checked"
+                                    android:spinnerMode="dropdown" />
+
+                                <ImageView
+                                    android:id="@+id/iv_arrow2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="35dp"
+                                    android:layout_alignEnd="@id/sp_parcelas"
+                                    android:paddingStart="0dp"
+                                    android:paddingEnd="2dp"
+                                    android:src="@drawable/arrow"
+                                    tools:ignore="ContentDescription" />
+
+                                <View
+                                    android:id="@+id/view_sp_disabled"
+                                    android:layout_width="70dp"
+                                    android:layout_height="35dp"
+                                    android:background="@color/color_disabled" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="vertical">
 
+                        <Button
+                            android:id="@+id/btn_picture"
+                            style="@style/Button_2_Sub"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_picture"
+                            android:text="@string/btn_picture" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp">
+
                         <TextView
-                            android:id="@+id/tv_sp_disabled"
+                            android:id="@+id/tv_click_image"
                             style="@style/Text_Description_Menor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/desc_installments"
-                            android:textColor="@color/selector_state_radiobutton" />
+                            android:gravity="center"
+                            android:text="@string/tv_cliquenaimagem"
+                            android:textSize="12sp" />
 
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-
-                            <Spinner
-                                android:id="@+id/sp_parcelas"
-                                android:layout_width="70dp"
-                                android:layout_height="35dp"
-                                android:layout_gravity="center"
-                                android:background="@drawable/spinner_background"
-                                android:popupBackground="@drawable/spinner_background_checked"
-                                android:spinnerMode="dropdown" />
-
-                            <ImageView
-                                android:id="@+id/iv_arrow2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="35dp"
-                                android:layout_alignEnd="@id/sp_parcelas"
-                                android:paddingStart="0dp"
-                                android:paddingEnd="2dp"
-                                android:src="@drawable/arrow" />
-
-                            <View
-                                android:id="@+id/view_sp_disabled"
-                                android:layout_width="70dp"
-                                android:layout_height="35dp"
-                                android:background="@color/color_disabled">
-
-                            </View>
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/btn_picture"
-                        style="@style/Button_2_Sub"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_picture"
-                        android:text="@string/btn_picture" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:paddingTop="10dp">
-
-                    <TextView
-                        android:id="@+id/tv_click_image"
-                        style="@style/Text_Description_Menor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/tv_cliquenaimagem"
-                        android:textSize="8sp" />
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-
-                        <ImageButton
-                            android:id="@+id/ib_foto"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:tag="main" />
+                            android:orientation="vertical">
+
+                            <ImageButton
+                                android:id="@+id/ib_foto"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="@string/text_desc_ib_foto"
+                                android:gravity="center_horizontal"
+                                android:tag="main" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
-
                 </LinearLayout>
+            </ScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_cancelar"
+                    style="@style/Button_3_Menor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/btn_cancelar" />
+
+                <Button
+                    android:id="@+id/btn_salvar"
+                    style="@style/Button_3_Menor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="1"
+                    android:text="@string/btn_salvar" />
+
             </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_cancelar"
-                style="@style/Button_3_Menor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="50dp"
-                android:layout_weight="1"
-                android:text="@string/btn_cancelar" />
-
-            <Button
-                android:id="@+id/btn_salvar"
-                style="@style/Button_3_Menor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_weight="1"
-                android:text="@string/btn_salvar" />
-
-
-        </LinearLayout>
-
-
+            android:gravity="center"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/adUnitId" />
     </LinearLayout>
 </LinearLayout>

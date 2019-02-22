@@ -23,6 +23,8 @@ import com.example.admin.munotes.Constants;
 import com.example.admin.munotes.R;
 
 import com.example.admin.munotes.files.MenuToolbar;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class CardAddActivity extends MenuToolbar {
 
@@ -60,6 +62,7 @@ public class CardAddActivity extends MenuToolbar {
         //
         toolbar = findViewById(R.id.toolbar);
         //
+        setAds();
 
     }
 

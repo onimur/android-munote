@@ -104,6 +104,8 @@ public class NotesViewActivity extends MenuToolbar {
         rb_debit = findViewById(R.id.rb_debit);
         //
         tv_value.setText((getString(R.string.tv_value) + " ("+ getCurrencySymbol() + "):"));
+        //
+        setAds();
 
     }
 

@@ -64,8 +64,8 @@
     <string name="et_value">0.00</string>
     <string name="tv_pay_date">Payment Date:</string>
     <string name="tv_selec_date">Select</string>
-    <string name="credit_c">C</string>
-    <string name="debit_d">D</string>
+    <string name="credit_c" translatable="false">C</string>
+    <string name="debit_d" translatable="false">D</string>
     <string name="tv_choose_card">Choose a Card…</string>
     <string name="toast_ll_hint_spinner_enabled">You need to choose a card</string>
     <string name="toast_title_invoice">Title: Is required</string>
@@ -105,5 +105,15 @@
     <string name="text_total">Total:</string>
     <string name="text_day">Day</string>
     <string name="text_title_description">Title / Description</string>
+    <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+    <string name="adAPPId" translatable="false">ca-app-pub-4422707170557261~6064834767</string>
+    <!-- Sample AdMob Unit ID: ca-app-pub-3940256099942544/6300978111 -->
+    <string name="adUnitId" translatable="false">ca-app-pub-4422707170557261/3492186905</string>
+    <string name="text_desc_ib_foto">Image taken from receipt</string>
+    <string name="text_desc_titulo_nota">Title of the invoice</string>
+    <string name="text_desc_preco_notas">Amount charged</string>
+    <string name="text_desc_desc_notas">Invoice description</string>
+    <string name="text_desc_card">Card description</string>
+    <string name="text_desc_card_num">Card final numbers</string>
 
 </resources>

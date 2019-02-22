@@ -12,6 +12,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
@@ -24,9 +25,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,7 +52,6 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:paddingBottom="10dp">
-
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -74,7 +76,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-
                     <Spinner
                         android:id="@+id/sp_year"
                         android:layout_width="match_parent"
@@ -91,7 +92,8 @@
                         android:layout_alignEnd="@id/sp_year"
                         android:paddingStart="0dp"
                         android:paddingEnd="2dp"
-                        android:src="@drawable/arrow" />
+                        android:src="@drawable/arrow"
+                        tools:ignore="ContentDescription" />
 
                 </RelativeLayout>
 
@@ -124,7 +126,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-
                     <Spinner
                         android:id="@+id/sp_month"
                         android:layout_width="match_parent"
@@ -141,58 +142,74 @@
                         android:layout_alignEnd="@id/sp_month"
                         android:paddingStart="0dp"
                         android:paddingEnd="2dp"
-                        android:src="@drawable/arrow" />
+                        android:src="@drawable/arrow"
+                        tools:ignore="ContentDescription" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tablayout_id"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="@color/colorText2"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/colorSpinner"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/colorWhite"
-                app:tabTextAppearance="@style/Text_Description_Bold"
-                app:tabTextColor="@color/colorWhiteTransparence">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            </android.support.design.widget.TabLayout>
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tablayout_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/colorText2"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/colorSpinner"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/colorWhite"
+                    app:tabTextAppearance="@style/Text_Description_Bold"
+                    app:tabTextColor="@color/colorWhiteTransparence">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewpager_id"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                </android.support.design.widget.TabLayout>
 
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-            </android.support.v4.view.ViewPager>
+            </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
-
-            <Button
-                android:id="@+id/btn_adicionar"
-                style="@style/Button_2_Sub"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_adicionar"
-                android:text="@string/tv_adicionar" />
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
 
+                <Button
+                    android:id="@+id/btn_adicionar"
+                    style="@style/Button_2_Sub"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_adicionar"
+                    android:text="@string/tv_adicionar" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/adUnitId" />
+    </LinearLayout>
+
 </LinearLayout>
