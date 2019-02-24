@@ -21,15 +21,12 @@ import android.widget.TextView;
 import com.onimus.munotes.R;
 import com.onimus.munotes.files.MenuToolbar;
 import com.onimus.munotes.Constants;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 public class SplashActivity extends MenuToolbar {
 
     TextView tv_progress;
     ProgressBar mProgress;
     int progressCount = 0;
-    private AdView mAdView;
     Handler h = new Handler();
 
     @Override
@@ -41,9 +38,6 @@ public class SplashActivity extends MenuToolbar {
 
         tv_progress = findViewById(R.id.tv_progress);
         mProgress =  findViewById(R.id.splash_screen_progress_bar);
-
-        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
-        MobileAds.initialize(this, getString(R.string.adUnitId));
         //
         SharedPreferences preferences =
                 getSharedPreferences("user_preferences", MODE_PRIVATE);

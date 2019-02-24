@@ -60,7 +60,6 @@ public class CardAddActivity extends MenuToolbar {
         //
         toolbar = findViewById(R.id.toolbar);
         //
-        setAds();
 
     }
 

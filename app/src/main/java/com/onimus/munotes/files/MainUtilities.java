@@ -44,8 +44,6 @@ import com.onimus.munotes.bancos.dao.CardDao;
 import com.onimus.munotes.bancos.dao.NotesDao;
 import com.onimus.munotes.bancos.model.Card;
 import com.onimus.munotes.bancos.model.Notes;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import java.io.File;
 import java.text.ParseException;
@@ -890,11 +888,5 @@ public class MainUtilities extends AppCompatActivity {
 
     public void setMessage(Context context, int idMessage) {
         Toast.makeText(context, context.getString(idMessage), Toast.LENGTH_SHORT).show();
-    }
-
-    public void setAds (){
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
     }
 }

@@ -78,9 +78,6 @@ public class NotesActivity extends MenuToolbar {
         sp_year = findViewById(R.id.sp_year);
         sp_month = findViewById(R.id.sp_month);
         //
-        setAds();
-
-
     }
 
     private void startAction() {

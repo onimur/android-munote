@@ -105,10 +105,6 @@
     <string name="text_total">Total:</string>
     <string name="text_day">Day</string>
     <string name="text_title_description">Title / Description</string>
-    <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
-    <string name="adAPPId" translatable="false">ca-app-pub-4422707170557261~6064834767</string>
-    <!-- Sample AdMob Unit ID: ca-app-pub-3940256099942544/6300978111 -->
-    <string name="adUnitId" translatable="false">ca-app-pub-4422707170557261/3492186905</string>
     <string name="text_desc_ib_foto">Image taken from receipt</string>
     <string name="text_desc_titulo_nota">Title of the invoice</string>
     <string name="text_desc_preco_notas">Amount charged</string>

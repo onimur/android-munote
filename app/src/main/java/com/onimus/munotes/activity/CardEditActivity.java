@@ -61,7 +61,6 @@ public class CardEditActivity extends MenuToolbar {
         cb_credito = findViewById(R.id.cb_credito);
         cb_debito = findViewById(R.id.cb_debito);
         //
-        setAds();
     }
 
     private void startAction() {
