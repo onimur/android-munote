@@ -144,6 +144,8 @@ public class NotesEditActivity extends MenuToolbar {
         //
         tv_value.setText((getString(R.string.tv_value) + " ("+ getCurrencySymbol() + "):"));
         //
+        loadAdmob();
+        //
     }
 
     private void startAction(Bundle savedInstanceState) {

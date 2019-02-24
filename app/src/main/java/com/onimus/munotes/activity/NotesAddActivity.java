@@ -127,6 +127,8 @@ public class NotesAddActivity extends MenuToolbar {
         //
         tv_value.setText((getString(R.string.tv_value) + " ("+ getCurrencySymbol() + "):"));
         //
+        loadAdmob();
+        //
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////

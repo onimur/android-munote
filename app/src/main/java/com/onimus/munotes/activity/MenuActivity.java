@@ -30,7 +30,9 @@ public class MenuActivity extends MenuToolbar {
         setContentView(R.layout.menu_screen);
 
         setPermissions();
-
+        //
+        loadAdmob();
+        //
         setActionOnClick(R.id.btn_menu_galeria, new OnButtonClickGallery());
         setActionOnClickActivity(R.id.btn_menu_invoice, NotesActivity.class);
         setActionOnClickActivity(R.id.btn_menu_card, CardActivity.class);

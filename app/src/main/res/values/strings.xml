@@ -112,4 +112,13 @@
     <string name="text_desc_card">Card description</string>
     <string name="text_desc_card_num">Card final numbers</string>
 
+    <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+    <!-- My AdMob App ID: ca-app-pub-4422707170557261~6064834767 -->
+    <string name="adAPPId" translatable="false">ca-app-pub-4422707170557261~6064834767</string>
+    <!-- Sample AdMob Unit ID: ca-app-pub-3940256099942544/6300978111 -->
+    <!-- My AdMob Unit ID: ca-app-pub-4422707170557261/3492186905 -->
+    <string name="adUnitId" translatable="false">ca-app-pub-4422707170557261/3492186905</string>
+
+
+
 </resources>

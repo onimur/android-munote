@@ -67,6 +67,8 @@ public class CardActivity extends MenuToolbar {
         //
         createDirectoryDbase(context);
         //
+        loadAdmob();
+        //
         RecordListCardAdapter adapter = new RecordListCardAdapter(context, R.layout.celula_listview_card_layout, cardDao.getListCard());
         lv_cartao.setAdapter(adapter);
     }

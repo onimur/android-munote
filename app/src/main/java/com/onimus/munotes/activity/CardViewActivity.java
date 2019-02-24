@@ -60,6 +60,8 @@ public class CardViewActivity extends MenuToolbar {
         cb_credito = findViewById(R.id.cb_credito);
         cb_debito = findViewById(R.id.cb_debito);
         //
+        loadAdmob();
+        //
     }
     private void startAction() {
         setSupportActionBar(toolbar);
