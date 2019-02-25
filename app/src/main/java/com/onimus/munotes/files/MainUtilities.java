@@ -40,6 +40,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.onimus.munotes.BuildConfig;
 import com.onimus.munotes.Constants;
 import com.onimus.munotes.R;
 import com.onimus.munotes.bancos.banco.HMAuxCard;
@@ -585,7 +586,7 @@ public class MainUtilities extends AppCompatActivity {
         HMAuxCard item = (HMAuxCard) sp_card.getSelectedItem();
         idCartao = item.get(CardDao.IDCARTAO);
         //
-       int positionSpParcelas = sp_parcelas.getSelectedItemPosition() + 1;
+        int positionSpParcelas = sp_parcelas.getSelectedItemPosition() + 1;
 
         //
         cAux.setDesnotas(et_desc_invoice.getText().toString());
@@ -660,7 +661,7 @@ public class MainUtilities extends AppCompatActivity {
                 //
                 value = et_value.getText().toString();
                 title_invoice = et_title_invoice.getText().toString();
-                if (!value.isEmpty()){
+                if (!value.isEmpty()) {
                     value = formatPriceSave(value);
                 }
 
@@ -671,7 +672,7 @@ public class MainUtilities extends AppCompatActivity {
                     return false;
                 }
                 //
-                if (value.trim().isEmpty() || value.equals("0.00") ) {
+                if (value.trim().isEmpty() || value.equals("0.00")) {
                     setMessage(R.string.toast_value_required);
                     return false;
                 }
@@ -799,14 +800,14 @@ public class MainUtilities extends AppCompatActivity {
         return true;
     }
 
-    public boolean setArrowToSpinnerLowerVersion (){
+    public boolean setArrowToSpinnerLowerVersion() {
         ImageView iv_arrow;
         ImageView iv_arrow2;
 
         iv_arrow = findViewById(R.id.iv_arrow1);
         iv_arrow2 = findViewById(R.id.iv_arrow2);
 
-        if (isAndroidMarshmallowOrSuperiorVersion()){
+        if (isAndroidMarshmallowOrSuperiorVersion()) {
             iv_arrow.setEnabled(false);
             iv_arrow2.setEnabled(false);
             iv_arrow.setVisibility(View.INVISIBLE);
@@ -826,8 +827,8 @@ public class MainUtilities extends AppCompatActivity {
         //se o caminho for vazio ou se o caminho existir, mas a foto não.
         if (caminho.equals("") || !imgFile.exists()) {
             tv_click_image.setVisibility(View.INVISIBLE);
-            ib_foto.getLayoutParams().height = (int) (setWidthScreen()/1.5);
-            ib_foto.getLayoutParams().width = (int) (setWidthScreen()/1.5);
+            ib_foto.getLayoutParams().height = (int) (setWidthScreen() / 1.5);
+            ib_foto.getLayoutParams().width = (int) (setWidthScreen() / 1.5);
             ib_foto.setBackgroundResource(R.drawable.logo_512);
             ib_foto.setClickable(false);
             ib_foto.setEnabled(false);
@@ -851,8 +852,8 @@ public class MainUtilities extends AppCompatActivity {
         //se o caminho for vazio ou se o caminho existir, mas a foto não.
         if (!imgFile.exists()) {
             tv_click_image.setVisibility(View.INVISIBLE);
-            ib_foto.getLayoutParams().height = (int) (setWidthScreen()/1.5);
-            ib_foto.getLayoutParams().width = (int) (setWidthScreen()/1.5);
+            ib_foto.getLayoutParams().height = (int) (setWidthScreen() / 1.5);
+            ib_foto.getLayoutParams().width = (int) (setWidthScreen() / 1.5);
             ib_foto.setBackgroundResource(R.drawable.logo_512);
             ib_foto.setClickable(false);
 
@@ -867,7 +868,7 @@ public class MainUtilities extends AppCompatActivity {
 
     public int setWidthScreen() {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        return  displayMetrics.widthPixels;
+        return displayMetrics.widthPixels;
     }
 
 
@@ -893,12 +894,16 @@ public class MainUtilities extends AppCompatActivity {
         Toast.makeText(context, context.getString(idMessage), Toast.LENGTH_SHORT).show();
     }
 
-    public void loadAdmob (){
+    public void loadAdmob() {
         AdView mAdView = findViewById(R.id.adView);
+        mAdView.setAdListener(new AdManager());
 
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
+        AdRequest.Builder builder = new AdRequest.Builder();
+        if (BuildConfig.DEBUG) {
+            builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
+        }
+
+        AdRequest adRequest = builder.build();
         mAdView.loadAd(adRequest);
     }
 }
