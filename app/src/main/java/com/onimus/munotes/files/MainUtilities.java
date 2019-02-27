@@ -40,6 +40,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.inmobi.sdk.InMobiSdk;
 import com.onimus.munotes.BuildConfig;
 import com.onimus.munotes.Constants;
 import com.onimus.munotes.R;
@@ -896,10 +897,14 @@ public class MainUtilities extends AppCompatActivity {
 
     public void loadAdmob() {
         AdView mAdView = findViewById(R.id.adView);
+
+
+
         mAdView.setAdListener(new AdManager());
 
         AdRequest.Builder builder = new AdRequest.Builder();
         if (BuildConfig.DEBUG) {
+            InMobiSdk.setLogLevel(InMobiSdk.LogLevel.DEBUG);
             builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
         }
 
