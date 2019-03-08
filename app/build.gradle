@@ -32,6 +32,7 @@ android {
         applicationId 'com.onimus.munotes'
         minSdkVersion 17
         targetSdkVersion 28
+        versionCode VERSION_CODE as int
         versionName VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

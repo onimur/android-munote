@@ -789,6 +789,11 @@ public class MainUtilities extends AppCompatActivity {
                         rb_debit.setVisibility(View.VISIBLE);
                         rb_debit.setEnabled(true);
 
+                        if (rb_debit.isChecked()){
+                            sp_parcelas.setEnabled(false);
+                            view_sp_disabled.setVisibility(View.VISIBLE);
+                            tv_sp_disabled.setEnabled(false);
+                        }
                         return true;
 
                     }

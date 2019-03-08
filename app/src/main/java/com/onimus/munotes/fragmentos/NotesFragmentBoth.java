@@ -36,7 +36,6 @@ import com.onimus.munotes.bancos.dao.NotesDao;
 
 import java.util.Objects;
 
-import static android.telephony.PhoneNumberUtils.formatNumber;
 import static com.onimus.munotes.Constants.DATA1;
 import static com.onimus.munotes.Constants.DATA2;
 import static com.onimus.munotes.bancos.dao.NotesDao.TOTAL;
@@ -74,7 +73,6 @@ public class NotesFragmentBoth extends Fragment {
 
         startVariables();
         startAction();
-
         return view;
     }
 

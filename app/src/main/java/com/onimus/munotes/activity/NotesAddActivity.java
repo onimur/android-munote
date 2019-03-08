@@ -156,7 +156,7 @@ public class NotesAddActivity extends MenuToolbar {
         setAlertDialogToReturnOnClickActivity(R.id.btn_cancelar, NotesActivity.class, "notas");
         //Quando o Cartão possui credito ou debito, realiza a ação no RadioButton de desabilitar o spinner e o outro radiobutton
         setActionOnClick(R.id.rb_credit, new OnRadioButtonClickActionCredit());
-        setActionOnClick(R.id.rb_debit, new OnRadioButtonClickActionDedit());
+        setActionOnClick(R.id.rb_debit, new OnRadioButtonClickActionDebit());
         //
     }
 
@@ -306,7 +306,6 @@ public class NotesAddActivity extends MenuToolbar {
                    //valida o radiobutton e o spinner parcelas
           validation("spinner_action_credito_debito");
 
-
         }
 
         @Override
@@ -349,7 +348,7 @@ public class NotesAddActivity extends MenuToolbar {
         }
     }
 
-    private class OnRadioButtonClickActionDedit implements View.OnClickListener {
+    private class OnRadioButtonClickActionDebit implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
