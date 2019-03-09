@@ -902,18 +902,25 @@ public class MainUtilities extends AppCompatActivity {
 
     public void loadAdmob() {
         AdView mAdView = findViewById(R.id.adView);
+        LinearLayout ll_adview = findViewById(R.id.ll_adview);
 
+        if (BuildConfig.FREE_VERSION){
 
+            mAdView.setAdListener(new AdManager());
 
-        mAdView.setAdListener(new AdManager());
+            AdRequest.Builder builder = new AdRequest.Builder();
+            if (BuildConfig.DEBUG) {
+                InMobiSdk.setLogLevel(InMobiSdk.LogLevel.DEBUG);
+                builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
+            }
 
-        AdRequest.Builder builder = new AdRequest.Builder();
-        if (BuildConfig.DEBUG) {
-            InMobiSdk.setLogLevel(InMobiSdk.LogLevel.DEBUG);
-            builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
+            AdRequest adRequest = builder.build();
+            mAdView.loadAd(adRequest);
+        } else {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ll_adview.getLayoutParams();
+            params.height = 0;
+            ll_adview.setLayoutParams(params);
         }
 
-        AdRequest adRequest = builder.build();
-        mAdView.loadAd(adRequest);
     }
 }
