@@ -910,7 +910,6 @@ public class MainUtilities extends AppCompatActivity {
 
             AdRequest.Builder builder = new AdRequest.Builder();
             if (BuildConfig.DEBUG) {
-                InMobiSdk.setLogLevel(InMobiSdk.LogLevel.DEBUG);
                 builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
             }
 
