@@ -42,7 +42,6 @@
     <string name="alert_message_retorno">Do you really want to cancel?</string>
     <string name="alert_ok">Yes</string>
     <string name="alert_cancel">No</string>
-    <string name="toast_number_card">Final Numbers: Leave blank or enter 4 numbers</string>
     <string name="toast_desc_card">Card Description:  Is required</string>
 
     <string name="cb_credito">Credit</string>
@@ -65,8 +64,6 @@
     <string name="et_value">0.00</string>
     <string name="tv_pay_date">Payment Date:</string>
     <string name="tv_selec_date">Select</string>
-    <string name="credit_c" translatable="false">C</string>
-    <string name="debit_d" translatable="false">D</string>
     <string name="tv_choose_card">Choose a Card…</string>
     <string name="toast_ll_hint_spinner_enabled">You need to choose a card</string>
     <string name="toast_title_invoice">Title: Is required</string>
@@ -90,7 +87,6 @@
     <string name="tv_no_card">No registered card</string>
     <string name="mensagem_register_card">You need to register a card first</string>
     <string name="cb_string_creditdebit">Credit Debit</string>
-    <string name="string_credit_debit">C\nD</string>
     <string name="desc_card">Card:</string>
     <string name="desc_date">Date:</string>
     <string name="title_edit_notas">Edit Invoices</string>

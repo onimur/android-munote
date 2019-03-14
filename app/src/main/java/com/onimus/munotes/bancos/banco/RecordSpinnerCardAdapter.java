@@ -53,7 +53,7 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
 
     private class ViewHolder{
 
-        TextView celula_cartao, celula_number, celula_tipo;
+        TextView celula_cartao, celula_tipo;
     }
 
     @Override
@@ -66,7 +66,6 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(layout, viewGroup,false);
             holder.celula_cartao = row.findViewById(R.id.celula_cartao);
-            holder.celula_number = row.findViewById(R.id.celula_number);
             holder.celula_tipo = row.findViewById(R.id.celula_tipo);
 
             row.setTag(holder);
@@ -78,15 +77,14 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
         HMAuxCard model = hmAux.get(i);
 
       holder.celula_cartao.setText(model.get(CardDao.DESCARTAO));
-        holder.celula_number.setText(model.get(CardDao.NUMBERCARD));
         if (String.valueOf(model.get(CardDao.TIPO)).trim().toLowerCase().equals("1")) {
-            holder.celula_tipo.setText(context.getString(R.string.credit_c));
+            holder.celula_tipo.setText(context.getString(R.string.cb_credito));
         }
         if  (String.valueOf(model.get(CardDao.TIPO)).trim().toLowerCase().equals("2")) {
-            holder.celula_tipo.setText(context.getString(R.string.debit_d));
+            holder.celula_tipo.setText(context.getString(R.string.cb_debito));
         }
         if  (String.valueOf(model.get(CardDao.TIPO)).trim().toLowerCase().equals("3")) {
-            holder.celula_tipo.setText(context.getString(R.string.string_credit_debit));
+            holder.celula_tipo.setText((context.getString(R.string.cb_credito) + " / "+ context.getString(R.string.cb_debito)));
         }
 
                 return row;

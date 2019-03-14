@@ -493,14 +493,12 @@ public class MainUtilities extends AppCompatActivity {
     protected void saveCard(long idAtual, Context context) {
 
         EditText et_desc_card;
-        EditText et_number_card;
         CheckBox cb_credito;
         CheckBox cb_debito;
         CardDao cardDao = new CardDao(context);
         Card cAux = new Card();
         //
         et_desc_card = findViewById(R.id.et_desc_card);
-        et_number_card = findViewById(R.id.et_number_card);
         cb_credito = findViewById(R.id.cb_credito);
         cb_debito = findViewById(R.id.cb_debito);
 
@@ -517,12 +515,6 @@ public class MainUtilities extends AppCompatActivity {
         if (cb_credito.isChecked() && cb_debito.isChecked()) {
             cAux.setTipo(3);
         }
-        if (et_number_card.getText().toString().isEmpty()) {
-            cAux.setNumbercard("");
-        } else {
-            cAux.setNumbercard(et_number_card.getText().toString().trim());
-        }
-
         //
         if (idAtual != -1) {
             cAux.setIdcartao(idAtual);
@@ -695,26 +687,18 @@ public class MainUtilities extends AppCompatActivity {
             case "cartao": {
                 int qtd;
                 String desc_card;
-                EditText et_number_card;
                 EditText et_desc_card;
                 CheckBox cb_credito;
                 CheckBox cb_debito;
 
                 et_desc_card = findViewById(R.id.et_desc_card);
-                et_number_card = findViewById(R.id.et_number_card);
                 cb_credito = findViewById(R.id.cb_credito);
                 cb_debito = findViewById(R.id.cb_debito);
 
-                qtd = et_number_card.getText().length();
                 desc_card = et_desc_card.getText().toString();
 
                 if (desc_card.trim().isEmpty()) {
                     setMessage(R.string.toast_desc_card);
-                    return false;
-                }
-
-                if (qtd != 4 && qtd != 0) {
-                    setMessage(R.string.toast_number_card);
                     return false;
                 }
 

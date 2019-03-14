@@ -61,7 +61,6 @@ public class SqlHelper extends SQLiteOpenHelper {
                     "CREATE TABLE IF NOT EXISTS" + TABLE_CARTAO + "(\n" +
                     "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
                     "  " + COLUNA_DESCARTAO +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_NUMBERCARD +  " TEXT NOT NULL, \n" +
                     "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
                     "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDCARTAO + "));\n"+
                     //Cria Tabela Notes
@@ -108,6 +107,10 @@ public class SqlHelper extends SQLiteOpenHelper {
         if (oldVersion < 5){
             //Cria na Tabela Notas as colunas TIPO e PARCELAS
             bancoVersao5(db);
+        }
+        if (oldVersion < 6){
+            //Deleta na tabela cartão o número
+            bancoVersao6(db);
         }
 
         //
@@ -283,6 +286,58 @@ public class SqlHelper extends SQLiteOpenHelper {
 
         } catch (Exception e) {
             Log.e(TAG, "onUpgrade: Error, version 5 db");
+        }
+    }
+
+    private void bancoVersao6(SQLiteDatabase db) {
+        try {
+            String sb = ("BEGIN TRANSACTION;\n" +
+                    //Cria uma nova tabela pra guardar os dados da tabela a ser atualizada ou deletada
+                    "CREATE TABLE " + TABLE_CARTAO_BCK + " (\n" +
+                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
+                    "  " + COLUNA_DESCARTAO +   " TEXT NOT NULL, \n" +
+                    "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDCARTAO + ")); \n" +
+                    "\n" +
+                    "INSERT INTO " + TABLE_CARTAO_BCK + " (" + COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_TIPO + ")\n" +
+                    "  SELECT " +       COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_TIPO + "\n" +
+                    "  FROM " + TABLE_CARTAO + ";\n" +
+                    "DROP TABLE " + TABLE_CARTAO + ";\n" +
+                    //Recria a tabela principal e recupera os dados da tabela de backup
+                    "CREATE TABLE " + TABLE_CARTAO + " (\n" +
+                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
+                    "  " + COLUNA_DESCARTAO +   " TEXT NOT NULL, \n" +
+                    "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDCARTAO + ")); \n" +
+                    "\n" +
+                    "INSERT INTO " + TABLE_CARTAO + " (" + COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_TIPO + ")\n" +
+                    "  SELECT " +       COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_TIPO + "\n" +
+                    "  FROM " + TABLE_CARTAO_BCK + ";\n" +
+                    "DROP TABLE " + TABLE_CARTAO_BCK + ";\n" +
+                    "CREATE TABLE IF NOT EXISTS" + TABLE_NOTAS + "(\n" +
+                    "  " + COLUNA_IDNOTAS +     " INT NOT NULL, \n" +
+                    "  " + COLUNA_TITLENOTAS +  " TEXT NOT NULL, \n" +
+                    "  " + COLUNA_DESNOTAS +    " TEXT NOT NULL, \n" +
+                    "  " + COLUNA_PRECONOTAS +  " TEXT NOT NULL, \n" +
+                    "  " + COLUNA_FOTONOTAS +   " TEXT NOT NULL, \n" +
+                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
+                    "  " + COLUNA_ANO +         " INT NOT NULL, \n" +
+                    "  " + COLUNA_MES +         " INT NOT NULL, \n" +
+                    "  " + COLUNA_DIA +         " INT NOT NULL, \n" +
+                    "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
+                    "  " + COLUNA_PARCELAS +    " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDNOTAS + ")); \n" +
+                    "COMMIT;");
+            String[] comandos = sb.split(";");
+
+            for (String comando : comandos) {
+
+                db.execSQL(comando.toLowerCase());
+
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, "onUpgrade: Error, version 6 db");
         }
     }
 }

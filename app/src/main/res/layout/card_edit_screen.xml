@@ -67,34 +67,6 @@
                 android:selectAllOnFocus="true"
                 tools:targetApi="o" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:paddingBottom="20dp">
-
-            <TextView
-                style="@style/Text_Description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_number_card" />
-
-            <EditText
-                android:id="@+id/et_number_card"
-                style="@style/Text_EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="@string/text_desc_card_num"
-                android:hint="@string/et_number_card"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:maxLines="1"
-                android:selectAllOnFocus="true"
-                tools:targetApi="o" />
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -29,7 +29,6 @@ public class CardAddActivity extends MenuToolbar {
     private Context context;
 
     private EditText et_desc_card;
-    private EditText et_number_card;
 
     private CheckBox cb_credito;
     private CheckBox cb_debito;
@@ -54,7 +53,6 @@ public class CardAddActivity extends MenuToolbar {
         getParameters();
         //
         et_desc_card = findViewById(R.id.et_desc_card);
-        et_number_card = findViewById(R.id.et_number_card);
         cb_credito = findViewById(R.id.cb_credito);
         cb_debito = findViewById(R.id.cb_debito);
         //
@@ -79,7 +77,6 @@ public class CardAddActivity extends MenuToolbar {
         public void onClick(View v) {
 
             clearField(et_desc_card, true);
-            clearField(et_number_card, false);
 
             clearField(cb_credito);
             clearField(cb_debito);

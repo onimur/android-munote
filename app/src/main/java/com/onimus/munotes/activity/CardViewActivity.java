@@ -30,7 +30,6 @@ public class CardViewActivity extends MenuToolbar {
     private CardDao cardDao;
 
     private TextView tv_desc_card;
-    private TextView tv_number_card;
 
     private Toolbar toolbar;
 
@@ -56,7 +55,6 @@ public class CardViewActivity extends MenuToolbar {
 
         toolbar = findViewById(R.id.toolbar);
         tv_desc_card = findViewById(R.id.tv_desc_card);
-        tv_number_card = findViewById(R.id.tv_number_card);
         cb_credito = findViewById(R.id.cb_credito);
         cb_debito = findViewById(R.id.cb_debito);
         //
@@ -92,12 +90,6 @@ public class CardViewActivity extends MenuToolbar {
             if (cAux.getTipo() == 3){
                 cb_credito.setChecked(true);
                 cb_debito.setChecked(true);
-            }
-
-            if (cAux.getNumbercard().equals("0")){
-                tv_number_card.setText("");
-            } else {
-                tv_number_card.setText(String.valueOf(cAux.getNumbercard()));
             }
         }
     }

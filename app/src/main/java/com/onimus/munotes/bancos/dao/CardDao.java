@@ -32,7 +32,6 @@ public class CardDao extends Dao {
     public static final String IDCARTAO = "idcartao";
     public static final String DESCARTAO = "descartao";
     public static final String TIPO = "tipo";
-    public static final String NUMBERCARD = "numbercard";
 
     public CardDao(Context context) {
         super(context);
@@ -45,7 +44,6 @@ public class CardDao extends Dao {
         cv.put(IDCARTAO, card.getIdcartao());
         cv.put(DESCARTAO, card.getDescartao());
         cv.put(TIPO, card.getTipo());
-        cv.put(NUMBERCARD, card.getNumbercard());
         //
         db.insert(TABELA, null, cv);
         //
@@ -61,7 +59,6 @@ public class CardDao extends Dao {
         ContentValues cv = new ContentValues();
         cv.put(DESCARTAO, card.getDescartao());
         cv.put(TIPO, card.getTipo());
-        cv.put(NUMBERCARD, card.getNumbercard());
         //
         db.update(TABELA, cv, filtro, argumentos);
         //
@@ -99,7 +96,6 @@ public class CardDao extends Dao {
                 cAux.setIdcartao(cursor.getLong(cursor.getColumnIndex(IDCARTAO)));
                 cAux.setDescartao(cursor.getString(cursor.getColumnIndex(DESCARTAO)));
                 cAux.setTipo(cursor.getInt(cursor.getColumnIndex(TIPO)));
-                cAux.setNumbercard(cursor.getString(cursor.getColumnIndex(NUMBERCARD)));
             }
             //
             cursor.close();
@@ -122,7 +118,7 @@ public class CardDao extends Dao {
         //
         try {
 
-            String comando = " select " + IDCARTAO + ", " + DESCARTAO + ", " + NUMBERCARD + ", " + TIPO + " from " + TABELA + " order by " + DESCARTAO + " ";
+            String comando = " select " + IDCARTAO + ", " + DESCARTAO + ", " + TIPO + " from " + TABELA + " order by " + DESCARTAO + " ";
             //
             cursor = db.rawQuery(comando, null);
             //
@@ -131,7 +127,6 @@ public class CardDao extends Dao {
 
                 hmAux.put(IDCARTAO, cursor.getString(cursor.getColumnIndex(IDCARTAO)));
                 hmAux.put(DESCARTAO, cursor.getString(cursor.getColumnIndex(DESCARTAO)));
-                hmAux.put(NUMBERCARD, cursor.getString(cursor.getColumnIndex(NUMBERCARD)));
                 hmAux.put(TIPO, cursor.getString(cursor.getColumnIndex(TIPO)));
                 //
                 cartao.add(hmAux);

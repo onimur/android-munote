@@ -62,29 +62,6 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:paddingBottom="20dp">
-
-            <TextView
-                style="@style/Text_Description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_number_card" />
-
-            <TextView
-                android:id="@+id/tv_number_card"
-                style="@style/Text_EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

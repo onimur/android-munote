@@ -31,7 +31,6 @@ public class CardEditActivity extends MenuToolbar {
     private Toolbar toolbar;
     //
     private EditText et_desc_card;
-    private EditText et_number_card;
     private CheckBox cb_credito;
     private CheckBox cb_debito;
     //
@@ -57,7 +56,6 @@ public class CardEditActivity extends MenuToolbar {
         //
         toolbar = findViewById(R.id.toolbar);
         et_desc_card = findViewById(R.id.et_desc_card);
-        et_number_card = findViewById(R.id.et_number_card);
         cb_credito = findViewById(R.id.cb_credito);
         cb_debito = findViewById(R.id.cb_debito);
         //
@@ -92,13 +90,6 @@ public class CardEditActivity extends MenuToolbar {
             if (cAux.getTipo() == 3) {
                 cb_credito.setChecked(true);
                 cb_debito.setChecked(true);
-            }
-
-
-            if (cAux.getNumbercard().equals("0")) {
-                et_number_card.setText("");
-            } else {
-                et_number_card.setText(String.valueOf(cAux.getNumbercard()));
             }
         }
     }

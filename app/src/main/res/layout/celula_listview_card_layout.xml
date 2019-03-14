@@ -32,14 +32,6 @@
             android:layout_height="34dp"
             android:textSize="26sp" />
 
-        <TextView
-            android:id="@+id/celula_number"
-            style="@style/Text_Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorText2"
-            android:textSize="18sp" />
-
     </LinearLayout>
 
     <LinearLayout

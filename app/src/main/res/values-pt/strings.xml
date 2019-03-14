@@ -34,7 +34,6 @@
     <string name="alert_ok">Sim</string>
     <string name="alert_message_retorno">"Deseja realmente cancelar? "</string>
     <string name="alert_cancel">Não</string>
-    <string name="toast_number_card">Números Finais: Deixe em branco ou digite 4 números</string>
     <string name="toast_desc_card">Descrição do Cartão: é obrigatória</string>
     <string name="cb_debito">Débito</string>
     <string name="cb_credito">Crédito</string>
@@ -80,7 +79,6 @@
     <string name="tv_no_card">Não existe cartão</string>
     <string name="mensagem_register_card">Você precisa registrar um cartão primeiro</string>
     <string name="cb_string_creditdebit">Crédito Débito</string>
-    <string name="string_credit_debit">C\nD</string>
     <string name="desc_card">Cartão:</string>
     <string name="desc_date">Data:</string>
     <string name="title_edit_notas">Editar Comprovantes</string>
