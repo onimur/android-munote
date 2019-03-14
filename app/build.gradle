@@ -46,23 +46,7 @@ android {
         }
     }
     buildToolsVersion '28.0.3'
-
-
-    flavorDimensions "tier"
     productFlavors {
-        free {
-            applicationId "com.onimus.munotes.free"
-            // este booleano pode ser acessado em classes java usando a classe BuildConfig
-            buildConfigField "boolean", "FREE_VERSION", "true"
-            resValue "string", "app_name", "MUnotes"
-
-        }
-
-        paid {
-            applicationId "com.onimus.munotes.paid"
-            buildConfigField "boolean", "FREE_VERSION", "false"
-            resValue "string", "app_name", "MUnotes Pro"
-        }
     }
 }
 

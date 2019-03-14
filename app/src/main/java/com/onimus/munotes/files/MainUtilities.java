@@ -900,24 +900,17 @@ public class MainUtilities extends AppCompatActivity {
 
     public void loadAdmob() {
         AdView mAdView = findViewById(R.id.adView);
-        LinearLayout ll_adview = findViewById(R.id.ll_adview);
 
-        if (BuildConfig.FREE_VERSION){
 
-            mAdView.setAdListener(new AdManager());
 
-            AdRequest.Builder builder = new AdRequest.Builder();
-            if (BuildConfig.DEBUG) {
-                builder.addTestDevice("322CF4FABD4B5A1207AAA9224C571B6E");
-            }
+        mAdView.setAdListener(new AdManager());
 
-            AdRequest adRequest = builder.build();
-            mAdView.loadAd(adRequest);
-        } else {
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ll_adview.getLayoutParams();
-            params.height = 0;
-            ll_adview.setLayoutParams(params);
+        AdRequest.Builder builder = new AdRequest.Builder();
+        if (BuildConfig.DEBUG) {
+            builder.addTestDevice("322CF4FABD4B5A1207AAA9224C571B6E");
         }
 
+        AdRequest adRequest = builder.build();
+        mAdView.loadAd(adRequest);
     }
 }

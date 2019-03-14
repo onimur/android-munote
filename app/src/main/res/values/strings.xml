@@ -11,6 +11,8 @@
   -->
 
 <resources>
+    <string name="app_name" translatable="false">MUnotes</string>
+
     <string name="operation_cancel">Operation cancel</string>
     <string name="title_invoice">Invoices</string>
     <string name="btn_picture">Take a Picture</string>
