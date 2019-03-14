@@ -38,9 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.inmobi.sdk.InMobiSdk;
 import com.onimus.munotes.BuildConfig;
 import com.onimus.munotes.Constants;
 import com.onimus.munotes.R;
@@ -910,7 +908,7 @@ public class MainUtilities extends AppCompatActivity {
 
             AdRequest.Builder builder = new AdRequest.Builder();
             if (BuildConfig.DEBUG) {
-                builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
+                builder.addTestDevice("322CF4FABD4B5A1207AAA9224C571B6E");
             }
 
             AdRequest adRequest = builder.build();
