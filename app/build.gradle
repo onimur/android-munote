@@ -13,17 +13,17 @@ apply plugin: 'com.android.application'
  */
 
 // Carrega a chave API-key, que está em um arquivo ignorado pelo git
-def keystorePropertiesFile = rootProject.file("keystore.properties");
+/*def keystorePropertiesFile = rootProject.file("keystore.properties");
 def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))*/
 
 android {
     signingConfigs {
         config {
-            storeFile file(keystoreProperties['storeFile'])
+/*            storeFile file(keystoreProperties['storeFile'])
             storePassword keystoreProperties['storePassword']
             keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
+            keyPassword keystoreProperties['keyPassword']*/
         }
     }
 
@@ -32,6 +32,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
         versionName VERSION_NAME
+        versionCode VERSION_CODE as int
         applicationId 'com.onimus.munote'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
