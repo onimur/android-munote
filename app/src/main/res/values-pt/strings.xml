@@ -110,4 +110,7 @@
     <string name="text_in">em</string>
     <string name="sorted_by_title">classificado por título</string>
     <string name="sort_by_title">Classificar por Título</string>
+    <string name="text_cb_terms">Aceitar os termos</string>
+    <string name="title_dialog_terms">Coleta e uso de dados</string>
+    <string name="message_dialog_terms">Ao aceitar os termos você está de acordo com as seguintes informações:\n\nMUnote coleta informações de pagamentos e nomes dos cartões utilizados pelo usuário. Tais informações são de uso exclusivo do usuário, o Aplicativo funciona offline, sendo assim as informações coletadas serão utilizadas pelo MUnote APP apenas para o controle e gerenciamento de gastos e elas ficam armazenadas apenas no aparelho do usuário. Nenhuma dessas informações será compartilhada para algum servidor ou para terceiros.</string>
 </resources>

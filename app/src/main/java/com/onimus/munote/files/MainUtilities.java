@@ -920,6 +920,7 @@ public class MainUtilities extends AppCompatActivity {
         AdRequest.Builder builder = new AdRequest.Builder();
         if (BuildConfig.DEBUG) {
             builder.addTestDevice("322CF4FABD4B5A1207AAA9224C571B6E");
+            builder.addTestDevice("43539323E5E3D50693C87D974197959B");
         }
 
         AdRequest adRequest = builder.build();

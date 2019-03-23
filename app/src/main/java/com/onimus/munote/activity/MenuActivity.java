@@ -12,9 +12,16 @@
 
 package com.onimus.munote.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.onimus.munote.R;
 import com.onimus.munote.files.MenuToolbar;
@@ -29,6 +36,7 @@ public class MenuActivity extends MenuToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_screen);
 
+        setContractDialog();
         setPermissions();
         //
         loadAdmob();
@@ -38,6 +46,57 @@ public class MenuActivity extends MenuToolbar {
         setActionOnClickActivity(R.id.btn_menu_card, CardActivity.class);
         // setActionOnClickActivity(R.id.btn_menu_bank, BankActivity.class);
 
+    }
+
+    private void setContractDialog() {
+        View view = View.inflate(this, R.layout.checkbox_contract, null);
+        final CheckBox cb_contract = view.findViewById(R.id.checkbox);
+
+        cb_contract.setText(getString(R.string.text_cb_terms));
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.title_dialog_terms);
+        builder.setMessage(R.string.message_dialog_terms)
+                .setView(view)
+                .setCancelable(false)
+                .setPositiveButton(R.string.text_ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (!cb_contract.isChecked()) {
+                            storeDialogStatus(false);
+                            MenuActivity.this.finish();
+                        } else {
+                            storeDialogStatus(true);
+                        }
+
+                    }
+                })
+                .setNegativeButton(R.string.btn_cancelar, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        storeDialogStatus(false);
+                        dialog.cancel();
+                        MenuActivity.this.finish();
+                    }
+                });
+        AlertDialog mDialog = builder.create();
+//        mDialog.show();
+
+        if (getDialogStatus()) {
+            mDialog.hide();
+        } else {
+            mDialog.show();
+        }
+    }
+
+    private void storeDialogStatus(boolean isChecked) {
+        SharedPreferences mSharedPreferences = getSharedPreferences("CheckTerms", MODE_PRIVATE);
+        SharedPreferences.Editor mEditor = mSharedPreferences.edit();
+        mEditor.putBoolean("terms", isChecked);
+        mEditor.apply();
+    }
+
+    private boolean getDialogStatus() {
+        SharedPreferences mSharedPreferences = getSharedPreferences("CheckTerms", MODE_PRIVATE);
+        return mSharedPreferences.getBoolean("terms", false);
     }
 
     private void setPermissions() {
