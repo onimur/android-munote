@@ -38,7 +38,6 @@ public class MenuActivity extends MenuToolbar {
         setActionOnClickActivity(R.id.btn_menu_card, CardActivity.class);
         // setActionOnClickActivity(R.id.btn_menu_bank, BankActivity.class);
 
-
     }
 
     private void setPermissions() {
@@ -63,6 +62,5 @@ public class MenuActivity extends MenuToolbar {
 
         }
     }
-
 
 }

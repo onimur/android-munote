@@ -23,12 +23,11 @@ public class Card {
         this.descartao = "";
         this.tipo = -1;
     }
-
-    public Card(long idcartao, String descartao, int tipo, String numbercard) {
+  /*  public Card(long idcartao, String descartao, int tipo) {
         this.idcartao = idcartao;
         this.descartao = descartao;
         this.tipo = tipo;
-    }
+    }*/
 
     public long getIdcartao() {
         return idcartao;

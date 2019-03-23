@@ -33,13 +33,11 @@ public class RecordListNotesAdapter extends BaseAdapter {
     private int layout;
     private ArrayList<HMAuxNotes> hmAux;
 
-
     public RecordListNotesAdapter(Context context, int layout, ArrayList<HMAuxNotes> hmAux) {
         this.hmAux = hmAux;
         this.context = context;
         this.layout = layout;
     }
-
 
     @Override
     public int getCount() {
@@ -54,6 +52,12 @@ public class RecordListNotesAdapter extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         return i;
+    }
+
+    public void updateDataChanged(ArrayList<HMAuxNotes> newlist) {
+        hmAux.clear();
+        hmAux.addAll(newlist);
+        this.notifyDataSetChanged();
     }
 
     private class ViewHolder {
@@ -85,7 +89,7 @@ public class RecordListNotesAdapter extends BaseAdapter {
         holder.celula_title_notas.setText(model.get(NotesDao.TITLENOTAS));
         holder.celula_desc_notas.setText(model.get(NotesDao.DESNOTAS));
         String price = model.get(NotesDao.PRECONOTAS);
-        if (price != null){
+        if (price != null) {
             price = formatTextPrice(price);
         }
         holder.celula_price_notas.setText(price);

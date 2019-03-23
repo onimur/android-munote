@@ -61,13 +61,13 @@ public class CardViewActivity extends MenuToolbar {
         loadAdmob();
         //
     }
+
     private void startAction() {
         setSupportActionBar(toolbar);
 
         setField();
 
-
-        setAlertDialogDeleteOnClickActivity(R.id.btn_deletar, CardActivity.class,context, idAtual, "cartao" );
+        setAlertDialogDeleteOnClickActivity(R.id.btn_deletar, CardActivity.class, context, idAtual, "cartao");
         setActionOnClickActivity(R.id.btn_editar, CardEditActivity.class, idAtual);
     }
 
@@ -79,15 +79,15 @@ public class CardViewActivity extends MenuToolbar {
 
             cb_credito.setEnabled(false);
             cb_debito.setEnabled(false);
-            if (cAux.getTipo() == 1){
+            if (cAux.getTipo() == 1) {
                 cb_credito.setChecked(true);
                 cb_debito.setChecked(false);
             }
-            if (cAux.getTipo() == 2){
+            if (cAux.getTipo() == 2) {
                 cb_credito.setChecked(false);
                 cb_debito.setChecked(true);
             }
-            if (cAux.getTipo() == 3){
+            if (cAux.getTipo() == 3) {
                 cb_credito.setChecked(true);
                 cb_debito.setChecked(true);
             }
@@ -98,6 +98,7 @@ public class CardViewActivity extends MenuToolbar {
         idAtual = getIntent().getLongExtra(Constants.ID_BANCO, 0);
 
     }
+
     public void onBackPressed() {
         callActivity(context, CardActivity.class);
     }

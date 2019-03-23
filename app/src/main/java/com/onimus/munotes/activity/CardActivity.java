@@ -35,7 +35,6 @@ import static com.onimus.munotes.bancos.DBaseDirectory.createDirectoryDbase;
 
 public class CardActivity extends MenuToolbar {
 
-
     private Context context;
 
     private ListView lv_cartao;
@@ -48,17 +47,14 @@ public class CardActivity extends MenuToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_screen);
 
-
         startVariables();
         startAction();
-
 
     }
 
     private void startVariables() {
 
         context = getBaseContext();
-
         //
         CardDao cardDao = new CardDao(context);
         //
@@ -72,7 +68,6 @@ public class CardActivity extends MenuToolbar {
         RecordListCardAdapter adapter = new RecordListCardAdapter(context, R.layout.celula_listview_card_layout, cardDao.getListCard());
         lv_cartao.setAdapter(adapter);
     }
-
 
     private void startAction() {
 
@@ -88,15 +83,10 @@ public class CardActivity extends MenuToolbar {
 
         setSupportActionBar(toolbar);
         setActionOnClickActivity(R.id.btn_adicionar, CardAddActivity.class, -1L);
-
-
     }
-
-
 
     public void onBackPressed() {
         callActivity(context, MenuActivity.class);
     }
-
 
 }

@@ -99,4 +99,15 @@
     <string name="text_desc_desc_notas">Descrição da nota</string>
     <string name="text_desc_card">Descrição do cartão</string>
     <string name="text_desc_card_num">Números finais do cartão</string>
+    <string name="tv_no_invoice">Nenhum comprovante registrado</string>
+    <string name="all_cards">Todos Cartões</string>
+    <string name="filter">Filtro</string>
+    <string name="apply">Aplicar</string>
+    <string name="sorted_by_price">classificado por preço</string>
+    <string name="sorted_by_day">classificado por dia</string>
+    <string name="sort_by_price">Classificar por Preço</string>
+    <string name="sort_by_day">Classificar por Dia</string>
+    <string name="text_in">em</string>
+    <string name="sorted_by_title">classificado por título</string>
+    <string name="sort_by_title">Classificar por Título</string>
 </resources>

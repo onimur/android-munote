@@ -22,12 +22,10 @@ public class Constants {
     public static final long SPLASH_DELAY = 100;
 
     public static final String GALERIA = "galeria";
-
     //
     public static final String BANCO_NOME = "munoteDB.db3";
     public static final int VERSAO_BANCO = 6;
     public static final String ID_BANCO = "id";
-
 
     public static final String HOME = "home";
     public static final String NOTAS = "notas";
@@ -37,4 +35,8 @@ public class Constants {
     //
     public static final String DATA1 = "data1";
     public static final String DATA2 = "data2";
+    //
+    public static final String FIELD_DAY = "day";
+    public static final String FIELD_PRICE = "price";
+    public static final String FIELD_TITLE = "title";
 }

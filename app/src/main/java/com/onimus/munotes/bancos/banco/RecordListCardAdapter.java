@@ -30,13 +30,11 @@ public class RecordListCardAdapter extends BaseAdapter {
     private int layout;
     private ArrayList<HMAuxCard> hmAux;
 
-
     public RecordListCardAdapter(Context context, int layout, ArrayList<HMAuxCard> hmAux) {
         this.hmAux = hmAux;
         this.context = context;
         this.layout = layout;
     }
-
 
     @Override
     public int getCount() {
@@ -52,7 +50,6 @@ public class RecordListCardAdapter extends BaseAdapter {
     public long getItemId(int i) {
         return i;
     }
-
 
     private class ViewHolder {
 

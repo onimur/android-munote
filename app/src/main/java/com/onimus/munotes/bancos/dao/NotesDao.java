@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import static android.content.ContentValues.TAG;
 
 
-
 public class NotesDao extends Dao {
 
     private static final String TABELANOTAS = "notas";
@@ -42,7 +41,6 @@ public class NotesDao extends Dao {
     public static final String TIPO = "tipo";
     public static final String PARCELAS = "parcelas";
     public static final String TOTAL = "total";
-
 
     public NotesDao(Context context) {
         super(context);
@@ -61,7 +59,7 @@ public class NotesDao extends Dao {
         cv.put(ANO, notes.getAno());
         cv.put(MES, notes.getMes());
         cv.put(DIA, notes.getDia());
-        cv.put(TIPO,notes.getTipo());
+        cv.put(TIPO, notes.getTipo());
         cv.put(PARCELAS, notes.getParcelas());
         //
         db.insert(TABELANOTAS, null, cv);
@@ -84,7 +82,7 @@ public class NotesDao extends Dao {
         cv.put(ANO, notes.getAno());
         cv.put(MES, notes.getMes());
         cv.put(DIA, notes.getDia());
-        cv.put(TIPO,notes.getTipo());
+        cv.put(TIPO, notes.getTipo());
         cv.put(PARCELAS, notes.getParcelas());
         //
         db.update(TABELANOTAS, cv, filtro, argumentos);
@@ -100,7 +98,7 @@ public class NotesDao extends Dao {
         //
         ContentValues cv = new ContentValues();
         cv.put(IDCARTAO, -1);
-       //
+        //
         db.update(TABELANOTAS, cv, filtro, argumentos);
         //
         closeDataBase();
@@ -156,51 +154,6 @@ public class NotesDao extends Dao {
         closeDataBase();
         //
         return cAux;
-    }
-
-    public ArrayList<HMAuxNotes> getListNotes() {
-        ArrayList<HMAuxNotes> notas = new ArrayList<>();
-        //
-        openDataBase();
-        //
-        Cursor cursor = null;
-        //
-        try {
-
-            String comando = " select " +
-                    IDNOTAS + ", " + IDCARTAO + ", " + DESNOTAS + ", " +
-                    PRECONOTAS + ", " + ANO + ", " + FOTONOTAS + ", " + MES + ", " + DIA +
-                    " from " + TABELANOTAS + " order by " + DIA + " ";
-            //
-            cursor = db.rawQuery(comando, null);
-            //
-            while (cursor.moveToNext()) {
-                HMAuxNotes hmAux = new HMAuxNotes();
-
-                hmAux.put(IDNOTAS, cursor.getString(cursor.getColumnIndex(IDNOTAS)));
-                hmAux.put(IDCARTAO, cursor.getString(cursor.getColumnIndex(IDCARTAO)));
-                hmAux.put(ANO, cursor.getString(cursor.getColumnIndex(ANO)));
-                hmAux.put(MES, cursor.getString(cursor.getColumnIndex(MES)));
-                hmAux.put(DIA, cursor.getString(cursor.getColumnIndex(DIA)));
-                hmAux.put(DESNOTAS, cursor.getString(cursor.getColumnIndex(DESNOTAS)));
-                hmAux.put(TITLENOTAS, cursor.getString(cursor.getColumnIndex(TITLENOTAS)));
-                hmAux.put(PRECONOTAS, cursor.getString(cursor.getColumnIndex(PRECONOTAS)));
-                hmAux.put(TIPO, cursor.getString(cursor.getColumnIndex(TIPO)));
-                hmAux.put(PARCELAS, cursor.getString(cursor.getColumnIndex(PARCELAS)));
-
-                //
-                notas.add(hmAux);
-            }
-            //
-            cursor.close();
-
-        } catch (Exception e) {
-            Log.e(TAG, "getListNotes: ");
-        }
-        //
-        closeDataBase();
-        //
-        return notas;
     }
 
     public ArrayList<HMAuxNotes> getListYearNotes() {
@@ -268,21 +221,47 @@ public class NotesDao extends Dao {
         //
         return notas;
     }
-    public ArrayList<HMAuxNotes> getListDayNotesBoth(String ano, String mes) {
+
+    public ArrayList<HMAuxNotes> getListNotes(String ano, String mes, String idCard, String tipo, String orderBy) {
         ArrayList<HMAuxNotes> notas = new ArrayList<>();
         //
         openDataBase();
         //
         Cursor cursor = null;
+        String comando;
         //
         try {
 
-            String comando = " select " +
-                    IDNOTAS + ", " +
-                    DESNOTAS + ", " +
-                    TITLENOTAS + ", " +
-                    PRECONOTAS + ", " + DIA +
-                    " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and "+ MES +" = '"+ mes + "' order by " + DIA + " ";
+            if (!idCard.equals("-1") && !tipo.equals("3")) {
+                comando = " select " +
+                        IDNOTAS + ", " +
+                        DESNOTAS + ", " +
+                        TITLENOTAS + ", " +
+                        PRECONOTAS + ", " + DIA +
+                        " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and " + MES + " = '" + mes + "' and " + IDCARTAO + " = '" + idCard + "' and " + TIPO + " = '" + tipo + "' order by " + orderBy + " ";
+            } else if (idCard.equals("-1") && !tipo.equals("3")) {
+                comando = " select " +
+                        IDNOTAS + ", " +
+                        DESNOTAS + ", " +
+                        TITLENOTAS + ", " +
+                        PRECONOTAS + ", " + DIA +
+                        " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and " + MES + " = '" + mes + "' and " + TIPO + " = '" + tipo + "' order by " + orderBy + " ";
+            } else if (!idCard.equals("-1") && tipo.equals("3")) {
+                comando = " select " +
+                        IDNOTAS + ", " +
+                        DESNOTAS + ", " +
+                        TITLENOTAS + ", " +
+                        PRECONOTAS + ", " + DIA +
+                        " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and " + MES + " = '" + mes + "' and " + IDCARTAO + " = '" + idCard + "' order by " + orderBy + " ";
+            } else {
+                comando = " select " +
+                        IDNOTAS + ", " +
+                        DESNOTAS + ", " +
+                        TITLENOTAS + ", " +
+                        PRECONOTAS + ", " + DIA +
+                        " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and " + MES + " = '" + mes + "' order by " + orderBy + " ";
+            }
+
             //
             cursor = db.rawQuery(comando, null);
             //
@@ -309,165 +288,30 @@ public class NotesDao extends Dao {
         return notas;
     }
 
-    public ArrayList<HMAuxNotes> getListDayNotesCredit(String ano, String mes) {
-        ArrayList<HMAuxNotes> notas = new ArrayList<>();
-        //
-        openDataBase();
-        //
-        Cursor cursor = null;
-        //
-        try {
-
-            String comando = " select " +
-                    IDNOTAS + ", " +
-                    DESNOTAS + ", " +
-                    TITLENOTAS + ", " +
-                    PRECONOTAS + ", " + DIA +
-                    " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and "+ MES +" = '"+ mes + "' and "+ TIPO + " = 1" + " order by " + DIA + " ";
-            //
-            cursor = db.rawQuery(comando, null);
-            //
-            while (cursor.moveToNext()) {
-                HMAuxNotes hmAux = new HMAuxNotes();
-                hmAux.put(IDNOTAS, cursor.getString(cursor.getColumnIndex(IDNOTAS)));
-                hmAux.put(DESNOTAS, cursor.getString(cursor.getColumnIndex(DESNOTAS)));
-                hmAux.put(DIA, cursor.getString(cursor.getColumnIndex(DIA)));
-                hmAux.put(TITLENOTAS, cursor.getString(cursor.getColumnIndex(TITLENOTAS)));
-                hmAux.put(PRECONOTAS, cursor.getString(cursor.getColumnIndex(PRECONOTAS)));
-
-                //
-                notas.add(hmAux);
-            }
-            //
-            cursor.close();
-
-        } catch (Exception e) {
-            Log.e(TAG, "getListNotes: ");
-        }
-        //
-        closeDataBase();
-        //
-        return notas;
-    }
-
-    public ArrayList<HMAuxNotes> getListDayNotesDebit(String ano, String mes) {
-        ArrayList<HMAuxNotes> notas = new ArrayList<>();
-        //
-        openDataBase();
-        //
-        Cursor cursor = null;
-        //
-        try {
-
-            String comando = " select " +
-                    IDNOTAS + ", " +
-                    DESNOTAS + ", " +
-                    TITLENOTAS + ", " +
-                    PRECONOTAS + ", " + DIA +
-                    " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and "+ MES +" = '"+ mes + "' and "+ TIPO + " = 2" + " order by " + DIA + " ";
-            //
-            cursor = db.rawQuery(comando, null);
-            //
-            while (cursor.moveToNext()) {
-                HMAuxNotes hmAux = new HMAuxNotes();
-                hmAux.put(IDNOTAS, cursor.getString(cursor.getColumnIndex(IDNOTAS)));
-                hmAux.put(DESNOTAS, cursor.getString(cursor.getColumnIndex(DESNOTAS)));
-                hmAux.put(DIA, cursor.getString(cursor.getColumnIndex(DIA)));
-                hmAux.put(TITLENOTAS, cursor.getString(cursor.getColumnIndex(TITLENOTAS)));
-                hmAux.put(PRECONOTAS, cursor.getString(cursor.getColumnIndex(PRECONOTAS)));
-
-                //
-                notas.add(hmAux);
-            }
-            //
-            cursor.close();
-
-        } catch (Exception e) {
-            Log.e(TAG, "getListNotes: ");
-        }
-        //
-        closeDataBase();
-        //
-        return notas;
-    }
-
-    public HMAuxNotes getNotesCreditTotal(String ano, String mes) {
+    public HMAuxNotes getNotesTotal(String ano, String mes, String idCard, String tipo) {
         HMAuxNotes notas = null;
         //
         openDataBase();
         //
         Cursor cursor = null;
+        String comando;
         //
         try {
+            if (!idCard.equals("-1") && !tipo.equals("3")) {
+                comando = " select SUM(" + PRECONOTAS + ") as " + TOTAL +
+                        " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and " + MES + " = '" + mes + "' and " + IDCARTAO + " = '" + idCard + "' and " + TIPO + " = '" + tipo + "' order by " + DIA + " ";
 
-            String comando = " select SUM(" +PRECONOTAS +") as " + TOTAL +
-                    " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and "+ MES +" = '"+ mes + "' and "+ TIPO + " = 1" + " order by " + DIA + " ";
-            //
-            cursor = db.rawQuery(comando, null);
-            //
-            while (cursor.moveToNext()) {
-                HMAuxNotes hmAux = new HMAuxNotes();
-                hmAux.put(TOTAL, String.valueOf(cursor.getDouble(cursor.getColumnIndex(TOTAL))));
+            } else if (idCard.equals("-1") && !tipo.equals("3")) {
+                comando = " select SUM(" + PRECONOTAS + ") as " + TOTAL +
+                        " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and " + MES + " = '" + mes + "' and " + TIPO + " = '" + tipo + "' order by " + DIA + " ";
 
-                //
-                notas = hmAux;
+            } else if (!idCard.equals("-1") && tipo.equals("3")) {
+                comando = " select SUM(" + PRECONOTAS + ") as " + TOTAL +
+                        " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and " + MES + " = '" + mes + "' and " + IDCARTAO + " = '" + idCard + "' order by " + DIA + " ";
+            } else {
+                comando = " select SUM(" + PRECONOTAS + ") as " + TOTAL +
+                        " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and " + MES + " = '" + mes + "' order by " + DIA + " ";
             }
-            //
-            cursor.close();
-
-        } catch (Exception e) {
-            Log.e(TAG, "getNotesTotal: ");
-        }
-        //
-        closeDataBase();
-        //
-        return notas;
-    }
-
-    public HMAuxNotes getNotesDebitTotal(String ano, String mes) {
-        HMAuxNotes notas = null;
-        //
-        openDataBase();
-        //
-        Cursor cursor = null;
-        //
-        try {
-
-            String comando = " select SUM(" +PRECONOTAS +") as " + TOTAL +
-                    " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and "+ MES +" = '"+ mes + "' and "+ TIPO + " = 2" + " order by " + DIA + " ";
-            //
-            cursor = db.rawQuery(comando, null);
-            //
-            while (cursor.moveToNext()) {
-                HMAuxNotes hmAux = new HMAuxNotes();
-                hmAux.put(TOTAL, String.valueOf(cursor.getDouble(cursor.getColumnIndex(TOTAL))));
-
-                //
-                notas = hmAux;
-            }
-            //
-            cursor.close();
-
-        } catch (Exception e) {
-            Log.e(TAG, "getNotesTotal: ");
-        }
-        //
-        closeDataBase();
-        //
-        return notas;
-    }
-
-    public HMAuxNotes getNotesBothTotal(String ano, String mes) {
-        HMAuxNotes notas = null;
-        //
-        openDataBase();
-        //
-        Cursor cursor = null;
-        //
-        try {
-
-            String comando = " select SUM(" +PRECONOTAS +") as " + TOTAL +
-                    " from " + TABELANOTAS + " where " + ANO + " = '" + ano + "' and "+ MES +" = '"+ mes  + "' order by " + DIA + " ";
             //
             cursor = db.rawQuery(comando, null);
             //
@@ -522,5 +366,4 @@ public class NotesDao extends Dao {
         //
         return proUD;
     }
-
 }

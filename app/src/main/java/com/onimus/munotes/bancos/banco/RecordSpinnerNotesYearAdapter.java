@@ -47,11 +47,11 @@ public class RecordSpinnerNotesYearAdapter extends BaseAdapter {
     }
 
     @Override
-        public long getItemId(int i) {
-            return i;
-        }
+    public long getItemId(int i) {
+        return i;
+    }
 
-    private class ViewHolder{
+    private class ViewHolder {
 
         TextView celula_year;
     }
@@ -62,21 +62,20 @@ public class RecordSpinnerNotesYearAdapter extends BaseAdapter {
         View row = view;
         ViewHolder holder = new ViewHolder();
 
-        if (row==null){
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(layout, viewGroup,false);
+        if (row == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = inflater.inflate(layout, viewGroup, false);
             holder.celula_year = row.findViewById(R.id.celula_year);
 
             row.setTag(holder);
-        }
-        else {
-            holder = (ViewHolder)row.getTag();
+        } else {
+            holder = (ViewHolder) row.getTag();
         }
 //monta a listview
         HMAuxNotes model = hmAux.get(i);
 
-      holder.celula_year.setText(model.get(NotesDao.ANO));
-                   return row;
+        holder.celula_year.setText(model.get(NotesDao.ANO));
+        return row;
     }
 
 }

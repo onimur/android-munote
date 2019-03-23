@@ -40,7 +40,6 @@ public class ImageUtilities {
     private String caminho;
     private static String caminhoSemPath;
 
-
     public void createDirectory(String nomePasta) throws IOException {
 
         File dir;
@@ -53,7 +52,6 @@ public class ImageUtilities {
         timeMoth = new SimpleDateFormat("MMMM", Locale.ENGLISH).format(new Date());
         caminhoYearMonth = timeYear + "/" + timeMoth;
         timeAll = FOLDER_NAME + nomePasta + caminhoYearMonth;
-
 
         //Cria pasta
         dir = createReturnDir(timeAll);
@@ -87,6 +85,7 @@ public class ImageUtilities {
         caminhoSemPath = caminhoYearMonth + "/" + timeFileName;
         return image;
     }
+
     public static String returnCaminhoSemPath() {
         return caminhoSemPath;
     }
@@ -95,7 +94,7 @@ public class ImageUtilities {
         int larguraFOTO;
         int alturaFOTO;
 
-       MainUtilities mainUtilities = new MainUtilities();
+        MainUtilities mainUtilities = new MainUtilities();
 
         //Código para pegar altura e largura do ImageView
         // largura = iv_foto.getWidth();
@@ -113,7 +112,6 @@ public class ImageUtilities {
 
         larguraFOTO = options.outWidth;
         alturaFOTO = options.outHeight;
-
 
         int altura = 512;
         int largura = 400;
@@ -192,6 +190,7 @@ public class ImageUtilities {
             imgFile.delete();
         }
     }
+
     public static boolean checkDirectory() {
         return !fileDir.exists();
     }

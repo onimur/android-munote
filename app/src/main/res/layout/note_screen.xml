@@ -31,121 +31,167 @@
         android:orientation="vertical"
         android:paddingBottom="10dp">
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/filterBarContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:background="@color/colorPrimaryDark"
+            android:paddingLeft="12dp"
+            android:paddingTop="20dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="12dp">
 
-            <TextView
-                style="@style/Text_title"
-                android:text="@string/title_invoice"
-                android:textColor="@color/colorWhite" />
-        </LinearLayout>
+            <android.support.v7.widget.CardView
+                android:id="@+id/filterBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:elevation="12dp"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/colorBackgroundEditext">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/buttonFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_filtro"
+                        tools:ignore="ContentDescription" />
+
+                    <LinearLayout
+                        android:id="@+id/textCurrentSearchContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_toStartOf="@id/btn_clear_filter"
+                        android:layout_toEndOf="@+id/buttonFilter"
+                        android:orientation="vertical"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        tools:ignore="RelativeOverlap">
+
+                        <TextView
+                            android:id="@+id/tv_filter"
+                            style="@style/Text_Description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="@string/all_cards"
+                            android:textColor="#E6E6E6"
+                            tools:text="Filter" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_year_month_filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_year_month_filter"
+                                style="@style/AppTheme.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:text=""
+                                android:textColor="#E6E6E6" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_sort_by"
+                            style="@style/AppTheme.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="@string/sorted_by_day"
+                            android:textColor="#E6E6E6" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/btn_clear_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_delete_icon"
+                        tools:ignore="ContentDescription" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
             android:gravity="center"
+            android:orientation="horizontal"
             android:paddingStart="10dp"
+            android:paddingTop="10dp"
             android:paddingEnd="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="2dp">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp">
 
                 <TextView
                     style="@style/Text_Description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_year"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="13sp" />
-
-                <View
-                    android:layout_width="5dp"
-                    android:layout_height="0dp" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <Spinner
-                        android:id="@+id/sp_year"
-                        android:layout_width="match_parent"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/spinner_background"
-                        android:popupBackground="@drawable/spinner_background_checked"
-                        android:spinnerMode="dropdown" />
-
-                    <ImageView
-                        android:id="@+id/iv_arrow1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:layout_alignEnd="@id/sp_year"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="2dp"
-                        android:src="@drawable/arrow"
-                        tools:ignore="ContentDescription" />
-
-                </RelativeLayout>
-
+                    android:text="@string/text_day"
+                    android:textSize="12sp" />
             </LinearLayout>
-
-            <View
-                android:layout_width="40dp"
-                android:layout_height="1dp" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="10"
+                android:layout_weight="3"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/celula_title_notas"
                     style="@style/Text_Description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_month"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="13sp" />
+                    android:text="@string/text_title_description"
+                    android:textSize="12sp" />
 
-                <View
-                    android:layout_width="5dp"
-                    android:layout_height="1dp" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <Spinner
-                        android:id="@+id/sp_month"
-                        android:layout_width="match_parent"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/spinner_background"
-                        android:popupBackground="@drawable/spinner_background_checked"
-                        android:spinnerMode="dropdown" />
-
-                    <ImageView
-                        android:id="@+id/iv_arrow2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:layout_alignEnd="@id/sp_month"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="2dp"
-                        android:src="@drawable/arrow"
-                        tools:ignore="ContentDescription" />
-                </RelativeLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/celula_price_notas"
+                    style="@style/Text_Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/tv_value"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -159,25 +205,62 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tablayout_id"
+                <ListView
+                    android:id="@+id/lv_note"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:background="@color/colorText2"
-                    app:tabGravity="fill"
-                    app:tabIndicatorColor="@color/colorSpinner"
-                    app:tabMode="fixed"
-                    app:tabSelectedTextColor="@color/colorWhite"
-                    app:tabTextAppearance="@style/Text_Description_Bold"
-                    app:tabTextColor="@color/colorWhiteTransparence">
+                    android:layout_height="match_parent"
+                    android:drawSelectorOnTop="true">
 
-                </android.support.design.widget.TabLayout>
+                </ListView>
+            </LinearLayout>
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/viewpager_id"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBackgroundEditext"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        style="@style/Text_Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_total"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
 
+                    <TextView
+                        android:id="@+id/tv_symbol1"
+                        style="@style/Text_Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp" />
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="1dp" />
+
+                    <TextView
+                        android:id="@+id/tv_total"
+                        style="@style/Text_Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -198,6 +281,7 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

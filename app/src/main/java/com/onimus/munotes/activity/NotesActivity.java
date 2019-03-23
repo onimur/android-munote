@@ -13,46 +13,55 @@
 package com.onimus.munotes.activity;
 
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Spinner;
+import android.widget.ListView;
+import android.widget.TextView;
 
 
+import com.onimus.munotes.Constants;
 import com.onimus.munotes.R;
 import com.onimus.munotes.bancos.banco.HMAuxNotes;
-import com.onimus.munotes.bancos.banco.RecordSpinnerNotesMonthAdapter;
-import com.onimus.munotes.bancos.banco.RecordSpinnerNotesYearAdapter;
+import com.onimus.munotes.bancos.banco.RecordListNotesAdapter;
 import com.onimus.munotes.bancos.dao.NotesDao;
+import com.onimus.munotes.bancos.model.NotesActivityViewModel;
+import com.onimus.munotes.files.Filters;
 import com.onimus.munotes.files.MenuToolbar;
-import com.onimus.munotes.files.ViewPagerAdapter;
+import com.onimus.munotes.fragmentos.FilterDialogFragment;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import static com.onimus.munotes.bancos.DBaseDirectory.createDirectoryDbase;
+import static com.onimus.munotes.bancos.dao.NotesDao.TOTAL;
+import static com.onimus.munotes.files.MoneyTextWatcher.formatTextPrice;
+import static com.onimus.munotes.files.MoneyTextWatcher.getCurrencySymbol;
 
-public class NotesActivity extends MenuToolbar {
+public class NotesActivity extends MenuToolbar implements FilterDialogFragment.FilterListener {
 
 
     private Context context;
     private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private Spinner sp_year;
-    private Spinner sp_month;
-    private NotesDao notesDao;
-    private ArrayList<HMAuxNotes> hmAux;
+    private TextView tv_filter;
+    private TextView tv_sort_by;
+    private TextView tv_year_month_filter;
+    private ListView lv_note;
+    private TextView tv_total;
+    private TextView tv_symbol1;
 
     private String anoAtual;
     private String mesAtual;
-    private int positionFragment = -1;
 
+    private FilterDialogFragment mFilterDialog;
+    private NotesActivityViewModel mViewModel;
+    //
+    private NotesDao notesDao;
+    private RecordListNotesAdapter adapter;
     //
 
     @Override
@@ -60,166 +69,140 @@ public class NotesActivity extends MenuToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.note_screen);
 
-
         startVariables();
         startAction();
-
 
     }
 
     private void startVariables() {
 
         context = getBaseContext();
-        notesDao = new NotesDao(context);
 
         toolbar = findViewById(R.id.toolbar);
-        tabLayout = findViewById(R.id.tablayout_id);
-        viewPager = findViewById(R.id.viewpager_id);
-        sp_year = findViewById(R.id.sp_year);
-        sp_month = findViewById(R.id.sp_month);
+        tv_filter = findViewById(R.id.tv_filter);
+        tv_sort_by = findViewById(R.id.tv_sort_by);
+        tv_year_month_filter = findViewById(R.id.tv_year_month_filter);
+        lv_note = findViewById(R.id.lv_note);
+        tv_total = findViewById(R.id.tv_total);
+        tv_symbol1 = findViewById(R.id.tv_symbol1);
         //
         loadAdmob();
-        //
+
     }
 
     private void startAction() {
-        anoAtual = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-        mesAtual = String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1);
+        // View model
+        mViewModel = ViewModelProviders.of(this).get(NotesActivityViewModel.class);
+        //
+        mFilterDialog = new FilterDialogFragment();
+        //
         createDirectoryDbase(context);
+        toolbar.setTitle(R.string.title_invoice);
         setSupportActionBar(toolbar);
         //
-        setArrowToSpinnerLowerVersion();
-        //
-        RecordSpinnerNotesYearAdapter adapter = new RecordSpinnerNotesYearAdapter(context, R.layout.celula_spinner_year_layout, notesDao.getListYearNotes());
-
-        sp_year.setAdapter(adapter);
-        //
-        //
-        sp_year.setSelection(getSpinnerYearIndex(sp_year, anoAtual));
-        //
-        setActionOnClick(R.id.sp_year, new OnSpinnerYearClickAction());
-        //
-        setFragmentNotes(anoAtual, mesAtual);
         setActionOnClickActivity(R.id.btn_adicionar, NotesAddActivity.class, -1L);
+        setActionOnClick(R.id.filterBar, new OnCardViewClickAction());
+        setActionOnClick(R.id.btn_clear_filter, new OnClearFilterClickAction());
 
+
+        lv_note.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HMAuxNotes item = (HMAuxNotes) parent.getItemAtPosition(position);
+                String idnotas = item.get(NotesDao.IDNOTAS);
+                assert idnotas != null;
+                long idnotasL = Long.parseLong(idnotas);
+
+                Intent mIntent = new Intent(context, NotesViewActivity.class);
+                mIntent.putExtra(Constants.ID_BANCO, idnotasL);
+                //
+                startActivity(mIntent);
+                //
+                finish();
+            }
+        });
 
     }
 
-    private void setFragmentNotes(String newYear, String month) {
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        // Aplica os filtros
+        onFilter(mViewModel.getFilters());
+    }
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), context, newYear, month);
+    @Override
+    public void onFilter(Filters filters) {
+        anoAtual = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        mesAtual = String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1);
+
+        //Envia o texto referente dos filtros para a descrição do filtro na Activity
+        tv_filter.setText(filters.getSearchDescription(this));
+        tv_sort_by.setText(filters.getOrderDescription(this));
+
+        if (filters.getSearchYearMonthTrue(context)) {
+            tv_year_month_filter.setText(filters.getSearchYearMonth(this));
+        } else {
+            tv_year_month_filter.setText((context.getString(R.string.text_in) + " " + changeMonthToExtension(mesAtual) + " " + anoAtual));
+        }
+
+        notesDao = new NotesDao(context);
         //
-        viewPager.setAdapter(adapter);
+        String month = filters.getMonth();
+        String year = filters.getYear();
+        String idcard = filters.getCard();
+        String tipo = filters.getTipo();
+        String sortBy = filters.getOrderDescriptionDB();
 
-        //recria o fragment na posição que o usuário estava
-        if (positionFragment!= -1){
-            viewPager.setCurrentItem(positionFragment);
+        //Envia os adaptadores atualizados para a ListView
+        if (year == null || month == null || idcard == null || tipo == null) {
+            adapter = new RecordListNotesAdapter(context, R.layout.celula_listview_notas_layout, notesDao.getListNotes(anoAtual, mesAtual, "-1", "3", NotesDao.DIA));
+            lv_note.setAdapter(adapter);
 
-        }
-
-        tabLayout.setupWithViewPager(viewPager);
-
-
-    }
-
-    //Verifica em qual posição está o ANO;
-    public int getSpinnerYearIndex(Spinner spinner, String ano) {
-        int index = 0;
-        hmAux = notesDao.getListYearNotes();
-
-        for (int i = 0; i < spinner.getCount(); i++) {
-            HMAuxNotes model = hmAux.get(i);
-            String modelS = model.get(NotesDao.ANO);
-            if (modelS != null) {
-                if (modelS.equals(ano)) {
-                    index = i;
-                }
+            HMAuxNotes text = notesDao.getNotesTotal(anoAtual, mesAtual, "-1", "3");
+            String total = text.get(TOTAL);
+            if (total != null) {
+                total = formatTextPrice(total);
             }
-        }
-        return index;
-    }
-
-    //Verifica em qual posição está o mês;
-    public int getSpinnerMonthIndex(Spinner spinner, String mes, String ano) {
-        int index = 0;
-        hmAux = notesDao.getListMonthNotes(ano);
-
-        for (int i = 0; i < spinner.getCount(); i++) {
-            HMAuxNotes model = hmAux.get(i);
-            String modelS = model.get(NotesDao.MES);
-            if (modelS != null) {
-                if (modelS.equals(mes)) {
-                    index = i;
-                }
+            tv_total.setText(total);
+        } else {
+            adapter.updateDataChanged(notesDao.getListNotes(year, month, idcard, tipo, sortBy));
+            //
+            HMAuxNotes text = notesDao.getNotesTotal(year, month, idcard, tipo);
+            String total = text.get(TOTAL);
+            if (total != null) {
+                total = formatTextPrice(total);
             }
+            tv_total.setText(total);
         }
-        return index;
+        //
+        tv_symbol1.setText(getCurrencySymbol());
+        mViewModel.setFilters(filters);
     }
 
-    private class OnSpinnerYearClickAction implements AdapterView.OnItemSelectedListener {
-
+    private class OnCardViewClickAction implements View.OnClickListener {
         @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            //Ao clicar no item do sp_year, incializa o sp_month, retornando no spinner os mês já cadastrados e caso o ano seja atual, o mes retornado é o atual também.
-            sp_year.setSelection(position);
-            HMAuxNotes item = (HMAuxNotes) parent.getSelectedItem();
-            String newYear = item.get(NotesDao.ANO);
-
-            RecordSpinnerNotesMonthAdapter adapter2 = new RecordSpinnerNotesMonthAdapter(context, R.layout.celula_spinner_month_layout, notesDao.getListMonthNotes(newYear));
-            sp_month.setAdapter(adapter2);
-
-            assert newYear != null;
-            if (newYear.equals(anoAtual)) {
-                sp_month.setSelection(getSpinnerMonthIndex(sp_month, mesAtual, anoAtual));
-            } else {
-                //envia a ultima posição do mês
-                //caso fosse a ultima: adapter2.getCount() -1
-                sp_month.setSelection(0);
-            }
-            //inicializa o spinner_month
-            setActionOnClick(R.id.sp_month, new OnSpinnerMonthClickAction(newYear));
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
+        public void onClick(View v) {
+            // Mostra o dialogo que contém o filtro
+            mFilterDialog.show(getSupportFragmentManager(), FilterDialogFragment.TAG);
         }
     }
 
-    private class OnSpinnerMonthClickAction implements AdapterView.OnItemSelectedListener {
-        String newYear;
-
-        OnSpinnerMonthClickAction(String newYear) {
-            this.newYear = newYear;
-
-        }
-
+    private class OnClearFilterClickAction implements View.OnClickListener {
         @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            //recupera o mês selecionado e inicia o fragment retornando uma listview referente ao ano e mes passados
-            HMAuxNotes item = (HMAuxNotes) parent.getSelectedItem();
-            String month = item.get(NotesDao.MES);
-            sp_month.setSelection(position);
-            //recupera a posição do fragment atual;
-           positionFragment = viewPager.getCurrentItem();
-
-            setFragmentNotes(newYear, month);
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
+        public void onClick(View v) {
+            //Reseta o filtro
+            mFilterDialog = new FilterDialogFragment();
+            onFilter(Filters.getDefault());
         }
     }
 
     public void onBackPressed() {
 
-            callActivity(context, MenuActivity.class);
-            super.onBackPressed();
+        callActivity(context, MenuActivity.class);
+        super.onBackPressed();
     }
-
 
 }

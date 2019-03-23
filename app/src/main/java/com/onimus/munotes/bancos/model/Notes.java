@@ -40,9 +40,7 @@ public class Notes {
         this.tipo = -1;
         this.parcelas = -1;
     }
-
-
-    public Notes(long idcartao, long idnotas, long ano, long mes, long dia, String titlenotas, String desnotas, String preconotas, String fotonotas, int tipo, int parcelas) {
+    /*public Notes(long idcartao, long idnotas, long ano, long mes, long dia, String titlenotas, String desnotas, String preconotas, String fotonotas, int tipo, int parcelas) {
         this.idcartao = idcartao;
         this.idnotas = idnotas;
         this.ano = ano;
@@ -55,7 +53,7 @@ public class Notes {
         this.tipo = tipo;
         this.parcelas = parcelas;
 
-    }
+    }*/
 
     public long getIdcartao() {
         return idcartao;

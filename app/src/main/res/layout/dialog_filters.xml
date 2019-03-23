@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filters_form"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Text_title_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="@string/filter" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_button_pressed"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp">
+
+            <ImageView
+                android:id="@+id/icon_card"
+                style="@style/AppTheme.FilterIcon"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_card_24px"
+                android:tint="@color/colorWhite"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="6"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start">
+
+                        <CheckBox
+                            android:id="@+id/cb_credito"
+                            style="@style/Text_Description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorWhite"
+                            android:lines="1"
+                            android:text="@string/cb_credito"
+                            android:textSize="15sp"
+                            tools:targetApi="lollipop" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <CheckBox
+                            android:id="@+id/cb_debito"
+                            style="@style/Text_Description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:buttonTint="@color/colorWhite"
+                            android:lines="1"
+                            android:text="@string/cb_debito"
+                            android:textSize="15sp"
+                            tools:targetApi="lollipop" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="1dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="12"
+                    android:gravity="center">
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/sp_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/spinner_background"
+                            android:popupBackground="@drawable/spinner_background_checked"
+                            android:spinnerMode="dropdown" />
+
+                        <ImageView
+                            android:id="@+id/iv_arrow3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:layout_alignEnd="@id/sp_card"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="2dp"
+                            android:src="@drawable/arrow"
+                            tools:ignore="ContentDescription" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_button_pressed"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:id="@+id/icon_calendar"
+                style="@style/AppTheme.FilterIcon"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_calendar_24px"
+                android:tint="@color/colorWhite"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/icon_calendar"
+
+                android:baselineAligned="false"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:gravity="start"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Text_Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_year"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="13sp" />
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/sp_year"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/spinner_background"
+                            android:popupBackground="@drawable/spinner_background_checked"
+                            android:spinnerMode="dropdown" />
+
+                        <ImageView
+                            android:id="@+id/iv_arrow1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_alignEnd="@id/sp_year"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="2dp"
+                            android:src="@drawable/arrow"
+                            tools:ignore="ContentDescription" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="1dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="12"
+                    android:gravity="start"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Text_Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/text_month"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="13sp" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/sp_month"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/spinner_background"
+                            android:popupBackground="@drawable/spinner_background_checked"
+                            android:spinnerMode="dropdown" />
+
+                        <ImageView
+                            android:id="@+id/iv_arrow2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_alignEnd="@id/sp_month"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="2dp"
+                            android:src="@drawable/arrow"
+                            tools:ignore="ContentDescription" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_button_pressed"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/icon_sort"
+                style="@style/AppTheme.FilterIcon"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_order"
+                android:tint="@color/colorWhite"
+                tools:ignore="ContentDescription" />
+
+            <Spinner
+                android:id="@+id/sp_sort"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon_sort"
+                android:background="@drawable/spinner_background"
+                android:popupBackground="@drawable/spinner_background_checked"
+                android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:id="@+id/iv_arrow4"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignEnd="@id/sp_sort"
+                android:paddingStart="0dp"
+                android:paddingEnd="2dp"
+                android:src="@drawable/arrow"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Cancel and apply buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/buttonCancel"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_cancelar"
+            android:textColor="@color/colorText2"
+            android:theme="@style/ThemeOverlay.FilterButton" />
+
+
+        <Button
+            android:id="@+id/buttonSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="@string/apply"
+            android:theme="@style/Button_3_Menor" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

@@ -62,7 +62,6 @@ import static com.onimus.munotes.files.MoneyTextWatcher.formatPriceSave;
 
 public class MainUtilities extends AppCompatActivity {
 
-
     public static void setActionOnClick(final View view, View.OnClickListener action) {
         if (view != null) {
             view.setOnClickListener(action);
@@ -85,7 +84,6 @@ public class MainUtilities extends AppCompatActivity {
         }
     }
 
-
     public void setActionOnClickActivity(final int btn, final Class<?> _class) {
         setActionOnClick(btn, new View.OnClickListener() {
             @Override
@@ -104,7 +102,6 @@ public class MainUtilities extends AppCompatActivity {
             }
         });
     }
-
 
     //Esse retorno não necessita de botão, utilizado pra outros métodos e também pra quando o usuário
     //aperta o botão de retorno do celular, ou em algum item do menutoolbar.
@@ -164,7 +161,6 @@ public class MainUtilities extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 
     //Inicia o alerta ao clicar em algum botão, e se clicar em ok, cancela operação retornando pra activity desejada.
     public void setAlertDialogToReturnOnClickActivity(final int btn, final Class<?> _class, final String putType) {
@@ -367,7 +363,6 @@ public class MainUtilities extends AppCompatActivity {
 
                                     saveNotes(idAtual, context, caminhoSemPath);
                                     //    }
-
                                     callActivity(context, _class);
 
                                 }
@@ -435,8 +430,6 @@ public class MainUtilities extends AppCompatActivity {
                         break;
                     }
                 }
-
-
             }
         });
     }
@@ -470,7 +463,6 @@ public class MainUtilities extends AppCompatActivity {
 
     public void clearField(EditText et, boolean b) {
         //limpa edittext e se for definido como true então o Focus volta pro editext;
-
         et.getText().clear();
 
         if (b) {
@@ -501,9 +493,7 @@ public class MainUtilities extends AppCompatActivity {
         et_desc_card = findViewById(R.id.et_desc_card);
         cb_credito = findViewById(R.id.cb_credito);
         cb_debito = findViewById(R.id.cb_debito);
-
         //
-
         cAux.setDescartao(et_desc_card.getText().toString().trim());
 
         if (cb_credito.isChecked() && !cb_debito.isChecked()) {
@@ -526,7 +516,6 @@ public class MainUtilities extends AppCompatActivity {
             //
             cardDao.insertCard(cAux);
         }
-
     }
 
 
@@ -568,7 +557,6 @@ public class MainUtilities extends AppCompatActivity {
             month = Integer.parseInt(new SimpleDateFormat("MM", Locale.getDefault()).format(dateD));
             day = Integer.parseInt(new SimpleDateFormat("dd", Locale.getDefault()).format(dateD));
 
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -578,7 +566,6 @@ public class MainUtilities extends AppCompatActivity {
         idCartao = item.get(CardDao.IDCARTAO);
         //
         int positionSpParcelas = sp_parcelas.getSelectedItemPosition() + 1;
-
         //
         cAux.setDesnotas(et_desc_invoice.getText().toString());
         cAux.setTitlenotas(et_title_invoice.getText().toString());
@@ -589,7 +576,6 @@ public class MainUtilities extends AppCompatActivity {
         cAux.setMes(month);
         cAux.setDia(day);
         //
-
         if (rb_debit.isChecked()) {
             cAux.setTipo(2);
             cAux.setParcelas(1);
@@ -608,9 +594,7 @@ public class MainUtilities extends AppCompatActivity {
             cAux.setIdnotas(idAtual);
             //
             notesDao.insertNotes(cAux);
-
         }
-
     }
 
     protected int convertToInt(String numero) {
@@ -642,7 +626,6 @@ public class MainUtilities extends AppCompatActivity {
                 String title_invoice;
                 String value;
                 String select_date;
-
                 //
                 ll_hint_spinner = findViewById(R.id.ll_hint_spinner);
                 et_title_invoice = findViewById(R.id.et_title_invoice);
@@ -739,10 +722,7 @@ public class MainUtilities extends AppCompatActivity {
                     case 1: {
 
                         rb_credit.setEnabled(true);
-
                         rb_debit.setEnabled(false);
-
-
                         rb_credit.setChecked(true);
 
                         return true;
@@ -771,7 +751,7 @@ public class MainUtilities extends AppCompatActivity {
                         rb_debit.setVisibility(View.VISIBLE);
                         rb_debit.setEnabled(true);
 
-                        if (rb_debit.isChecked()){
+                        if (rb_debit.isChecked()) {
                             sp_parcelas.setEnabled(false);
                             view_sp_disabled.setVisibility(View.VISIBLE);
                             tv_sp_disabled.setEnabled(false);
@@ -788,7 +768,7 @@ public class MainUtilities extends AppCompatActivity {
         return true;
     }
 
-    public boolean setArrowToSpinnerLowerVersion() {
+    public void setArrowToSpinnerLowerVersion() {
         ImageView iv_arrow;
         ImageView iv_arrow2;
 
@@ -800,11 +780,7 @@ public class MainUtilities extends AppCompatActivity {
             iv_arrow2.setEnabled(false);
             iv_arrow.setVisibility(View.INVISIBLE);
             iv_arrow2.setVisibility(View.INVISIBLE);
-            return true;
-        } else {
-            return false;
         }
-
     }
 
     public boolean setImageSaveToImageButton(final String caminho, final File imgFile) {
@@ -859,7 +835,6 @@ public class MainUtilities extends AppCompatActivity {
         return displayMetrics.widthPixels;
     }
 
-
     //formata a data para Ex: 01/01/2019 ao invés de ficar 1/1/2019
     protected String formatDate(String dateF) {
         String format = "dd/MM/yyyy";
@@ -870,8 +845,7 @@ public class MainUtilities extends AppCompatActivity {
         } catch (ParseException ignored) {
 
         }
-        String dateFF = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(date);
-        return dateFF;
+        return new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(date);
     }
 
     public void setMessage(int idMessage) {
@@ -882,10 +856,64 @@ public class MainUtilities extends AppCompatActivity {
         Toast.makeText(context, context.getString(idMessage), Toast.LENGTH_SHORT).show();
     }
 
+    public String changeMonthToExtension(String mes) {
+        String mesText = null;
+        if (mes != null) {
+            switch (mes) {
+                case "1":
+                    mesText = getBaseContext().getString(R.string.month_janeiro);
+                    break;
+
+                case "2":
+                    mesText = getBaseContext().getString(R.string.month_fevereiro);
+                    break;
+
+                case "3":
+                    mesText = getBaseContext().getString(R.string.month_março);
+                    break;
+
+                case "4":
+                    mesText = getBaseContext().getString(R.string.month_abril);
+                    break;
+
+                case "5":
+                    mesText = getBaseContext().getString(R.string.month_maio);
+                    break;
+
+                case "6":
+                    mesText = getBaseContext().getString(R.string.month_june);
+                    break;
+
+                case "7":
+                    mesText = getBaseContext().getString(R.string.month_july);
+                    break;
+
+                case "8":
+                    mesText = getBaseContext().getString(R.string.month_agosto);
+                    break;
+
+                case "9":
+                    mesText = getBaseContext().getString(R.string.month_setembro);
+                    break;
+
+                case "10":
+                    mesText = getBaseContext().getString(R.string.month_outubro);
+                    break;
+
+                case "11":
+                    mesText = getBaseContext().getString(R.string.month_novembro);
+                    break;
+
+                case "12":
+                    mesText = getBaseContext().getString(R.string.month_dezembro);
+                    break;
+            }
+        }
+        return mesText;
+    }
+
     public void loadAdmob() {
         AdView mAdView = findViewById(R.id.adView);
-
-
 
         mAdView.setAdListener(new AdManager());
 

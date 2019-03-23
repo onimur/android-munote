@@ -45,8 +45,6 @@ public class SqlHelper extends SQLiteOpenHelper {
     //COLUNA TIPO pra table notas também
     public static final String COLUNA_PARCELAS =    "[parcelas]";
 
-
-
     SqlHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -219,8 +217,6 @@ public class SqlHelper extends SQLiteOpenHelper {
 
             for (String comando : comandos) {
                 db.execSQL(comando.toLowerCase());
-
-
             }
 
         } catch (Exception e) {
@@ -281,7 +277,6 @@ public class SqlHelper extends SQLiteOpenHelper {
             for (String comando : comandos) {
 
                 db.execSQL(comando.toLowerCase());
-
             }
 
         } catch (Exception e) {
@@ -333,9 +328,7 @@ public class SqlHelper extends SQLiteOpenHelper {
             for (String comando : comandos) {
 
                 db.execSQL(comando.toLowerCase());
-
             }
-
         } catch (Exception e) {
             Log.e(TAG, "onUpgrade: Error, version 6 db");
         }

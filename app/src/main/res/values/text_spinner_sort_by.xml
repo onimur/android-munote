@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sort_by_array">
+        <item>@string/sort_by_day</item>
+        <item>@string/sort_by_title</item>
+        <item>@string/sort_by_price</item>
+    </string-array>
+</resources>

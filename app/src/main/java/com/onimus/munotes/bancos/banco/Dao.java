@@ -23,10 +23,8 @@ import java.io.File;
 
 public class Dao {
 
-
     private Context context;
     protected SQLiteDatabase db;
-
 
     public Dao(Context context) {
         this.context = context;
@@ -45,9 +43,6 @@ public class Dao {
         }
 
         String caminhodbase = dir.getPath() + "/" + Constants.BANCO_NOME;
-
-
-
 
         SqlHelper varHelp = new SqlHelper(
                 context,

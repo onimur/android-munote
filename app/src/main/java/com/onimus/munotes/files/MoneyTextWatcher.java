@@ -67,39 +67,39 @@ public class MoneyTextWatcher implements TextWatcher {
         }
     }
 
-        public static String formatPrice (String price){
-            //Ex - price = 2222
-            //return = 2222.00
-            DecimalFormat df = new DecimalFormat("0.00");
-            return String.valueOf(df.format(Double.valueOf(price)));
+    public static String formatPrice(String price) {
+        //Ex - price = 2222
+        //return = 2222.00
+        DecimalFormat df = new DecimalFormat("0.00");
+        return String.valueOf(df.format(Double.valueOf(price)));
 
-        }
-
-        public static String formatTextPrice (String price){
-            //Ex - price = 3333.3
-            //return to Brazilian currency format = 3.333,3
-            //return to US currency format: 3,333.3
-            //return to France currency format: 3 333,3
-            BigDecimal bD = new BigDecimal(formatPriceSave(formatPrice(price)));
-            String newFormat = String.valueOf(NumberFormat.getCurrencyInstance(Locale.getDefault()).format(bD));
-            String replaceable = String.format("[%s]", getCurrencySymbol());
-            return newFormat.replaceAll(replaceable, "");
-
-        }
-
-        public static String formatPriceSave (String price){
-            //Ex - price = $ 5555555
-            //return = 55555,55
-            String replaceable = String.format("[%s,.\\s]", getCurrencySymbol());
-            String cleanString = price.replaceAll(replaceable, "");
-            StringBuilder stringBuilder = new StringBuilder(cleanString.replaceAll(" ", ""));
-
-            return String.valueOf(stringBuilder.insert(cleanString.length() - 2, '.'));
-
-        }
-
-        public static String getCurrencySymbol () {
-            return NumberFormat.getCurrencyInstance(Locale.getDefault()).getCurrency().getSymbol();
-
-        }
     }
+
+    public static String formatTextPrice(String price) {
+        //Ex - price = 3333.3
+        //return to Brazilian currency format = 3.333,3
+        //return to US currency format: 3,333.3
+        //return to France currency format: 3 333,3
+        BigDecimal bD = new BigDecimal(formatPriceSave(formatPrice(price)));
+        String newFormat = String.valueOf(NumberFormat.getCurrencyInstance(Locale.getDefault()).format(bD));
+        String replaceable = String.format("[%s]", getCurrencySymbol());
+        return newFormat.replaceAll(replaceable, "");
+
+    }
+
+    public static String formatPriceSave(String price) {
+        //Ex - price = $ 5555555
+        //return = 55555,55
+        String replaceable = String.format("[%s,.\\s]", getCurrencySymbol());
+        String cleanString = price.replaceAll(replaceable, "");
+        StringBuilder stringBuilder = new StringBuilder(cleanString.replaceAll(" ", ""));
+
+        return String.valueOf(stringBuilder.insert(cleanString.length() - 2, '.'));
+
+    }
+
+    public static String getCurrencySymbol() {
+        return NumberFormat.getCurrencyInstance(Locale.getDefault()).getCurrency().getSymbol();
+
+    }
+}

@@ -11,6 +11,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_main_sp_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:baselineAligned="false"
@@ -32,18 +33,29 @@
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:gravity="center_vertical"
+            android:lines="1"
             android:paddingStart="3dp"
             android:paddingEnd="0dp"
             android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/celula_tipo"
-            style="@style/Text_Description"
+        <LinearLayout
+            android:id="@+id/ll_celula_tipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:maxLines="1"
-            android:textSize="12sp" />
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+
+            <TextView
+                android:id="@+id/celula_tipo"
+                style="@style/Text_Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textColor="@color/colorText2"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

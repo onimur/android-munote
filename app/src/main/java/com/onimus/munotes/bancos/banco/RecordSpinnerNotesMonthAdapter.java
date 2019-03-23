@@ -13,6 +13,7 @@
 package com.onimus.munotes.bancos.banco;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,11 +50,17 @@ public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
     }
 
     @Override
-        public long getItemId(int i) {
-            return i;
-        }
+    public long getItemId(int i) {
+        return i;
+    }
 
-    private class ViewHolder{
+    public void updateDataChanged(ArrayList<HMAuxNotes> newlist) {
+        hmAux.clear();
+        hmAux.addAll(newlist);
+        this.notifyDataSetChanged();
+    }
+
+    private class ViewHolder {
 
         TextView celula_month;
     }
@@ -64,15 +71,14 @@ public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
         View row = view;
         ViewHolder holder = new ViewHolder();
 
-        if (row==null){
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(layout, viewGroup,false);
+        if (row == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = inflater.inflate(layout, viewGroup, false);
             holder.celula_month = row.findViewById(R.id.celula_month);
 
             row.setTag(holder);
-        }
-        else {
-            holder = (ViewHolder)row.getTag();
+        } else {
+            holder = (ViewHolder) row.getTag();
         }
 //monta a listview
         HMAuxNotes model = hmAux.get(i);
@@ -80,13 +86,13 @@ public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
 
         changeMesParaExtenso();
 
-      holder.celula_month.setText(mesText);
-                   return row;
+        holder.celula_month.setText(mesText);
+        return row;
     }
 
     private void changeMesParaExtenso() {
         if (mes != null) {
-            switch (mes){
+            switch (mes) {
                 case "1":
                     mesText = context.getString(R.string.month_janeiro);
                     break;

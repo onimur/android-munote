@@ -32,7 +32,6 @@ public class MenuToolbar extends MainUtilities {
 
     public boolean onCreateOptionsMenu(Menu menu) {
 
-
         // Inflar o menu; isso adiciona itens à barra de ação, se estiver presente.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         switch (nameActivity) {
@@ -47,15 +46,12 @@ public class MenuToolbar extends MainUtilities {
                 itemCartao.setVisible(false);
                 break;
             }
-
         }
-
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         // Lidar com cliques de itens da barra de ação aqui.
         // A barra de ação manipulará automaticamente os cliques
         // no botão Início / Acima, desde que você especifique uma
@@ -85,7 +81,6 @@ public class MenuToolbar extends MainUtilities {
         return super.onOptionsItemSelected(item);
     }
 
-
     public void actionMenuToolbar(String category) {
 
         switch (nameActivity) {
@@ -95,7 +90,6 @@ public class MenuToolbar extends MainUtilities {
 
                     case Constants.HOME: {
                         setAlertDialogToReturnOnClickActivity(MenuActivity.class, "notas");
-
                         break;
                     }
                     case Constants.GALERIA: {
@@ -108,12 +102,10 @@ public class MenuToolbar extends MainUtilities {
                     }
                 }
                 break;
-
             }
             //No momento que acessa o menu o usuário está na CardAddActivity;
             case CARDADDACTIVITY: {
                 switch (category) {
-
                     case Constants.HOME: {
                         setAlertDialogToReturnOnClickActivity(MenuActivity.class, "cartao");
                         break;
@@ -126,7 +118,6 @@ public class MenuToolbar extends MainUtilities {
                         setAlertDialogToReturnOnClickActivity(NotesAddActivity.class, "cartao_notas");
                         break;
                     }
-
                 }
                 break;
             }
@@ -154,9 +145,5 @@ public class MenuToolbar extends MainUtilities {
                 break;
             }
         }
-
-
     }
-
-
 }

@@ -38,7 +38,7 @@ public class SplashActivity extends MenuToolbar {
 
 
         tv_progress = findViewById(R.id.tv_progress);
-        mProgress =  findViewById(R.id.splash_screen_progress_bar);
+        mProgress = findViewById(R.id.splash_screen_progress_bar);
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(this, getString(R.string.adAPPId));
         //
@@ -46,7 +46,7 @@ public class SplashActivity extends MenuToolbar {
                 getSharedPreferences("user_preferences", MODE_PRIVATE);
 
         if (preferences.contains("first_entry")) {
-         startApp();
+            startApp();
         } else {
             addPreferenceFirstEntry(preferences);
             setSplash();
@@ -66,8 +66,7 @@ public class SplashActivity extends MenuToolbar {
             public void run() {
                 doWork();
 
-               startApp();
-
+                startApp();
 
             }
         }).start();
@@ -79,7 +78,7 @@ public class SplashActivity extends MenuToolbar {
             h.post(new Runnable() {
                 public void run() {
                     //Atualiza o TextView com a porcentagem do Progresso
-                    tv_progress.setText(String.valueOf(progressCount+"%"));
+                    tv_progress.setText(String.valueOf(progressCount + "%"));
                 }
             });
             try {
@@ -91,11 +90,10 @@ public class SplashActivity extends MenuToolbar {
             }
         }
     }
+
     //Inicia a Próxima Activity
     private void startApp() {
         callActivity(getBaseContext(), MenuActivity.class);
     }
-
-
 
 }

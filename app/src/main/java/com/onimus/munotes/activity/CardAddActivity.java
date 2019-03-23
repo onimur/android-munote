@@ -42,7 +42,6 @@ public class CardAddActivity extends MenuToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_add_screen);
 
-
         startVariables();
         startAction();
     }
@@ -60,7 +59,6 @@ public class CardAddActivity extends MenuToolbar {
         //
         loadAdmob();
         //
-
     }
 
 
@@ -77,7 +75,6 @@ public class CardAddActivity extends MenuToolbar {
         public void onClick(View v) {
 
             clearField(et_desc_card, true);
-
             clearField(cb_credito);
             clearField(cb_debito);
         }
@@ -102,6 +99,4 @@ public class CardAddActivity extends MenuToolbar {
     public void onBackPressed() {
         setAlertDialogToReturnOnClickActivity(CardActivity.class, "cartao");
     }
-
-
 }

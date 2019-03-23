@@ -18,6 +18,7 @@ import android.database.Cursor;
 import android.util.Log;
 
 
+import com.onimus.munotes.R;
 import com.onimus.munotes.bancos.banco.Dao;
 import com.onimus.munotes.bancos.banco.HMAuxCard;
 import com.onimus.munotes.bancos.model.Card;
@@ -32,9 +33,11 @@ public class CardDao extends Dao {
     public static final String IDCARTAO = "idcartao";
     public static final String DESCARTAO = "descartao";
     public static final String TIPO = "tipo";
+    private Context context;
 
     public CardDao(Context context) {
         super(context);
+        this.context = context;
     }
 
     public void insertCard(Card card) {
@@ -131,6 +134,46 @@ public class CardDao extends Dao {
                 //
                 cartao.add(hmAux);
             }
+            //
+            cursor.close();
+
+        } catch (Exception e) {
+            Log.e(TAG, "getListCard: ");
+        }
+        //
+        closeDataBase();
+        //
+        return cartao;
+    }
+
+    public ArrayList<HMAuxCard> getListCardOnFilter() {
+        ArrayList<HMAuxCard> cartao = new ArrayList<>();
+        //
+        openDataBase();
+        //
+        Cursor cursor = null;
+        //
+        try {
+
+            String comando = " select " + IDCARTAO + ", " + DESCARTAO + ", " + TIPO + " from " + TABELA + " order by " + DESCARTAO + " ";
+            //
+            cursor = db.rawQuery(comando, null);
+            //
+            while (cursor.moveToNext()) {
+                HMAuxCard hmAux = new HMAuxCard();
+
+                hmAux.put(IDCARTAO, cursor.getString(cursor.getColumnIndex(IDCARTAO)));
+                hmAux.put(DESCARTAO, cursor.getString(cursor.getColumnIndex(DESCARTAO)));
+                hmAux.put(TIPO, cursor.getString(cursor.getColumnIndex(TIPO)));
+                //
+                cartao.add(hmAux);
+            }
+            //
+            HMAuxCard hmAux = new HMAuxCard();
+            hmAux.put(DESCARTAO, context.getString(R.string.all_cards));
+            hmAux.put(IDCARTAO, "-1");
+            hmAux.put(TIPO, "-1");
+            cartao.add(0, hmAux);
             //
             cursor.close();
 

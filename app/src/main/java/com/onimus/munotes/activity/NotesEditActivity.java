@@ -100,7 +100,6 @@ public class NotesEditActivity extends MenuToolbar {
     //
     private Toolbar toolbar;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.note_edit_screen);
@@ -142,7 +141,7 @@ public class NotesEditActivity extends MenuToolbar {
         //
         et_value.addTextChangedListener(new MoneyTextWatcher(et_value));
         //
-        tv_value.setText((getString(R.string.tv_value) + " ("+ getCurrencySymbol() + "):"));
+        tv_value.setText((getString(R.string.tv_value) + " (" + getCurrencySymbol() + "):"));
         //
         loadAdmob();
         //
@@ -165,19 +164,16 @@ public class NotesEditActivity extends MenuToolbar {
             checkCard();
 
             setField();
-
         }
         //
-
         File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + Constants.FOLDER_NAME + Constants.FOLDER_NAME_NOTES));
         imgFile = new File(path, caminho);
         //checa o caminho da imagem e retorna boolean
-        if (setImageSaveToImageButton(caminho,imgFile)){
+        if (setImageSaveToImageButton(caminho, imgFile)) {
             setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, "notas", caminhoSemPath);
         } else {
             setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, "notas", caminho);
         }
-
 
         setActionOnClick(R.id.btn_selec_date, new OnButtonClickActionCalendar());
         //Se existir imagem já salva é possivel visualiza-la
@@ -214,7 +210,7 @@ public class NotesEditActivity extends MenuToolbar {
 
     private void setField() {
         sp_card.setSelection(getSpinnerIndex(sp_card, String.valueOf(idCartao)));
-        sp_parcelas.setSelection(nAux.getParcelas() -1);
+        sp_parcelas.setSelection(nAux.getParcelas() - 1);
 
         if (nAux.getTipo() == 1) {
             rb_credit.setChecked(true);
@@ -431,8 +427,6 @@ public class NotesEditActivity extends MenuToolbar {
             tv_select_card.setText(getString(R.string.tv_no_card));
             ImageUtilities.deleteImage();
             setAlertDialogOnClickActivity(CardAddActivity.class, NotesViewActivity.class, idAtual, "notas_cartao");
-
-
         } else if (idCartao == -1) {
             ll_hint_spinner.setEnabled(true);
             ll_hint_spinner.setVisibility(View.VISIBLE);

@@ -12,6 +12,8 @@
 
 package com.onimus.munotes.bancos.banco;
 
+import android.support.annotation.NonNull;
+
 import com.onimus.munotes.bancos.dao.CardDao;
 
 import java.util.HashMap;

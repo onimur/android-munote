@@ -80,13 +80,12 @@ public class NotesAddActivity extends MenuToolbar {
     //
     private long idAtual;
     //
-    CardDao cardDao;
+    private CardDao cardDao;
 
     //
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.note_add_screen);
-
 
         startVariables();
         startAction(savedInstanceState);
