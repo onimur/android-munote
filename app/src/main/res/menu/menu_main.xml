@@ -13,7 +13,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.onimus.munotes.activity.NotasActivity">
+    tools:context="com.onimus.munote.activity.NotasActivity">
     <item
         android:id="@+id/action_home"
         android:icon="@drawable/ic_home"

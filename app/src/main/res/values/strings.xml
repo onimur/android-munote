@@ -9,9 +9,8 @@
   ~  * Last modified 09/02/19 12:03
   ~  */
   -->
-
 <resources>
-    <string name="app_name" translatable="false">MUnotes</string>
+    <string name="app_name" translatable="false">MUnote</string>
 
     <string name="operation_cancel">Operation cancel</string>
     <string name="title_invoice">Invoices</string>
@@ -112,6 +111,7 @@
 
     <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
     <!-- My AdMob App ID: ca-app-pub-4422707170557261~6064834767 -->
+
     <string name="adAPPId" translatable="false">ca-app-pub-4422707170557261~5998275173</string>
     <!-- Sample AdMob Unit ID: ca-app-pub-3940256099942544/6300978111 -->
     <!-- My AdMob Unit ID: ca-app-pub-4422707170557261/3492186905 -->
