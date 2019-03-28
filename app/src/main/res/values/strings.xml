@@ -130,5 +130,7 @@
     <string name="title_dialog_terms">Data collection and use.</string>
     <string name="message_dialog_terms">By accepting the terms you agree to the following information:\n\nMUnote collects payment information and card names used by the user. Such information is for the exclusive use of the user, the Application works offline, so the information collected will be used by MUnote APP only for the control and management of expenses and they are stored only on the user\'s device. None of this information will be shared with any server or third party.</string>
     <string name="text_ok" translatable="false">Ok</string>
+    <string name="text_date">Date</string>
+    <string name="text_sort">Sort</string>
 
 </resources>

@@ -20,9 +20,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
@@ -910,6 +913,14 @@ public class MainUtilities extends AppCompatActivity {
             }
         }
         return mesText;
+    }
+    @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String html){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(html);
+        }
     }
 
     public void loadAdmob() {

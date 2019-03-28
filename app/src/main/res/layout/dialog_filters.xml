@@ -28,12 +28,11 @@
         android:paddingBottom="16dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/color_button_pressed"
-            android:paddingStart="8dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="8dp">
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/icon_card"
@@ -43,242 +42,262 @@
                 android:tint="@color/colorWhite"
                 tools:ignore="ContentDescription" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="@string/title_card"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_linearlayout"
+            android:baselineAligned="false"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/sp_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/spinner_background"
+                    android:popupBackground="@drawable/spinner_background_checked"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:id="@+id/iv_arrow3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_alignEnd="@id/sp_card"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="2dp"
+                    android:src="@drawable/arrow"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="15dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="6"
-                    android:orientation="vertical">
+                    android:gravity="start"
+                    android:paddingStart="40dp"
+                    android:paddingEnd="0dp">
 
-                    <LinearLayout
+                    <CheckBox
+                        android:id="@+id/cb_credito"
+                        style="@style/Text_Description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="start">
+                        android:buttonTint="@color/colorWhite"
+                        android:lines="1"
+                        android:text="@string/cb_credito"
+                        android:textSize="15sp"
+                        tools:targetApi="lollipop" />
 
-                        <CheckBox
-                            android:id="@+id/cb_credito"
-                            style="@style/Text_Description"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorWhite"
-                            android:lines="1"
-                            android:text="@string/cb_credito"
-                            android:textSize="15sp"
-                            tools:targetApi="lollipop" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end">
-
-                        <CheckBox
-                            android:id="@+id/cb_debito"
-                            style="@style/Text_Description"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:buttonTint="@color/colorWhite"
-                            android:lines="1"
-                            android:text="@string/cb_debito"
-                            android:textSize="15sp"
-                            tools:targetApi="lollipop" />
-
-                    </LinearLayout>
                 </LinearLayout>
 
                 <View
-                    android:layout_width="10dp"
-                    android:layout_height="1dp" />
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1">
+
+                </View>
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="12"
-                    android:gravity="center">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="40dp">
 
-
-                    <RelativeLayout
+                    <CheckBox
+                        android:id="@+id/cb_debito"
+                        style="@style/Text_Description"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:buttonTint="@color/colorWhite"
+                        android:lines="1"
+                        android:text="@string/cb_debito"
+                        android:textSize="15sp"
+                        tools:targetApi="lollipop" />
 
-                        <Spinner
-                            android:id="@+id/sp_card"
-                            android:layout_width="match_parent"
-                            android:layout_height="36dp"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/spinner_background"
-                            android:popupBackground="@drawable/spinner_background_checked"
-                            android:spinnerMode="dropdown" />
-
-                        <ImageView
-                            android:id="@+id/iv_arrow3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="36dp"
-                            android:layout_alignEnd="@id/sp_card"
-                            android:paddingStart="0dp"
-                            android:paddingEnd="2dp"
-                            android:src="@drawable/arrow"
-                            tools:ignore="ContentDescription" />
-                    </RelativeLayout>
                 </LinearLayout>
-
             </LinearLayout>
-
-
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="16dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/color_button_pressed"
-            android:paddingStart="8dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="8dp">
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/icon_calendar"
                 style="@style/AppTheme.FilterIcon"
-                android:layout_centerVertical="true"
                 android:src="@drawable/ic_calendar_24px"
                 android:tint="@color/colorWhite"
                 tools:ignore="ContentDescription" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/icon_calendar"
+                android:layout_gravity="bottom"
+                android:text="@string/text_date"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
 
-                android:baselineAligned="false"
-                android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_linearlayout"
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:padding="8dp">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Text_Description"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:gravity="start"
-                    android:orientation="vertical">
+                    android:text="@string/text_year"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="13sp" />
 
-                    <TextView
-                        style="@style/Text_Description"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/sp_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/spinner_background"
+                        android:popupBackground="@drawable/spinner_background_checked"
+                        android:spinnerMode="dropdown" />
+
+                    <ImageView
+                        android:id="@+id/iv_arrow1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_year"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="13sp" />
+                        android:layout_height="30dp"
+                        android:layout_alignEnd="@id/sp_year"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="2dp"
+                        android:src="@drawable/arrow"
+                        tools:ignore="ContentDescription" />
 
+                </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <Spinner
-                            android:id="@+id/sp_year"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/spinner_background"
-                            android:popupBackground="@drawable/spinner_background_checked"
-                            android:spinnerMode="dropdown" />
-
-                        <ImageView
-                            android:id="@+id/iv_arrow1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_alignEnd="@id/sp_year"
-                            android:paddingStart="0dp"
-                            android:paddingEnd="2dp"
-                            android:src="@drawable/arrow"
-                            tools:ignore="ContentDescription" />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="1dp" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="12"
-                    android:gravity="start"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/Text_Description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:text="@string/text_month"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="13sp" />
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <Spinner
-                            android:id="@+id/sp_month"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/spinner_background"
-                            android:popupBackground="@drawable/spinner_background_checked"
-                            android:spinnerMode="dropdown" />
-
-                        <ImageView
-                            android:id="@+id/iv_arrow2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_alignEnd="@id/sp_month"
-                            android:paddingStart="0dp"
-                            android:paddingEnd="2dp"
-                            android:src="@drawable/arrow"
-                            tools:ignore="ContentDescription" />
-                    </RelativeLayout>
-                </LinearLayout>
             </LinearLayout>
 
-        </RelativeLayout>
+            <View
+                android:layout_width="10dp"
+                android:layout_height="1dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="12"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Text_Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/text_month"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="13sp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/sp_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/spinner_background"
+                        android:popupBackground="@drawable/spinner_background_checked"
+                        android:spinnerMode="dropdown" />
+
+                    <ImageView
+                        android:id="@+id/iv_arrow2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_alignEnd="@id/sp_month"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="2dp"
+                        android:src="@drawable/arrow"
+                        tools:ignore="ContentDescription" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="16dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/color_button_pressed"
-            android:padding="8dp">
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/icon_sort"
                 style="@style/AppTheme.FilterIcon"
-                android:layout_centerVertical="true"
                 android:src="@drawable/ic_order"
                 android:tint="@color/colorWhite"
                 tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="@string/text_sort"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_linearlayout"
+            android:padding="8dp">
 
             <Spinner
                 android:id="@+id/sp_sort"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/icon_sort"
                 android:background="@drawable/spinner_background"
                 android:popupBackground="@drawable/spinner_background_checked"
                 android:spinnerMode="dropdown" />
@@ -316,7 +335,6 @@
             android:textColor="@color/colorText2"
             android:theme="@style/ThemeOverlay.FilterButton" />
 
-
         <Button
             android:id="@+id/buttonSearch"
             android:layout_width="0dp"
@@ -327,6 +345,5 @@
             android:theme="@style/Button_3_Menor" />
 
     </LinearLayout>
-
 </LinearLayout>
 
