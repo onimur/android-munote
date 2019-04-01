@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~  * Created by Murillo Comino on 09/02/19 12:26
   ~  * Github: github.com/MurilloComino
@@ -16,18 +15,18 @@
         <layer-list>
             <item>
                 <shape>
-                    <corners android:radius="8dp"/>
+                    <corners android:radius="8dp" />
                     <solid android:color="@color/color_normal_button" />
                 </shape>
             </item>
             <item>
                 <shape>
-                    <gradient android:startColor="#00FFFFFF" android:centerColor="#33FAFAFA"  android:endColor="#00FFFFFF"/>
+                    <gradient android:centerColor="#33FAFAFA" android:endColor="#00FFFFFF" android:startColor="#00FFFFFF" />
                 </shape>
             </item>
         </layer-list>
     </item>
-    <item>
+    <item android:state_enabled="true">
         <layer-list>
             <item>
                 <shape>
@@ -36,5 +35,17 @@
                 </shape>
             </item>
         </layer-list>
+    </item>
+
+    <item android:state_enabled="false">
+        <layer-list>
+            <item>
+                <shape>
+                    <corners android:radius="8dp" />
+                    <solid android:color="#424958" />
+                </shape>
+            </item>
+        </layer-list>
+
     </item>
 </selector>

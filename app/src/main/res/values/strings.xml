@@ -30,8 +30,6 @@
 
     <string name="tv_desc_card">Card Description:</string>
     <string name="et_desc_card" translatable="false">Ex: VisaCard</string>
-    <string name="tv_number_card">Final Numbers:</string>
-    <string name="et_number_card" translatable="false">Ex: 9999</string>
 
     <string name="btn_salvar">Save</string>
     <string name="btn_cancelar">Cancel</string>
@@ -129,8 +127,13 @@
     <string name="text_cb_terms">Accept the terms</string>
     <string name="title_dialog_terms">Data collection and use.</string>
     <string name="message_dialog_terms">By accepting the terms you agree to the following information:\n\nMUnote collects payment information and card names used by the user. Such information is for the exclusive use of the user, the Application works offline, so the information collected will be used by MUnote APP only for the control and management of expenses and they are stored only on the user\'s device. None of this information will be shared with any server or third party.</string>
-    <string name="text_ok" translatable="false">Ok</string>
+    <string name="text_ok" translatable="false">OK</string>
     <string name="text_date">Date</string>
     <string name="text_sort">Sort</string>
+    <string name="text_accept_permission">You must accept the permissions before</string>
+    <string name="btn_request_permission">Add Permission</string>
+    <string name="text_permission_granted">Permission granted successfully</string>
+    <string name="text_dialog_permission">We need take picture, read and write on external storage for performing necessary task. Please permit the permission through Settings screen.\n\nSelect Permissions -> Enable permission</string>
+    <string name="text_permit_manually">Permit Manually</string>
 
 </resources>

@@ -12,130 +12,193 @@
 
 package com.onimus.munote.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+
 import android.support.v7.app.AlertDialog;
-import android.text.Html;
-import android.text.Layout;
+import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.onimus.munote.R;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.Constants;
 import com.onimus.munote.files.Permission;
 
+import static com.onimus.munote.Constants.PERMISSION_FIRST_ENTRY_ACTIVITY;
+import static com.onimus.munote.Constants.REQUEST_PERMISSIONS;
+import static com.onimus.munote.files.Permission.neverAskAgainSelected;
+
 
 public class MenuActivity extends MenuToolbar {
 
+    private LinearLayout ll_btn_menu;
+    private Button btn_request_permission;
+    private Button btn_menu_galeria;
+    private Button btn_menu_invoice;
+    private Button btn_menu_card;
+    private Button btn_menu_bank;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setPermissionsIfFirstEntryActivity();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //reseta o sharedpreference
+        setSharedPreferencesToFirstPermissionActivity(true);
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_screen);
-
-        setContractDialog();
-        setPermissions();
         //
         loadAdmob();
         //
-        setActionOnClick(R.id.btn_menu_galeria, new OnButtonClickGallery());
-        setActionOnClickActivity(R.id.btn_menu_invoice, NotesActivity.class);
-        setActionOnClickActivity(R.id.btn_menu_card, CardActivity.class);
-        // setActionOnClickActivity(R.id.btn_menu_bank, BankActivity.class);
-
+        startVariables();
+        checkPermissions();
     }
 
-    private void setContractDialog() {
-        View view = View.inflate(this, R.layout.checkbox_contract, null);
-        final CheckBox cb_contract = view.findViewById(R.id.checkbox);
-        final TextView textView = view.findViewById(R.id.textview);
+    private void startVariables() {
+        ll_btn_menu = findViewById(R.id.ll_btn_menu);
+        btn_menu_galeria = findViewById(R.id.btn_menu_galeria);
+        btn_menu_invoice = findViewById(R.id.btn_menu_invoice);
+        btn_menu_card = findViewById(R.id.btn_menu_card);
+        btn_menu_bank = findViewById(R.id.btn_menu_bank);
+        btn_request_permission = findViewById(R.id.btn_request_permission);
+    }
 
-        //Justifica o texto
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            textView.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
+    private void checkPermissions() {
+        ll_btn_menu.removeView(btn_menu_galeria);
+        ll_btn_menu.removeView(btn_menu_invoice);
+        ll_btn_menu.removeView(btn_menu_card);
+        ll_btn_menu.removeView(btn_menu_bank);
+        ll_btn_menu.removeView(btn_request_permission);
+
+        //Se tiver as permissões os botões serão habilitados
+        if (Permission.hasPermissions(this, permissions())) {
+            ll_btn_menu.addView(btn_menu_galeria);
+            ll_btn_menu.addView(btn_menu_invoice);
+            ll_btn_menu.addView(btn_menu_card);
+            ll_btn_menu.addView(btn_menu_bank);
+
+
+            setActionOnClick(btn_menu_galeria, new OnButtonClickGallery());
+            setActionOnClickActivity(btn_menu_invoice, NotesActivity.class);
+            setActionOnClickActivity(btn_menu_card, CardActivity.class);
+            // setActionOnClickActivity(R.id.btn_menu_bank, BankActivity.class);
+
         } else {
-            WebView webView = new WebView(view.getContext());
-            webView.setVerticalScrollBarEnabled(false);
+            ll_btn_menu.addView(btn_request_permission);
+            setActionOnClick(btn_request_permission, new OnButtonClickRequestPermission());
 
-            LinearLayout linearLayout = view.findViewById(R.id.linear_layout);
-            linearLayout.removeView(textView);
-            linearLayout.addView(webView);
-
-            String newContentString = String.valueOf(fromHtml("<![CDATA[<body style=\"text-align:justify;color:gray;background-color:white; \">"
-                            + getResources().getString(R.string.message_dialog_terms)
-                            + "</body>]]>"));
-
-            webView.loadData(newContentString, "text/html; charset=utf-8", "utf-8");
-
-        }
-        cb_contract.setText(getString(R.string.text_cb_terms));
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.title_dialog_terms)
-                .setView(view)
-                .setCancelable(false)
-                .setPositiveButton(R.string.text_ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        if (!cb_contract.isChecked()) {
-                            storeDialogStatus(false);
-                            MenuActivity.this.finish();
-                        } else {
-                            storeDialogStatus(true);
-                        }
-
-                    }
-                })
-                .setNegativeButton(R.string.btn_cancelar, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        storeDialogStatus(false);
-                        dialog.cancel();
-                        MenuActivity.this.finish();
-                    }
-                });
-        AlertDialog mDialog = builder.create();
-//        mDialog.show();
-
-        if (getDialogStatus()) {
-            mDialog.hide();
-        } else {
-            mDialog.show();
         }
     }
 
-    private void storeDialogStatus(boolean isChecked) {
-        SharedPreferences mSharedPreferences = getSharedPreferences("CheckTerms", MODE_PRIVATE);
-        SharedPreferences.Editor mEditor = mSharedPreferences.edit();
-        mEditor.putBoolean("terms", isChecked);
-        mEditor.apply();
-    }
-
-    private boolean getDialogStatus() {
-        SharedPreferences mSharedPreferences = getSharedPreferences("CheckTerms", MODE_PRIVATE);
-        return mSharedPreferences.getBoolean("terms", false);
+    private void setPermissionsIfFirstEntryActivity() {
+        SharedPreferences genPrefs = getBaseContext().getSharedPreferences(PERMISSION_FIRST_ENTRY_ACTIVITY, Context.MODE_PRIVATE);
+        boolean firstEntry = genPrefs.getBoolean(PERMISSION_FIRST_ENTRY_ACTIVITY, true);
+        if (firstEntry) {
+            setPermissions();
+        }
     }
 
     private void setPermissions() {
         // O código de solicitação usado em ActivityCompat.requestPermissions ()
         // e retornado no onRequestPermissionsResult da Activity ()
-        String[] PERMISSIONS = {
+        if (!Permission.hasPermissions(this, permissions())) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (neverAskAgainSelected(this, permissions())) {
+                    displayNeverAskAgainDialog();
+                } else {
+                    ActivityCompat.requestPermissions(this, permissions(), REQUEST_PERMISSIONS);
+                }
+            }
+        }
+    }
+
+    private String[] permissions() {
+        return new String[]{
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.CAMERA
                 //   android.Manifest.permission.READ_CONTACTS,
                 //  android.Manifest.permission.WRITE_CONTACTS,
                 //   android.Manifest.permission.READ_SMS,
         };
-        if (!Permission.hasPermissoes(this, PERMISSIONS)) {
-            ActivityCompat.requestPermissions(this, PERMISSIONS, Constants.RESQUEST_PERMISSOES);
+    }
+
+    private void displayNeverAskAgainDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.text_dialog_permission));
+        builder.setCancelable(false);
+        builder.setPositiveButton(R.string.text_permit_manually, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+
+                startActivityForResult(intent, REQUEST_PERMISSIONS);
+            }
+        });
+        builder.setNegativeButton(getString(R.string.alert_title_cancel), null);
+        builder.show();
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
+            grantResults) {
+        if (REQUEST_PERMISSIONS == requestCode) {
+            int count = 0;
+            for (int aGrantResult : grantResults) {
+                if (aGrantResult == PackageManager.PERMISSION_GRANTED) {
+                    //contador para cada permissão garantida
+                    count++;
+                }
+            }
+            //Se o contador for igual a quantidade de permissão então Permissão foi um sucesso
+            if (count == permissions.length) {
+                Log.i(Constants.TAG, getString(R.string.text_permission_granted));
+                Toast.makeText(this, getString(R.string.text_permission_granted), Toast.LENGTH_LONG).show();
+            } else {
+                Permission.setShouldShowStatus(this, permissions);
+            }
         }
+        setSharedPreferencesToFirstPermissionActivity(false);
+        checkPermissions();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_PERMISSIONS) {
+            setSharedPreferencesToFirstPermissionActivity(false);
+            checkPermissions();
+        }
+    }
+
+    private void setSharedPreferencesToFirstPermissionActivity(boolean f) {
+        SharedPreferences genPrefs = getBaseContext().getSharedPreferences(PERMISSION_FIRST_ENTRY_ACTIVITY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = genPrefs.edit();
+        editor.putBoolean(PERMISSION_FIRST_ENTRY_ACTIVITY, f).apply();
     }
 
     private class OnButtonClickGallery implements View.OnClickListener {
@@ -146,4 +209,11 @@ public class MenuActivity extends MenuToolbar {
         }
     }
 
+    private class OnButtonClickRequestPermission implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            setPermissions();
+
+        }
+    }
 }

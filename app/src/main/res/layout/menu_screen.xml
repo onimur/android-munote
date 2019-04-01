@@ -32,6 +32,7 @@
             android:text="@string/title_menu" />
 
         <LinearLayout
+            android:id="@+id/ll_btn_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -67,6 +68,14 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_bank"
                 android:text="@string/title_bank" />
+
+            <Button
+                android:id="@+id/btn_request_permission"
+                style="@style/Button_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_permision"
+                android:text="@string/btn_request_permission" />
 
         </LinearLayout>
     </LinearLayout>

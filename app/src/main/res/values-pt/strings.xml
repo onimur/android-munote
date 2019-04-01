@@ -27,7 +27,6 @@
     <string name="tv_editar">Editar</string>
     <string name="title_card_add">Adicionar Cartão de Crédito</string>
     <string name="tv_desc_card">Descrição do Cartão</string>
-    <string name="tv_number_card">Números Finais:</string>
     <string name="btn_salvar">Salvar</string>
     <string name="btn_cancelar">Cancelar</string>
     <string name="btn_limpar">Limpar</string>
@@ -113,4 +112,11 @@
     <string name="text_cb_terms">Aceitar os termos</string>
     <string name="title_dialog_terms">Coleta e uso de dados</string>
     <string name="message_dialog_terms">Ao aceitar os termos você está de acordo com as seguintes informações:\n\nMUnote coleta informações de pagamentos e nomes dos cartões utilizados pelo usuário. Tais informações são de uso exclusivo do usuário, o Aplicativo funciona offline, sendo assim as informações coletadas serão utilizadas pelo MUnote APP apenas para o controle e gerenciamento de gastos e elas ficam armazenadas apenas no aparelho do usuário. Nenhuma dessas informações será compartilhada para algum servidor ou para terceiros.</string>
+    <string name="text_date">Data</string>
+    <string name="text_sort">Classificar</string>
+    <string name="text_accept_permission">Você deve aceitar as permissões primeiro</string>
+    <string name="btn_request_permission">Adicionar Permissões</string>
+    <string name="text_permission_granted">" Permissão concedida com sucesso"</string>
+    <string name="text_dialog_permission">Precisamos tirar foto, ler e escrever no armazenamento externo para realizar a tarefa necessária. Por favor, conceda a permissão através de Tela de configurações. \n \nSelecione permissões -> Ativar permissão</string>
+    <string name="text_permit_manually">Permitir Manualmente</string>
 </resources>

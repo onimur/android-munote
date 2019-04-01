@@ -12,15 +12,9 @@
 
 package com.onimus.munote.activity;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
-import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -100,7 +94,7 @@ public class SplashActivity extends MenuToolbar {
 
     //Inicia a Próxima Activity
     private void startApp() {
-        callActivity(getBaseContext(), MenuActivity.class);
+        callActivity(getBaseContext(), DialogContractActivity.class);
     }
 
 }

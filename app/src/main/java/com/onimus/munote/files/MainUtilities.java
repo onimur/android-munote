@@ -97,6 +97,16 @@ public class MainUtilities extends AppCompatActivity {
         });
     }
 
+    public void setActionOnClickActivity(final View view, final Class<?> _class) {
+        setActionOnClick(view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                callActivity(getApplicationContext(), _class);
+            }
+        });
+    }
+
     public void setActionOnClickActivity(final int btn, final Class<?> _class, final long id) {
         setActionOnClick(btn, new View.OnClickListener() {
             @Override

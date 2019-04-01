@@ -14,7 +14,6 @@ package com.onimus.munote;
 
 public class Constants {
 
-    public static final int RESQUEST_PERMISSOES = 1;
     public static final int PROCESSO_TIRAR_FOTO = 10;
     public static final String FOLDER_NAME = ".MUnotes/";
     public static final String FOLDER_NAME_NOTES = "Notes/";
@@ -33,10 +32,15 @@ public class Constants {
     public static final String NOTASADDACTIVITY = "NotesAddActivity";
     public static final String CARDADDACTIVITY = "CardAddActivity";
     //
-    public static final String DATA1 = "data1";
-    public static final String DATA2 = "data2";
-    //
     public static final String FIELD_DAY = "day";
     public static final String FIELD_PRICE = "price";
     public static final String FIELD_TITLE = "title";
+
+    //Permissões
+    public static final int REQUEST_PERMISSIONS = 1;
+    public static final String TAG = "Onimus";
+    public static final String PERMISSION_PREFERENCES = "permissionPreference";
+    public static final String PERMISSION_FIRST_ENTRY_ACTIVITY = "permissionFirstEntry";
+    //Contrato
+    public static final String CHECK_TERMS = "CheckTerms";
 }
