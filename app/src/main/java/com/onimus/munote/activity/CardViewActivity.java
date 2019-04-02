@@ -18,11 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.onimus.munote.Constants;
 import com.onimus.munote.R;
 import com.onimus.munote.bancos.dao.CardDao;
 import com.onimus.munote.bancos.model.Card;
 import com.onimus.munote.files.MenuToolbar;
+
+import static com.onimus.munote.Constants.*;
 
 public class CardViewActivity extends MenuToolbar {
 
@@ -67,7 +68,7 @@ public class CardViewActivity extends MenuToolbar {
 
         setField();
 
-        setAlertDialogDeleteOnClickActivity(R.id.btn_deletar, CardActivity.class, context, idAtual, "cartao");
+        setAlertDialogDeleteOnClickActivity(R.id.btn_deletar, CardActivity.class, context, idAtual, CARD);
         setActionOnClickActivity(R.id.btn_editar, CardEditActivity.class, idAtual);
     }
 
@@ -75,19 +76,19 @@ public class CardViewActivity extends MenuToolbar {
         if (idAtual != -1) {
             Card cAux = cardDao.getCardById(idAtual);
 
-            tv_desc_card.setText(cAux.getDescartao());
+            tv_desc_card.setText(cAux.getDescCard());
 
             cb_credito.setEnabled(false);
             cb_debito.setEnabled(false);
-            if (cAux.getTipo() == 1) {
+            if (cAux.getType() == 1) {
                 cb_credito.setChecked(true);
                 cb_debito.setChecked(false);
             }
-            if (cAux.getTipo() == 2) {
+            if (cAux.getType() == 2) {
                 cb_credito.setChecked(false);
                 cb_debito.setChecked(true);
             }
-            if (cAux.getTipo() == 3) {
+            if (cAux.getType() == 3) {
                 cb_credito.setChecked(true);
                 cb_debito.setChecked(true);
             }
@@ -95,7 +96,7 @@ public class CardViewActivity extends MenuToolbar {
     }
 
     private void getParameters() {
-        idAtual = getIntent().getLongExtra(Constants.ID_BANCO, 0);
+        idAtual = getIntent().getLongExtra(DBASE_ID, 0);
 
     }
 

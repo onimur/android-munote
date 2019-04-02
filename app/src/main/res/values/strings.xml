@@ -49,7 +49,7 @@
     <string name="alert_title_delete">Warning</string>
     <string name="alert_message_delete">Do you really want to delete?</string>
     <string name="alert_title_update">Update</string>
-    <string name="alert_message_update">Do you really want to update the card?</string>
+    <string name="alert_message_update">Do you really want to update the Card?</string>
     <string name="error_picture">Error! Try again.</string>
     <string name="title_add_invoice">Add Invoices</string>
     <string name="tv_desc_invoice">Description:</string>
@@ -62,7 +62,7 @@
     <string name="tv_pay_date">Payment Date:</string>
     <string name="tv_selec_date">Select</string>
     <string name="tv_choose_card">Choose a Card…</string>
-    <string name="toast_ll_hint_spinner_enabled">You need to choose a card</string>
+    <string name="toast_ll_hint_spinner_enabled">You need to choose a Card</string>
     <string name="toast_title_invoice">Title: Is required</string>
     <string name="toast_value_required">Price: Is required</string>
     <string name="toat_select_date">Select a Date: Is required</string>
@@ -80,16 +80,16 @@
     <string name="month_novembro">November</string>
     <string name="month_dezembro">December</string>
     <string name="tv_cliquenaimagem">Click on the image to view it</string>
-    <string name="tv_card_deleted">Registered card deleted</string>
-    <string name="tv_no_card">No registered card</string>
+    <string name="tv_card_deleted">Registered Card deleted</string>
+    <string name="tv_no_card">No registered Card</string>
     <string name="tv_no_invoice">No registered invoices</string>
-    <string name="mensagem_register_card">You need to register a card first</string>
+    <string name="mensagem_register_card">You need to register a Card first</string>
     <string name="cb_string_creditdebit">Credit Debit</string>
     <string name="desc_card">Card:</string>
     <string name="desc_date">Date:</string>
     <string name="title_edit_notas">Edit Invoices</string>
     <string name="alert_message_update_invoice">Do you really want to update the invoice?</string>
-    <string name="alert_register_card">You don\'t have a registered card. Do you want to register a card?</string>
+    <string name="alert_register_card">You don\'t have a registered Card. Do you want to register a Card?</string>
     <string name="title_registered_card">Registered Cards</string>
     <string name="install_ES_File">Please install the ES File Explorer</string>
     <string name="desc_installments">Installments:</string>
@@ -126,7 +126,7 @@
     <string name="text_in">in</string>
     <string name="text_cb_terms">Accept the terms</string>
     <string name="title_dialog_terms">Data collection and use.</string>
-    <string name="message_dialog_terms">By accepting the terms you agree to the following information:\n\nMUnote collects payment information and card names used by the user. Such information is for the exclusive use of the user, the Application works offline, so the information collected will be used by MUnote APP only for the control and management of expenses and they are stored only on the user\'s device. None of this information will be shared with any server or third party.</string>
+    <string name="message_dialog_terms">By accepting the terms you agree to the following information:\n\nMUnote collects payment information and Card names used by the user. Such information is for the exclusive use of the user, the Application works offline, so the information collected will be used by MUnote APP only for the control and management of expenses and they are stored only on the user\'s device. None of this information will be shared with any server or third party.</string>
     <string name="text_ok" translatable="false">OK</string>
     <string name="text_date">Date</string>
     <string name="text_sort">Sort</string>

@@ -15,18 +15,17 @@ package com.onimus.munote.activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.MobileAds;
 import com.onimus.munote.R;
 import com.onimus.munote.files.MenuToolbar;
-import com.onimus.munote.Constants;
+
+import static com.onimus.munote.Constants.*;
 
 public class SplashActivity extends MenuToolbar {
 
-    TextView tv_progress;
-    ProgressBar mProgress;
+    private TextView tv_progress;
     int progressCount = 0;
     Handler h = new Handler();
 
@@ -38,26 +37,23 @@ public class SplashActivity extends MenuToolbar {
 
 
         tv_progress = findViewById(R.id.tv_progress);
-        mProgress = findViewById(R.id.splash_screen_progress_bar);
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(this, getString(R.string.adAPPId));
         //
-        SharedPreferences preferences =
-                getSharedPreferences("user_preferences", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_USER, MODE_PRIVATE);
 
-
-        if (preferences.contains("first_entry")) {
+        if (sharedPreferences.getBoolean(SPLASH_FIRST_ENTRY, false)) {
             startApp();
         } else {
-            addPreferenceFirstEntry(preferences);
+            addPreferenceFirstEntry(sharedPreferences);
             setSplash();
         }
 
     }
 
-    private void addPreferenceFirstEntry(SharedPreferences preferences) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("first_entry", true);
+    private void addPreferenceFirstEntry(SharedPreferences sharedPreferences) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(SPLASH_FIRST_ENTRY, true);
         editor.apply();
     }
 
@@ -84,7 +80,7 @@ public class SplashActivity extends MenuToolbar {
             });
             try {
                 //Realiza Processo o processo
-                Thread.sleep(Constants.SPLASH_DELAY);
+                Thread.sleep(SPLASH_DELAY);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

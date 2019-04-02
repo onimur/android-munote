@@ -17,7 +17,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import android.util.Log;
 
-import com.onimus.munote.Constants;
+import static com.onimus.munote.Constants.*;
 
 import java.io.File;
 
@@ -30,31 +30,32 @@ public class Dao {
         this.context = context;
     }
 
-    protected void openDataBase(){
+    protected void openDataBase() {
 
-        String folderall = Constants.FOLDER_NAME + Constants.FOLDER_NAME_DBASE;
+        String folderall = FOLDER_NAME + FOLDER_NAME_DBASE;
         File path = Environment.getExternalStorageDirectory();
         File dir = new File(path, folderall);
 
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                Log.d("Dao Dir:", "Pasta não criada");
+                Log.d(LOG_D, "Folder not created");
             }
         }
 
-        String caminhodbase = dir.getPath() + "/" + Constants.BANCO_NOME;
+        String caminhodbase = dir.getPath() + "/" + DBASE_NAME;
 
         SqlHelper varHelp = new SqlHelper(
                 context,
                 caminhodbase,
                 null,
-                Constants.VERSAO_BANCO
+                DBASE_VERSION
         );
 
         db = varHelp.getWritableDatabase(); // momento solicitacao banco
     }
-    protected void closeDataBase(){
-        if (db != null && db.isOpen()){
+
+    protected void closeDataBase() {
+        if (db != null && db.isOpen()) {
             db.close();
             db = null;
         }

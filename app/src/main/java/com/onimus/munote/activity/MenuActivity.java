@@ -33,11 +33,9 @@ import android.widget.Toast;
 
 import com.onimus.munote.R;
 import com.onimus.munote.files.MenuToolbar;
-import com.onimus.munote.Constants;
 import com.onimus.munote.files.Permission;
 
-import static com.onimus.munote.Constants.PERMISSION_FIRST_ENTRY_ACTIVITY;
-import static com.onimus.munote.Constants.REQUEST_PERMISSIONS;
+import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.Permission.neverAskAgainSelected;
 
 
@@ -110,8 +108,8 @@ public class MenuActivity extends MenuToolbar {
     }
 
     private void setPermissionsIfFirstEntryActivity() {
-        SharedPreferences genPrefs = getBaseContext().getSharedPreferences(PERMISSION_FIRST_ENTRY_ACTIVITY, Context.MODE_PRIVATE);
-        boolean firstEntry = genPrefs.getBoolean(PERMISSION_FIRST_ENTRY_ACTIVITY, true);
+        SharedPreferences sharedPreferences = getBaseContext().getSharedPreferences(SHARED_PREFERENCES_USER, Context.MODE_PRIVATE);
+        boolean firstEntry = sharedPreferences.getBoolean(PERMISSION_FIRST_ENTRY_ACTIVITY, true);
         if (firstEntry) {
             setPermissions();
         }
@@ -176,7 +174,7 @@ public class MenuActivity extends MenuToolbar {
             }
             //Se o contador for igual a quantidade de permissão então Permissão foi um sucesso
             if (count == permissions.length) {
-                Log.i(Constants.TAG, getString(R.string.text_permission_granted));
+                Log.i(LOG_I, getString(R.string.text_permission_granted));
                 Toast.makeText(this, getString(R.string.text_permission_granted), Toast.LENGTH_LONG).show();
             } else {
                 Permission.setShouldShowStatus(this, permissions);
@@ -196,8 +194,8 @@ public class MenuActivity extends MenuToolbar {
     }
 
     private void setSharedPreferencesToFirstPermissionActivity(boolean f) {
-        SharedPreferences genPrefs = getBaseContext().getSharedPreferences(PERMISSION_FIRST_ENTRY_ACTIVITY, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = genPrefs.edit();
+        SharedPreferences sharedPreferences = getBaseContext().getSharedPreferences(SHARED_PREFERENCES_USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(PERMISSION_FIRST_ENTRY_ACTIVITY, f).apply();
     }
 

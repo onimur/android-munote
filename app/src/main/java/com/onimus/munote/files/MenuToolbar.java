@@ -17,13 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.onimus.munote.R;
-import com.onimus.munote.Constants;
 import com.onimus.munote.activity.CardAddActivity;
 import com.onimus.munote.activity.MenuActivity;
 import com.onimus.munote.activity.NotesAddActivity;
 
-import static com.onimus.munote.Constants.CARDADDACTIVITY;
-import static com.onimus.munote.Constants.NOTASADDACTIVITY;
+import static com.onimus.munote.Constants.*;
 
 @SuppressLint("Registered")
 public class MenuToolbar extends MainUtilities {
@@ -36,12 +34,12 @@ public class MenuToolbar extends MainUtilities {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         switch (nameActivity) {
             //Quando estiver na Activity selecionada o menu referente ao item dela fica invisivel;
-            case NOTASADDACTIVITY: {
+            case NOTES_ADD_ACTIVITY: {
                 MenuItem itemNotas = menu.findItem(R.id.action_notas);
                 itemNotas.setVisible(false);
                 break;
             }
-            case CARDADDACTIVITY: {
+            case CARD_ADD_ACTIVITY: {
                 MenuItem itemCartao = menu.findItem(R.id.action_cartao);
                 itemCartao.setVisible(false);
                 break;
@@ -60,21 +58,21 @@ public class MenuToolbar extends MainUtilities {
 
         //nenhuma inspeção Simplificável se Declaração
         if (id == R.id.action_home) {
-            actionMenuToolbar(Constants.HOME);
+            actionMenuToolbar(HOME);
             return true;
         }
         if (id == R.id.action_galeria) {
-            actionMenuToolbar(Constants.GALERIA);
+            actionMenuToolbar(GALLERY);
             return true;
         }
 
         if (id == R.id.action_notas) {
-            actionMenuToolbar(Constants.NOTAS);
+            actionMenuToolbar(NOTES);
             return true;
         }
 
         if (id == R.id.action_cartao) {
-            actionMenuToolbar(Constants.CARTAO);
+            actionMenuToolbar(CARD);
             return true;
         }
 
@@ -85,37 +83,37 @@ public class MenuToolbar extends MainUtilities {
 
         switch (nameActivity) {
             //No momento que acessa o menu o usuário está na NotesAddActivity;
-            case NOTASADDACTIVITY: {
+            case NOTES_ADD_ACTIVITY: {
                 switch (category) {
 
-                    case Constants.HOME: {
-                        setAlertDialogToReturnOnClickActivity(MenuActivity.class, "notas");
+                    case HOME: {
+                        setAlertDialogToReturnOnClickActivity(MenuActivity.class, NOTES);
                         break;
                     }
-                    case Constants.GALERIA: {
+                    case GALLERY: {
                         openESFileExplorer();
                         break;
                     }
-                    case Constants.CARTAO: {
-                        setAlertDialogToReturnOnClickActivity(CardAddActivity.class, "notas_cartao");
+                    case CARD: {
+                        setAlertDialogToReturnOnClickActivity(CardAddActivity.class, NOTES_TO_CARD);
                         break;
                     }
                 }
                 break;
             }
             //No momento que acessa o menu o usuário está na CardAddActivity;
-            case CARDADDACTIVITY: {
+            case CARD_ADD_ACTIVITY: {
                 switch (category) {
-                    case Constants.HOME: {
-                        setAlertDialogToReturnOnClickActivity(MenuActivity.class, "cartao");
+                    case HOME: {
+                        setAlertDialogToReturnOnClickActivity(MenuActivity.class, CARD);
                         break;
                     }
-                    case Constants.GALERIA: {
+                    case GALLERY: {
                         openESFileExplorer();
                         break;
                     }
-                    case Constants.NOTAS: {
-                        setAlertDialogToReturnOnClickActivity(NotesAddActivity.class, "cartao_notas");
+                    case NOTES: {
+                        setAlertDialogToReturnOnClickActivity(NotesAddActivity.class, CARD_TO_NOTES);
                         break;
                     }
                 }
@@ -125,19 +123,19 @@ public class MenuToolbar extends MainUtilities {
             default: {
                 switch (category) {
 
-                    case Constants.HOME: {
+                    case HOME: {
                         callActivity(getApplicationContext(), MenuActivity.class);
                         break;
                     }
-                    case Constants.GALERIA: {
+                    case GALLERY: {
                         openESFileExplorer();
                         break;
                     }
-                    case Constants.NOTAS: {
+                    case NOTES: {
                         callListView(NotesAddActivity.class, -1L);
                         break;
                     }
-                    case Constants.CARTAO: {
+                    case CARD: {
                         callListView(CardAddActivity.class, -1L);
                         break;
                     }

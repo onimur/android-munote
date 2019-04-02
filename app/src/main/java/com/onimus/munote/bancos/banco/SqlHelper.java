@@ -23,27 +23,27 @@ import static android.content.ContentValues.TAG;
 
 public class SqlHelper extends SQLiteOpenHelper {
 
-    private static final String TABLE_CARTAO =      "[cartao]";
-    private static final String TABLE_CARTAO_BCK =  "[cartao_bck]";
-    private static final String COLUNA_IDCARTAO =   "[idcartao]";
-    private static final String COLUNA_DESCARTAO =  "[descartao]";
-    private static final String COLUNA_NUMBERCARD = "[numbercard]";
-    private static final String COLUNA_TIPOCRED =   "[tipocred]";
-    private static final String COLUNA_TIPODEB =    "[tipodeb]";
-    private static final String COLUNA_TIPO =       "[tipo]";
+    private static final String TABLE_CARD =      "[cartao]";
+    private static final String TABLE_CARD_BCK =  "[cartao_bck]";
+    private static final String COLUMN_ID_CARD =   "[idcartao]";
+    private static final String COLUMN_DESC_CARD =  "[descartao]";
+    private static final String COLUMN_NUMBER_CARD = "[numbercard]";
+    private static final String COLUMN_TYPE_CRED =   "[tipocred]";
+    private static final String COLUMN_TYPE_DEB =    "[tipodeb]";
+    private static final String COLUMN_TYPE =       "[tipo]";
     //
-    private static final String TABLE_NOTAS =       "[notas]";
-    private static final String TABLE_NOTAS_BCK =    "[notas_bck]";
-    private static final String COLUNA_IDNOTAS =    "[idnotas]";
-    private static final String COLUNA_TITLENOTAS = "[titlenotas]";
-    private static final String COLUNA_DESNOTAS =   "[desnotas]";
-    private static final String COLUNA_PRECONOTAS = "[preconotas]";
-    private static final String COLUNA_FOTONOTAS =  "[fotonotas]"; //caminho da imagem
-    private static final String COLUNA_ANO =        "[ano]";
-    private static final String COLUNA_MES =        "[mes]";
-    private static final String COLUNA_DIA =        "[dia]";
-    //COLUNA TIPO pra table notas também
-    public static final String COLUNA_PARCELAS =    "[parcelas]";
+    private static final String TABLE_NOTES =       "[notas]";
+    private static final String TABLE_NOTES_BCK =    "[notas_bck]";
+    private static final String COLUMN_ID_NOTES =    "[idnotas]";
+    private static final String COLUMN_TITLE_NOTES = "[titlenotas]";
+    private static final String COLUMN_DESC_NOTES =   "[desnotas]";
+    private static final String COLUMN_PRICE_NOTES = "[preconotas]";
+    private static final String COLUMN_PHOTO_NOTES =  "[fotonotas]"; //caminho da imagem
+    private static final String COLUMN_YEAR =        "[ano]";
+    private static final String COLUMN_MONTH =        "[mes]";
+    private static final String COLUMN_DAY =        "[dia]";
+    //COLUMN TYPE pra table notas também
+    public static final String COLUMN_PARCELS =    "[parcelas]";
 
     SqlHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -56,25 +56,25 @@ public class SqlHelper extends SQLiteOpenHelper {
 
             String sb = (
                     //Cria Tabela Cartão
-                    "CREATE TABLE IF NOT EXISTS" + TABLE_CARTAO + "(\n" +
-                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_DESCARTAO +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
-                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDCARTAO + "));\n"+
+                    "CREATE TABLE IF NOT EXISTS" + TABLE_CARD + "(\n" +
+                    "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_DESC_CARD +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_CARD + "));\n"+
                     //Cria Tabela Notes
-                    "CREATE TABLE IF NOT EXISTS" + TABLE_NOTAS + "(\n" +
-                    "  " + COLUNA_IDNOTAS +     " INT NOT NULL, \n" +
-                    "  " + COLUNA_TITLENOTAS +  " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_DESNOTAS +    " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_PRECONOTAS +  " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_FOTONOTAS +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_ANO +         " INT NOT NULL, \n" +
-                    "  " + COLUNA_MES +         " INT NOT NULL, \n" +
-                    "  " + COLUNA_DIA +         " INT NOT NULL, \n" +
-                    "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
-                    "  " + COLUNA_PARCELAS +    " INT NOT NULL, \n" +
-                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDNOTAS + "));");
+                    "CREATE TABLE IF NOT EXISTS" + TABLE_NOTES + "(\n" +
+                    "  " + COLUMN_ID_NOTES +     " INT NOT NULL, \n" +
+                    "  " + COLUMN_TITLE_NOTES +  " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_DESC_NOTES +    " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_PRICE_NOTES +  " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_PHOTO_NOTES +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_YEAR +         " INT NOT NULL, \n" +
+                    "  " + COLUMN_MONTH +         " INT NOT NULL, \n" +
+                    "  " + COLUMN_DAY +         " INT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
+                    "  " + COLUMN_PARCELS +    " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_NOTES + "));");
             String[] comandos = sb.split(";");
 
             for (String comando : comandos) {
@@ -103,7 +103,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 5){
-            //Cria na Tabela Notas as colunas TIPO e PARCELAS
+            //Cria na Tabela Notas as colunas TYPE e PARCELS
             bancoVersao5(db);
         }
         if (oldVersion < 6){
@@ -120,42 +120,42 @@ public class SqlHelper extends SQLiteOpenHelper {
         try {
             String sb = ("BEGIN TRANSACTION;\n" +
                     //Cria uma nova tabela pra guardar os dados da tabela a ser atualizada ou deletada
-                    "CREATE TABLE " + TABLE_CARTAO_BCK + " (\n" +
-                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_DESCARTAO +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_NUMBERCARD +  " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_TIPOCRED +    " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_TIPODEB +     " TEXT NOT NULL, \n" +
-                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDCARTAO + ")); \n" +
+                    "CREATE TABLE " + TABLE_CARD_BCK + " (\n" +
+                    "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_DESC_CARD +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_NUMBER_CARD +  " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE_CRED +    " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE_DEB +     " TEXT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_CARD + ")); \n" +
                     "\n" +
-                    "INSERT INTO " + TABLE_CARTAO_BCK + " (" + COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_NUMBERCARD + ", " + COLUNA_TIPOCRED + ", " + COLUNA_TIPODEB + ")\n" +
-                    "  SELECT " +       COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_NUMBERCARD + ", " + COLUNA_TIPOCRED + ", " + COLUNA_TIPODEB + "\n" +
-                    "  FROM " + TABLE_CARTAO + ";\n" +
-                    "DROP TABLE " + TABLE_CARTAO + ";\n" +
+                    "INSERT INTO " + TABLE_CARD_BCK + " (" + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_NUMBER_CARD + ", " + COLUMN_TYPE_CRED + ", " + COLUMN_TYPE_DEB + ")\n" +
+                    "  SELECT " + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_NUMBER_CARD + ", " + COLUMN_TYPE_CRED + ", " + COLUMN_TYPE_DEB + "\n" +
+                    "  FROM " + TABLE_CARD + ";\n" +
+                    "DROP TABLE " + TABLE_CARD + ";\n" +
                     //Recria a tabela principal e recupera os dados da tabela de backup
-                    "CREATE TABLE " + TABLE_CARTAO + " (\n" +
-                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_DESCARTAO +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_NUMBERCARD +  " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_TIPOCRED +    " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_TIPODEB +     " TEXT NOT NULL, \n" +
-                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDCARTAO + ")); \n" +
+                    "CREATE TABLE " + TABLE_CARD + " (\n" +
+                    "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_DESC_CARD +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_NUMBER_CARD +  " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE_CRED +    " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE_DEB +     " TEXT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_CARD + ")); \n" +
                     "\n" +
-                    "INSERT INTO " + TABLE_CARTAO + " (" + COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_NUMBERCARD + ", " + COLUNA_TIPOCRED + ", " + COLUNA_TIPODEB + ")\n" +
-                    "  SELECT " +       COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_NUMBERCARD + ", " + COLUNA_TIPOCRED + ", " + COLUNA_TIPODEB + "\n" +
-                    "  FROM " + TABLE_CARTAO_BCK + ";\n" +
-                    "DROP TABLE " + TABLE_CARTAO_BCK + ";\n" +
-                    "CREATE TABLE IF NOT EXISTS" + TABLE_NOTAS + "(\n" +
-                    "  " + COLUNA_IDNOTAS +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_TITLENOTAS +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_DESNOTAS +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_PRECONOTAS +  " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_FOTONOTAS +     " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_IDCARTAO +     " INT NOT NULL, \n" +
-                    "  " + COLUNA_ANO +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_MES +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_DIA +    " INT NOT NULL, \n" +
-                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDNOTAS + "));\n"+
+                    "INSERT INTO " + TABLE_CARD + " (" + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_NUMBER_CARD + ", " + COLUMN_TYPE_CRED + ", " + COLUMN_TYPE_DEB + ")\n" +
+                    "  SELECT " + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_NUMBER_CARD + ", " + COLUMN_TYPE_CRED + ", " + COLUMN_TYPE_DEB + "\n" +
+                    "  FROM " + TABLE_CARD_BCK + ";\n" +
+                    "DROP TABLE " + TABLE_CARD_BCK + ";\n" +
+                    "CREATE TABLE IF NOT EXISTS" + TABLE_NOTES + "(\n" +
+                    "  " + COLUMN_ID_NOTES +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_TITLE_NOTES +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_DESC_NOTES +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_PRICE_NOTES +  " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_PHOTO_NOTES +     " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_ID_CARD +     " INT NOT NULL, \n" +
+                    "  " + COLUMN_YEAR +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_MONTH +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_DAY +    " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_NOTES + "));\n"+
                     "COMMIT;");
             String[] comandos = sb.split(";");
 
@@ -174,44 +174,44 @@ public class SqlHelper extends SQLiteOpenHelper {
         try {
             String sb = ("BEGIN TRANSACTION;\n" +
                     //Cria uma nova tabela pra guardar os dados da tabela a ser atualizada ou deletada
-                    "CREATE TABLE " + TABLE_CARTAO_BCK + " (\n" +
-                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_DESCARTAO +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_NUMBERCARD +  " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_TIPOCRED +    " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_TIPODEB +     " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
-                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDCARTAO + ")); \n" +
+                    "CREATE TABLE " + TABLE_CARD_BCK + " (\n" +
+                    "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_DESC_CARD +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_NUMBER_CARD +  " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE_CRED +    " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE_DEB +     " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_CARD + ")); \n" +
                     "\n" +
-                    "INSERT INTO " + TABLE_CARTAO_BCK + " (" + COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_NUMBERCARD + ", " + COLUNA_TIPOCRED + ", " + COLUNA_TIPODEB + ", " + COLUNA_TIPO +  ")\n" +
-                    "  SELECT " +       COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_NUMBERCARD + ", " + COLUNA_TIPOCRED + ", " + COLUNA_TIPODEB + ", \n" +
-                        "(CASE  WHEN "+ COLUNA_TIPOCRED +" = 'true' AND "+ COLUNA_TIPODEB + " = 'false' THEN 1 \n" +
-                                "WHEN "+ COLUNA_TIPOCRED + " = 'false' AND "+ COLUNA_TIPODEB + " = 'true' THEN 2 ELSE 3 END) as "+ COLUNA_TIPO +"\n" +
-                    "  FROM " + TABLE_CARTAO + ";\n" +
-                    "DROP TABLE " + TABLE_CARTAO + ";\n" +
+                    "INSERT INTO " + TABLE_CARD_BCK + " (" + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_NUMBER_CARD + ", " + COLUMN_TYPE_CRED + ", " + COLUMN_TYPE_DEB + ", " + COLUMN_TYPE +  ")\n" +
+                    "  SELECT " + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_NUMBER_CARD + ", " + COLUMN_TYPE_CRED + ", " + COLUMN_TYPE_DEB + ", \n" +
+                        "(CASE  WHEN "+ COLUMN_TYPE_CRED +" = 'true' AND "+ COLUMN_TYPE_DEB + " = 'false' THEN 1 \n" +
+                                "WHEN "+ COLUMN_TYPE_CRED + " = 'false' AND "+ COLUMN_TYPE_DEB + " = 'true' THEN 2 ELSE 3 END) as "+ COLUMN_TYPE +"\n" +
+                    "  FROM " + TABLE_CARD + ";\n" +
+                    "DROP TABLE " + TABLE_CARD + ";\n" +
                     //Recria a tabela principal e recupera os dados da tabela de backup
-                    "CREATE TABLE " + TABLE_CARTAO + " (\n" +
-                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_DESCARTAO +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_NUMBERCARD +  " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
-                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDCARTAO + ")); \n" +
+                    "CREATE TABLE " + TABLE_CARD + " (\n" +
+                    "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_DESC_CARD +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_NUMBER_CARD +  " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_CARD + ")); \n" +
                     "\n" +
-                    "INSERT INTO " + TABLE_CARTAO + " (" + COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_NUMBERCARD + ", " + COLUNA_TIPO  + ")\n" +
-                    "  SELECT " +       COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_NUMBERCARD + ", " + COLUNA_TIPO + "\n" +
-                    "  FROM " + TABLE_CARTAO_BCK + ";\n" +
-                    "DROP TABLE " + TABLE_CARTAO_BCK + ";\n" +
-                    "CREATE TABLE IF NOT EXISTS" + TABLE_NOTAS + "(\n" +
-                    "  " + COLUNA_IDNOTAS +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_TITLENOTAS +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_DESNOTAS +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_PRECONOTAS +  " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_FOTONOTAS +     " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_IDCARTAO +     " INT NOT NULL, \n" +
-                    "  " + COLUNA_ANO +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_MES +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_DIA +    " INT NOT NULL, \n" +
-                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDNOTAS + "));\n"+
+                    "INSERT INTO " + TABLE_CARD + " (" + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_NUMBER_CARD + ", " + COLUMN_TYPE  + ")\n" +
+                    "  SELECT " + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_NUMBER_CARD + ", " + COLUMN_TYPE + "\n" +
+                    "  FROM " + TABLE_CARD_BCK + ";\n" +
+                    "DROP TABLE " + TABLE_CARD_BCK + ";\n" +
+                    "CREATE TABLE IF NOT EXISTS" + TABLE_NOTES + "(\n" +
+                    "  " + COLUMN_ID_NOTES +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_TITLE_NOTES +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_DESC_NOTES +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_PRICE_NOTES +  " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_PHOTO_NOTES +     " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_ID_CARD +     " INT NOT NULL, \n" +
+                    "  " + COLUMN_YEAR +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_MONTH +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_DAY +    " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_NOTES + "));\n"+
                     "COMMIT;");
             String[] comandos = sb.split(";");
 
@@ -228,49 +228,49 @@ public class SqlHelper extends SQLiteOpenHelper {
         try {
             String sb = ("BEGIN TRANSACTION;\n" +
                     //Cria uma nova tabela pra guardar os dados da tabela a ser atualizada ou deletada
-                    "CREATE TABLE " + TABLE_NOTAS_BCK + " (\n" +
-                            "  " + COLUNA_IDNOTAS +     " INT NOT NULL, \n" +
-                            "  " + COLUNA_TITLENOTAS +  " TEXT NOT NULL, \n" +
-                            "  " + COLUNA_DESNOTAS +    " TEXT NOT NULL, \n" +
-                            "  " + COLUNA_PRECONOTAS +  " TEXT NOT NULL, \n" +
-                            "  " + COLUNA_FOTONOTAS +   " TEXT NOT NULL, \n" +
-                            "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                            "  " + COLUNA_ANO +         " INT NOT NULL, \n" +
-                            "  " + COLUNA_MES +         " INT NOT NULL, \n" +
-                            "  " + COLUNA_DIA +         " INT NOT NULL, \n" +
-                            "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
-                            "  " + COLUNA_PARCELAS +    " INT NOT NULL, \n" +
-                            "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDNOTAS + ")); \n"  +
+                    "CREATE TABLE " + TABLE_NOTES_BCK + " (\n" +
+                            "  " + COLUMN_ID_NOTES +     " INT NOT NULL, \n" +
+                            "  " + COLUMN_TITLE_NOTES +  " TEXT NOT NULL, \n" +
+                            "  " + COLUMN_DESC_NOTES +    " TEXT NOT NULL, \n" +
+                            "  " + COLUMN_PRICE_NOTES +  " TEXT NOT NULL, \n" +
+                            "  " + COLUMN_PHOTO_NOTES +   " TEXT NOT NULL, \n" +
+                            "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                            "  " + COLUMN_YEAR +         " INT NOT NULL, \n" +
+                            "  " + COLUMN_MONTH +         " INT NOT NULL, \n" +
+                            "  " + COLUMN_DAY +         " INT NOT NULL, \n" +
+                            "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
+                            "  " + COLUMN_PARCELS +    " INT NOT NULL, \n" +
+                            "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_NOTES + ")); \n"  +
                             "\n" +
-                            "INSERT INTO " + TABLE_NOTAS_BCK + " (" + COLUNA_IDNOTAS + ", " + COLUNA_TITLENOTAS + ", " + COLUNA_DESNOTAS + ", " + COLUNA_PRECONOTAS + ", " + COLUNA_FOTONOTAS + ", " + COLUNA_IDCARTAO + ", " + COLUNA_ANO + ", " + COLUNA_MES + ", " + COLUNA_DIA + ", " + COLUNA_TIPO + ", " + COLUNA_PARCELAS +  ")\n" +
-                            "  SELECT " +       COLUNA_IDNOTAS + ", " + COLUNA_TITLENOTAS + ", " + COLUNA_DESNOTAS + ", " + COLUNA_PRECONOTAS + ", " + COLUNA_FOTONOTAS + ", " + COLUNA_IDCARTAO + ", " + COLUNA_ANO + ", " + COLUNA_MES + ", " + COLUNA_DIA + ", 1, 1 \n" +
-                            "  FROM " + TABLE_NOTAS + ";\n" +
-                            "DROP TABLE " + TABLE_NOTAS + ";\n" +
+                            "INSERT INTO " + TABLE_NOTES_BCK + " (" + COLUMN_ID_NOTES + ", " + COLUMN_TITLE_NOTES + ", " + COLUMN_DESC_NOTES + ", " + COLUMN_PRICE_NOTES + ", " + COLUMN_PHOTO_NOTES + ", " + COLUMN_ID_CARD + ", " + COLUMN_YEAR + ", " + COLUMN_MONTH + ", " + COLUMN_DAY + ", " + COLUMN_TYPE + ", " + COLUMN_PARCELS +  ")\n" +
+                            "  SELECT " + COLUMN_ID_NOTES + ", " + COLUMN_TITLE_NOTES + ", " + COLUMN_DESC_NOTES + ", " + COLUMN_PRICE_NOTES + ", " + COLUMN_PHOTO_NOTES + ", " + COLUMN_ID_CARD + ", " + COLUMN_YEAR + ", " + COLUMN_MONTH + ", " + COLUMN_DAY + ", 1, 1 \n" +
+                            "  FROM " + TABLE_NOTES + ";\n" +
+                            "DROP TABLE " + TABLE_NOTES + ";\n" +
                             //Recria a tabela principal e recupera os dados da tabela de backup
-                            "CREATE TABLE " + TABLE_NOTAS + " (\n" +
-                            "  " + COLUNA_IDNOTAS +     " INT NOT NULL, \n" +
-                            "  " + COLUNA_TITLENOTAS +  " TEXT NOT NULL, \n" +
-                            "  " + COLUNA_DESNOTAS +    " TEXT NOT NULL, \n" +
-                            "  " + COLUNA_PRECONOTAS +  " TEXT NOT NULL, \n" +
-                            "  " + COLUNA_FOTONOTAS +   " TEXT NOT NULL, \n" +
-                            "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                            "  " + COLUNA_ANO +         " INT NOT NULL, \n" +
-                            "  " + COLUNA_MES +         " INT NOT NULL, \n" +
-                            "  " + COLUNA_DIA +         " INT NOT NULL, \n" +
-                            "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
-                            "  " + COLUNA_PARCELAS +    " INT NOT NULL, \n" +
-                            "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDNOTAS + ")); \n"  +
+                            "CREATE TABLE " + TABLE_NOTES + " (\n" +
+                            "  " + COLUMN_ID_NOTES +     " INT NOT NULL, \n" +
+                            "  " + COLUMN_TITLE_NOTES +  " TEXT NOT NULL, \n" +
+                            "  " + COLUMN_DESC_NOTES +    " TEXT NOT NULL, \n" +
+                            "  " + COLUMN_PRICE_NOTES +  " TEXT NOT NULL, \n" +
+                            "  " + COLUMN_PHOTO_NOTES +   " TEXT NOT NULL, \n" +
+                            "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                            "  " + COLUMN_YEAR +         " INT NOT NULL, \n" +
+                            "  " + COLUMN_MONTH +         " INT NOT NULL, \n" +
+                            "  " + COLUMN_DAY +         " INT NOT NULL, \n" +
+                            "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
+                            "  " + COLUMN_PARCELS +    " INT NOT NULL, \n" +
+                            "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_NOTES + ")); \n"  +
                             "\n" +
-                            "INSERT INTO " + TABLE_NOTAS + " (" + COLUNA_IDNOTAS + ", " + COLUNA_TITLENOTAS + ", " + COLUNA_DESNOTAS + ", " + COLUNA_PRECONOTAS + ", " + COLUNA_FOTONOTAS + ", " + COLUNA_IDCARTAO + ", " + COLUNA_ANO + ", " + COLUNA_MES + ", " + COLUNA_DIA + ", " + COLUNA_TIPO + ", " + COLUNA_PARCELAS +  ")\n" +
-                            "  SELECT " +       COLUNA_IDNOTAS + ", " + COLUNA_TITLENOTAS + ", " + COLUNA_DESNOTAS + ", " + COLUNA_PRECONOTAS + ", " + COLUNA_FOTONOTAS + ", " + COLUNA_IDCARTAO + ", " + COLUNA_ANO + ", " + COLUNA_MES + ", " + COLUNA_DIA + ", " + COLUNA_TIPO + ", " + COLUNA_PARCELAS+ "\n" +
-                            "  FROM " + TABLE_NOTAS_BCK + ";\n" +
-                            "DROP TABLE " + TABLE_NOTAS_BCK + ";\n" +
-                            "CREATE TABLE IF NOT EXISTS" + TABLE_CARTAO + "(\n" +
-                            "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                            "  " + COLUNA_DESCARTAO +   " TEXT NOT NULL, \n" +
-                            "  " + COLUNA_NUMBERCARD +  " TEXT NOT NULL, \n" +
-                            "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
-                            "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDCARTAO + "));\n"+
+                            "INSERT INTO " + TABLE_NOTES + " (" + COLUMN_ID_NOTES + ", " + COLUMN_TITLE_NOTES + ", " + COLUMN_DESC_NOTES + ", " + COLUMN_PRICE_NOTES + ", " + COLUMN_PHOTO_NOTES + ", " + COLUMN_ID_CARD + ", " + COLUMN_YEAR + ", " + COLUMN_MONTH + ", " + COLUMN_DAY + ", " + COLUMN_TYPE + ", " + COLUMN_PARCELS +  ")\n" +
+                            "  SELECT " + COLUMN_ID_NOTES + ", " + COLUMN_TITLE_NOTES + ", " + COLUMN_DESC_NOTES + ", " + COLUMN_PRICE_NOTES + ", " + COLUMN_PHOTO_NOTES + ", " + COLUMN_ID_CARD + ", " + COLUMN_YEAR + ", " + COLUMN_MONTH + ", " + COLUMN_DAY + ", " + COLUMN_TYPE + ", " + COLUMN_PARCELS + "\n" +
+                            "  FROM " + TABLE_NOTES_BCK + ";\n" +
+                            "DROP TABLE " + TABLE_NOTES_BCK + ";\n" +
+                            "CREATE TABLE IF NOT EXISTS" + TABLE_CARD + "(\n" +
+                            "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                            "  " + COLUMN_DESC_CARD +   " TEXT NOT NULL, \n" +
+                            "  " + COLUMN_NUMBER_CARD +  " TEXT NOT NULL, \n" +
+                            "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
+                            "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_CARD + "));\n"+
                             "COMMIT;");
             String[] comandos = sb.split(";");
 
@@ -288,40 +288,40 @@ public class SqlHelper extends SQLiteOpenHelper {
         try {
             String sb = ("BEGIN TRANSACTION;\n" +
                     //Cria uma nova tabela pra guardar os dados da tabela a ser atualizada ou deletada
-                    "CREATE TABLE " + TABLE_CARTAO_BCK + " (\n" +
-                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_DESCARTAO +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
-                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDCARTAO + ")); \n" +
+                    "CREATE TABLE " + TABLE_CARD_BCK + " (\n" +
+                    "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_DESC_CARD +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_CARD + ")); \n" +
                     "\n" +
-                    "INSERT INTO " + TABLE_CARTAO_BCK + " (" + COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_TIPO + ")\n" +
-                    "  SELECT " +       COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_TIPO + "\n" +
-                    "  FROM " + TABLE_CARTAO + ";\n" +
-                    "DROP TABLE " + TABLE_CARTAO + ";\n" +
+                    "INSERT INTO " + TABLE_CARD_BCK + " (" + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_TYPE + ")\n" +
+                    "  SELECT " + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_TYPE + "\n" +
+                    "  FROM " + TABLE_CARD + ";\n" +
+                    "DROP TABLE " + TABLE_CARD + ";\n" +
                     //Recria a tabela principal e recupera os dados da tabela de backup
-                    "CREATE TABLE " + TABLE_CARTAO + " (\n" +
-                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_DESCARTAO +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
-                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDCARTAO + ")); \n" +
+                    "CREATE TABLE " + TABLE_CARD + " (\n" +
+                    "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_DESC_CARD +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_CARD + ")); \n" +
                     "\n" +
-                    "INSERT INTO " + TABLE_CARTAO + " (" + COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_TIPO + ")\n" +
-                    "  SELECT " +       COLUNA_IDCARTAO + ", " + COLUNA_DESCARTAO + ", " + COLUNA_TIPO + "\n" +
-                    "  FROM " + TABLE_CARTAO_BCK + ";\n" +
-                    "DROP TABLE " + TABLE_CARTAO_BCK + ";\n" +
-                    "CREATE TABLE IF NOT EXISTS" + TABLE_NOTAS + "(\n" +
-                    "  " + COLUNA_IDNOTAS +     " INT NOT NULL, \n" +
-                    "  " + COLUNA_TITLENOTAS +  " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_DESNOTAS +    " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_PRECONOTAS +  " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_FOTONOTAS +   " TEXT NOT NULL, \n" +
-                    "  " + COLUNA_IDCARTAO +    " INT NOT NULL, \n" +
-                    "  " + COLUNA_ANO +         " INT NOT NULL, \n" +
-                    "  " + COLUNA_MES +         " INT NOT NULL, \n" +
-                    "  " + COLUNA_DIA +         " INT NOT NULL, \n" +
-                    "  " + COLUNA_TIPO +        " INT NOT NULL, \n" +
-                    "  " + COLUNA_PARCELAS +    " INT NOT NULL, \n" +
-                    "  CONSTRAINT [] PRIMARY KEY (" + COLUNA_IDNOTAS + ")); \n" +
+                    "INSERT INTO " + TABLE_CARD + " (" + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_TYPE + ")\n" +
+                    "  SELECT " + COLUMN_ID_CARD + ", " + COLUMN_DESC_CARD + ", " + COLUMN_TYPE + "\n" +
+                    "  FROM " + TABLE_CARD_BCK + ";\n" +
+                    "DROP TABLE " + TABLE_CARD_BCK + ";\n" +
+                    "CREATE TABLE IF NOT EXISTS" + TABLE_NOTES + "(\n" +
+                    "  " + COLUMN_ID_NOTES +     " INT NOT NULL, \n" +
+                    "  " + COLUMN_TITLE_NOTES +  " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_DESC_NOTES +    " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_PRICE_NOTES +  " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_PHOTO_NOTES +   " TEXT NOT NULL, \n" +
+                    "  " + COLUMN_ID_CARD +    " INT NOT NULL, \n" +
+                    "  " + COLUMN_YEAR +         " INT NOT NULL, \n" +
+                    "  " + COLUMN_MONTH +         " INT NOT NULL, \n" +
+                    "  " + COLUMN_DAY +         " INT NOT NULL, \n" +
+                    "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
+                    "  " + COLUMN_PARCELS +    " INT NOT NULL, \n" +
+                    "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_NOTES + ")); \n" +
                     "COMMIT;");
             String[] comandos = sb.split(";");
 

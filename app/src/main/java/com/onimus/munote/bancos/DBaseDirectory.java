@@ -17,24 +17,25 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.onimus.munote.files.FileUtilities;
-import com.onimus.munote.Constants;
 
 import java.io.File;
+
+import static com.onimus.munote.Constants.*;
 
 public class DBaseDirectory {
 
     public static void createDirectoryDbase(Context context) {
-        String folderall = Constants.FOLDER_NAME + Constants.FOLDER_NAME_DBASE;
+        String folderall = FOLDER_NAME + FOLDER_NAME_DBASE;
         File path = Environment.getExternalStorageDirectory();
         File dir = new File(path, folderall);
 
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                Log.d("LabCamera", "Pasta não criada");
+                Log.d(LOG_D, "Folder not created");
             }
         }
 
-        String caminhodbase = dir.getPath() + "/" + Constants.BANCO_NOME;
+        String caminhodbase = dir.getPath() + "/" + DBASE_NAME;
         FileUtilities.getUri(context, new File(caminhodbase));
     }
 

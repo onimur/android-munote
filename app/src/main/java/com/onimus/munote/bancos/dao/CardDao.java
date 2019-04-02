@@ -29,10 +29,10 @@ import static android.content.ContentValues.TAG;
 
 public class CardDao extends Dao {
 
-    private static final String TABELA = "cartao";
-    public static final String IDCARTAO = "idcartao";
-    public static final String DESCARTAO = "descartao";
-    public static final String TIPO = "tipo";
+    private static final String TABLE = "cartao";
+    public static final String ID_CARD = "idcartao";
+    public static final String DESC_CARD = "descartao";
+    public static final String TYPE = "tipo";
     private Context context;
 
     public CardDao(Context context) {
@@ -44,11 +44,11 @@ public class CardDao extends Dao {
         openDataBase();
         //
         ContentValues cv = new ContentValues();
-        cv.put(IDCARTAO, card.getIdcartao());
-        cv.put(DESCARTAO, card.getDescartao());
-        cv.put(TIPO, card.getTipo());
+        cv.put(ID_CARD, card.getIdCard());
+        cv.put(DESC_CARD, card.getDescCard());
+        cv.put(TYPE, card.getType());
         //
-        db.insert(TABELA, null, cv);
+        db.insert(TABLE, null, cv);
         //
         closeDataBase();
     }
@@ -56,31 +56,31 @@ public class CardDao extends Dao {
     public void updateCard(Card card) {
         openDataBase();
         //
-        String filtro = IDCARTAO + " = ? ";
-        String[] argumentos = {String.valueOf(card.getIdcartao())};
+        String filtro = ID_CARD + " = ? ";
+        String[] argumentos = {String.valueOf(card.getIdCard())};
         //
         ContentValues cv = new ContentValues();
-        cv.put(DESCARTAO, card.getDescartao());
-        cv.put(TIPO, card.getTipo());
+        cv.put(DESC_CARD, card.getDescCard());
+        cv.put(TYPE, card.getType());
         //
-        db.update(TABELA, cv, filtro, argumentos);
+        db.update(TABLE, cv, filtro, argumentos);
         //
         closeDataBase();
     }
 
-    public void deleteCard(long idcartao) {
+    public void deleteCard(long idCard) {
         openDataBase();
         //
-        String filtro = IDCARTAO + " = ? ";
-        String[] argumentos = {String.valueOf(idcartao)};
+        String filtro = ID_CARD + " = ? ";
+        String[] argumentos = {String.valueOf(idCard)};
         //
-        db.delete(TABELA, filtro, argumentos);
+        db.delete(TABLE, filtro, argumentos);
         //
         closeDataBase();
     }
 
 
-    public Card getCardById(long idcartao) {
+    public Card getCardById(long idCard) {
         Card cAux = null;
         //
         openDataBase();
@@ -89,16 +89,16 @@ public class CardDao extends Dao {
         //
         try {
 
-            String comando = " select * from " + TABELA + " where " + IDCARTAO + " = ? ";
-            String[] argumentos = {String.valueOf(idcartao)};
+            String comando = " select * from " + TABLE + " where " + ID_CARD + " = ? ";
+            String[] argumentos = {String.valueOf(idCard)};
             //
             cursor = db.rawQuery(comando, argumentos);
             //
             while (cursor.moveToNext()) {
                 cAux = new Card();
-                cAux.setIdcartao(cursor.getLong(cursor.getColumnIndex(IDCARTAO)));
-                cAux.setDescartao(cursor.getString(cursor.getColumnIndex(DESCARTAO)));
-                cAux.setTipo(cursor.getInt(cursor.getColumnIndex(TIPO)));
+                cAux.setIdCard(cursor.getLong(cursor.getColumnIndex(ID_CARD)));
+                cAux.setDescCard(cursor.getString(cursor.getColumnIndex(DESC_CARD)));
+                cAux.setType(cursor.getInt(cursor.getColumnIndex(TYPE)));
             }
             //
             cursor.close();
@@ -121,16 +121,16 @@ public class CardDao extends Dao {
         //
         try {
 
-            String comando = " select " + IDCARTAO + ", " + DESCARTAO + ", " + TIPO + " from " + TABELA + " order by " + DESCARTAO + " ";
+            String comando = " select " + ID_CARD + ", " + DESC_CARD + ", " + TYPE + " from " + TABLE + " order by " + DESC_CARD + " ";
             //
             cursor = db.rawQuery(comando, null);
             //
             while (cursor.moveToNext()) {
                 HMAuxCard hmAux = new HMAuxCard();
 
-                hmAux.put(IDCARTAO, cursor.getString(cursor.getColumnIndex(IDCARTAO)));
-                hmAux.put(DESCARTAO, cursor.getString(cursor.getColumnIndex(DESCARTAO)));
-                hmAux.put(TIPO, cursor.getString(cursor.getColumnIndex(TIPO)));
+                hmAux.put(ID_CARD, cursor.getString(cursor.getColumnIndex(ID_CARD)));
+                hmAux.put(DESC_CARD, cursor.getString(cursor.getColumnIndex(DESC_CARD)));
+                hmAux.put(TYPE, cursor.getString(cursor.getColumnIndex(TYPE)));
                 //
                 cartao.add(hmAux);
             }
@@ -155,24 +155,24 @@ public class CardDao extends Dao {
         //
         try {
 
-            String comando = " select " + IDCARTAO + ", " + DESCARTAO + ", " + TIPO + " from " + TABELA + " order by " + DESCARTAO + " ";
+            String comando = " select " + ID_CARD + ", " + DESC_CARD + ", " + TYPE + " from " + TABLE + " order by " + DESC_CARD + " ";
             //
             cursor = db.rawQuery(comando, null);
             //
             while (cursor.moveToNext()) {
                 HMAuxCard hmAux = new HMAuxCard();
 
-                hmAux.put(IDCARTAO, cursor.getString(cursor.getColumnIndex(IDCARTAO)));
-                hmAux.put(DESCARTAO, cursor.getString(cursor.getColumnIndex(DESCARTAO)));
-                hmAux.put(TIPO, cursor.getString(cursor.getColumnIndex(TIPO)));
+                hmAux.put(ID_CARD, cursor.getString(cursor.getColumnIndex(ID_CARD)));
+                hmAux.put(DESC_CARD, cursor.getString(cursor.getColumnIndex(DESC_CARD)));
+                hmAux.put(TYPE, cursor.getString(cursor.getColumnIndex(TYPE)));
                 //
                 cartao.add(hmAux);
             }
             //
             HMAuxCard hmAux = new HMAuxCard();
-            hmAux.put(DESCARTAO, context.getString(R.string.all_cards));
-            hmAux.put(IDCARTAO, "-1");
-            hmAux.put(TIPO, "-1");
+            hmAux.put(DESC_CARD, context.getString(R.string.all_cards));
+            hmAux.put(ID_CARD, "-1");
+            hmAux.put(TYPE, "-1");
             cartao.add(0, hmAux);
             //
             cursor.close();
@@ -195,7 +195,7 @@ public class CardDao extends Dao {
         //
         try {
 
-            String comando = " select max(" + IDCARTAO + ") + 1 as id from " + TABELA + " ";
+            String comando = " select max(" + ID_CARD + ") + 1 as id from " + TABLE + " ";
             //
             cursor = db.rawQuery(comando, null);
             //

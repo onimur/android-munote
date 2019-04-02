@@ -74,7 +74,7 @@ public class RecordSpinnerNotesYearAdapter extends BaseAdapter {
 //monta a listview
         HMAuxNotes model = hmAux.get(i);
 
-        holder.celula_year.setText(model.get(NotesDao.ANO));
+        holder.celula_year.setText(model.get(NotesDao.YEAR));
         return row;
     }
 

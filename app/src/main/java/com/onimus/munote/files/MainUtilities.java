@@ -13,6 +13,7 @@
 package com.onimus.munote.files;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,7 +44,6 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.onimus.munote.BuildConfig;
-import com.onimus.munote.Constants;
 import com.onimus.munote.R;
 import com.onimus.munote.bancos.banco.HMAuxCard;
 import com.onimus.munote.bancos.dao.CardDao;
@@ -57,12 +57,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.onimus.munote.Constants.FOLDER_NAME;
-import static com.onimus.munote.Constants.FOLDER_NAME_NOTES;
-import static com.onimus.munote.Constants.ID_BANCO;
+import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.FileUtilities.isAndroidMarshmallowOrSuperiorVersion;
 import static com.onimus.munote.files.MoneyTextWatcher.formatPriceSave;
 
+@SuppressLint("Registered")
 public class MainUtilities extends AppCompatActivity {
 
     public static void setActionOnClick(final View view, View.OnClickListener action) {
@@ -136,25 +135,25 @@ public class MainUtilities extends AppCompatActivity {
 
                 switch (putType) {
                     //vem do CardAddActivity e retorna pra CardActivity;
-                    case "cartao": {
+                    case CARD: {
 
                         callActivity(getApplicationContext(), _class);
                         //
                         break;
                     }
                     //vem de CardAddActivity e ao clicar no item notas do MenuToolbar vai pra NotesAddActivity;
-                    case "cartao_notas": {
+                    case CARD_TO_NOTES: {
                         callListView(_class, -1L);
                         break;
                     }
                     //vem do NotesAddActivity e retorna pra NotesActivity;
-                    case "notas": {
+                    case NOTES: {
                         ImageUtilities.deleteImage();
                         callActivity(getApplicationContext(), _class);
                         break;
                     }
                     //vem do NotesAddActivity e ao clicar no item cartao do MenuToolbar vai pra CardAddActivity;
-                    case "notas_cartao": {
+                    case NOTES_TO_CARD: {
                         ImageUtilities.deleteImage();
                         callListView(_class, -1L);
                         break;
@@ -187,9 +186,9 @@ public class MainUtilities extends AppCompatActivity {
     }
 
     //Alerta para quando tem ação no "SIM" e no "NÃO";
-    public void setAlertDialogOnClickActivity(final Class<?> _classF, final Class<?> _classR, final long idAtual, final String putType) {
+    public void setAlertDialogOnClickActivity(final Class<?> _classF, final Class<?> _classR, final long idActual, final String putType) {
         switch (putType) {
-            case "notas_cartao": {
+            case NOTES_TO_CARD: {
                 //Pega o String contido nos id das R.string.
                 String idTitle = getString(R.string.tv_no_card);
                 String idMessage = getString(R.string.alert_register_card);
@@ -210,7 +209,7 @@ public class MainUtilities extends AppCompatActivity {
                 });
                 builder.setNegativeButton(idCancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int is) {
-                        callListView(_classR, idAtual);
+                        callListView(_classR, idActual);
 
                     }
                 });
@@ -234,7 +233,7 @@ public class MainUtilities extends AppCompatActivity {
     }
 
     //Alerta para quando tem ação de delete.
-    public void setAlertDialogDeleteOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idAtual, final String putType) {
+    public void setAlertDialogDeleteOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idActual, final String putType) {
         setActionOnClick(btn, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,25 +253,25 @@ public class MainUtilities extends AppCompatActivity {
                 builder.setPositiveButton(idOK, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int is) {
                         switch (putType) {
-                            case "cartao": {
+                            case CARD: {
                                 CardDao cardDao;
                                 cardDao = new CardDao(context);
-                                cardDao.deleteCard(idAtual);
+                                cardDao.deleteCard(idActual);
 
                                 NotesDao notesDao;
                                 notesDao = new NotesDao(context);
-                                notesDao.updateDeletedCard(idAtual);
+                                notesDao.updateDeletedCard(idActual);
                                 break;
                             }
-                            case "notas": {
+                            case NOTES: {
                                 NotesDao notesDao;
                                 notesDao = new NotesDao(context);
-                                Notes notes = notesDao.getNotesById(idAtual);
-                                String caminho = notes.getFotonotas();
+                                Notes notes = notesDao.getNotesById(idActual);
+                                String way = notes.getPhotoNotes();
                                 File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
-                                File imgFile = new File(path, caminho);
+                                File imgFile = new File(path, way);
                                 ImageUtilities.deleteImage(imgFile);
-                                notesDao.deleteNotes(idAtual);
+                                notesDao.deleteNotes(idActual);
                                 break;
 
                             }
@@ -295,13 +294,13 @@ public class MainUtilities extends AppCompatActivity {
         });
     }
 
-    public void setAlertDialogUpdateOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idAtual, final String putType) {
+    public void setAlertDialogUpdateOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idActual, final String putType) {
         setActionOnClick(btn, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 switch (putType) {
-                    case "cartao": {
+                    case CARD: {
                         if (validation(putType)) {
                             //Pega o String contido nos id das R.string.
                             String idTitle = getString(R.string.alert_title_update);
@@ -318,8 +317,8 @@ public class MainUtilities extends AppCompatActivity {
                             builder.setPositiveButton(idOK, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int is) {
 
-                                    saveCard(idAtual, context);
-                                    callListView(_class, idAtual);
+                                    saveCard(idActual, context);
+                                    callListView(_class, idActual);
 
                                 }
                             });
@@ -342,13 +341,13 @@ public class MainUtilities extends AppCompatActivity {
         });
     }
 
-    public void setAlertDialogUpdateOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idAtual, final String putType, final String caminhoSemPath) {
+    public void setAlertDialogUpdateOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idActual, final String putType, final String noPath) {
         setActionOnClick(btn, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 switch (putType) {
-                    case "notas": {
+                    case NOTES: {
 
                         if (validation(putType)) {
                             //Pega o String contido nos id das R.string.
@@ -366,15 +365,15 @@ public class MainUtilities extends AppCompatActivity {
                             builder.setPositiveButton(idOK, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int is) {
                                     //Verifica se o imageview foi alterado, se for main então não, se for new, ele foi alterado;
-                                    //Se for main a imagem gerada precisa ser deletada e o caminho da imagem no banco de dados
+                                    //Se for main a imagem gerada precisa ser deletada e o way da imagem no banco de dados
                                     // precisa ser deletado, se for new será salva;
 
                                     //  if (tagName.equals("main")) {
                                     //     ImageUtilities.deleteImage();
-                                    //   saveNotes(idAtual, context);
+                                    //   saveNotes(idActual, context);
                                     //    } else {
 
-                                    saveNotes(idAtual, context, caminhoSemPath);
+                                    saveNotes(idActual, context, noPath);
                                     //    }
                                     callActivity(context, _class);
 
@@ -399,13 +398,13 @@ public class MainUtilities extends AppCompatActivity {
         });
     }
 
-    public void setAlertDialogUpdateOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idAtual, final String putType, final String caminhoSemPath, final File imagemFile) {
+    public void setAlertDialogUpdateOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idActual, final String putType, final String noPath, final File imgFile) {
         setActionOnClick(btn, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 switch (putType) {
-                    case "notas": {
+                    case NOTES: {
                         if (validation(putType)) {
                             //Pega o String contido nos id das R.string.
                             String idTitle = getString(R.string.alert_title_update);
@@ -422,9 +421,9 @@ public class MainUtilities extends AppCompatActivity {
                             builder.setPositiveButton(idOK, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int is) {
 
-                                    ImageUtilities.deleteImage(imagemFile);
+                                    ImageUtilities.deleteImage(imgFile);
 
-                                    saveNotes(idAtual, context, caminhoSemPath);
+                                    saveNotes(idActual, context, noPath);
 
                                     callActivity(context, _class);
 
@@ -450,7 +449,7 @@ public class MainUtilities extends AppCompatActivity {
 
     public void callListView(Class<?> _class, long id) {
         Intent mIntent = new Intent(getApplicationContext(), _class);
-        mIntent.putExtra(ID_BANCO, id);
+        mIntent.putExtra(DBASE_ID, id);
         //
         startActivity(mIntent);
         //
@@ -460,7 +459,7 @@ public class MainUtilities extends AppCompatActivity {
     //Action pra click do botão e inicar alguma ação/intent ao invés de startar uma Activity
     public void openESFileExplorer() {
 
-        Uri selectedUri = Uri.parse(String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + Constants.FOLDER_NAME));
+        Uri selectedUri = Uri.parse(String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME));
         Intent intent = new Intent(Intent.ACTION_VIEW);
 
         intent.setDataAndType(selectedUri, "resource/folder");
@@ -495,7 +494,7 @@ public class MainUtilities extends AppCompatActivity {
         finish();
     }
 
-    protected void saveCard(long idAtual, Context context) {
+    protected void saveCard(long idActual, Context context) {
 
         EditText et_desc_card;
         CheckBox cb_credito;
@@ -507,32 +506,32 @@ public class MainUtilities extends AppCompatActivity {
         cb_credito = findViewById(R.id.cb_credito);
         cb_debito = findViewById(R.id.cb_debito);
         //
-        cAux.setDescartao(et_desc_card.getText().toString().trim());
+        cAux.setDescCard(et_desc_card.getText().toString().trim());
 
         if (cb_credito.isChecked() && !cb_debito.isChecked()) {
-            cAux.setTipo(1);
+            cAux.setType(1);
         }
         if (!cb_credito.isChecked() && cb_debito.isChecked()) {
-            cAux.setTipo(2);
+            cAux.setType(2);
         }
         if (cb_credito.isChecked() && cb_debito.isChecked()) {
-            cAux.setTipo(3);
+            cAux.setType(3);
         }
         //
-        if (idAtual != -1) {
-            cAux.setIdcartao(idAtual);
+        if (idActual != -1) {
+            cAux.setIdCard(idActual);
             //
             cardDao.updateCard(cAux);
         } else {
-            idAtual = cardDao.nextID();
-            cAux.setIdcartao(idAtual);
+            idActual = cardDao.nextID();
+            cAux.setIdCard(idActual);
             //
             cardDao.insertCard(cAux);
         }
     }
 
 
-    protected void saveNotes(long idAtual, Context context, String caminhoFoto) {
+    protected void saveNotes(long idActual, Context context, String wayFoto) {
 
         EditText et_title_invoice;
         EditText et_value;
@@ -576,35 +575,35 @@ public class MainUtilities extends AppCompatActivity {
         //
         //Recupera o ID do cartão que está selecionado no Spinner
         HMAuxCard item = (HMAuxCard) sp_card.getSelectedItem();
-        idCartao = item.get(CardDao.IDCARTAO);
+        idCartao = item.get(CardDao.ID_CARD);
         //
         int positionSpParcelas = sp_parcelas.getSelectedItemPosition() + 1;
         //
-        cAux.setDesnotas(et_desc_invoice.getText().toString());
-        cAux.setTitlenotas(et_title_invoice.getText().toString());
-        cAux.setPreconotas(formatPriceSave(et_value.getText().toString()));
-        cAux.setIdcartao(convertToLong(idCartao));
-        cAux.setFotonotas(caminhoFoto);
-        cAux.setAno(year);
-        cAux.setMes(month);
-        cAux.setDia(day);
+        cAux.setDescNotes(et_desc_invoice.getText().toString());
+        cAux.setTitleNotes(et_title_invoice.getText().toString());
+        cAux.setPriceNotes(formatPriceSave(et_value.getText().toString()));
+        cAux.setIdCard(convertToLong(idCartao));
+        cAux.setPhotoNotes(wayFoto);
+        cAux.setYear(year);
+        cAux.setMonth(month);
+        cAux.setDay(day);
         //
         if (rb_debit.isChecked()) {
-            cAux.setTipo(2);
-            cAux.setParcelas(1);
+            cAux.setType(2);
+            cAux.setParcels(1);
         } else {
-            cAux.setTipo(1);
-            cAux.setParcelas(positionSpParcelas);
+            cAux.setType(1);
+            cAux.setParcels(positionSpParcelas);
         }
 
-        if (idAtual != -1) {
-            cAux.setIdnotas(idAtual);
+        if (idActual != -1) {
+            cAux.setIdNotes(idActual);
             //
             notesDao.updateNotes(cAux);
 
         } else {
-            idAtual = notesDao.nextID();
-            cAux.setIdnotas(idAtual);
+            idActual = notesDao.nextID();
+            cAux.setIdNotes(idActual);
             //
             notesDao.insertNotes(cAux);
         }
@@ -629,7 +628,7 @@ public class MainUtilities extends AppCompatActivity {
     protected boolean validation(String putType) {
         //Faz validação, se tiver tudo certo, retorna verdadeiro.
         switch (putType) {
-            case "notas": {
+            case NOTES: {
                 LinearLayout ll_hint_spinner;
                 EditText et_title_invoice;
                 EditText et_value;
@@ -680,7 +679,7 @@ public class MainUtilities extends AppCompatActivity {
                 //
                 return true;
             }
-            case "cartao": {
+            case CARD: {
                 int qtd;
                 String desc_card;
                 EditText et_desc_card;
@@ -705,7 +704,7 @@ public class MainUtilities extends AppCompatActivity {
                 }
                 return true;
             }
-            case "spinner_action_credito_debito": {
+            case SPINNER_ACTION_CRED_DEB: {
                 int tipoCard;
                 HMAuxCard item;
                 Spinner sp_card;
@@ -729,7 +728,7 @@ public class MainUtilities extends AppCompatActivity {
 
                 //Recupera o tipo do cartão
                 item = (HMAuxCard) sp_card.getSelectedItem();
-                tipoCard = convertToInt(item.get(CardDao.TIPO));
+                tipoCard = convertToInt(item.get(CardDao.TYPE));
                 switch (tipoCard) {
                     //Credito
                     case 1: {
@@ -796,13 +795,13 @@ public class MainUtilities extends AppCompatActivity {
         }
     }
 
-    public boolean setImageSaveToImageButton(final String caminho, final File imgFile) {
+    public boolean setImageSaveToImageButton(final String way, final File imgFile) {
         TextView tv_click_image = findViewById(R.id.tv_click_image);
         ImageButton ib_foto = findViewById(R.id.ib_foto);
 
         String filePath = imgFile.getAbsolutePath();
-        //se o caminho for vazio ou se o caminho existir, mas a foto não.
-        if (caminho.equals("") || !imgFile.exists()) {
+        //se o way for vazio ou se o way existir, mas a foto não.
+        if (way.equals("") || !imgFile.exists()) {
             tv_click_image.setVisibility(View.INVISIBLE);
             ib_foto.getLayoutParams().height = (int) (setWidthScreen() / 1.5);
             ib_foto.getLayoutParams().width = (int) (setWidthScreen() / 1.5);
@@ -826,7 +825,7 @@ public class MainUtilities extends AppCompatActivity {
         ImageButton ib_foto = findViewById(R.id.ib_foto);
 
         String filePath = imgFile.getAbsolutePath();
-        //se o caminho for vazio ou se o caminho existir, mas a foto não.
+        //se o way for vazio ou se o way existir, mas a foto não.
         if (!imgFile.exists()) {
             tv_click_image.setVisibility(View.INVISIBLE);
             ib_foto.getLayoutParams().height = (int) (setWidthScreen() / 1.5);

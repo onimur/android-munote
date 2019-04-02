@@ -24,7 +24,6 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.onimus.munote.Constants;
 import com.onimus.munote.R;
 import com.onimus.munote.bancos.banco.HMAuxCard;
 import com.onimus.munote.bancos.banco.RecordSpinnerCardAdapter;
@@ -37,6 +36,7 @@ import com.onimus.munote.files.FileUtilities;
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.MoneyTextWatcher.formatTextPrice;
 import static com.onimus.munote.files.MoneyTextWatcher.getCurrencySymbol;
 
@@ -117,7 +117,7 @@ public class NotesViewActivity extends MenuToolbar {
         setField();
 
         setActionOnClick(R.id.ib_foto, new OnButtonClickActionImage());
-        setAlertDialogDeleteOnClickActivity(R.id.btn_deletar, NotesActivity.class, context, idAtual, "notas");
+        setAlertDialogDeleteOnClickActivity(R.id.btn_deletar, NotesActivity.class, context, idAtual, NOTES);
         setActionOnClickActivity(R.id.btn_editar, NotesEditActivity.class, idAtual);
     }
 
@@ -136,10 +136,10 @@ public class NotesViewActivity extends MenuToolbar {
         if (idAtual != -1) {
 
             nAux = notesDao.getNotesById(idAtual);
-            idCartao = (int) nAux.getIdcartao();
-            caminho = nAux.getFotonotas();
+            idCartao = (int) nAux.getIdCard();
+            caminho = nAux.getPhotoNotes();
             //
-            File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + Constants.FOLDER_NAME + Constants.FOLDER_NAME_NOTES));
+            File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
             imgFile = new File(path, caminho);
 
             setImageSaveToImageButton(caminho, imgFile);
@@ -154,13 +154,13 @@ public class NotesViewActivity extends MenuToolbar {
             sp_parcelas.setEnabled(false);
             hmAux = cardDao.getListCard();
             sp_card.setSelection(getSpinnerIndex(sp_card, String.valueOf(idCartao)));
-            sp_parcelas.setSelection(nAux.getParcelas() - 1);
+            sp_parcelas.setSelection(nAux.getParcels() - 1);
 
             rb_debit.setClickable(false);
             rb_credit.setClickable(false);
 
 
-            if (nAux.getTipo() == 1) {
+            if (nAux.getType() == 1) {
                 rb_credit.setChecked(true);
                 rb_debit.setEnabled(false);
                 tv_sp_disabled.setEnabled(true);
@@ -173,9 +173,9 @@ public class NotesViewActivity extends MenuToolbar {
                 tv_sp_disabled.setEnabled(false);
             }
 
-            tv_title_invoice.setText(nAux.getTitlenotas());
-            tv_desc_invoice.setText(nAux.getDesnotas());
-            String price = nAux.getPreconotas();
+            tv_title_invoice.setText(nAux.getTitleNotes());
+            tv_desc_invoice.setText(nAux.getDescNotes());
+            String price = nAux.getPriceNotes();
             //formata o valor como 0,00 ou 0.00
             if (price != null) {
                 price = formatTextPrice(price);
@@ -183,13 +183,13 @@ public class NotesViewActivity extends MenuToolbar {
             tv_value2.setText(price);
 
             //formata a data
-            String data = formatDate(String.valueOf((int) nAux.getDia() + "/" + nAux.getMes() + "/" + nAux.getAno()));
+            String data = formatDate(String.valueOf((int) nAux.getDay() + "/" + nAux.getMonth() + "/" + nAux.getYear()));
             tv_selec_date.setText(data);
         }
     }
 
     private void getParameters() {
-        idAtual = getIntent().getLongExtra(Constants.ID_BANCO, 0);
+        idAtual = getIntent().getLongExtra(DBASE_ID, 0);
 
     }
 
@@ -199,7 +199,7 @@ public class NotesViewActivity extends MenuToolbar {
 
         for (int i = 0; i < spinner.getCount(); i++) {
             HMAuxCard model = hmAux.get(i);
-            String modelS = model.get(CardDao.IDCARTAO);
+            String modelS = model.get(CardDao.ID_CARD);
             if (modelS != null) {
                 if (modelS.equals(myString)) {
                     index = i;
@@ -223,21 +223,8 @@ public class NotesViewActivity extends MenuToolbar {
         }
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public void returnActivityToFragment(Context context, final Class<?> _class) {
-        //Retorna pra Activity anterior chamando o Fragment 3 e colocando os dados pra ano e mes, e recupera a listvire;
-        //não funcionando do jeito desejado
-        Intent mIntent = new Intent(context, _class);
-        mIntent.putExtra("activity", "notasview");
-        mIntent.putExtra("ano", String.valueOf(nAux.getAno()));
-        mIntent.putExtra("mes", String.valueOf(nAux.getMes()));
-        startActivity(mIntent);
-        //
-        finish();
-    }
-
     public void onBackPressed() {
-        returnActivityToFragment(context, NotesActivity.class);
+        callActivity(context, NotesActivity.class);
     }
 }
 

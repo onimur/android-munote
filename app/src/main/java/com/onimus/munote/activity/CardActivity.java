@@ -77,7 +77,7 @@ public class CardActivity extends MenuToolbar {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HMAuxCard item = (HMAuxCard) parent.getItemAtPosition(position);
                 //
-                callListView(CardViewActivity.class, Long.parseLong(Objects.requireNonNull(item.get(CardDao.IDCARTAO))));
+                callListView(CardViewActivity.class, Long.parseLong(Objects.requireNonNull(item.get(CardDao.ID_CARD))));
             }
         });
 

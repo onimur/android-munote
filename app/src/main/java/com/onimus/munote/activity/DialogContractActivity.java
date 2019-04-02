@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.onimus.munote.R;
 import com.onimus.munote.files.MenuToolbar;
 
-import static com.onimus.munote.Constants.CHECK_TERMS;
+import static com.onimus.munote.Constants.*;
 
 public class DialogContractActivity extends MenuToolbar {
 
@@ -89,15 +89,15 @@ public class DialogContractActivity extends MenuToolbar {
     }
 
     private void storeDialogStatus(boolean isChecked) {
-        SharedPreferences mSharedPreferences = getSharedPreferences(CHECK_TERMS, MODE_PRIVATE);
-        SharedPreferences.Editor mEditor = mSharedPreferences.edit();
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_USER, MODE_PRIVATE);
+        SharedPreferences.Editor mEditor = sharedPreferences.edit();
         mEditor.putBoolean(CHECK_TERMS, isChecked);
         mEditor.apply();
     }
 
     private boolean getDialogStatus() {
-        SharedPreferences mSharedPreferences = getSharedPreferences(CHECK_TERMS, MODE_PRIVATE);
-        return mSharedPreferences.getBoolean(CHECK_TERMS, false);
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_USER, MODE_PRIVATE);
+        return sharedPreferences.getBoolean(CHECK_TERMS, false);
     }
 
 }

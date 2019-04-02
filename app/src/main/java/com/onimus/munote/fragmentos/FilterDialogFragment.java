@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.onimus.munote.Constants;
 import com.onimus.munote.R;
 import com.onimus.munote.bancos.banco.HMAuxCard;
 import com.onimus.munote.bancos.banco.HMAuxNotes;
@@ -32,21 +31,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
+import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.FileUtilities.isAndroidMarshmallowOrSuperiorVersion;
 
-/**
- * Dialog Fragment containing filter form.
- */
 public class FilterDialogFragment extends DialogFragment {
-
-    public static final String TAG = "FilterDialog";
 
     public interface FilterListener {
 
         void onFilter(Filters filters);
 
     }
-
     private View view;
     private Spinner sp_card;
     private Spinner sp_year;
@@ -72,7 +66,6 @@ public class FilterDialogFragment extends DialogFragment {
 
     private FilterListener mFilterListener;
     private Context context;
-
 
     @Nullable
     @Override
@@ -124,7 +117,6 @@ public class FilterDialogFragment extends DialogFragment {
         btn_cancel = view.findViewById(R.id.buttonCancel);
 
     }
-
     private void startAction() {
         notesDao = new NotesDao(context);
         cardDao = new CardDao(context);
@@ -174,7 +166,7 @@ public class FilterDialogFragment extends DialogFragment {
                 sp_year.setSelection(position);
 
                 HMAuxNotes item = (HMAuxNotes) parent.getSelectedItem();
-                newYear = item.get(NotesDao.ANO);
+                newYear = item.get(NotesDao.YEAR);
 
                 adapterMonth.updateDataChanged(notesDao.getListMonthNotes(newYear));
             }
@@ -244,11 +236,11 @@ public class FilterDialogFragment extends DialogFragment {
             item3 = (HMAuxNotes) sp_month.getSelectedItem();
 
             if (item != null && item2 != null && item3 != null) {
-                filters.setYear(item2.get(NotesDao.ANO));
-                filters.setMonth(item3.get(NotesDao.MES));
+                filters.setYear(item2.get(NotesDao.YEAR));
+                filters.setMonth(item3.get(NotesDao.MONTH));
 
-                filters.setCard(item.get(CardDao.IDCARTAO));
-                filters.setCardDesc(item.get(CardDao.DESCARTAO));
+                filters.setIdCard(item.get(CardDao.ID_CARD));
+                filters.setDescCard(item.get(CardDao.DESC_CARD));
 
             } else if (item == null) {
                 Toast.makeText(context, getString(R.string.tv_no_card), Toast.LENGTH_SHORT).show();
@@ -259,11 +251,11 @@ public class FilterDialogFragment extends DialogFragment {
                 dismiss();
             }
             if ((cb_credit.isChecked() && cb_debit.isChecked()) || (!cb_credit.isChecked() && !cb_debit.isChecked())) {
-                filters.setTipo("3");
+                filters.setType("3");
             } else if (cb_credit.isChecked() && !cb_debit.isChecked()) {
-                filters.setTipo("1");
+                filters.setType("1");
             } else if (cb_debit.isChecked() && !cb_credit.isChecked()) {
-                filters.setTipo("2");
+                filters.setType("2");
             }
 
             filters.setSortBy(getSelectedSortBy());
@@ -272,14 +264,14 @@ public class FilterDialogFragment extends DialogFragment {
         return filters;
     }
 
-    //Verifica em qual posição está o ANO;
+    //Verifica em qual posição está o YEAR;
     public int getSpinnerYearIndex(Spinner spinner, String ano) {
         int index = 0;
         hmAux = notesDao.getListYearNotes();
 
         for (int i = 0; i < spinner.getCount(); i++) {
             HMAuxNotes model = hmAux.get(i);
-            String modelS = model.get(NotesDao.ANO);
+            String modelS = model.get(NotesDao.YEAR);
             if (modelS != null) {
                 if (modelS.equals(ano)) {
                     index = i;
@@ -296,7 +288,7 @@ public class FilterDialogFragment extends DialogFragment {
 
         for (int i = 0; i < spinner.getCount(); i++) {
             HMAuxNotes model = hmAux.get(i);
-            String modelS = model.get(NotesDao.MES);
+            String modelS = model.get(NotesDao.MONTH);
             if (modelS != null) {
                 if (modelS.equals(mes)) {
                     index = i;
@@ -332,13 +324,13 @@ public class FilterDialogFragment extends DialogFragment {
     private String getSelectedSortBy() {
         String selected = (String) sp_sort.getSelectedItem();
         if (getString(R.string.sort_by_day).equals(selected)) {
-            return Constants.FIELD_DAY;
+            return FIELD_DAY;
         }
         if (getString(R.string.sort_by_price).equals(selected)) {
-            return Constants.FIELD_PRICE;
+            return FIELD_PRICE;
         }
         if (getString(R.string.sort_by_title).equals(selected)) {
-            return Constants.FIELD_TITLE;
+            return FIELD_TITLE;
         }
 
         return null;

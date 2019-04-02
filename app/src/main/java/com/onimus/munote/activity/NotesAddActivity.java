@@ -30,7 +30,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.onimus.munote.Constants;
 import com.onimus.munote.R;
 import com.onimus.munote.bancos.banco.RecordSpinnerCardAdapter;
 import com.onimus.munote.bancos.dao.CardDao;
@@ -47,6 +46,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.bancos.DBaseDirectory.createDirectoryDbase;
 import static com.onimus.munote.files.MoneyTextWatcher.getCurrencySymbol;
 
@@ -94,7 +94,7 @@ public class NotesAddActivity extends MenuToolbar {
     @Override
     //se a tela morrer, faz cast e recria a tela;
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putString("caminhoSemPath", caminhoSemPath);
+        outState.putString(NO_PATH, caminhoSemPath);
 
         super.onSaveInstanceState(outState);
     }
@@ -144,7 +144,7 @@ public class NotesAddActivity extends MenuToolbar {
         //Recupera o tipo de cartão
         checkCard();
         //
-        File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + Constants.FOLDER_NAME + Constants.FOLDER_NAME_NOTES));
+        File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
         imgFile = new File(path, caminhoSemPath);
         setImageSaveToImageButton(imgFile);
         //
@@ -152,7 +152,7 @@ public class NotesAddActivity extends MenuToolbar {
         setActionOnClick(R.id.btn_picture, new OnButtonClickActionPicture(savedInstanceState));
         //
         setActionOnClick(R.id.btn_salvar, new OnButtonClickActionSave());
-        setAlertDialogToReturnOnClickActivity(R.id.btn_cancelar, NotesActivity.class, "notas");
+        setAlertDialogToReturnOnClickActivity(R.id.btn_cancelar, NotesActivity.class, NOTES);
         //Quando o Cartão possui credito ou debito, realiza a ação no RadioButton de desabilitar o spinner e o outro radiobutton
         setActionOnClick(R.id.rb_credit, new OnRadioButtonClickActionCredit());
         setActionOnClick(R.id.rb_debit, new OnRadioButtonClickActionDebit());
@@ -174,7 +174,7 @@ public class NotesAddActivity extends MenuToolbar {
     private void createDirectoryImage() {
         imageUtilities = new ImageUtilities();
         try {
-            imageUtilities.createDirectory(Constants.FOLDER_NAME_NOTES);
+            imageUtilities.createDirectory(FOLDER_NAME_NOTES);
             photoFile1 = imageUtilities.createImageFile();
             caminhoSemPath = ImageUtilities.returnCaminhoSemPath();
 
@@ -186,7 +186,7 @@ public class NotesAddActivity extends MenuToolbar {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.PROCESSO_TIRAR_FOTO && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_TAKE_PICTURE && resultCode == RESULT_OK) {
             ib_foto.setBackgroundResource(0);
             imageUtilities.setPhotoToBitmap(context, ib_foto);
             ib_foto.setClickable(true);
@@ -211,14 +211,14 @@ public class NotesAddActivity extends MenuToolbar {
             if (photoFile != null) {
 
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileUtilities.getUri(getApplicationContext(), photoFile));
-                startActivityForResult(takePictureIntent, Constants.PROCESSO_TIRAR_FOTO);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
             }
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void getParameters() {
-        idAtual = getIntent().getLongExtra(Constants.ID_BANCO, 0);
+        idAtual = getIntent().getLongExtra(DBASE_ID, 0);
     }
 
     ///////////////////
@@ -269,11 +269,11 @@ public class NotesAddActivity extends MenuToolbar {
             //Analisa savedInstance para recuperar os valores e inicializar as variaveis
             if (savedInstanceState != null) {
                 //
-                caminhoSemPath = savedInstanceState.getString("caminhoSemPath");
+                caminhoSemPath = savedInstanceState.getString(NO_PATH);
 
             } else if (ImageUtilities.checkDirectory()) {
                 try {
-                    imageUtilities.createDirectory(Constants.FOLDER_NAME_NOTES);
+                    imageUtilities.createDirectory(FOLDER_NAME_NOTES);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -303,7 +303,7 @@ public class NotesAddActivity extends MenuToolbar {
                    sp_card.setSelection(position);
 
                    //valida o radiobutton e o spinner parcelas
-          validation("spinner_action_credito_debito");
+          validation(SPINNER_ACTION_CRED_DEB);
 
         }
 
@@ -320,7 +320,7 @@ public class NotesAddActivity extends MenuToolbar {
         @Override
         public void onClick(View v) {
             String tagName = String.valueOf(ib_foto.getTag());
-            if (validation("notas")) {
+            if (validation(NOTES)) {
                 //Verifica se o imageview foi alterado, se for main então não, se for new, ele foi alterado;
                 //Se for main a imagem gerada precisa ser deletada e o caminho da imagem no banco de dados
                 // precisa ser deletado, se for new será salva;
@@ -386,7 +386,7 @@ public class NotesAddActivity extends MenuToolbar {
             tv_select_card.setEnabled(true);
             tv_select_card.setText(getString(R.string.tv_no_card));
             ImageUtilities.deleteImage();
-            setAlertDialogOnClickActivity(CardAddActivity.class, NotesActivity.class, idAtual, "notas_cartao");
+            setAlertDialogOnClickActivity(CardAddActivity.class, NotesActivity.class, idAtual, NOTES_TO_CARD);
 
         } else {
             sp_card.setEnabled(true);
@@ -401,7 +401,7 @@ public class NotesAddActivity extends MenuToolbar {
 ////////////////////
 
     public void onBackPressed() {
-        setAlertDialogToReturnOnClickActivity(NotesActivity.class, "notas");
+        setAlertDialogToReturnOnClickActivity(NotesActivity.class, NOTES);
     }
 
 

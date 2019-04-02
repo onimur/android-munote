@@ -81,7 +81,7 @@ public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
         }
 //monta a listview
         HMAuxNotes model = hmAux.get(i);
-        mes = model.get(NotesDao.MES);
+        mes = model.get(NotesDao.MONTH);
 
         changeMesParaExtenso();
 

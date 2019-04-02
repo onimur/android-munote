@@ -14,42 +14,42 @@ package com.onimus.munote.bancos.model;
 
 public class Card {
 
-    private long idcartao;
-    private String descartao;
-    private int tipo;
+    private long idCard;
+    private String descCard;
+    private int type;
 
     public Card() {
-        this.idcartao = -1L;
-        this.descartao = "";
-        this.tipo = -1;
+        this.idCard = -1L;
+        this.descCard = "";
+        this.type = -1;
     }
-  /*  public Card(long idcartao, String descartao, int tipo) {
-        this.idcartao = idcartao;
-        this.descartao = descartao;
-        this.tipo = tipo;
-    }*/
-
-    public long getIdcartao() {
-        return idcartao;
+   public Card(long idCard, String descCard, int type) {
+        this.idCard = idCard;
+        this.descCard = descCard;
+        this.type = type;
     }
 
-    public void setIdcartao(long idcartao) {
-        this.idcartao = idcartao;
+    public long getIdCard() {
+        return idCard;
     }
 
-    public String getDescartao() {
-        return descartao;
+    public void setIdCard(long idCard) {
+        this.idCard = idCard;
     }
 
-    public void setDescartao(String descartao) {
-        this.descartao = descartao;
+    public String getDescCard() {
+        return descCard;
     }
 
-    public int getTipo() {
-        return tipo;
+    public void setDescCard(String descCard) {
+        this.descCard = descCard;
     }
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

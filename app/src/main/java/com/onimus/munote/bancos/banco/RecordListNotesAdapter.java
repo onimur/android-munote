@@ -85,10 +85,10 @@ public class RecordListNotesAdapter extends BaseAdapter {
         }
 //monta a listview
         HMAuxNotes model = hmAux.get(i);
-        holder.celula_dia_notas.setText(model.get(NotesDao.DIA));
-        holder.celula_title_notas.setText(model.get(NotesDao.TITLENOTAS));
-        holder.celula_desc_notas.setText(model.get(NotesDao.DESNOTAS));
-        String price = model.get(NotesDao.PRECONOTAS);
+        holder.celula_dia_notas.setText(model.get(NotesDao.DAY));
+        holder.celula_title_notas.setText(model.get(NotesDao.TITLE_NOTES));
+        holder.celula_desc_notas.setText(model.get(NotesDao.DESC_NOTES));
+        String price = model.get(NotesDao.PRICE_NOTES);
         if (price != null) {
             price = formatTextPrice(price);
         }

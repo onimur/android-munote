@@ -19,10 +19,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.support.v7.widget.Toolbar;
 
-import com.onimus.munote.Constants;
 import com.onimus.munote.R;
 
 import com.onimus.munote.files.MenuToolbar;
+
+import static com.onimus.munote.Constants.*;
 
 public class CardAddActivity extends MenuToolbar {
 
@@ -66,7 +67,7 @@ public class CardAddActivity extends MenuToolbar {
 
         setSupportActionBar(toolbar);
         setActionOnClick(R.id.btn_limpar, new OnButtonClickActionLimpar());
-        setAlertDialogToReturnOnClickActivity(R.id.btn_cancelar, CardActivity.class, "cartao");
+        setAlertDialogToReturnOnClickActivity(R.id.btn_cancelar, CardActivity.class, CARD);
         setActionOnClick(R.id.btn_salvar, new OnButtonClickActionSave());
     }
 
@@ -83,7 +84,7 @@ public class CardAddActivity extends MenuToolbar {
     private class OnButtonClickActionSave implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            if (validation("cartao")) {
+            if (validation(CARD)) {
                 saveCard(idAtual, context);
                 callActivity(context, CardActivity.class);
 
@@ -92,11 +93,11 @@ public class CardAddActivity extends MenuToolbar {
     }
 
     private void getParameters() {
-        idAtual = getIntent().getLongExtra(Constants.ID_BANCO, 0);
+        idAtual = getIntent().getLongExtra(DBASE_ID, 0);
 
     }
 
     public void onBackPressed() {
-        setAlertDialogToReturnOnClickActivity(CardActivity.class, "cartao");
+        setAlertDialogToReturnOnClickActivity(CardActivity.class, CARD);
     }
 }

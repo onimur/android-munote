@@ -75,15 +75,15 @@ public class RecordListCardAdapter extends BaseAdapter {
 //monta a listview
         HMAuxCard model = hmAux.get(i);
 
-        holder.celula_cartao.setText(model.get(CardDao.DESCARTAO));
+        holder.celula_cartao.setText(model.get(CardDao.DESC_CARD));
         //  holder.celula_tipo.setText(model.get(CardDao.TIPOCRED));
-        if (String.valueOf(model.get(CardDao.TIPO)).trim().toLowerCase().equals("1")) {
+        if (String.valueOf(model.get(CardDao.TYPE)).trim().toLowerCase().equals("1")) {
             holder.celula_tipo.setText(context.getString(R.string.cb_credito));
         }
-        if (String.valueOf(model.get(CardDao.TIPO)).trim().toLowerCase().equals("2")) {
+        if (String.valueOf(model.get(CardDao.TYPE)).trim().toLowerCase().equals("2")) {
             holder.celula_tipo.setText(context.getString(R.string.cb_debito));
         }
-        if (String.valueOf(model.get(CardDao.TIPO)).trim().toLowerCase().equals("3")) {
+        if (String.valueOf(model.get(CardDao.TYPE)).trim().toLowerCase().equals("3")) {
             holder.celula_tipo.setText(context.getString(R.string.cb_string_creditdebit));
         }
 

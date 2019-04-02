@@ -31,7 +31,6 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.onimus.munote.Constants;
 import com.onimus.munote.R;
 import com.onimus.munote.bancos.banco.HMAuxCard;
 import com.onimus.munote.bancos.banco.RecordSpinnerCardAdapter;
@@ -52,6 +51,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.MoneyTextWatcher.formatPrice;
 import static com.onimus.munote.files.MoneyTextWatcher.getCurrencySymbol;
 
@@ -110,7 +110,7 @@ public class NotesEditActivity extends MenuToolbar {
 
     //se a tela morrer, faz cast e recria a tela;
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putString("caminhoSemPath", caminhoSemPath);
+        outState.putString(NO_PATH, caminhoSemPath);
 
         super.onSaveInstanceState(outState);
     }
@@ -157,8 +157,8 @@ public class NotesEditActivity extends MenuToolbar {
         if (idAtual != -1) {
 
             nAux = notesDao.getNotesById(idAtual);
-            idCartao = (int) nAux.getIdcartao();
-            caminho = nAux.getFotonotas();
+            idCartao = (int) nAux.getIdCard();
+            caminho = nAux.getPhotoNotes();
             //
             createDirectoryImage();
             checkCard();
@@ -166,13 +166,13 @@ public class NotesEditActivity extends MenuToolbar {
             setField();
         }
         //
-        File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + Constants.FOLDER_NAME + Constants.FOLDER_NAME_NOTES));
+        File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
         imgFile = new File(path, caminho);
         //checa o caminho da imagem e retorna boolean
         if (setImageSaveToImageButton(caminho, imgFile)) {
-            setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, "notas", caminhoSemPath);
+            setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, NOTES, caminhoSemPath);
         } else {
-            setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, "notas", caminho);
+            setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, NOTES, caminho);
         }
 
         setActionOnClick(R.id.btn_selec_date, new OnButtonClickActionCalendar());
@@ -188,7 +188,7 @@ public class NotesEditActivity extends MenuToolbar {
     private void createDirectoryImage() {
         imageUtilities = new ImageUtilities();
         try {
-            imageUtilities.createDirectory(Constants.FOLDER_NAME_NOTES);
+            imageUtilities.createDirectory(FOLDER_NAME_NOTES);
             photoFile1 = imageUtilities.createImageFile();
             caminhoSemPath = ImageUtilities.returnCaminhoSemPath();
 
@@ -210,9 +210,9 @@ public class NotesEditActivity extends MenuToolbar {
 
     private void setField() {
         sp_card.setSelection(getSpinnerIndex(sp_card, String.valueOf(idCartao)));
-        sp_parcelas.setSelection(nAux.getParcelas() - 1);
+        sp_parcelas.setSelection(nAux.getParcels() - 1);
 
-        if (nAux.getTipo() == 1) {
+        if (nAux.getType() == 1) {
             rb_credit.setChecked(true);
             rb_debit.setEnabled(false);
             tv_sp_disabled.setEnabled(true);
@@ -225,21 +225,21 @@ public class NotesEditActivity extends MenuToolbar {
             tv_sp_disabled.setEnabled(false);
         }
 
-        et_title_invoice.setText(nAux.getTitlenotas());
-        String price = nAux.getPreconotas();
+        et_title_invoice.setText(nAux.getTitleNotes());
+        String price = nAux.getPriceNotes();
         //formata o valor como 0,00 ou 0.00
         if (price != null) {
             price = formatPrice(price);
         }
         et_value.setText(price);
-        et_desc_invoice.setText(nAux.getDesnotas());
+        et_desc_invoice.setText(nAux.getDescNotes());
         //formata a data
-        String data = formatDate(String.valueOf((int) nAux.getDia() + "/" + nAux.getMes() + "/" + nAux.getAno()));
+        String data = formatDate(String.valueOf((int) nAux.getDay() + "/" + nAux.getMonth() + "/" + nAux.getYear()));
         btn_selec_date.setText(data);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.PROCESSO_TIRAR_FOTO && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_TAKE_PICTURE && resultCode == RESULT_OK) {
 
             //tira o background
             ib_foto.setBackgroundResource(0);
@@ -250,7 +250,7 @@ public class NotesEditActivity extends MenuToolbar {
             ib_foto.setClickable(true);
 
             tv_click_image.setVisibility(View.VISIBLE);
-            setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, "notas", caminhoSemPath, imgFile);
+            setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, NOTES, caminhoSemPath, imgFile);
 
             setActionOnClick(R.id.ib_foto, new OnButtonClickActionImage(photoFile1));
 
@@ -260,7 +260,7 @@ public class NotesEditActivity extends MenuToolbar {
     }
 
     private void getParameters() {
-        idAtual = getIntent().getLongExtra(Constants.ID_BANCO, 0);
+        idAtual = getIntent().getLongExtra(DBASE_ID, 0);
     }
 
     //Verifica em qual posição o IDCartão desejado está;
@@ -270,7 +270,7 @@ public class NotesEditActivity extends MenuToolbar {
 
         for (int i = 0; i < spinner.getCount(); i++) {
             HMAuxCard model = hmAux.get(i);
-            String modelS = model.get(CardDao.IDCARTAO);
+            String modelS = model.get(CardDao.ID_CARD);
             if (modelS != null) {
                 if (modelS.equals(myString)) {
                     index = i;
@@ -315,11 +315,11 @@ public class NotesEditActivity extends MenuToolbar {
             //Analisa savedInstance para recuperar os valores e inicializar as variaveis
             if (savedInstanceState != null) {
                 //
-                caminhoSemPath = savedInstanceState.getString("caminhoSemPath");
+                caminhoSemPath = savedInstanceState.getString(NO_PATH);
 
             } else if (ImageUtilities.checkDirectory()) {
                 try {
-                    imageUtilities.createDirectory(Constants.FOLDER_NAME_NOTES);
+                    imageUtilities.createDirectory(FOLDER_NAME_NOTES);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -341,7 +341,7 @@ public class NotesEditActivity extends MenuToolbar {
             if (photoFile != null) {
 
                 fotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileUtilities.getUri(getApplicationContext(), photoFile));
-                startActivityForResult(fotoIntent, Constants.PROCESSO_TIRAR_FOTO);
+                startActivityForResult(fotoIntent, REQUEST_TAKE_PICTURE);
             }
         }
     }
@@ -351,7 +351,7 @@ public class NotesEditActivity extends MenuToolbar {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             sp_card.setSelection(position);
-            validation("spinner_action_credito_debito");
+            validation(SPINNER_ACTION_CRED_DEB);
 
         }
 
@@ -426,7 +426,7 @@ public class NotesEditActivity extends MenuToolbar {
             tv_select_card.setEnabled(true);
             tv_select_card.setText(getString(R.string.tv_no_card));
             ImageUtilities.deleteImage();
-            setAlertDialogOnClickActivity(CardAddActivity.class, NotesViewActivity.class, idAtual, "notas_cartao");
+            setAlertDialogOnClickActivity(CardAddActivity.class, NotesViewActivity.class, idAtual, NOTES_TO_CARD);
         } else if (idCartao == -1) {
             ll_hint_spinner.setEnabled(true);
             ll_hint_spinner.setVisibility(View.VISIBLE);

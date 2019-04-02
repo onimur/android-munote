@@ -24,8 +24,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
-import com.onimus.munote.Constants;
 import com.onimus.munote.R;
 import com.onimus.munote.bancos.banco.HMAuxNotes;
 import com.onimus.munote.bancos.banco.RecordListNotesAdapter;
@@ -37,6 +35,7 @@ import com.onimus.munote.fragmentos.FilterDialogFragment;
 
 import java.util.Calendar;
 
+import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.bancos.DBaseDirectory.createDirectoryDbase;
 import static com.onimus.munote.bancos.dao.NotesDao.TOTAL;
 import static com.onimus.munote.files.MoneyTextWatcher.formatTextPrice;
@@ -110,12 +109,12 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HMAuxNotes item = (HMAuxNotes) parent.getItemAtPosition(position);
-                String idnotas = item.get(NotesDao.IDNOTAS);
+                String idnotas = item.get(NotesDao.ID_NOTES);
                 assert idnotas != null;
                 long idnotasL = Long.parseLong(idnotas);
 
                 Intent mIntent = new Intent(context, NotesViewActivity.class);
-                mIntent.putExtra(Constants.ID_BANCO, idnotasL);
+                mIntent.putExtra(DBASE_ID, idnotasL);
                 //
                 startActivity(mIntent);
                 //
@@ -152,13 +151,13 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
         //
         String month = filters.getMonth();
         String year = filters.getYear();
-        String idcard = filters.getCard();
-        String tipo = filters.getTipo();
+        String idcard = filters.getIdCard();
+        String tipo = filters.getType();
         String sortBy = filters.getOrderDescriptionDB();
 
         //Envia os adaptadores atualizados para a ListView
         if (year == null || month == null || idcard == null || tipo == null) {
-            adapter = new RecordListNotesAdapter(context, R.layout.celula_listview_notas_layout, notesDao.getListNotes(anoAtual, mesAtual, "-1", "3", NotesDao.DIA));
+            adapter = new RecordListNotesAdapter(context, R.layout.celula_listview_notas_layout, notesDao.getListNotes(anoAtual, mesAtual, "-1", "3", NotesDao.DAY));
             lv_note.setAdapter(adapter);
 
             HMAuxNotes text = notesDao.getNotesTotal(anoAtual, mesAtual, "-1", "3");
@@ -186,7 +185,7 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
         @Override
         public void onClick(View v) {
             // Mostra o dialogo que contém o filtro
-            mFilterDialog.show(getSupportFragmentManager(), FilterDialogFragment.TAG);
+            mFilterDialog.show(getSupportFragmentManager(), TAG_FILTER_DIALOG);
         }
     }
 

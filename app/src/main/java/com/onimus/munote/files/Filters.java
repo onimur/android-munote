@@ -3,20 +3,21 @@ package com.onimus.munote.files;
 
 import android.content.Context;
 
-import com.onimus.munote.Constants;
 import com.onimus.munote.R;
 import com.onimus.munote.bancos.dao.NotesDao;
+
+import static com.onimus.munote.Constants.*;
 
 /**
  * Object for passing filters around.
  */
 public class Filters {
 
-    private String card = null;
+    private String idCard = null;
     private String year = null;
     private String month = null;
-    private String tipo = null;
-    private String cardDesc = null;
+    private String type = null;
+    private String descCard = null;
     private String sortBy = null;
 
     private Context context;
@@ -26,17 +27,17 @@ public class Filters {
 
     public static Filters getDefault() {
         Filters filters = new Filters();
-        filters.setSortBy(Constants.FIELD_DAY);
+        filters.setSortBy(FIELD_DAY);
 
         return filters;
     }
 
-    public String getCard() {
-        return card;
+    public String getIdCard() {
+        return idCard;
     }
 
-    public void setCard(String card) {
-        this.card = card;
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 
     public String getYear() {
@@ -64,28 +65,28 @@ public class Filters {
         this.sortBy = sortBy;
     }
 
-    public String getCardDesc() {
-        return cardDesc;
+    public String getDescCard() {
+        return descCard;
     }
 
-    public void setCardDesc(String cardDesc) {
-        this.cardDesc = cardDesc;
+    public void setDescCard(String descCard) {
+        this.descCard = descCard;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getType() {
+        return type;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getSearchDescription(Context context) {
         this.context = context;
-        if (card == null || card.equals("-1")) {
+        if (idCard == null || idCard.equals("-1")) {
             return context.getString(R.string.all_cards);
         } else {
-            return cardDesc;
+            return descCard;
         }
     }
 
@@ -107,9 +108,9 @@ public class Filters {
     }
 
     public String getOrderDescription(Context context) {
-        if (Constants.FIELD_PRICE.equals(sortBy)) {
+        if (FIELD_PRICE.equals(sortBy)) {
             return context.getString(R.string.sorted_by_price);
-        } else if (Constants.FIELD_TITLE.equals(sortBy)) {
+        } else if (FIELD_TITLE.equals(sortBy)) {
             return context.getString(R.string.sorted_by_title);
         } else {
             return context.getString(R.string.sorted_by_day);
@@ -117,12 +118,12 @@ public class Filters {
     }
 
     public String getOrderDescriptionDB() {
-        if (Constants.FIELD_PRICE.equals(sortBy)) {
-            return NotesDao.PRECONOTAS;
-        } else if (Constants.FIELD_TITLE.equals(sortBy)) {
-            return NotesDao.TITLENOTAS;
+        if (FIELD_PRICE.equals(sortBy)) {
+            return NotesDao.PRICE_NOTES;
+        } else if (FIELD_TITLE.equals(sortBy)) {
+            return NotesDao.TITLE_NOTES;
         } else {
-            return NotesDao.DIA;
+            return NotesDao.DAY;
         }
     }
 

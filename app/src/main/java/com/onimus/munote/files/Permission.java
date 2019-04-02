@@ -20,7 +20,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 
-import static com.onimus.munote.Constants.PERMISSION_PREFERENCES;
+import static com.onimus.munote.Constants.*;
 
 //Código para pedir permissão ao usuário
 public class Permission {
@@ -37,8 +37,8 @@ public class Permission {
 
     //salva se o usuários cancela as permissões
     public static void setShouldShowStatus(Context context, String... permissions) {
-        SharedPreferences genPrefs = context.getSharedPreferences(PERMISSION_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = genPrefs.edit();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         for (String aPermissions : permissions) {
             editor.putBoolean(aPermissions, true);
         }
@@ -66,7 +66,7 @@ public class Permission {
     }
 
     public static boolean getRationaleDisplayStatus(Context context, String permission) {
-        SharedPreferences genPrefs = context.getSharedPreferences(PERMISSION_PREFERENCES, Context.MODE_PRIVATE);
-        return genPrefs.getBoolean(permission, false);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_USER, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(permission, false);
     }
 }

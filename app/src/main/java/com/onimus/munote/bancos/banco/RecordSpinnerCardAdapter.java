@@ -85,17 +85,17 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
         holder.ll_celula_tipo.addView(holder.celula_tipo);
         holder.ll_celula_tipo.setBackgroundResource(R.color.colorWhiteTransparence);
 
-        holder.celula_cartao.setText(model.get(CardDao.DESCARTAO));
-        if (String.valueOf(model.get(CardDao.TIPO)).trim().toLowerCase().equals("1")) {
+        holder.celula_cartao.setText(model.get(CardDao.DESC_CARD));
+        if (String.valueOf(model.get(CardDao.TYPE)).trim().toLowerCase().equals("1")) {
             holder.celula_tipo.setText(context.getString(R.string.cb_credito));
         }
-        if (String.valueOf(model.get(CardDao.TIPO)).trim().toLowerCase().equals("2")) {
+        if (String.valueOf(model.get(CardDao.TYPE)).trim().toLowerCase().equals("2")) {
             holder.celula_tipo.setText(context.getString(R.string.cb_debito));
         }
-        if (String.valueOf(model.get(CardDao.TIPO)).trim().toLowerCase().equals("3")) {
+        if (String.valueOf(model.get(CardDao.TYPE)).trim().toLowerCase().equals("3")) {
             holder.celula_tipo.setText((context.getString(R.string.cb_credito) + " / " + context.getString(R.string.cb_debito)));
         }
-        if (String.valueOf(model.get(CardDao.TIPO)).trim().toLowerCase().equals("-1")) {
+        if (String.valueOf(model.get(CardDao.TYPE)).trim().toLowerCase().equals("-1")) {
             holder.celula_cartao.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height));
             holder.ll_celula_tipo.removeView(holder.celula_tipo);
             holder.celula_tipo.setText("");

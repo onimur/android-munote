@@ -29,12 +29,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.onimus.munote.Constants.FOLDER_NAME;
+import static com.onimus.munote.Constants.*;
 
 public class ImageUtilities {
     private static File image;
     private String caminhoYearMonth;
-    String caminhodirPath;
+    private String caminhodirPath;
     private static File fileDir;
 
     private String caminho;
@@ -59,7 +59,7 @@ public class ImageUtilities {
         //Verifica se a pasta não existe e não foi criado
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                Log.d("LabCamera", "Pasta não criada");
+                Log.d(LOG_D, "Folder not created");
             }
         }
         caminhodirPath = dir.getAbsolutePath();

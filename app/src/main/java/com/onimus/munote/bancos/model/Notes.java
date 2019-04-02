@@ -15,132 +15,132 @@ package com.onimus.munote.bancos.model;
 
 public class Notes {
 
-    private long idcartao;
-    private long idnotas;
-    private long ano;
-    private long mes;
-    private long dia;
-    private String titlenotas;
-    private String desnotas;
-    private String preconotas;
-    private String fotonotas;
-    private int tipo;
-    private int parcelas;
+    private long idCard;
+    private long idNotes;
+    private long year;
+    private long month;
+    private long day;
+    private String titleNotes;
+    private String descNotes;
+    private String priceNotes;
+    private String photoNotes;
+    private int type;
+    private int parcels;
 
     public Notes() {
-        this.idcartao = -1L;
-        this.idnotas = -1L;
-        this.titlenotas = "";
-        this.desnotas = "";
-        this.preconotas = "";
-        this.fotonotas = "";
-        this.ano = -1L;
-        this.mes = -1L;
-        this.dia = -1L;
-        this.tipo = -1;
-        this.parcelas = -1;
+        this.idCard = -1L;
+        this.idNotes = -1L;
+        this.titleNotes = "";
+        this.descNotes = "";
+        this.priceNotes = "";
+        this.photoNotes = "";
+        this.year = -1L;
+        this.month = -1L;
+        this.day = -1L;
+        this.type = -1;
+        this.parcels = -1;
     }
-    /*public Notes(long idcartao, long idnotas, long ano, long mes, long dia, String titlenotas, String desnotas, String preconotas, String fotonotas, int tipo, int parcelas) {
-        this.idcartao = idcartao;
-        this.idnotas = idnotas;
-        this.ano = ano;
-        this.mes = mes;
-        this.dia = dia;
-        this.titlenotas = titlenotas;
-        this.desnotas = desnotas;
-        this.preconotas = preconotas;
-        this.fotonotas = fotonotas;
-        this.tipo = tipo;
-        this.parcelas = parcelas;
+    public Notes(long idCard, long idNotes, long year, long month, long day, String titleNotes, String descNotes, String priceNotes, String photoNotes, int type, int parcels) {
+        this.idCard = idCard;
+        this.idNotes = idNotes;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.titleNotes = titleNotes;
+        this.descNotes = descNotes;
+        this.priceNotes = priceNotes;
+        this.photoNotes = photoNotes;
+        this.type = type;
+        this.parcels = parcels;
 
-    }*/
-
-    public long getIdcartao() {
-        return idcartao;
     }
 
-    public void setIdcartao(long idcartao) {
-        this.idcartao = idcartao;
+    public long getIdCard() {
+        return idCard;
     }
 
-    public long getIdnotas() {
-        return idnotas;
+    public void setIdCard(long idCard) {
+        this.idCard = idCard;
     }
 
-    public void setIdnotas(long idnotas) {
-        this.idnotas = idnotas;
+    public long getIdNotes() {
+        return idNotes;
     }
 
-    public long getAno() {
-        return ano;
+    public void setIdNotes(long idNotes) {
+        this.idNotes = idNotes;
     }
 
-    public void setAno(long ano) {
-        this.ano = ano;
+    public long getYear() {
+        return year;
     }
 
-    public long getMes() {
-        return mes;
+    public void setYear(long year) {
+        this.year = year;
     }
 
-    public void setMes(long mes) {
-        this.mes = mes;
+    public long getMonth() {
+        return month;
     }
 
-    public long getDia() {
-        return dia;
+    public void setMonth(long month) {
+        this.month = month;
     }
 
-    public void setDia(long dia) {
-        this.dia = dia;
+    public long getDay() {
+        return day;
     }
 
-    public String getTitlenotas() {
-        return titlenotas;
+    public void setDay(long day) {
+        this.day = day;
     }
 
-    public void setTitlenotas(String titlenotas) {
-        this.titlenotas = titlenotas;
+    public String getTitleNotes() {
+        return titleNotes;
     }
 
-    public String getDesnotas() {
-        return desnotas;
+    public void setTitleNotes(String titleNotes) {
+        this.titleNotes = titleNotes;
     }
 
-    public void setDesnotas(String desnotas) {
-        this.desnotas = desnotas;
+    public String getDescNotes() {
+        return descNotes;
     }
 
-    public String getPreconotas() {
-        return preconotas;
+    public void setDescNotes(String descNotes) {
+        this.descNotes = descNotes;
     }
 
-    public void setPreconotas(String preconotas) {
-        this.preconotas = preconotas;
+    public String getPriceNotes() {
+        return priceNotes;
     }
 
-    public String getFotonotas() {
-        return fotonotas;
+    public void setPriceNotes(String priceNotes) {
+        this.priceNotes = priceNotes;
     }
 
-    public void setFotonotas(String fotonotas) {
-        this.fotonotas = fotonotas;
+    public String getPhotoNotes() {
+        return photoNotes;
     }
 
-    public int getTipo() {
-        return tipo;
+    public void setPhotoNotes(String photoNotes) {
+        this.photoNotes = photoNotes;
     }
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
+    public int getType() {
+        return type;
     }
 
-    public int getParcelas() {
-        return parcelas;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public void setParcelas(int parcelas) {
-        this.parcelas = parcelas;
+    public int getParcels() {
+        return parcels;
+    }
+
+    public void setParcels(int parcels) {
+        this.parcels = parcels;
     }
 
 }
