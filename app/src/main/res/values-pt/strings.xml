@@ -14,7 +14,7 @@
 <resources>
 
     <string name="operation_cancel">Operação Cancelada</string>
-    <string name="title_invoice">Comprovantes</string>
+    <string name="title_invoice">Pagamentos</string>
     <string name="btn_picture">Tire Foto</string>
     <string name="error_folder_creater">Erro: Pasta não encontrada</string>
 
@@ -45,7 +45,7 @@
     <string name="alert_message_update">Você realmente quer atualizar o cartão?</string>
     <string name="alert_title_update">Atualizar</string>
     <string name="error_picture">Erro, tente novamente</string>
-    <string name="title_add_invoice">Adicionar Comprovantes</string>
+    <string name="title_add_invoice">Adicionar Pagamentos</string>
     <string name="tv_desc_invoice">Descrição:</string>
     <string name="tv_title_invoice">Título:</string>
     <string name="et_title_invoice">Ex: Bar do Toninho</string>
@@ -80,8 +80,8 @@
     <string name="cb_string_creditdebit">Crédito Débito</string>
     <string name="desc_card">Cartão:</string>
     <string name="desc_date">Data:</string>
-    <string name="title_edit_notes">Editar Comprovantes</string>
-    <string name="alert_message_update_invoice">Você tem certeza em atualizar o comprovante?</string>
+    <string name="title_edit_notes">Editar Pagamentos</string>
+    <string name="alert_message_update_invoice">Você tem certeza em atualizar o pagamento?</string>
     <string name="alert_register_card">Você não possui cartão cadastrado. Gostaria de registrar um cartão?</string>
     <string name="title_registered_card">Cartões Registrados</string>
     <string name="install_ES_File">Por favor, instale o aplicativo ES File Explorer</string>
@@ -93,11 +93,11 @@
     <string name="text_day">Dia</string>
     <string name="text_title_description">Título / Descrição</string>
     <string name="text_desc_ib_photo">Imagem tirada do comprovante</string>
-    <string name="text_desc_title_notes">Título da nota</string>
+    <string name="text_desc_title_notes">Título do pagamento</string>
     <string name="text_desc_price_notes">Valor cobrado</string>
-    <string name="text_desc_desc_notes">Descrição da nota</string>
+    <string name="text_desc_desc_notes">Descrição do pagamento</string>
     <string name="text_desc_card">Descrição do cartão</string>
-    <string name="tv_no_invoice">Nenhum comprovante registrado</string>
+    <string name="tv_no_invoice">Nenhum pagamento registrado</string>
     <string name="all_cards">Todos Cartões</string>
     <string name="filter">Filtro</string>
     <string name="apply">Aplicar</string>
