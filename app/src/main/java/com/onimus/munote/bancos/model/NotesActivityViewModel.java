@@ -2,8 +2,6 @@ package com.onimus.munote.bancos.model;
 
 import android.arch.lifecycle.ViewModel;
 
-import com.onimus.munote.files.Filters;
-
 
 public class NotesActivityViewModel extends ViewModel {
 

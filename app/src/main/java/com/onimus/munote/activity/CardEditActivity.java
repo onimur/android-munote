@@ -32,12 +32,12 @@ public class CardEditActivity extends MenuToolbar {
     private Toolbar toolbar;
     //
     private EditText et_desc_card;
-    private CheckBox cb_credito;
-    private CheckBox cb_debito;
+    private CheckBox cb_credit;
+    private CheckBox cb_debit;
     //
     private CardDao cardDao;
     //
-    private long idAtual;
+    private long idActual;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +57,8 @@ public class CardEditActivity extends MenuToolbar {
         //
         toolbar = findViewById(R.id.toolbar);
         et_desc_card = findViewById(R.id.et_desc_card);
-        cb_credito = findViewById(R.id.cb_credito);
-        cb_debito = findViewById(R.id.cb_debito);
+        cb_credit = findViewById(R.id.cb_credit);
+        cb_debit = findViewById(R.id.cb_debit);
         //
         loadAdmob();
     }
@@ -68,39 +68,39 @@ public class CardEditActivity extends MenuToolbar {
 
         setField();
 
-        setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, CardViewActivity.class, context, idAtual, CARD);
-        setActionOnClickActivity(R.id.btn_cancelar, CardViewActivity.class, idAtual);
+        setAlertDialogUpdateOnClickActivity(R.id.btn_save, CardViewActivity.class, context, idActual, CARD);
+        setActionOnClickActivity(R.id.btn_cancel, CardViewActivity.class, idActual);
     }
 
     private void setField() {
-        if (idAtual != -1) {
-            Card cAux = cardDao.getCardById(idAtual);
+        if (idActual != -1) {
+            Card cAux = cardDao.getCardById(idActual);
 
             et_desc_card.setText(cAux.getDescCard());
             if (cAux.getType() == 1) {
-                cb_credito.setChecked(true);
-                cb_debito.setChecked(false);
+                cb_credit.setChecked(true);
+                cb_debit.setChecked(false);
             }
 
             if (cAux.getType() == 2) {
-                cb_credito.setChecked(false);
-                cb_debito.setChecked(true);
+                cb_credit.setChecked(false);
+                cb_debit.setChecked(true);
             }
 
             if (cAux.getType() == 3) {
-                cb_credito.setChecked(true);
-                cb_debito.setChecked(true);
+                cb_credit.setChecked(true);
+                cb_debit.setChecked(true);
             }
         }
     }
 
     private void getParameters() {
-        idAtual = getIntent().getLongExtra(DBASE_ID, 0);
+        idActual = getIntent().getLongExtra(DBASE_ID, 0);
 
     }
 
     public void onBackPressed() {
-        callListView(CardViewActivity.class, idAtual);
+        callListView(CardViewActivity.class, idActual);
     }
 
 }

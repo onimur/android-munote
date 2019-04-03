@@ -18,34 +18,35 @@
     <string name="error_folder_creater">Error: Folder not found</string>
     <string name="warning_install_es_file_explorer">Please install ES File Explorer</string>
 
-    <string name="title_galeria">Gallery</string>
+    <string name="title_gallery">Gallery</string>
 
     <string name="title_menu">Menu</string>
     <string name="title_card_edit">Edit Credit Card</string>
     <string name="title_card_add">Add Credit Card</string>
     <string name="title_bank">Edit Bank</string>
 
-    <string name="tv_adicionar">Add</string>
-    <string name="tv_editar">Edit</string>
+    <string name="tv_add">Add</string>
+    <string name="tv_edit">Edit</string>
 
     <string name="tv_desc_card">Card Description:</string>
     <string name="et_desc_card" translatable="false">Ex: VisaCard</string>
 
-    <string name="btn_salvar">Save</string>
-    <string name="btn_cancelar">Cancel</string>
-    <string name="btn_limpar">Clear</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_clear">Clear</string>
 
     <string name="alert_title_cancel">Cancel</string>
-    <string name="alert_message_retorno">Do you really want to cancel?</string>
+    <string name="alert_message_return">Do you really want to cancel?</string>
     <string name="alert_ok">Yes</string>
     <string name="alert_cancel">No</string>
     <string name="toast_desc_card">Card Description:  Is required</string>
 
-    <string name="cb_credito">Credit</string>
-    <string name="cb_debito">Debit</string>
+    <string name="cb_credit">Credit</string>
+    <string name="cb_debit">Debit</string>
+    <string name="text_cred_deb">Credit and Debit</string>
     <string name="toast_cb_checked">Credit/Debit: At least one marking is required</string>
     <string name="title_card">Card</string>
-    <string name="tv_deletar">Delete</string>
+    <string name="tv_delete">Delete</string>
     <string name="alert_title_delete">Warning</string>
     <string name="alert_message_delete">Do you really want to delete?</string>
     <string name="alert_title_update">Update</string>
@@ -60,7 +61,7 @@
     <string name="tv_value">Value</string>
     <string name="et_value">0.00</string>
     <string name="tv_pay_date">Payment Date:</string>
-    <string name="tv_selec_date">Select</string>
+    <string name="tv_select_date">Select</string>
     <string name="tv_choose_card">Choose a Card…</string>
     <string name="toast_ll_hint_spinner_enabled">You need to choose a Card</string>
     <string name="toast_title_invoice">Title: Is required</string>
@@ -79,17 +80,17 @@
     <string name="month_outubro">October</string>
     <string name="month_novembro">November</string>
     <string name="month_dezembro">December</string>
-    <string name="tv_cliquenaimagem">Click on the image to view it</string>
-    <string name="tv_card_deleted">Registered Card deleted</string>
-    <string name="tv_no_card">No registered Card</string>
+    <string name="tv_click_to_view">Click on the image to view it</string>
+    <string name="tv_card_deleted">Registered card deleted</string>
+    <string name="tv_no_card">No registered card</string>
     <string name="tv_no_invoice">No registered invoices</string>
-    <string name="mensagem_register_card">You need to register a Card first</string>
+    <string name="message_register_card">You need to register a card first</string>
     <string name="cb_string_creditdebit">Credit Debit</string>
     <string name="desc_card">Card:</string>
     <string name="desc_date">Date:</string>
-    <string name="title_edit_notas">Edit Invoices</string>
+    <string name="title_edit_notes">Edit Invoices</string>
     <string name="alert_message_update_invoice">Do you really want to update the invoice?</string>
-    <string name="alert_register_card">You don\'t have a registered Card. Do you want to register a Card?</string>
+    <string name="alert_register_card">You don\'t have a registered card. Do you want to register a card?</string>
     <string name="title_registered_card">Registered Cards</string>
     <string name="install_ES_File">Please install the ES File Explorer</string>
     <string name="desc_installments">Installments:</string>
@@ -100,12 +101,11 @@
     <string name="text_total">Total:</string>
     <string name="text_day">Day</string>
     <string name="text_title_description">Title / Description</string>
-    <string name="text_desc_ib_foto">Image taken from receipt</string>
-    <string name="text_desc_titulo_nota">Title of the invoice</string>
-    <string name="text_desc_preco_notas">Amount charged</string>
-    <string name="text_desc_desc_notas">Invoice description</string>
+    <string name="text_desc_ib_photo">Image taken from receipt</string>
+    <string name="text_desc_title_notes">Title of the invoice</string>
+    <string name="text_desc_price_notes">Amount charged</string>
+    <string name="text_desc_desc_notes">Invoice description</string>
     <string name="text_desc_card">Card description</string>
-    <string name="text_desc_card_num">Card final numbers</string>
 
     <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
     <!-- My AdMob App ID: ca-app-pub-4422707170557261~6064834767 -->

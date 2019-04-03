@@ -24,20 +24,20 @@
         tools:ignore="HardcodedText" />
 
     <item
-        android:id="@+id/action_galeria"
+        android:id="@+id/action_gallery"
         android:orderInCategory="100"
-        android:title="@string/title_galeria"
+        android:title="@string/title_gallery"
         android:visible="true"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_notas"
+        android:id="@+id/action_notes"
         android:orderInCategory="101"
         android:title="@string/title_add_invoice"
         android:visible="true"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_cartao"
+        android:id="@+id/action_card"
         android:orderInCategory="102"
         android:title="@string/title_card_add"
         android:visible="true"

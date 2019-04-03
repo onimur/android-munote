@@ -24,7 +24,7 @@
         android:padding="20dp">
 
         <TextView
-            style="@style/Text_title_white"
+            style="@style/Text_Title_White"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -38,12 +38,12 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn_menu_galeria"
+                android:id="@+id/btn_menu_gallery"
                 style="@style/Button_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_gallery"
-                android:text="@string/title_galeria" />
+                android:text="@string/title_gallery" />
 
             <Button
                 android:id="@+id/btn_menu_invoice"

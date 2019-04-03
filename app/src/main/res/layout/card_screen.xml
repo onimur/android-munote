@@ -57,7 +57,7 @@
                 android:paddingBottom="20dp">
 
                 <ListView
-                    android:id="@+id/lv_cartao"
+                    android:id="@+id/lv_card"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -70,12 +70,12 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btn_adicionar"
+                    android:id="@+id/btn_add"
                     style="@style/Button_2_Sub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_adicionar"
-                    android:text="@string/tv_adicionar" />
+                    android:text="@string/tv_add" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

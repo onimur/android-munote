@@ -52,12 +52,14 @@ import com.onimus.munote.bancos.model.Card;
 import com.onimus.munote.bancos.model.Notes;
 
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import static com.onimus.munote.Constants.*;
+import static com.onimus.munote.files.ConvertType.convertToDate;
+import static com.onimus.munote.files.ConvertType.convertToInt;
+import static com.onimus.munote.files.ConvertType.convertToLong;
 import static com.onimus.munote.files.FileUtilities.isAndroidMarshmallowOrSuperiorVersion;
 import static com.onimus.munote.files.MoneyTextWatcher.formatPriceSave;
 
@@ -86,16 +88,6 @@ public class MainUtilities extends AppCompatActivity {
         }
     }
 
-    public void setActionOnClickActivity(final int btn, final Class<?> _class) {
-        setActionOnClick(btn, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                callActivity(getApplicationContext(), _class);
-            }
-        });
-    }
-
     public void setActionOnClickActivity(final View view, final Class<?> _class) {
         setActionOnClick(view, new View.OnClickListener() {
             @Override
@@ -120,7 +112,7 @@ public class MainUtilities extends AppCompatActivity {
     public void setAlertDialogToReturnOnClickActivity(final Class<?> _class, final String putType) {
         //Pega o String contido nos id das R.string.
         String idTitle = getString(R.string.alert_title_cancel);
-        String idMessage = getString(R.string.alert_message_retorno);
+        String idMessage = getString(R.string.alert_message_return);
         String idOK = getString(R.string.alert_ok);
         String idCancel = getString(R.string.alert_cancel);
 
@@ -218,9 +210,7 @@ public class MainUtilities extends AppCompatActivity {
                 // 3. Obtenha o AlertDialog de create () e mostre
                 AlertDialog dialog = builder.create();
                 //////////////////////////////////////////////////////////////////
-                //////////////////////////////////////////////////////////////////
                 //FORÇA o usuário a escolher entre sim ou não.
-                //////////////////////////////////////////////////////////////////
                 //////////////////////////////////////////////////////////////////
                 dialog.setCancelable(false);
                 dialog.setCanceledOnTouchOutside(false);
@@ -267,9 +257,9 @@ public class MainUtilities extends AppCompatActivity {
                                 NotesDao notesDao;
                                 notesDao = new NotesDao(context);
                                 Notes notes = notesDao.getNotesById(idActual);
-                                String way = notes.getPhotoNotes();
+                                String newPath = notes.getPhotoNotes();
                                 File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
-                                File imgFile = new File(path, way);
+                                File imgFile = new File(path, newPath);
                                 ImageUtilities.deleteImage(imgFile);
                                 notesDao.deleteNotes(idActual);
                                 break;
@@ -341,7 +331,7 @@ public class MainUtilities extends AppCompatActivity {
         });
     }
 
-    public void setAlertDialogUpdateOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idActual, final String putType, final String noPath) {
+    public void setAlertDialogUpdateOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idActual, final String putType, final String path) {
         setActionOnClick(btn, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -373,7 +363,7 @@ public class MainUtilities extends AppCompatActivity {
                                     //   saveNotes(idActual, context);
                                     //    } else {
 
-                                    saveNotes(idActual, context, noPath);
+                                    saveNotes(idActual, context, path);
                                     //    }
                                     callActivity(context, _class);
 
@@ -497,24 +487,24 @@ public class MainUtilities extends AppCompatActivity {
     protected void saveCard(long idActual, Context context) {
 
         EditText et_desc_card;
-        CheckBox cb_credito;
-        CheckBox cb_debito;
+        CheckBox cb_credit;
+        CheckBox cb_debit;
         CardDao cardDao = new CardDao(context);
         Card cAux = new Card();
         //
         et_desc_card = findViewById(R.id.et_desc_card);
-        cb_credito = findViewById(R.id.cb_credito);
-        cb_debito = findViewById(R.id.cb_debito);
+        cb_credit = findViewById(R.id.cb_credit);
+        cb_debit = findViewById(R.id.cb_debit);
         //
         cAux.setDescCard(et_desc_card.getText().toString().trim());
 
-        if (cb_credito.isChecked() && !cb_debito.isChecked()) {
+        if (cb_credit.isChecked() && !cb_debit.isChecked()) {
             cAux.setType(1);
         }
-        if (!cb_credito.isChecked() && cb_debito.isChecked()) {
+        if (!cb_credit.isChecked() && cb_debit.isChecked()) {
             cAux.setType(2);
         }
-        if (cb_credito.isChecked() && cb_debito.isChecked()) {
+        if (cb_credit.isChecked() && cb_debit.isChecked()) {
             cAux.setType(3);
         }
         //
@@ -531,21 +521,21 @@ public class MainUtilities extends AppCompatActivity {
     }
 
 
-    protected void saveNotes(long idActual, Context context, String wayFoto) {
+    protected void saveNotes(long idActual, Context context, String pathPhoto) {
 
         EditText et_title_invoice;
         EditText et_value;
         EditText et_desc_invoice;
         Button btn_select_date;
         Spinner sp_card;
-        Spinner sp_parcelas;
+        Spinner sp_parcels;
         RadioButton rb_debit;
 
-        int year = -1;
-        int month = -1;
-        int day = -1;
+        int year;
+        int month;
+        int day;
         //
-        String idCartao;
+        String idCard;
         //
         NotesDao notesDao = new NotesDao(context);
         //
@@ -554,36 +544,32 @@ public class MainUtilities extends AppCompatActivity {
         et_desc_invoice = findViewById(R.id.et_desc_invoice);
         et_title_invoice = findViewById(R.id.et_title_invoice);
         et_value = findViewById(R.id.et_value);
-        btn_select_date = findViewById(R.id.btn_selec_date);
+        btn_select_date = findViewById(R.id.btn_select_date);
         sp_card = findViewById(R.id.sp_card);
-        sp_parcelas = findViewById(R.id.sp_parcelas);
+        sp_parcels = findViewById(R.id.sp_parcels);
         rb_debit = findViewById(R.id.rb_debit);
 
         //Transforma a data do textview calendário em Date, formata e salva separado;
         String date = btn_select_date.getText().toString();
-        SimpleDateFormat dateF = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String format = "dd/MM/yyyy";
 
-        try {
-            Date dateD = dateF.parse(date);
-            year = Integer.parseInt(new SimpleDateFormat("yyyy", Locale.getDefault()).format(dateD));
-            month = Integer.parseInt(new SimpleDateFormat("MM", Locale.getDefault()).format(dateD));
-            day = Integer.parseInt(new SimpleDateFormat("dd", Locale.getDefault()).format(dateD));
+        Date dateD = convertToDate(format, date);
+        year = convertToInt(new SimpleDateFormat("yyyy", Locale.getDefault()).format(dateD));
+        month = convertToInt(new SimpleDateFormat("MM", Locale.getDefault()).format(dateD));
+        day = convertToInt(new SimpleDateFormat("dd", Locale.getDefault()).format(dateD));
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         //
         //Recupera o ID do cartão que está selecionado no Spinner
         HMAuxCard item = (HMAuxCard) sp_card.getSelectedItem();
-        idCartao = item.get(CardDao.ID_CARD);
+        idCard = item.get(CardDao.ID_CARD);
         //
-        int positionSpParcelas = sp_parcelas.getSelectedItemPosition() + 1;
+        int positionSpParcels = sp_parcels.getSelectedItemPosition() + 1;
         //
         cAux.setDescNotes(et_desc_invoice.getText().toString());
         cAux.setTitleNotes(et_title_invoice.getText().toString());
         cAux.setPriceNotes(formatPriceSave(et_value.getText().toString()));
-        cAux.setIdCard(convertToLong(idCartao));
-        cAux.setPhotoNotes(wayFoto);
+        cAux.setIdCard(convertToLong(idCard));
+        cAux.setPhotoNotes(pathPhoto);
         cAux.setYear(year);
         cAux.setMonth(month);
         cAux.setDay(day);
@@ -593,7 +579,7 @@ public class MainUtilities extends AppCompatActivity {
             cAux.setParcels(1);
         } else {
             cAux.setType(1);
-            cAux.setParcels(positionSpParcelas);
+            cAux.setParcels(positionSpParcels);
         }
 
         if (idActual != -1) {
@@ -609,22 +595,6 @@ public class MainUtilities extends AppCompatActivity {
         }
     }
 
-    protected int convertToInt(String numero) {
-        try {
-            return Integer.parseInt(numero);
-        } catch (Exception e) {
-            return -1;
-        }
-    }
-
-    private Long convertToLong(String numero) {
-        try {
-            return Long.valueOf(numero);
-        } catch (Exception e) {
-            return -1L;
-        }
-    }
-
     protected boolean validation(String putType) {
         //Faz validação, se tiver tudo certo, retorna verdadeiro.
         switch (putType) {
@@ -632,7 +602,7 @@ public class MainUtilities extends AppCompatActivity {
                 LinearLayout ll_hint_spinner;
                 EditText et_title_invoice;
                 EditText et_value;
-                Button btn_selec_date;
+                Button btn_select_date;
                 TextView tv_select_card;
                 //
                 String title_invoice;
@@ -642,7 +612,7 @@ public class MainUtilities extends AppCompatActivity {
                 ll_hint_spinner = findViewById(R.id.ll_hint_spinner);
                 et_title_invoice = findViewById(R.id.et_title_invoice);
                 et_value = findViewById(R.id.et_value);
-                btn_selec_date = findViewById(R.id.btn_selec_date);
+                btn_select_date = findViewById(R.id.btn_select_date);
                 tv_select_card = findViewById(R.id.tv_select_card);
                 //
                 value = et_value.getText().toString();
@@ -651,7 +621,7 @@ public class MainUtilities extends AppCompatActivity {
                     value = formatPriceSave(value);
                 }
 
-                select_date = btn_selec_date.getText().toString();
+                select_date = btn_select_date.getText().toString();
                 //
                 if (title_invoice.trim().isEmpty()) {
                     setMessage(R.string.toast_title_invoice);
@@ -669,10 +639,10 @@ public class MainUtilities extends AppCompatActivity {
 
                 }
                 if (tv_select_card.getText().equals(getString(R.string.tv_no_card))) {
-                    setMessage(R.string.mensagem_register_card);
+                    setMessage(R.string.message_register_card);
                     return false;
 
-                } else if (select_date.equals(getString(R.string.tv_selec_date))) {
+                } else if (select_date.equals(getString(R.string.tv_select_date))) {
                     setMessage(R.string.toat_select_date);
                     return false;
                 }
@@ -680,15 +650,14 @@ public class MainUtilities extends AppCompatActivity {
                 return true;
             }
             case CARD: {
-                int qtd;
                 String desc_card;
                 EditText et_desc_card;
-                CheckBox cb_credito;
-                CheckBox cb_debito;
+                CheckBox cb_credit;
+                CheckBox cb_debit;
 
                 et_desc_card = findViewById(R.id.et_desc_card);
-                cb_credito = findViewById(R.id.cb_credito);
-                cb_debito = findViewById(R.id.cb_debito);
+                cb_credit = findViewById(R.id.cb_credit);
+                cb_debit = findViewById(R.id.cb_debit);
 
                 desc_card = et_desc_card.getText().toString();
 
@@ -697,7 +666,7 @@ public class MainUtilities extends AppCompatActivity {
                     return false;
                 }
 
-                if (!cb_debito.isChecked() && !cb_credito.isChecked()) {
+                if (!cb_debit.isChecked() && !cb_credit.isChecked()) {
                     setMessage(R.string.toast_cb_checked);
 
                     return false;
@@ -705,10 +674,10 @@ public class MainUtilities extends AppCompatActivity {
                 return true;
             }
             case SPINNER_ACTION_CRED_DEB: {
-                int tipoCard;
+                int typeCard;
                 HMAuxCard item;
                 Spinner sp_card;
-                Spinner sp_parcelas;
+                Spinner sp_parcels;
                 View view_sp_disabled;
                 TextView tv_sp_disabled;
 
@@ -718,21 +687,20 @@ public class MainUtilities extends AppCompatActivity {
                 rb_credit = findViewById(R.id.rb_credit);
                 rb_debit = findViewById(R.id.rb_debit);
                 sp_card = findViewById(R.id.sp_card);
-                sp_parcelas = findViewById(R.id.sp_parcelas);
+                sp_parcels = findViewById(R.id.sp_parcels);
                 view_sp_disabled = findViewById(R.id.view_sp_disabled);
                 tv_sp_disabled = findViewById(R.id.tv_sp_disabled);
 
                 tv_sp_disabled.setEnabled(true);
                 view_sp_disabled.setVisibility(View.INVISIBLE);
-                sp_parcelas.setEnabled(true);
+                sp_parcels.setEnabled(true);
 
                 //Recupera o tipo do cartão
                 item = (HMAuxCard) sp_card.getSelectedItem();
-                tipoCard = convertToInt(item.get(CardDao.TYPE));
-                switch (tipoCard) {
+                typeCard = convertToInt(item.get(CardDao.TYPE));
+                switch (typeCard) {
                     //Credito
                     case 1: {
-
                         rb_credit.setEnabled(true);
                         rb_debit.setEnabled(false);
                         rb_credit.setChecked(true);
@@ -742,7 +710,7 @@ public class MainUtilities extends AppCompatActivity {
                     }
                     //Debito
                     case 2: {
-                        sp_parcelas.setEnabled(false);
+                        sp_parcels.setEnabled(false);
                         view_sp_disabled.setVisibility(View.VISIBLE);
 
                         rb_credit.setEnabled(false);
@@ -764,7 +732,7 @@ public class MainUtilities extends AppCompatActivity {
                         rb_debit.setEnabled(true);
 
                         if (rb_debit.isChecked()) {
-                            sp_parcelas.setEnabled(false);
+                            sp_parcels.setEnabled(false);
                             view_sp_disabled.setVisibility(View.VISIBLE);
                             tv_sp_disabled.setEnabled(false);
                         }
@@ -795,26 +763,26 @@ public class MainUtilities extends AppCompatActivity {
         }
     }
 
-    public boolean setImageSaveToImageButton(final String way, final File imgFile) {
+    public boolean setImageSaveToImageButton(final String path, final File imgFile) {
         TextView tv_click_image = findViewById(R.id.tv_click_image);
-        ImageButton ib_foto = findViewById(R.id.ib_foto);
+        ImageButton ib_photo = findViewById(R.id.ib_photo);
 
         String filePath = imgFile.getAbsolutePath();
-        //se o way for vazio ou se o way existir, mas a foto não.
-        if (way.equals("") || !imgFile.exists()) {
+        //se o path for vazio ou se o path existir, mas a foto não.
+        if (path.equals("") || !imgFile.exists()) {
             tv_click_image.setVisibility(View.INVISIBLE);
-            ib_foto.getLayoutParams().height = (int) (setWidthScreen() / 1.5);
-            ib_foto.getLayoutParams().width = (int) (setWidthScreen() / 1.5);
-            ib_foto.setBackgroundResource(R.drawable.logo_512);
-            ib_foto.setClickable(false);
-            ib_foto.setEnabled(false);
+            ib_photo.getLayoutParams().height = (int) (setWidthScreen() / 1.5);
+            ib_photo.getLayoutParams().width = (int) (setWidthScreen() / 1.5);
+            ib_photo.setBackgroundResource(R.drawable.logo_512);
+            ib_photo.setClickable(false);
+            ib_photo.setEnabled(false);
 
             return true;
         } else {
             Bitmap myBitmap = BitmapFactory.decodeFile(filePath);
             BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), myBitmap);
 
-            ib_foto.setBackground(bitmapDrawable);
+            ib_photo.setBackground(bitmapDrawable);
 
             return false;
         }
@@ -822,22 +790,22 @@ public class MainUtilities extends AppCompatActivity {
 
     public void setImageSaveToImageButton(final File imgFile) {
         TextView tv_click_image = findViewById(R.id.tv_click_image);
-        ImageButton ib_foto = findViewById(R.id.ib_foto);
+        ImageButton ib_photo = findViewById(R.id.ib_photo);
 
         String filePath = imgFile.getAbsolutePath();
         //se o way for vazio ou se o way existir, mas a foto não.
         if (!imgFile.exists()) {
             tv_click_image.setVisibility(View.INVISIBLE);
-            ib_foto.getLayoutParams().height = (int) (setWidthScreen() / 1.5);
-            ib_foto.getLayoutParams().width = (int) (setWidthScreen() / 1.5);
-            ib_foto.setBackgroundResource(R.drawable.logo_512);
-            ib_foto.setClickable(false);
+            ib_photo.getLayoutParams().height = (int) (setWidthScreen() / 1.5);
+            ib_photo.getLayoutParams().width = (int) (setWidthScreen() / 1.5);
+            ib_photo.setBackgroundResource(R.drawable.logo_512);
+            ib_photo.setClickable(false);
 
         } else {
             Bitmap myBitmap = BitmapFactory.decodeFile(filePath);
             BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), myBitmap);
 
-            ib_foto.setBackground(bitmapDrawable);
+            ib_photo.setBackground(bitmapDrawable);
 
         }
     }
@@ -850,14 +818,8 @@ public class MainUtilities extends AppCompatActivity {
     //formata a data para Ex: 01/01/2019 ao invés de ficar 1/1/2019
     protected String formatDate(String dateF) {
         String format = "dd/MM/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());
-        Date date = null;
-        try {
-            date = sdf.parse((dateF));
-        } catch (ParseException ignored) {
-
-        }
-        return new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(date);
+        Date date = convertToDate(format, dateF);
+        return new SimpleDateFormat(format, Locale.ENGLISH).format(date);
     }
 
     public void setMessage(int idMessage) {
@@ -868,63 +830,8 @@ public class MainUtilities extends AppCompatActivity {
         Toast.makeText(context, context.getString(idMessage), Toast.LENGTH_SHORT).show();
     }
 
-    public String changeMonthToExtension(String mes) {
-        String mesText = null;
-        if (mes != null) {
-            switch (mes) {
-                case "1":
-                    mesText = getBaseContext().getString(R.string.month_janeiro);
-                    break;
-
-                case "2":
-                    mesText = getBaseContext().getString(R.string.month_fevereiro);
-                    break;
-
-                case "3":
-                    mesText = getBaseContext().getString(R.string.month_março);
-                    break;
-
-                case "4":
-                    mesText = getBaseContext().getString(R.string.month_abril);
-                    break;
-
-                case "5":
-                    mesText = getBaseContext().getString(R.string.month_maio);
-                    break;
-
-                case "6":
-                    mesText = getBaseContext().getString(R.string.month_june);
-                    break;
-
-                case "7":
-                    mesText = getBaseContext().getString(R.string.month_july);
-                    break;
-
-                case "8":
-                    mesText = getBaseContext().getString(R.string.month_agosto);
-                    break;
-
-                case "9":
-                    mesText = getBaseContext().getString(R.string.month_setembro);
-                    break;
-
-                case "10":
-                    mesText = getBaseContext().getString(R.string.month_outubro);
-                    break;
-
-                case "11":
-                    mesText = getBaseContext().getString(R.string.month_novembro);
-                    break;
-
-                case "12":
-                    mesText = getBaseContext().getString(R.string.month_dezembro);
-                    break;
-            }
-        }
-        return mesText;
-    }
     @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html){
+    public static Spanned fromHtml(String html) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
         } else {

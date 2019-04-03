@@ -28,7 +28,7 @@
         android:paddingTop="4dp">
 
         <TextView
-            android:id="@+id/celula_year"
+            android:id="@+id/cel_year"
             style="@style/Text_Description"
             android:layout_width="wrap_content"
             android:layout_height="18dp"

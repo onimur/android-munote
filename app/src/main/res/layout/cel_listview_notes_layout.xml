@@ -26,7 +26,7 @@
         android:paddingEnd="10dp">
 
         <TextView
-            android:id="@+id/celula_dia_notas"
+            android:id="@+id/cel_day_notes"
             style="@style/Text_Description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,14 +43,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/celula_title_notas"
+            android:id="@+id/cel_title_notes"
             style="@style/Text_Description"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/celula_desc_notas"
+            android:id="@+id/cel_desc_notes"
             style="@style/Text_Description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/celula_price_notas"
+            android:id="@+id/cel_price_notes"
             style="@style/Text_Description"
             android:layout_width="wrap_content"
             android:layout_height="16dp"

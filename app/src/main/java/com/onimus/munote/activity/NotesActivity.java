@@ -15,8 +15,6 @@ package com.onimus.munote.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -29,7 +27,7 @@ import com.onimus.munote.bancos.banco.HMAuxNotes;
 import com.onimus.munote.bancos.banco.RecordListNotesAdapter;
 import com.onimus.munote.bancos.dao.NotesDao;
 import com.onimus.munote.bancos.model.NotesActivityViewModel;
-import com.onimus.munote.files.Filters;
+import com.onimus.munote.bancos.model.Filters;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.fragmentos.FilterDialogFragment;
 
@@ -38,11 +36,12 @@ import java.util.Calendar;
 import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.bancos.DBaseDirectory.createDirectoryDbase;
 import static com.onimus.munote.bancos.dao.NotesDao.TOTAL;
+import static com.onimus.munote.files.ChangeMonth.changeMonthToExtension;
+import static com.onimus.munote.files.ConvertType.convertToLong;
 import static com.onimus.munote.files.MoneyTextWatcher.formatTextPrice;
 import static com.onimus.munote.files.MoneyTextWatcher.getCurrencySymbol;
 
 public class NotesActivity extends MenuToolbar implements FilterDialogFragment.FilterListener {
-
 
     private Context context;
     private Toolbar toolbar;
@@ -53,13 +52,8 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
     private TextView tv_total;
     private TextView tv_symbol1;
 
-    private String anoAtual;
-    private String mesAtual;
-
     private FilterDialogFragment mFilterDialog;
     private NotesActivityViewModel mViewModel;
-    //
-    private NotesDao notesDao;
     private RecordListNotesAdapter adapter;
     //
 
@@ -99,8 +93,8 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
         toolbar.setTitle(R.string.title_invoice);
         setSupportActionBar(toolbar);
         //
-        setActionOnClickActivity(R.id.btn_adicionar, NotesAddActivity.class, -1L);
-        setActionOnClick(R.id.filterBar, new OnCardViewClickAction());
+        setActionOnClickActivity(R.id.btn_add, NotesAddActivity.class, -1L);
+        setActionOnClick(R.id.cv_filter_bar, new OnCardViewClickAction());
         setActionOnClick(R.id.btn_clear_filter, new OnClearFilterClickAction());
 
 
@@ -109,16 +103,8 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HMAuxNotes item = (HMAuxNotes) parent.getItemAtPosition(position);
-                String idnotas = item.get(NotesDao.ID_NOTES);
-                assert idnotas != null;
-                long idnotasL = Long.parseLong(idnotas);
 
-                Intent mIntent = new Intent(context, NotesViewActivity.class);
-                mIntent.putExtra(DBASE_ID, idnotasL);
-                //
-                startActivity(mIntent);
-                //
-                finish();
+                callListView(NotesViewActivity.class, convertToLong(item.get(NotesDao.ID_NOTES)));
             }
         });
 
@@ -134,42 +120,43 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
 
     @Override
     public void onFilter(Filters filters) {
-        anoAtual = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-        mesAtual = String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1);
+        int yearActual = Calendar.getInstance().get(Calendar.YEAR);
+        int monthActual = (Calendar.getInstance().get(Calendar.MONTH) + 1);
 
         //Envia o texto referente dos filtros para a descrição do filtro na Activity
         tv_filter.setText(filters.getSearchDescription(this));
         tv_sort_by.setText(filters.getOrderDescription(this));
 
-        if (filters.getSearchYearMonthTrue(context)) {
+        if (filters.getSearchYearMonthTrue()) {
             tv_year_month_filter.setText(filters.getSearchYearMonth(this));
         } else {
-            tv_year_month_filter.setText((context.getString(R.string.text_in) + " " + changeMonthToExtension(mesAtual) + " " + anoAtual));
+            tv_year_month_filter.setText((context.getString(R.string.text_in) + " " + changeMonthToExtension(monthActual, context) + " " + yearActual));
         }
 
-        notesDao = new NotesDao(context);
         //
-        String month = filters.getMonth();
-        String year = filters.getYear();
-        String idcard = filters.getIdCard();
-        String tipo = filters.getType();
+        NotesDao notesDao = new NotesDao(context);
+        //
+        int month = filters.getMonth();
+        int year = filters.getYear();
+        long idCard = filters.getIdCard();
+        int type = filters.getType();
         String sortBy = filters.getOrderDescriptionDB();
 
         //Envia os adaptadores atualizados para a ListView
-        if (year == null || month == null || idcard == null || tipo == null) {
-            adapter = new RecordListNotesAdapter(context, R.layout.celula_listview_notas_layout, notesDao.getListNotes(anoAtual, mesAtual, "-1", "3", NotesDao.DAY));
+        if (year == -2 || month == -2 || idCard == -2L || type == -2) {
+            adapter = new RecordListNotesAdapter(context, R.layout.cel_listview_notes_layout, notesDao.getListNotes(yearActual, monthActual, -2L, 3, NotesDao.DAY));
             lv_note.setAdapter(adapter);
 
-            HMAuxNotes text = notesDao.getNotesTotal(anoAtual, mesAtual, "-1", "3");
+            HMAuxNotes text = notesDao.getNotesTotal(yearActual, monthActual, -1L, 3);
             String total = text.get(TOTAL);
             if (total != null) {
                 total = formatTextPrice(total);
             }
             tv_total.setText(total);
         } else {
-            adapter.updateDataChanged(notesDao.getListNotes(year, month, idcard, tipo, sortBy));
+            adapter.updateDataChanged(notesDao.getListNotes(year, month, idCard, type, sortBy));
             //
-            HMAuxNotes text = notesDao.getNotesTotal(year, month, idcard, tipo);
+            HMAuxNotes text = notesDao.getNotesTotal(year, month, idCard, type);
             String total = text.get(TOTAL);
             if (total != null) {
                 total = formatTextPrice(total);

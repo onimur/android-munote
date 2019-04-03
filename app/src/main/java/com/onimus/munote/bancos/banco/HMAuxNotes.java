@@ -12,19 +12,26 @@
 
 package com.onimus.munote.bancos.banco;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import com.onimus.munote.bancos.dao.NotesDao;
 
 import java.util.HashMap;
 
+import static com.onimus.munote.Constants.LOG_E;
+
 
 public class HMAuxNotes extends HashMap<String, String> {
+    @NonNull
     @Override
     public String toString() {
-        return get(NotesDao.TITLE_NOTES);
+        String r = get(NotesDao.TITLE_NOTES);
+        if (r != null) {
+            return r;
+        } else {
+            Log.e(LOG_E, "Error HMAuxNotes toString - null");
+            return "";
+        }
     }
-
-
-
-
-
 }

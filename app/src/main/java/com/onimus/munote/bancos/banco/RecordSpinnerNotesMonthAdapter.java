@@ -24,13 +24,14 @@ import com.onimus.munote.bancos.dao.NotesDao;
 
 import java.util.ArrayList;
 
+import static com.onimus.munote.files.ChangeMonth.changeMonthToExtension;
+import static com.onimus.munote.files.ConvertType.convertToInt;
+
 public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
 
     private Context context;
     private int layout;
     private ArrayList<HMAuxNotes> hmAux;
-    private String mes;
-    private String mesText;
 
     public RecordSpinnerNotesMonthAdapter(Context context, int layout, ArrayList<HMAuxNotes> hmAux) {
         this.hmAux = hmAux;
@@ -61,7 +62,7 @@ public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
 
     private class ViewHolder {
 
-        TextView celula_month;
+        TextView cel_month;
     }
 
     @Override
@@ -73,7 +74,7 @@ public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(layout, viewGroup, false);
-            holder.celula_month = row.findViewById(R.id.celula_month);
+            holder.cel_month = row.findViewById(R.id.cel_month);
 
             row.setTag(holder);
         } else {
@@ -81,66 +82,9 @@ public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
         }
 //monta a listview
         HMAuxNotes model = hmAux.get(i);
-        mes = model.get(NotesDao.MONTH);
+        int month = convertToInt(model.get(NotesDao.MONTH));
 
-        changeMesParaExtenso();
-
-        holder.celula_month.setText(mesText);
+        holder.cel_month.setText(changeMonthToExtension(month, context));
         return row;
     }
-
-    private void changeMesParaExtenso() {
-        if (mes != null) {
-            switch (mes) {
-                case "1":
-                    mesText = context.getString(R.string.month_janeiro);
-                    break;
-
-                case "2":
-                    mesText = context.getString(R.string.month_fevereiro);
-                    break;
-
-                case "3":
-                    mesText = context.getString(R.string.month_março);
-                    break;
-
-                case "4":
-                    mesText = context.getString(R.string.month_abril);
-                    break;
-
-                case "5":
-                    mesText = context.getString(R.string.month_maio);
-                    break;
-
-                case "6":
-                    mesText = context.getString(R.string.month_june);
-                    break;
-
-                case "7":
-                    mesText = context.getString(R.string.month_july);
-                    break;
-
-                case "8":
-                    mesText = context.getString(R.string.month_agosto);
-                    break;
-
-                case "9":
-                    mesText = context.getString(R.string.month_setembro);
-                    break;
-
-                case "10":
-                    mesText = context.getString(R.string.month_outubro);
-                    break;
-
-                case "11":
-                    mesText = context.getString(R.string.month_novembro);
-                    break;
-
-                case "12":
-                    mesText = context.getString(R.string.month_dezembro);
-                    break;
-            }
-        }
-    }
-
 }

@@ -62,7 +62,7 @@ public class RecordListNotesAdapter extends BaseAdapter {
 
     private class ViewHolder {
 
-        TextView celula_dia_notas, celula_title_notas, celula_desc_notas, celula_price_notas, tv_symbol2;
+        TextView cel_day_notes, cel_title_notes, cel_desc_notes, cel_price_notes, tv_symbol2;
     }
 
     @Override
@@ -74,10 +74,10 @@ public class RecordListNotesAdapter extends BaseAdapter {
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(layout, null);
-            holder.celula_dia_notas = row.findViewById(R.id.celula_dia_notas);
-            holder.celula_title_notas = row.findViewById(R.id.celula_title_notas);
-            holder.celula_desc_notas = row.findViewById(R.id.celula_desc_notas);
-            holder.celula_price_notas = row.findViewById(R.id.celula_price_notas);
+            holder.cel_day_notes = row.findViewById(R.id.cel_day_notes);
+            holder.cel_title_notes = row.findViewById(R.id.cel_title_notes);
+            holder.cel_desc_notes = row.findViewById(R.id.cel_desc_notes);
+            holder.cel_price_notes = row.findViewById(R.id.cel_price_notes);
             holder.tv_symbol2 = row.findViewById(R.id.tv_symbol2);
             row.setTag(holder);
         } else {
@@ -85,14 +85,14 @@ public class RecordListNotesAdapter extends BaseAdapter {
         }
 //monta a listview
         HMAuxNotes model = hmAux.get(i);
-        holder.celula_dia_notas.setText(model.get(NotesDao.DAY));
-        holder.celula_title_notas.setText(model.get(NotesDao.TITLE_NOTES));
-        holder.celula_desc_notas.setText(model.get(NotesDao.DESC_NOTES));
+        holder.cel_day_notes.setText(model.get(NotesDao.DAY));
+        holder.cel_title_notes.setText(model.get(NotesDao.TITLE_NOTES));
+        holder.cel_desc_notes.setText(model.get(NotesDao.DESC_NOTES));
         String price = model.get(NotesDao.PRICE_NOTES);
         if (price != null) {
             price = formatTextPrice(price);
         }
-        holder.celula_price_notas.setText(price);
+        holder.cel_price_notes.setText(price);
         holder.tv_symbol2.setText(getCurrencySymbol());
 
         return row;

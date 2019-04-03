@@ -62,7 +62,6 @@
                 android:hint="@string/et_desc_card"
                 android:inputType="textCapSentences"
                 android:maxLines="1"
-                android:nextFocusRight="@+id/et_number_card"
                 tools:targetApi="o" />
         </LinearLayout>
 
@@ -82,12 +81,12 @@
                 android:gravity="start">
 
                 <CheckBox
-                    android:id="@+id/cb_credito"
+                    android:id="@+id/cb_credit"
                     style="@style/Text_Description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorWhite"
-                    android:text="@string/cb_credito"
+                    android:text="@string/cb_credit"
                     android:textSize="20sp"
                     tools:targetApi="lollipop" />
 
@@ -100,13 +99,13 @@
                 android:gravity="end">
 
                 <CheckBox
-                    android:id="@+id/cb_debito"
+                    android:id="@+id/cb_debit"
                     style="@style/Text_Description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:buttonTint="@color/colorWhite"
-                    android:text="@string/cb_debito"
+                    android:text="@string/cb_debit"
                     android:textSize="20sp"
                     tools:targetApi="lollipop" />
 
@@ -121,11 +120,11 @@
             android:padding="20dp">
 
             <Button
-                android:id="@+id/btn_salvar"
+                android:id="@+id/btn_save"
                 style="@style/Button_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_salvar" />
+                android:text="@string/btn_save" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -136,23 +135,21 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_cancelar"
+                    android:id="@+id/btn_cancel"
                     style="@style/Button_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
                     android:layout_weight="1"
-                    android:text="@string/btn_cancelar" />
+                    android:text="@string/btn_cancel" />
 
                 <Button
-                    android:id="@+id/btn_limpar"
+                    android:id="@+id/btn_clear"
                     style="@style/Button_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-
-
                     android:layout_weight="1"
-                    android:text="@string/btn_limpar" />
+                    android:text="@string/btn_clear" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

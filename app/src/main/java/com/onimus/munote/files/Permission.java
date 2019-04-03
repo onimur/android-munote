@@ -65,7 +65,7 @@ public class Permission {
         return t == permission.length;
     }
 
-    public static boolean getRationaleDisplayStatus(Context context, String permission) {
+    private static boolean getRationaleDisplayStatus(Context context, String permission) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_USER, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(permission, false);
     }

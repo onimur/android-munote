@@ -72,7 +72,7 @@ public class DialogContractActivity extends MenuToolbar {
 
                         }
                     })
-                    .setNegativeButton(R.string.btn_cancelar, new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             storeDialogStatus(false);
                             dialog.cancel();

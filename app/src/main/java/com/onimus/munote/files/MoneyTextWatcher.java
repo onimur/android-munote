@@ -14,13 +14,13 @@ public class MoneyTextWatcher implements TextWatcher {
     private final WeakReference<EditText> editTextWeakReference;
     private final Locale locale;
 
-    public MoneyTextWatcher(EditText editText, Locale locale) {
+/*    public MoneyTextWatcher(EditText editText, Locale locale) {
         this.editTextWeakReference = new WeakReference<EditText>(editText);
         this.locale = locale != null ? locale : Locale.getDefault();
-    }
+    }*/
 
     public MoneyTextWatcher(EditText editText) {
-        this.editTextWeakReference = new WeakReference<EditText>(editText);
+        this.editTextWeakReference = new WeakReference<>(editText);
         this.locale = Locale.getDefault();
     }
 
@@ -87,7 +87,7 @@ public class MoneyTextWatcher implements TextWatcher {
 
     }
 
-    public static String formatPriceSave(String price) {
+    static String formatPriceSave(String price) {
         //Ex - price = $ 5555555
         //return = 55555,55
         String replaceable = String.format("[%s,.\\s]", getCurrencySymbol());

@@ -32,7 +32,7 @@
         android:paddingBottom="10dp">
 
         <FrameLayout
-            android:id="@+id/filterBarContainer"
+            android:id="@+id/filter_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
@@ -42,14 +42,15 @@
             android:paddingBottom="12dp">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/filterBar"
+                android:id="@+id/cv_filter_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:elevation="12dp"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/colorBackgroundEditext">
+                app:cardBackgroundColor="@color/colorBackgroundEditext"
+                tools:targetApi="lollipop">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -57,7 +58,7 @@
                     android:gravity="center_vertical">
 
                     <ImageView
-                        android:id="@+id/buttonFilter"
+                        android:id="@+id/btn_filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -66,14 +67,14 @@
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout
-                        android:id="@+id/textCurrentSearchContainer"
+                        android:id="@+id/text_search_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="0dp"
                         android:layout_toStartOf="@id/btn_clear_filter"
-                        android:layout_toEndOf="@+id/buttonFilter"
+                        android:layout_toEndOf="@+id/btn_filter"
                         android:orientation="vertical"
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
@@ -165,7 +166,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/celula_title_notas"
+                    android:id="@+id/cel_title_notes"
                     style="@style/Text_Description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -182,7 +183,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/celula_price_notas"
+                    android:id="@+id/cel_price_notes"
                     style="@style/Text_Description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -271,12 +272,12 @@
                 android:paddingEnd="20dp">
 
                 <Button
-                    android:id="@+id/btn_adicionar"
+                    android:id="@+id/btn_add"
                     style="@style/Button_2_Sub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_adicionar"
-                    android:text="@string/tv_adicionar" />
+                    android:text="@string/tv_add" />
 
             </LinearLayout>
         </LinearLayout>

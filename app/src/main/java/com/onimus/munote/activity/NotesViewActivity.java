@@ -39,15 +39,13 @@ import java.util.ArrayList;
 import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.MoneyTextWatcher.formatTextPrice;
 import static com.onimus.munote.files.MoneyTextWatcher.getCurrencySymbol;
+import static com.onimus.munote.files.SpinnerIndex.getSpinnerIndex;
 
 public class NotesViewActivity extends MenuToolbar {
 
     private Context context;
     private NotesDao notesDao;
-    private Notes nAux;
     private CardDao cardDao;
-    private RecordSpinnerCardAdapter adapter;
-    private ArrayList<HMAuxCard> hmAux;
     //
     private File imgFile;
     //
@@ -56,7 +54,7 @@ public class NotesViewActivity extends MenuToolbar {
     private TextView tv_value2;
     private TextView tv_desc_invoice;
     private TextView tv_sp_disabled;
-    private TextView tv_selec_date;
+    private TextView tv_select_date;
     //
     private RadioButton rb_credit;
     private RadioButton rb_debit;
@@ -64,13 +62,10 @@ public class NotesViewActivity extends MenuToolbar {
     private LinearLayout ll_hint_spinner;
     //
     private Spinner sp_card;
-    private Spinner sp_parcelas;
-    //
-    private int idCartao;
-    private long idAtual;
+    private Spinner sp_parcels;
+    private long idActual;
     //
     private Toolbar toolbar;
-    private String caminho;
     //
     private View view_sp_disabled;
 
@@ -94,16 +89,14 @@ public class NotesViewActivity extends MenuToolbar {
         tv_value = findViewById(R.id.tv_value);
         tv_value2 = findViewById(R.id.tv_value2);
         tv_desc_invoice = findViewById(R.id.tv_desc_invoice);
-        tv_selec_date = findViewById(R.id.tv_selec_date);
+        tv_select_date = findViewById(R.id.tv_select_date);
         sp_card = findViewById(R.id.sp_card);
-        sp_parcelas = findViewById(R.id.sp_parcelas);
+        sp_parcels = findViewById(R.id.sp_parcels);
         view_sp_disabled = findViewById(R.id.view_sp_disabled);
         tv_sp_disabled = findViewById(R.id.tv_sp_disabled);
         ll_hint_spinner = findViewById(R.id.ll_hint_spinner);
         rb_credit = findViewById(R.id.rb_credit);
         rb_debit = findViewById(R.id.rb_debit);
-        //
-        tv_value.setText((getString(R.string.tv_value) + " ("+ getCurrencySymbol() + "):"));
         //
         loadAdmob();
         //
@@ -111,50 +104,52 @@ public class NotesViewActivity extends MenuToolbar {
 
     private void startAction() {
         setSupportActionBar(toolbar);
-
+        //
+        tv_value.setText((getString(R.string.tv_value) + " ("+ getCurrencySymbol() + "):"));
         setSpinnerCard();
         setSpinnerParcel();
         setField();
 
-        setActionOnClick(R.id.ib_foto, new OnButtonClickActionImage());
-        setAlertDialogDeleteOnClickActivity(R.id.btn_deletar, NotesActivity.class, context, idAtual, NOTES);
-        setActionOnClickActivity(R.id.btn_editar, NotesEditActivity.class, idAtual);
+        setActionOnClick(R.id.ib_photo, new OnButtonClickActionImage());
+        setAlertDialogDeleteOnClickActivity(R.id.btn_delete, NotesActivity.class, context, idActual, NOTES);
+        setActionOnClickActivity(R.id.btn_edit, NotesEditActivity.class, idActual);
     }
 
     private void setSpinnerParcel() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.parcelas_array, R.layout.celula_spinner_parcelas_layout);
-        adapter.setDropDownViewResource(R.layout.celular_spinner_dropdown_parcelas_layout);
-        sp_parcelas.setAdapter(adapter);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.parcels_array, R.layout.cel_spinner_parcels_layout);
+        adapter.setDropDownViewResource(R.layout.cel_spinner_dropdown_parcels_layout);
+        sp_parcels.setAdapter(adapter);
     }
 
     private void setSpinnerCard() {
-        adapter = new RecordSpinnerCardAdapter(context, R.layout.celula_spinner_card_layout, cardDao.getListCard());
+        RecordSpinnerCardAdapter adapter = new RecordSpinnerCardAdapter(context, R.layout.cel_spinner_card_layout, cardDao.getListCard());
         sp_card.setAdapter(adapter);
     }
 
     private void setField() {
-        if (idAtual != -1) {
+        if (idActual != -1L) {
 
-            nAux = notesDao.getNotesById(idAtual);
-            idCartao = (int) nAux.getIdCard();
-            caminho = nAux.getPhotoNotes();
+            Notes nAux = notesDao.getNotesById(idActual);
+            //
+            long idCard = nAux.getIdCard();
+            String getPath = nAux.getPhotoNotes();
             //
             File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
-            imgFile = new File(path, caminho);
+            imgFile = new File(path, getPath);
 
-            setImageSaveToImageButton(caminho, imgFile);
+            setImageSaveToImageButton(getPath, imgFile);
             //
             ll_hint_spinner.setEnabled(false);
-            if (idCartao == -1) {
+            if (idCard == -1L) {
                 //linearLayout fica visivel pois o cartão foi deletado
                 ll_hint_spinner.setVisibility(View.VISIBLE);
             }
 
             sp_card.setEnabled(false);
-            sp_parcelas.setEnabled(false);
-            hmAux = cardDao.getListCard();
-            sp_card.setSelection(getSpinnerIndex(sp_card, String.valueOf(idCartao)));
-            sp_parcelas.setSelection(nAux.getParcels() - 1);
+            sp_parcels.setEnabled(false);
+            ArrayList<HMAuxCard> hmAux = cardDao.getListCard();
+            sp_card.setSelection(getSpinnerIndex(sp_card, idCard, hmAux, CardDao.ID_CARD));
+            sp_parcels.setSelection(nAux.getParcels() - 1);
 
             rb_debit.setClickable(false);
             rb_credit.setClickable(false);
@@ -183,32 +178,17 @@ public class NotesViewActivity extends MenuToolbar {
             tv_value2.setText(price);
 
             //formata a data
-            String data = formatDate(String.valueOf((int) nAux.getDay() + "/" + nAux.getMonth() + "/" + nAux.getYear()));
-            tv_selec_date.setText(data);
+            String data = formatDate(String.valueOf(nAux.getDay() + "/" + nAux.getMonth() + "/" + nAux.getYear()));
+            tv_select_date.setText(data);
         }
     }
 
     private void getParameters() {
-        idAtual = getIntent().getLongExtra(DBASE_ID, 0);
+        idActual = getIntent().getLongExtra(DBASE_ID, 0);
 
     }
 
     //Verifica em qual posição o IDCartão desejado está;
-    public int getSpinnerIndex(Spinner spinner, String myString) {
-        int index = 0;
-
-        for (int i = 0; i < spinner.getCount(); i++) {
-            HMAuxCard model = hmAux.get(i);
-            String modelS = model.get(CardDao.ID_CARD);
-            if (modelS != null) {
-                if (modelS.equals(myString)) {
-                    index = i;
-                }
-            }
-        }
-        return index;
-    }
-
     private class OnButtonClickActionImage implements View.OnClickListener {
         @Override
         public void onClick(View v) {

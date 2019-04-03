@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/Text_title_white"
+        style="@style/Text_Title_White"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -97,13 +97,13 @@
                     android:paddingEnd="0dp">
 
                     <CheckBox
-                        android:id="@+id/cb_credito"
+                        android:id="@+id/cb_credit"
                         style="@style/Text_Description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/colorWhite"
                         android:lines="1"
-                        android:text="@string/cb_credito"
+                        android:text="@string/cb_credit"
                         android:textSize="15sp"
                         tools:targetApi="lollipop" />
 
@@ -124,14 +124,14 @@
                     android:paddingEnd="40dp">
 
                     <CheckBox
-                        android:id="@+id/cb_debito"
+                        android:id="@+id/cb_debit"
                         style="@style/Text_Description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:buttonTint="@color/colorWhite"
                         android:lines="1"
-                        android:text="@string/cb_debito"
+                        android:text="@string/cb_debit"
                         android:textSize="15sp"
                         tools:targetApi="lollipop" />
 
@@ -326,23 +326,23 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/buttonCancel"
+            android:id="@+id/btn_cancel"
             style="@style/Base.Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/btn_cancelar"
+            android:text="@string/btn_cancel"
             android:textColor="@color/colorText2"
             android:theme="@style/ThemeOverlay.FilterButton" />
 
         <Button
-            android:id="@+id/buttonSearch"
+            android:id="@+id/btn_apply"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
             android:text="@string/apply"
-            android:theme="@style/Button_3_Menor" />
+            android:theme="@style/Button_3_Smaller" />
 
     </LinearLayout>
 </LinearLayout>

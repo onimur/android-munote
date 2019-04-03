@@ -24,7 +24,6 @@ import com.onimus.munote.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -33,25 +32,25 @@ import static com.onimus.munote.Constants.*;
 
 public class ImageUtilities {
     private static File image;
-    private String caminhoYearMonth;
-    private String caminhodirPath;
+    private String pathYearMonth;
+    private String pathDir;
     private static File fileDir;
 
-    private String caminho;
-    private static String caminhoSemPath;
+    private String path1;
+    private static String noPath;
 
-    public void createDirectory(String nomePasta) throws IOException {
+    public void createDirectory(String nomePasta) {
 
         File dir;
 
         String timeYear;
-        String timeMoth;
+        String timeMonth;
         String timeAll;
 
         timeYear = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
-        timeMoth = new SimpleDateFormat("MMMM", Locale.ENGLISH).format(new Date());
-        caminhoYearMonth = timeYear + "/" + timeMoth;
-        timeAll = FOLDER_NAME + nomePasta + caminhoYearMonth;
+        timeMonth = new SimpleDateFormat("MMMM", Locale.ENGLISH).format(new Date());
+        pathYearMonth = timeYear + "/" + timeMonth;
+        timeAll = FOLDER_NAME + nomePasta + pathYearMonth;
 
         //Cria pasta
         dir = createReturnDir(timeAll);
@@ -62,7 +61,7 @@ public class ImageUtilities {
                 Log.d(LOG_D, "Folder not created");
             }
         }
-        caminhodirPath = dir.getAbsolutePath();
+        pathDir = dir.getAbsolutePath();
         fileDir = dir;
     }
 
@@ -75,59 +74,59 @@ public class ImageUtilities {
         return dir;
     }
 
-    public File createImageFile() throws IOException {
+    public File createImageFile() {
         // Create an image file name
         String timeFileName = new SimpleDateFormat("dd_HHmmss", Locale.getDefault()).format(new Date()) + ".jpg";
-        image = new File(caminhodirPath, timeFileName);
+        image = new File(pathDir, timeFileName);
 
         // Save a file: path for use with ACTION_VIEW intents
-        caminho = image.getAbsolutePath();
-        caminhoSemPath = caminhoYearMonth + "/" + timeFileName;
+        path1 = image.getAbsolutePath();
+        noPath = pathYearMonth + "/" + timeFileName;
         return image;
     }
 
-    public static String returnCaminhoSemPath() {
-        return caminhoSemPath;
+    public static String returnNoPath() {
+        return noPath;
     }
 
-    public void setPhotoToBitmap(Context context, ImageView iv_foto) {
-        int larguraFOTO;
-        int alturaFOTO;
+    public void setPhotoToBitmap(Context context, ImageView iv_photo) {
+        int widthPhoto;
+        int heightPhoto;
 
         MainUtilities mainUtilities = new MainUtilities();
 
-        //Código para pegar altura e largura do ImageView
-        // largura = iv_foto.getWidth();
-        // altura = iv_foto.getHeight();
+        //Código para pegar height e width do ImageView
+        // width = iv_photo.getWidth();
+        // height = iv_photo.getHeight();
 
         //Cria essa tag pra fazer verificação se é uma nova imagem ou a imagem padrão;
-        iv_foto.setTag("new");
+        iv_photo.setTag("new");
 
         //Não gera um bitmap. Ele inicializa a variavel options com as informações
-        // vindas da imagem: altura e largura;
+        // vindas da imagem: height e width;
         BitmapFactory.Options options = new BitmapFactory.Options();
         //não consome a foto
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(caminho, options);
+        BitmapFactory.decodeFile(path1, options);
 
-        larguraFOTO = options.outWidth;
-        alturaFOTO = options.outHeight;
+        widthPhoto = options.outWidth;
+        heightPhoto = options.outHeight;
 
-        int altura = 512;
-        int largura = 400;
+        int height = 512;
+        int width = 400;
         // Determine how much to scale down the image
-        if (larguraFOTO == alturaFOTO || larguraFOTO > alturaFOTO) {
-            int scaleFactor = Math.min(larguraFOTO / altura, alturaFOTO / largura);
+        if (widthPhoto == heightPhoto || widthPhoto > heightPhoto) {
+            int scaleFactor = Math.min(widthPhoto / height, heightPhoto / width);
 
             // Decode the image file into a Bitmap sized to fill the View
             options.inJustDecodeBounds = false;
             options.inSampleSize = scaleFactor;
 
-            Bitmap bitmap = rotateImage(BitmapFactory.decodeFile(caminho, options), 90);
-            if (!caminho.isEmpty()) {
+            Bitmap bitmap = rotateImage(BitmapFactory.decodeFile(path1, options));
+            if (!path1.isEmpty()) {
                 try {
                     //Salva a imagem rotacionada no arquivo que já havia sido criado
-                    File file = new File(caminho);
+                    File file = new File(path1);
                     FileOutputStream fOut = new FileOutputStream(file);
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 70, fOut);
                     fOut.flush();
@@ -140,20 +139,20 @@ public class ImageUtilities {
                 mainUtilities.setMessage(context, R.string.error_folder_creater);
 
             }
-            iv_foto.setImageBitmap(bitmap);
+            iv_photo.setImageBitmap(bitmap);
         } else {
 
-            int scaleFactor = Math.min(larguraFOTO / largura, alturaFOTO / altura);
+            int scaleFactor = Math.min(widthPhoto / width, heightPhoto / height);
 
             // Decode the image file into a Bitmap sized to fill the View
             options.inJustDecodeBounds = false;
             options.inSampleSize = scaleFactor;
 
-            Bitmap bitmap = BitmapFactory.decodeFile(caminho, options);
-            if (!caminho.isEmpty()) {
+            Bitmap bitmap = BitmapFactory.decodeFile(path1, options);
+            if (!path1.isEmpty()) {
                 try {
                     //Salva a imagem no arquivo que já havia sido criado
-                    File file = new File(caminho);
+                    File file = new File(path1);
                     FileOutputStream fOut = new FileOutputStream(file);
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 70, fOut);
                     fOut.flush();
@@ -166,27 +165,29 @@ public class ImageUtilities {
             } else {
                 mainUtilities.setMessage(context, R.string.error_folder_creater);
             }
-            iv_foto.setImageBitmap(bitmap);
+            iv_photo.setImageBitmap(bitmap);
 
         }
     }
 
-    public static Bitmap rotateImage(Bitmap source, float angle) {
+    private static Bitmap rotateImage(Bitmap source) {
 
         Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
+        matrix.postRotate((float) 90);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
     }
 
     public static void deleteImage() {
         if (image.exists()) {
+            //noinspection ResultOfMethodCallIgnored
             image.delete();
         }
     }
 
-    public static void deleteImage(File imgFile) {
+    static void deleteImage(File imgFile) {
         if (imgFile.exists()) {
+            //noinspection ResultOfMethodCallIgnored
             imgFile.delete();
         }
     }

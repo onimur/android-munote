@@ -23,11 +23,6 @@ public class Card {
         this.descCard = "";
         this.type = -1;
     }
-   public Card(long idCard, String descCard, int type) {
-        this.idCard = idCard;
-        this.descCard = descCard;
-        this.type = type;
-    }
 
     public long getIdCard() {
         return idCard;

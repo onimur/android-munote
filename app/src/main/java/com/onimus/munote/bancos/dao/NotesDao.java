@@ -31,15 +31,15 @@ public class NotesDao extends Dao {
     private static final String TABLE = "notas";
     public static final String TITLE_NOTES = "titlenotas";
     public static final String ID_NOTES = "idnotas";
-    public static final String ID_CARD = "idcartao";
+    private static final String ID_CARD = "idcartao";
     public static final String DESC_NOTES = "desnotas";
     public static final String PRICE_NOTES = "preconotas";
-    public static final String PHOTO_NOTES = "fotonotas";
+    private static final String PHOTO_NOTES = "fotonotas";
     public static final String YEAR = "ano";
     public static final String MONTH = "mes";
     public static final String DAY = "dia";
-    public static final String TYPE = "tipo";
-    public static final String PARCELS = "parcelas";
+    private static final String TYPE = "tipo";
+    private static final String PARCELS = "parcelas";
     public static final String TOTAL = "total";
 
     public NotesDao(Context context) {
@@ -70,8 +70,8 @@ public class NotesDao extends Dao {
     public void updateNotes(Notes notes) {
         openDataBase();
         //
-        String filtro = ID_NOTES + " = ? ";
-        String[] argumentos = {String.valueOf(notes.getIdNotes())};
+        String filter = ID_NOTES + " = ? ";
+        String[] arguments = {String.valueOf(notes.getIdNotes())};
         //
         ContentValues cv = new ContentValues();
         cv.put(DESC_NOTES, notes.getDescNotes());
@@ -85,7 +85,7 @@ public class NotesDao extends Dao {
         cv.put(TYPE, notes.getType());
         cv.put(PARCELS, notes.getParcels());
         //
-        db.update(TABLE, cv, filtro, argumentos);
+        db.update(TABLE, cv, filter, arguments);
         //
         closeDataBase();
     }
@@ -93,13 +93,13 @@ public class NotesDao extends Dao {
     public void updateDeletedCard(long idCard) {
         openDataBase();
         //
-        String filtro = ID_CARD + " = ? ";
-        String[] argumentos = {String.valueOf(idCard)};
+        String filter = ID_CARD + " = ? ";
+        String[] arguments = {String.valueOf(idCard)};
         //
         ContentValues cv = new ContentValues();
         cv.put(ID_CARD, -1);
         //
-        db.update(TABLE, cv, filtro, argumentos);
+        db.update(TABLE, cv, filter, arguments);
         //
         closeDataBase();
     }
@@ -107,10 +107,10 @@ public class NotesDao extends Dao {
     public void deleteNotes(long idNotes) {
         openDataBase();
         //
-        String filtro = ID_NOTES + " = ? ";
-        String[] argumentos = {String.valueOf(idNotes)};
+        String filter = ID_NOTES + " = ? ";
+        String[] arguments = {String.valueOf(idNotes)};
         //
-        db.delete(TABLE, filtro, argumentos);
+        db.delete(TABLE, filter, arguments);
         //
         closeDataBase();
     }
@@ -121,22 +121,22 @@ public class NotesDao extends Dao {
         //
         openDataBase();
         //
-        Cursor cursor = null;
+        Cursor cursor;
         //
         try {
 
-            String comando = " select * from " + TABLE + " where " + ID_NOTES + " = ? ";
-            String[] argumentos = {String.valueOf(idNotes)};
+            String command = " select * from " + TABLE + " where " + ID_NOTES + " = ? ";
+            String[] arguments = {String.valueOf(idNotes)};
             //
-            cursor = db.rawQuery(comando, argumentos);
+            cursor = db.rawQuery(command, arguments);
             //
             while (cursor.moveToNext()) {
                 cAux = new Notes();
                 cAux.setIdNotes(cursor.getLong(cursor.getColumnIndex(ID_NOTES)));
                 cAux.setIdCard(cursor.getLong(cursor.getColumnIndex(ID_CARD)));
-                cAux.setYear(cursor.getLong(cursor.getColumnIndex(YEAR)));
-                cAux.setMonth(cursor.getLong(cursor.getColumnIndex(MONTH)));
-                cAux.setDay(cursor.getLong(cursor.getColumnIndex(DAY)));
+                cAux.setYear(cursor.getInt(cursor.getColumnIndex(YEAR)));
+                cAux.setMonth(cursor.getInt(cursor.getColumnIndex(MONTH)));
+                cAux.setDay(cursor.getInt(cursor.getColumnIndex(DAY)));
                 cAux.setTitleNotes(cursor.getString(cursor.getColumnIndex(TITLE_NOTES)));
                 cAux.setDescNotes(cursor.getString(cursor.getColumnIndex(DESC_NOTES)));
                 cAux.setPriceNotes(cursor.getString(cursor.getColumnIndex(PRICE_NOTES)));
@@ -157,25 +157,25 @@ public class NotesDao extends Dao {
     }
 
     public ArrayList<HMAuxNotes> getListYearNotes() {
-        ArrayList<HMAuxNotes> notas = new ArrayList<>();
+        ArrayList<HMAuxNotes> notes = new ArrayList<>();
         //
         openDataBase();
         //
-        Cursor cursor = null;
+        Cursor cursor;
         //
         try {
 
-            String comando = " select distinct " + YEAR +
+            String command = " select distinct " + YEAR +
                     " from " + TABLE + " order by " + YEAR + " ";
             //
-            cursor = db.rawQuery(comando, null);
+            cursor = db.rawQuery(command, null);
             //
             while (cursor.moveToNext()) {
                 HMAuxNotes hmAux = new HMAuxNotes();
 
                 hmAux.put(YEAR, cursor.getString(cursor.getColumnIndex(YEAR)));
                 //
-                notas.add(hmAux);
+                notes.add(hmAux);
             }
             //
             cursor.close();
@@ -186,29 +186,29 @@ public class NotesDao extends Dao {
         //
         closeDataBase();
         //
-        return notas;
+        return notes;
     }
 
-    public ArrayList<HMAuxNotes> getListMonthNotes(String year) {
-        ArrayList<HMAuxNotes> notas = new ArrayList<>();
+    public ArrayList<HMAuxNotes> getListMonthNotes(int year) {
+        ArrayList<HMAuxNotes> notes = new ArrayList<>();
         //
         openDataBase();
         //
-        Cursor cursor = null;
+        Cursor cursor;
         //
         try {
 
-            String comando = " select distinct " + MONTH +
+            String command = " select distinct " + MONTH +
                     " from " + TABLE + " where " + YEAR + " = '" + year + "' order by " + MONTH + " ";
             //
-            cursor = db.rawQuery(comando, null);
+            cursor = db.rawQuery(command, null);
             //
             while (cursor.moveToNext()) {
                 HMAuxNotes hmAux = new HMAuxNotes();
 
                 hmAux.put(MONTH, cursor.getString(cursor.getColumnIndex(MONTH)));
                 //
-                notas.add(hmAux);
+                notes.add(hmAux);
             }
             //
             cursor.close();
@@ -219,42 +219,42 @@ public class NotesDao extends Dao {
         //
         closeDataBase();
         //
-        return notas;
+        return notes;
     }
 
-    public ArrayList<HMAuxNotes> getListNotes(String year, String month, String idCard, String type, String orderBy) {
-        ArrayList<HMAuxNotes> notas = new ArrayList<>();
+    public ArrayList<HMAuxNotes> getListNotes(int year, int month, long idCard, int type, String orderBy) {
+        ArrayList<HMAuxNotes> notes = new ArrayList<>();
         //
         openDataBase();
         //
-        Cursor cursor = null;
-        String comando;
+        Cursor cursor;
+        String command;
         //
         try {
 
-            if (!idCard.equals("-1") && !type.equals("3")) {
-                comando = " select " +
+            if (idCard > -1L && type != 3) {
+                command = " select " +
                         ID_NOTES + ", " +
                         DESC_NOTES + ", " +
                         TITLE_NOTES + ", " +
                         PRICE_NOTES + ", " + DAY +
                         " from " + TABLE + " where " + YEAR + " = '" + year + "' and " + MONTH + " = '" + month + "' and " + ID_CARD + " = '" + idCard + "' and " + TYPE + " = '" + type + "' order by " + orderBy + " ";
-            } else if (idCard.equals("-1") && !type.equals("3")) {
-                comando = " select " +
+            } else if (idCard == -1L && type != 3) {
+                command = " select " +
                         ID_NOTES + ", " +
                         DESC_NOTES + ", " +
                         TITLE_NOTES + ", " +
                         PRICE_NOTES + ", " + DAY +
                         " from " + TABLE + " where " + YEAR + " = '" + year + "' and " + MONTH + " = '" + month + "' and " + TYPE + " = '" + type + "' order by " + orderBy + " ";
-            } else if (!idCard.equals("-1") && type.equals("3")) {
-                comando = " select " +
+            } else if (idCard > -1L) {
+                command = " select " +
                         ID_NOTES + ", " +
                         DESC_NOTES + ", " +
                         TITLE_NOTES + ", " +
                         PRICE_NOTES + ", " + DAY +
                         " from " + TABLE + " where " + YEAR + " = '" + year + "' and " + MONTH + " = '" + month + "' and " + ID_CARD + " = '" + idCard + "' order by " + orderBy + " ";
             } else {
-                comando = " select " +
+                command = " select " +
                         ID_NOTES + ", " +
                         DESC_NOTES + ", " +
                         TITLE_NOTES + ", " +
@@ -263,7 +263,7 @@ public class NotesDao extends Dao {
             }
 
             //
-            cursor = db.rawQuery(comando, null);
+            cursor = db.rawQuery(command, null);
             //
             while (cursor.moveToNext()) {
                 HMAuxNotes hmAux = new HMAuxNotes();
@@ -274,7 +274,7 @@ public class NotesDao extends Dao {
                 hmAux.put(PRICE_NOTES, cursor.getString(cursor.getColumnIndex(PRICE_NOTES)));
 
                 //
-                notas.add(hmAux);
+                notes.add(hmAux);
             }
             //
             cursor.close();
@@ -285,42 +285,43 @@ public class NotesDao extends Dao {
         //
         closeDataBase();
         //
-        return notas;
+        return notes;
     }
 
-    public HMAuxNotes getNotesTotal(String year, String month, String idCard, String type) {
-        HMAuxNotes notas = null;
+    public HMAuxNotes getNotesTotal(int year, int month, long idCard, int type) {
+        HMAuxNotes notes = null;
         //
         openDataBase();
         //
-        Cursor cursor = null;
-        String comando;
+        Cursor cursor;
+        String command;
         //
         try {
-            if (!idCard.equals("-1") && !type.equals("3")) {
-                comando = " select SUM(" + PRICE_NOTES + ") as " + TOTAL +
+            if (idCard > -1L && type != 3) {
+                command = " select SUM(" + PRICE_NOTES + ") as " + TOTAL +
                         " from " + TABLE + " where " + YEAR + " = '" + year + "' and " + MONTH + " = '" + month + "' and " + ID_CARD + " = '" + idCard + "' and " + TYPE + " = '" + type + "' order by " + DAY + " ";
 
-            } else if (idCard.equals("-1") && !type.equals("3")) {
-                comando = " select SUM(" + PRICE_NOTES + ") as " + TOTAL +
+                //quando idCard == 1L, significa que está na posição de "Todas os cartões"
+            } else if (idCard == -1L && type != 3) {
+                command = " select SUM(" + PRICE_NOTES + ") as " + TOTAL +
                         " from " + TABLE + " where " + YEAR + " = '" + year + "' and " + MONTH + " = '" + month + "' and " + TYPE + " = '" + type + "' order by " + DAY + " ";
 
-            } else if (!idCard.equals("-1") && type.equals("3")) {
-                comando = " select SUM(" + PRICE_NOTES + ") as " + TOTAL +
+            } else if (idCard > -1L) {
+                command = " select SUM(" + PRICE_NOTES + ") as " + TOTAL +
                         " from " + TABLE + " where " + YEAR + " = '" + year + "' and " + MONTH + " = '" + month + "' and " + ID_CARD + " = '" + idCard + "' order by " + DAY + " ";
             } else {
-                comando = " select SUM(" + PRICE_NOTES + ") as " + TOTAL +
+                command = " select SUM(" + PRICE_NOTES + ") as " + TOTAL +
                         " from " + TABLE + " where " + YEAR + " = '" + year + "' and " + MONTH + " = '" + month + "' order by " + DAY + " ";
             }
             //
-            cursor = db.rawQuery(comando, null);
+            cursor = db.rawQuery(command, null);
             //
             while (cursor.moveToNext()) {
                 HMAuxNotes hmAux = new HMAuxNotes();
                 hmAux.put(TOTAL, String.valueOf(cursor.getDouble(cursor.getColumnIndex(TOTAL))));
 
                 //
-                notas = hmAux;
+                notes = hmAux;
             }
             //
             cursor.close();
@@ -331,7 +332,7 @@ public class NotesDao extends Dao {
         //
         closeDataBase();
         //
-        return notas;
+        return notes;
     }
 
     public long nextID() {
@@ -339,13 +340,13 @@ public class NotesDao extends Dao {
         //
         openDataBase();
         //
-        Cursor cursor = null;
+        Cursor cursor;
         //
         try {
 
-            String comando = " select max(" + ID_NOTES + ") + 1 as id from " + TABLE + " ";
+            String command = " select max(" + ID_NOTES + ") + 1 as id from " + TABLE + " ";
             //
-            cursor = db.rawQuery(comando, null);
+            cursor = db.rawQuery(command, null);
             //
             while (cursor.moveToNext()) {
                 proUD = cursor.getLong(cursor.getColumnIndex("id"));

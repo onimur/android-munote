@@ -26,6 +26,8 @@ import com.onimus.munote.bancos.dao.CardDao;
 
 import java.util.ArrayList;
 
+import static com.onimus.munote.files.ConvertType.convertToInt;
+
 public class RecordSpinnerCardAdapter extends BaseAdapter {
 
     private Context context;
@@ -55,8 +57,8 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
 
     private class ViewHolder {
 
-        TextView celula_cartao, celula_tipo;
-        LinearLayout ll_celula_tipo, ll_main_sp_card;
+        TextView cel_card, cel_type;
+        LinearLayout ll_cel_type, ll_main_sp_card;
     }
 
     @Override
@@ -68,9 +70,9 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(layout, viewGroup, false);
-            holder.celula_cartao = row.findViewById(R.id.celula_cartao);
-            holder.celula_tipo = row.findViewById(R.id.celula_tipo);
-            holder.ll_celula_tipo = row.findViewById(R.id.ll_celula_tipo);
+            holder.cel_card = row.findViewById(R.id.cel_card);
+            holder.cel_type = row.findViewById(R.id.cel_type);
+            holder.ll_cel_type = row.findViewById(R.id.ll_cel_type);
             holder.ll_main_sp_card = row.findViewById(R.id.ll_main_sp_card);
 
             row.setTag(holder);
@@ -80,25 +82,25 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
 //monta a listview
         HMAuxCard model = hmAux.get(i);
         int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 36, row.getResources().getDisplayMetrics());
-        holder.celula_cartao.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        holder.ll_celula_tipo.removeView(holder.celula_tipo);
-        holder.ll_celula_tipo.addView(holder.celula_tipo);
-        holder.ll_celula_tipo.setBackgroundResource(R.color.colorWhiteTransparence);
+        holder.cel_card.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        holder.ll_cel_type.removeView(holder.cel_type);
+        holder.ll_cel_type.addView(holder.cel_type);
+        holder.ll_cel_type.setBackgroundResource(R.color.colorWhiteTransparence);
 
-        holder.celula_cartao.setText(model.get(CardDao.DESC_CARD));
-        if (String.valueOf(model.get(CardDao.TYPE)).trim().toLowerCase().equals("1")) {
-            holder.celula_tipo.setText(context.getString(R.string.cb_credito));
+        holder.cel_card.setText(model.get(CardDao.DESC_CARD));
+        if (convertToInt(model.get(CardDao.TYPE)) == 1) {
+            holder.cel_type.setText(context.getString(R.string.cb_credit));
         }
-        if (String.valueOf(model.get(CardDao.TYPE)).trim().toLowerCase().equals("2")) {
-            holder.celula_tipo.setText(context.getString(R.string.cb_debito));
+        if (convertToInt(model.get(CardDao.TYPE)) == 2) {
+            holder.cel_type.setText(context.getString(R.string.cb_debit));
         }
-        if (String.valueOf(model.get(CardDao.TYPE)).trim().toLowerCase().equals("3")) {
-            holder.celula_tipo.setText((context.getString(R.string.cb_credito) + " / " + context.getString(R.string.cb_debito)));
+        if (convertToInt(model.get(CardDao.TYPE)) == 3) {
+            holder.cel_type.setText(context.getString(R.string.text_cred_deb));
         }
-        if (String.valueOf(model.get(CardDao.TYPE)).trim().toLowerCase().equals("-1")) {
-            holder.celula_cartao.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height));
-            holder.ll_celula_tipo.removeView(holder.celula_tipo);
-            holder.celula_tipo.setText("");
+        if (convertToInt(model.get(CardDao.TYPE)) == -1) {
+            holder.cel_card.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height));
+            holder.ll_cel_type.removeView(holder.cel_type);
+            holder.cel_type.setText("");
         }
 
         return row;

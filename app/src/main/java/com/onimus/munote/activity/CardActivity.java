@@ -22,22 +22,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-
 import com.onimus.munote.R;
 import com.onimus.munote.bancos.banco.HMAuxCard;
 import com.onimus.munote.bancos.banco.RecordListCardAdapter;
 import com.onimus.munote.bancos.dao.CardDao;
 import com.onimus.munote.files.MenuToolbar;
 
-import java.util.Objects;
-
 import static com.onimus.munote.bancos.DBaseDirectory.createDirectoryDbase;
+import static com.onimus.munote.files.ConvertType.convertToLong;
 
 public class CardActivity extends MenuToolbar {
 
     private Context context;
 
-    private ListView lv_cartao;
+    private ListView lv_card;
 
     private Toolbar toolbar;
 
@@ -58,31 +56,31 @@ public class CardActivity extends MenuToolbar {
         //
         CardDao cardDao = new CardDao(context);
         //
-        lv_cartao = findViewById(R.id.lv_cartao);
+        lv_card = findViewById(R.id.lv_card);
         toolbar = findViewById(R.id.toolbar);
         //
         createDirectoryDbase(context);
         //
         loadAdmob();
         //
-        RecordListCardAdapter adapter = new RecordListCardAdapter(context, R.layout.celula_listview_card_layout, cardDao.getListCard());
-        lv_cartao.setAdapter(adapter);
+        RecordListCardAdapter adapter = new RecordListCardAdapter(context, R.layout.cel_listview_card_layout, cardDao.getListCard());
+        lv_card.setAdapter(adapter);
     }
 
     private void startAction() {
 
-        lv_cartao.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_card.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HMAuxCard item = (HMAuxCard) parent.getItemAtPosition(position);
                 //
-                callListView(CardViewActivity.class, Long.parseLong(Objects.requireNonNull(item.get(CardDao.ID_CARD))));
+                callListView(CardViewActivity.class, convertToLong(item.get(CardDao.ID_CARD)));
             }
         });
 
         setSupportActionBar(toolbar);
-        setActionOnClickActivity(R.id.btn_adicionar, CardAddActivity.class, -1L);
+        setActionOnClickActivity(R.id.btn_add, CardAddActivity.class, -1L);
     }
 
     public void onBackPressed() {

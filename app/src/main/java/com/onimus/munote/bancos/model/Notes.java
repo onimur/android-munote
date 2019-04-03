@@ -17,9 +17,9 @@ public class Notes {
 
     private long idCard;
     private long idNotes;
-    private long year;
-    private long month;
-    private long day;
+    private int year;
+    private int month;
+    private int day;
     private String titleNotes;
     private String descNotes;
     private String priceNotes;
@@ -34,25 +34,11 @@ public class Notes {
         this.descNotes = "";
         this.priceNotes = "";
         this.photoNotes = "";
-        this.year = -1L;
-        this.month = -1L;
-        this.day = -1L;
+        this.year = -1;
+        this.month = -1;
+        this.day = -1;
         this.type = -1;
         this.parcels = -1;
-    }
-    public Notes(long idCard, long idNotes, long year, long month, long day, String titleNotes, String descNotes, String priceNotes, String photoNotes, int type, int parcels) {
-        this.idCard = idCard;
-        this.idNotes = idNotes;
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.titleNotes = titleNotes;
-        this.descNotes = descNotes;
-        this.priceNotes = priceNotes;
-        this.photoNotes = photoNotes;
-        this.type = type;
-        this.parcels = parcels;
-
     }
 
     public long getIdCard() {
@@ -71,27 +57,27 @@ public class Notes {
         this.idNotes = idNotes;
     }
 
-    public long getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(long year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
-    public long getMonth() {
+    public int getMonth() {
         return month;
     }
 
-    public void setMonth(long month) {
+    public void setMonth(int month) {
         this.month = month;
     }
 
-    public long getDay() {
+    public int getDay() {
         return day;
     }
 
-    public void setDay(long day) {
+    public void setDay(int day) {
         this.day = day;
     }
 

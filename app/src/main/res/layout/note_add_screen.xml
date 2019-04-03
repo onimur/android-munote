@@ -69,17 +69,17 @@
                             android:orientation="vertical">
 
                             <TextView
-                                style="@style/Text_Description_Menor"
+                                style="@style/Text_Description_Smaller"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/tv_title_invoice" />
 
                             <EditText
                                 android:id="@+id/et_title_invoice"
-                                style="@style/Text_EditText_Menor"
+                                style="@style/Text_EditText_Smaller"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:autofillHints="@string/text_desc_titulo_nota"
+                                android:autofillHints="@string/text_desc_title_notes"
                                 android:hint="@string/et_title_invoice"
                                 android:imeOptions="actionNext"
                                 android:inputType="textCapSentences"
@@ -102,16 +102,16 @@
 
                             <TextView
                                 android:id="@+id/tv_value"
-                                style="@style/Text_Description_Menor"
+                                style="@style/Text_Description_Smaller"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
                             <EditText
                                 android:id="@+id/et_value"
-                                style="@style/Text_EditText_Menor"
+                                style="@style/Text_EditText_Smaller"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:autofillHints="@string/text_desc_preco_notas"
+                                android:autofillHints="@string/text_desc_price_notes"
                                 android:hint="@string/et_value"
                                 android:inputType="numberDecimal"
                                 android:maxLines="1"
@@ -128,17 +128,17 @@
                         android:paddingBottom="10dp">
 
                         <TextView
-                            style="@style/Text_Description_Menor"
+                            style="@style/Text_Description_Smaller"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/tv_desc_invoice" />
 
                         <EditText
                             android:id="@+id/et_desc_invoice"
-                            style="@style/Text_EditText_Menor"
+                            style="@style/Text_EditText_Smaller"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:autofillHints="@string/text_desc_desc_notas"
+                            android:autofillHints="@string/text_desc_desc_notes"
                             android:hint="@string/et_desc_invoice"
                             android:inputType="text"
                             android:maxLines="4"
@@ -161,7 +161,7 @@
 
                             <TextView
                                 android:id="@+id/tv_card_align"
-                                style="@style/Text_Description_Menor"
+                                style="@style/Text_Description_Smaller"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/desc_card" />
@@ -225,18 +225,18 @@
                             android:orientation="vertical">
 
                             <TextView
-                                style="@style/Text_Description_Menor"
+                                style="@style/Text_Description_Smaller"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/desc_date" />
 
                             <Button
-                                android:id="@+id/btn_selec_date"
-                                style="@style/Button_2_menor"
+                                android:id="@+id/btn_select_date"
+                                style="@style/Button_2_Smaller"
                                 android:layout_width="match_parent"
                                 android:layout_height="38dp"
                                 android:drawableStart="@drawable/ic_calendar"
-                                android:text="@string/tv_selec_date" />
+                                android:text="@string/tv_select_date" />
 
                         </LinearLayout>
 
@@ -263,7 +263,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:buttonTint="@color/selector_state_radiobutton"
-                                android:text="@string/cb_credito"
+                                android:text="@string/cb_credit"
                                 android:textColor="@color/selector_state_radiobutton"
                                 tools:targetApi="lollipop" />
 
@@ -278,7 +278,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:buttonTint="@color/selector_state_radiobutton"
-                                android:text="@string/cb_debito"
+                                android:text="@string/cb_debit"
                                 android:textColor="@color/selector_state_radiobutton"
                                 tools:targetApi="lollipop" />
                         </RadioGroup>
@@ -295,7 +295,7 @@
 
                             <TextView
                                 android:id="@+id/tv_sp_disabled"
-                                style="@style/Text_Description_Menor"
+                                style="@style/Text_Description_Smaller"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/desc_installments"
@@ -306,7 +306,7 @@
                                 android:layout_height="wrap_content">
 
                                 <Spinner
-                                    android:id="@+id/sp_parcelas"
+                                    android:id="@+id/sp_parcels"
                                     android:layout_width="70dp"
                                     android:layout_height="35dp"
                                     android:layout_gravity="center"
@@ -318,7 +318,7 @@
                                     android:id="@+id/iv_arrow2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="35dp"
-                                    android:layout_alignEnd="@id/sp_parcelas"
+                                    android:layout_alignEnd="@id/sp_parcels"
                                     android:paddingStart="0dp"
                                     android:paddingEnd="2dp"
                                     android:src="@drawable/arrow"
@@ -361,11 +361,11 @@
 
                         <TextView
                             android:id="@+id/tv_click_image"
-                            style="@style/Text_Description_Menor"
+                            style="@style/Text_Description_Smaller"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="@string/tv_cliquenaimagem"
+                            android:text="@string/tv_click_to_view"
                             android:textSize="12sp" />
 
                         <LinearLayout
@@ -374,10 +374,10 @@
                             android:orientation="vertical">
 
                             <ImageButton
-                                android:id="@+id/ib_foto"
+                                android:id="@+id/ib_photo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:contentDescription="@string/text_desc_ib_foto"
+                                android:contentDescription="@string/text_desc_ib_photo"
                                 android:gravity="center_horizontal"
                                 android:tag="main" />
 
@@ -394,23 +394,23 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_cancelar"
-                    style="@style/Button_3_Menor"
+                    android:id="@+id/btn_cancel"
+                    style="@style/Button_3_Smaller"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="50dp"
                     android:layout_weight="1"
-                    android:text="@string/btn_cancelar" />
+                    android:text="@string/btn_cancel" />
 
                 <Button
-                    android:id="@+id/btn_salvar"
-                    style="@style/Button_3_Menor"
+                    android:id="@+id/btn_save"
+                    style="@style/Button_3_Smaller"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="1"
-                    android:text="@string/btn_salvar" />
+                    android:text="@string/btn_save" />
 
             </LinearLayout>
         </LinearLayout>

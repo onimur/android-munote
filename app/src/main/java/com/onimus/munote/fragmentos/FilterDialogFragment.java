@@ -25,13 +25,16 @@ import com.onimus.munote.bancos.banco.RecordSpinnerNotesMonthAdapter;
 import com.onimus.munote.bancos.banco.RecordSpinnerNotesYearAdapter;
 import com.onimus.munote.bancos.dao.CardDao;
 import com.onimus.munote.bancos.dao.NotesDao;
-import com.onimus.munote.files.Filters;
+import com.onimus.munote.bancos.model.Filters;
+import com.onimus.munote.files.SpinnerIndex;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
+import static com.onimus.munote.files.ConvertType.convertToInt;
+import static com.onimus.munote.files.ConvertType.convertToLong;
 import static com.onimus.munote.files.FileUtilities.isAndroidMarshmallowOrSuperiorVersion;
 
 public class FilterDialogFragment extends DialogFragment {
@@ -41,6 +44,7 @@ public class FilterDialogFragment extends DialogFragment {
         void onFilter(Filters filters);
 
     }
+
     private View view;
     private Spinner sp_card;
     private Spinner sp_year;
@@ -57,12 +61,10 @@ public class FilterDialogFragment extends DialogFragment {
     private CardDao cardDao;
     private ArrayList<HMAuxNotes> hmAux;
     private RecordSpinnerNotesMonthAdapter adapterMonth;
-    private RecordSpinnerNotesYearAdapter adapterYear;
-    private RecordSpinnerCardAdapter adapterCard;
 
-    private String anoAtual;
-    private String mesAtual;
-    private String newYear;
+    private int yearActual;
+    private int monthActual;
+    private int newYear = -1;
 
     private FilterListener mFilterListener;
     private Context context;
@@ -110,19 +112,20 @@ public class FilterDialogFragment extends DialogFragment {
         sp_month = view.findViewById(R.id.sp_month);
         sp_sort = view.findViewById(R.id.sp_sort);
 
-        cb_credit = view.findViewById(R.id.cb_credito);
-        cb_debit = view.findViewById(R.id.cb_debito);
+        cb_credit = view.findViewById(R.id.cb_credit);
+        cb_debit = view.findViewById(R.id.cb_debit);
 
-        btn_search = view.findViewById(R.id.buttonSearch);
-        btn_cancel = view.findViewById(R.id.buttonCancel);
+        btn_search = view.findViewById(R.id.btn_apply);
+        btn_cancel = view.findViewById(R.id.btn_cancel);
 
     }
+
     private void startAction() {
         notesDao = new NotesDao(context);
         cardDao = new CardDao(context);
         //
-        anoAtual = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-        mesAtual = String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1);
+        yearActual = Calendar.getInstance().get(Calendar.YEAR);
+        monthActual = (Calendar.getInstance().get(Calendar.MONTH) + 1);
         //
         setArrowToSpinnerLowerVersion();
         setSpinnerCard();
@@ -150,15 +153,17 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     private void setSpinnerSortBy() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.sort_by_array, R.layout.celula_spinner_parcelas_layout);
-        adapter.setDropDownViewResource(R.layout.celular_spinner_dropdown_parcelas_layout);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.sort_by_array, R.layout.cel_spinner_parcels_layout);
+        adapter.setDropDownViewResource(R.layout.cel_spinner_dropdown_parcels_layout);
         sp_sort.setAdapter(adapter);
     }
 
     private void setSpinnerYear() {
-        adapterYear = new RecordSpinnerNotesYearAdapter(context, R.layout.celula_spinner_year_layout, notesDao.getListYearNotes());
+        RecordSpinnerNotesYearAdapter adapterYear = new RecordSpinnerNotesYearAdapter(context, R.layout.cel_spinner_year_layout, notesDao.getListYearNotes());
         sp_year.setAdapter(adapterYear);
-        sp_year.setSelection(getSpinnerYearIndex(sp_year, anoAtual));
+
+        hmAux = notesDao.getListYearNotes();
+        sp_year.setSelection(SpinnerIndex.getSpinnerIndex(sp_year, yearActual, hmAux, NotesDao.YEAR));
         sp_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
 
@@ -166,9 +171,12 @@ public class FilterDialogFragment extends DialogFragment {
                 sp_year.setSelection(position);
 
                 HMAuxNotes item = (HMAuxNotes) parent.getSelectedItem();
-                newYear = item.get(NotesDao.YEAR);
+                newYear = convertToInt(item.get(NotesDao.YEAR));
 
                 adapterMonth.updateDataChanged(notesDao.getListMonthNotes(newYear));
+                if (newYear != yearActual) {
+                    sp_month.setSelection(0);
+                }
             }
 
             @Override
@@ -180,16 +188,17 @@ public class FilterDialogFragment extends DialogFragment {
 
     private void setSpinnerMonth() {
 
-        if (newYear != null) {
-            adapterMonth = new RecordSpinnerNotesMonthAdapter(context, R.layout.celula_spinner_month_layout, notesDao.getListMonthNotes(newYear));
+        if (newYear > 0) {
+            adapterMonth = new RecordSpinnerNotesMonthAdapter(context, R.layout.cel_spinner_month_layout, notesDao.getListMonthNotes(newYear));
         } else {
-            adapterMonth = new RecordSpinnerNotesMonthAdapter(context, R.layout.celula_spinner_month_layout, notesDao.getListMonthNotes(anoAtual));
+            adapterMonth = new RecordSpinnerNotesMonthAdapter(context, R.layout.cel_spinner_month_layout, notesDao.getListMonthNotes(yearActual));
         }
         sp_month.setAdapter(adapterMonth);
-        if (newYear != null && newYear.equals(anoAtual)) {
-            sp_month.setSelection(getSpinnerMonthIndex(sp_month, mesAtual, anoAtual));
-        } else if (newYear == null) {
-            sp_month.setSelection(getSpinnerMonthIndex(sp_month, mesAtual, anoAtual));
+        hmAux = notesDao.getListMonthNotes(yearActual);
+        if (newYear == -1 || newYear == yearActual) {
+            sp_month.setSelection(SpinnerIndex.getSpinnerIndex(sp_month, monthActual, hmAux, NotesDao.MONTH));
+        } else {
+            sp_month.setSelection(0);
 
         }
         //inicializa o spinner_month
@@ -208,7 +217,7 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     private void setSpinnerCard() {
-        adapterCard = new RecordSpinnerCardAdapter(context, R.layout.celula_spinner_card_layout, cardDao.getListCardOnFilter());
+        RecordSpinnerCardAdapter adapterCard = new RecordSpinnerCardAdapter(context, R.layout.cel_spinner_card_layout, cardDao.getListCardOnFilter());
 
         sp_card.setAdapter(adapterCard);
         sp_card.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -236,10 +245,10 @@ public class FilterDialogFragment extends DialogFragment {
             item3 = (HMAuxNotes) sp_month.getSelectedItem();
 
             if (item != null && item2 != null && item3 != null) {
-                filters.setYear(item2.get(NotesDao.YEAR));
-                filters.setMonth(item3.get(NotesDao.MONTH));
+                filters.setYear(convertToInt(item2.get(NotesDao.YEAR)));
+                filters.setMonth(convertToInt(item3.get(NotesDao.MONTH)));
 
-                filters.setIdCard(item.get(CardDao.ID_CARD));
+                filters.setIdCard(convertToLong(item.get(CardDao.ID_CARD)));
                 filters.setDescCard(item.get(CardDao.DESC_CARD));
 
             } else if (item == null) {
@@ -251,51 +260,17 @@ public class FilterDialogFragment extends DialogFragment {
                 dismiss();
             }
             if ((cb_credit.isChecked() && cb_debit.isChecked()) || (!cb_credit.isChecked() && !cb_debit.isChecked())) {
-                filters.setType("3");
+                filters.setType(3);
             } else if (cb_credit.isChecked() && !cb_debit.isChecked()) {
-                filters.setType("1");
+                filters.setType(1);
             } else if (cb_debit.isChecked() && !cb_credit.isChecked()) {
-                filters.setType("2");
+                filters.setType(2);
             }
 
             filters.setSortBy(getSelectedSortBy());
         }
 
         return filters;
-    }
-
-    //Verifica em qual posição está o YEAR;
-    public int getSpinnerYearIndex(Spinner spinner, String ano) {
-        int index = 0;
-        hmAux = notesDao.getListYearNotes();
-
-        for (int i = 0; i < spinner.getCount(); i++) {
-            HMAuxNotes model = hmAux.get(i);
-            String modelS = model.get(NotesDao.YEAR);
-            if (modelS != null) {
-                if (modelS.equals(ano)) {
-                    index = i;
-                }
-            }
-        }
-        return index;
-    }
-
-    //Verifica em qual posição está o mês;
-    public int getSpinnerMonthIndex(Spinner spinner, String mes, String ano) {
-        int index = 0;
-        hmAux = notesDao.getListMonthNotes(ano);
-
-        for (int i = 0; i < spinner.getCount(); i++) {
-            HMAuxNotes model = hmAux.get(i);
-            String modelS = model.get(NotesDao.MONTH);
-            if (modelS != null) {
-                if (modelS.equals(mes)) {
-                    index = i;
-                }
-            }
-        }
-        return index;
     }
 
     public void setArrowToSpinnerLowerVersion() {

@@ -43,7 +43,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     private static final String COLUMN_MONTH =        "[mes]";
     private static final String COLUMN_DAY =        "[dia]";
     //COLUMN TYPE pra table notas também
-    public static final String COLUMN_PARCELS =    "[parcelas]";
+    private static final String COLUMN_PARCELS =    "[parcelas]";
 
     SqlHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -75,11 +75,11 @@ public class SqlHelper extends SQLiteOpenHelper {
                     "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
                     "  " + COLUMN_PARCELS +    " INT NOT NULL, \n" +
                     "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_NOTES + "));");
-            String[] comandos = sb.split(";");
+            String[] commands = sb.split(";");
 
-            for (String comando : comandos) {
+            for (String command : commands) {
 
-                db.execSQL(comando.toLowerCase());
+                db.execSQL(command.toLowerCase());
 
             }
 
@@ -99,16 +99,16 @@ public class SqlHelper extends SQLiteOpenHelper {
         if (oldVersion < 4){
             //Transforma as tabelas tipoDEB e tipoCred em uma só como tipo
             //sendo 1 = Credito; 2 = Debito e 3 = Cred/Deb
-            bancoVersao4(db);
+            dBaseVersion4(db);
         }
 
         if (oldVersion < 5){
             //Cria na Tabela Notas as colunas TYPE e PARCELS
-            bancoVersao5(db);
+            dBaseVersion5(db);
         }
         if (oldVersion < 6){
             //Deleta na tabela cartão o número
-            bancoVersao6(db);
+            dBaseVersion6(db);
         }
 
         //
@@ -157,11 +157,11 @@ public class SqlHelper extends SQLiteOpenHelper {
                     "  " + COLUMN_DAY +    " INT NOT NULL, \n" +
                     "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_NOTES + "));\n"+
                     "COMMIT;");
-            String[] comandos = sb.split(";");
+            String[] commands = sb.split(";");
 
-            for (String comando : comandos) {
+            for (String command : commands) {
 
-                db.execSQL(comando.toLowerCase());
+                db.execSQL(command.toLowerCase());
 
             }
 
@@ -170,7 +170,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         }
     }
 
-    private void bancoVersao4(SQLiteDatabase db) {
+    private void dBaseVersion4(SQLiteDatabase db) {
         try {
             String sb = ("BEGIN TRANSACTION;\n" +
                     //Cria uma nova tabela pra guardar os dados da tabela a ser atualizada ou deletada
@@ -213,10 +213,10 @@ public class SqlHelper extends SQLiteOpenHelper {
                     "  " + COLUMN_DAY +    " INT NOT NULL, \n" +
                     "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_NOTES + "));\n"+
                     "COMMIT;");
-            String[] comandos = sb.split(";");
+            String[] commands = sb.split(";");
 
-            for (String comando : comandos) {
-                db.execSQL(comando.toLowerCase());
+            for (String command : commands) {
+                db.execSQL(command.toLowerCase());
             }
 
         } catch (Exception e) {
@@ -224,7 +224,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         }
     }
 
-    private void bancoVersao5(SQLiteDatabase db) {
+    private void dBaseVersion5(SQLiteDatabase db) {
         try {
             String sb = ("BEGIN TRANSACTION;\n" +
                     //Cria uma nova tabela pra guardar os dados da tabela a ser atualizada ou deletada
@@ -272,11 +272,11 @@ public class SqlHelper extends SQLiteOpenHelper {
                             "  " + COLUMN_TYPE +        " INT NOT NULL, \n" +
                             "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_CARD + "));\n"+
                             "COMMIT;");
-            String[] comandos = sb.split(";");
+            String[] commands = sb.split(";");
 
-            for (String comando : comandos) {
+            for (String command : commands) {
 
-                db.execSQL(comando.toLowerCase());
+                db.execSQL(command.toLowerCase());
             }
 
         } catch (Exception e) {
@@ -284,7 +284,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         }
     }
 
-    private void bancoVersao6(SQLiteDatabase db) {
+    private void dBaseVersion6(SQLiteDatabase db) {
         try {
             String sb = ("BEGIN TRANSACTION;\n" +
                     //Cria uma nova tabela pra guardar os dados da tabela a ser atualizada ou deletada
@@ -323,11 +323,11 @@ public class SqlHelper extends SQLiteOpenHelper {
                     "  " + COLUMN_PARCELS +    " INT NOT NULL, \n" +
                     "  CONSTRAINT [] PRIMARY KEY (" + COLUMN_ID_NOTES + ")); \n" +
                     "COMMIT;");
-            String[] comandos = sb.split(";");
+            String[] commands = sb.split(";");
 
-            for (String comando : comandos) {
+            for (String command : commands) {
 
-                db.execSQL(comando.toLowerCase());
+                db.execSQL(command.toLowerCase());
             }
         } catch (Exception e) {
             Log.e(TAG, "onUpgrade: Error, version 6 db");

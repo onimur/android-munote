@@ -32,9 +32,9 @@ public class Dao {
 
     protected void openDataBase() {
 
-        String folderall = FOLDER_NAME + FOLDER_NAME_DBASE;
+        String folderFull = FOLDER_NAME + FOLDER_NAME_DBASE;
         File path = Environment.getExternalStorageDirectory();
-        File dir = new File(path, folderall);
+        File dir = new File(path, folderFull);
 
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
@@ -42,11 +42,11 @@ public class Dao {
             }
         }
 
-        String caminhodbase = dir.getPath() + "/" + DBASE_NAME;
+        String dBasePath = dir.getPath() + "/" + DBASE_NAME;
 
         SqlHelper varHelp = new SqlHelper(
                 context,
-                caminhodbase,
+                dBasePath,
                 null,
                 DBASE_VERSION
         );

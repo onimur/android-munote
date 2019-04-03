@@ -56,14 +56,14 @@ public class CardDao extends Dao {
     public void updateCard(Card card) {
         openDataBase();
         //
-        String filtro = ID_CARD + " = ? ";
-        String[] argumentos = {String.valueOf(card.getIdCard())};
+        String filter = ID_CARD + " = ? ";
+        String[] arguments = {String.valueOf(card.getIdCard())};
         //
         ContentValues cv = new ContentValues();
         cv.put(DESC_CARD, card.getDescCard());
         cv.put(TYPE, card.getType());
         //
-        db.update(TABLE, cv, filtro, argumentos);
+        db.update(TABLE, cv, filter, arguments);
         //
         closeDataBase();
     }
@@ -71,10 +71,10 @@ public class CardDao extends Dao {
     public void deleteCard(long idCard) {
         openDataBase();
         //
-        String filtro = ID_CARD + " = ? ";
-        String[] argumentos = {String.valueOf(idCard)};
+        String filter = ID_CARD + " = ? ";
+        String[] arguments = {String.valueOf(idCard)};
         //
-        db.delete(TABLE, filtro, argumentos);
+        db.delete(TABLE, filter, arguments);
         //
         closeDataBase();
     }
@@ -85,14 +85,14 @@ public class CardDao extends Dao {
         //
         openDataBase();
         //
-        Cursor cursor = null;
+        Cursor cursor;
         //
         try {
 
-            String comando = " select * from " + TABLE + " where " + ID_CARD + " = ? ";
-            String[] argumentos = {String.valueOf(idCard)};
+            String command = " select * from " + TABLE + " where " + ID_CARD + " = ? ";
+            String[] arguments = {String.valueOf(idCard)};
             //
-            cursor = db.rawQuery(comando, argumentos);
+            cursor = db.rawQuery(command, arguments);
             //
             while (cursor.moveToNext()) {
                 cAux = new Card();
@@ -113,17 +113,17 @@ public class CardDao extends Dao {
     }
 
     public ArrayList<HMAuxCard> getListCard() {
-        ArrayList<HMAuxCard> cartao = new ArrayList<>();
+        ArrayList<HMAuxCard> card = new ArrayList<>();
         //
         openDataBase();
         //
-        Cursor cursor = null;
+        Cursor cursor;
         //
         try {
 
-            String comando = " select " + ID_CARD + ", " + DESC_CARD + ", " + TYPE + " from " + TABLE + " order by " + DESC_CARD + " ";
+            String command = " select " + ID_CARD + ", " + DESC_CARD + ", " + TYPE + " from " + TABLE + " order by " + DESC_CARD + " ";
             //
-            cursor = db.rawQuery(comando, null);
+            cursor = db.rawQuery(command, null);
             //
             while (cursor.moveToNext()) {
                 HMAuxCard hmAux = new HMAuxCard();
@@ -132,7 +132,7 @@ public class CardDao extends Dao {
                 hmAux.put(DESC_CARD, cursor.getString(cursor.getColumnIndex(DESC_CARD)));
                 hmAux.put(TYPE, cursor.getString(cursor.getColumnIndex(TYPE)));
                 //
-                cartao.add(hmAux);
+                card.add(hmAux);
             }
             //
             cursor.close();
@@ -143,21 +143,21 @@ public class CardDao extends Dao {
         //
         closeDataBase();
         //
-        return cartao;
+        return card;
     }
 
     public ArrayList<HMAuxCard> getListCardOnFilter() {
-        ArrayList<HMAuxCard> cartao = new ArrayList<>();
+        ArrayList<HMAuxCard> card = new ArrayList<>();
         //
         openDataBase();
         //
-        Cursor cursor = null;
+        Cursor cursor;
         //
         try {
 
-            String comando = " select " + ID_CARD + ", " + DESC_CARD + ", " + TYPE + " from " + TABLE + " order by " + DESC_CARD + " ";
+            String command = " select " + ID_CARD + ", " + DESC_CARD + ", " + TYPE + " from " + TABLE + " order by " + DESC_CARD + " ";
             //
-            cursor = db.rawQuery(comando, null);
+            cursor = db.rawQuery(command, null);
             //
             while (cursor.moveToNext()) {
                 HMAuxCard hmAux = new HMAuxCard();
@@ -166,14 +166,14 @@ public class CardDao extends Dao {
                 hmAux.put(DESC_CARD, cursor.getString(cursor.getColumnIndex(DESC_CARD)));
                 hmAux.put(TYPE, cursor.getString(cursor.getColumnIndex(TYPE)));
                 //
-                cartao.add(hmAux);
+                card.add(hmAux);
             }
             //
             HMAuxCard hmAux = new HMAuxCard();
             hmAux.put(DESC_CARD, context.getString(R.string.all_cards));
             hmAux.put(ID_CARD, "-1");
             hmAux.put(TYPE, "-1");
-            cartao.add(0, hmAux);
+            card.add(0, hmAux);
             //
             cursor.close();
 
@@ -183,7 +183,7 @@ public class CardDao extends Dao {
         //
         closeDataBase();
         //
-        return cartao;
+        return card;
     }
 
     public long nextID() {
@@ -191,13 +191,13 @@ public class CardDao extends Dao {
         //
         openDataBase();
         //
-        Cursor cursor = null;
+        Cursor cursor;
         //
         try {
 
-            String comando = " select max(" + ID_CARD + ") + 1 as id from " + TABLE + " ";
+            String command = " select max(" + ID_CARD + ") + 1 as id from " + TABLE + " ";
             //
-            cursor = db.rawQuery(comando, null);
+            cursor = db.rawQuery(command, null);
             //
             while (cursor.moveToNext()) {
                 proUD = cursor.getLong(cursor.getColumnIndex("id"));

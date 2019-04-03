@@ -31,10 +31,10 @@ public class CardAddActivity extends MenuToolbar {
 
     private EditText et_desc_card;
 
-    private CheckBox cb_credito;
-    private CheckBox cb_debito;
+    private CheckBox cb_credit;
+    private CheckBox cb_debit;
 
-    private long idAtual;
+    private long idActual;
 
     private Toolbar toolbar;
 
@@ -53,8 +53,8 @@ public class CardAddActivity extends MenuToolbar {
         getParameters();
         //
         et_desc_card = findViewById(R.id.et_desc_card);
-        cb_credito = findViewById(R.id.cb_credito);
-        cb_debito = findViewById(R.id.cb_debito);
+        cb_credit = findViewById(R.id.cb_credit);
+        cb_debit = findViewById(R.id.cb_debit);
         //
         toolbar = findViewById(R.id.toolbar);
         //
@@ -66,9 +66,9 @@ public class CardAddActivity extends MenuToolbar {
     private void startAction() {
 
         setSupportActionBar(toolbar);
-        setActionOnClick(R.id.btn_limpar, new OnButtonClickActionLimpar());
-        setAlertDialogToReturnOnClickActivity(R.id.btn_cancelar, CardActivity.class, CARD);
-        setActionOnClick(R.id.btn_salvar, new OnButtonClickActionSave());
+        setActionOnClick(R.id.btn_clear, new OnButtonClickActionLimpar());
+        setAlertDialogToReturnOnClickActivity(R.id.btn_cancel, CardActivity.class, CARD);
+        setActionOnClick(R.id.btn_save, new OnButtonClickActionSave());
     }
 
     private class OnButtonClickActionLimpar implements View.OnClickListener {
@@ -76,8 +76,8 @@ public class CardAddActivity extends MenuToolbar {
         public void onClick(View v) {
 
             clearField(et_desc_card, true);
-            clearField(cb_credito);
-            clearField(cb_debito);
+            clearField(cb_credit);
+            clearField(cb_debit);
         }
     }
 
@@ -85,7 +85,7 @@ public class CardAddActivity extends MenuToolbar {
         @Override
         public void onClick(View v) {
             if (validation(CARD)) {
-                saveCard(idAtual, context);
+                saveCard(idActual, context);
                 callActivity(context, CardActivity.class);
 
             }
@@ -93,7 +93,7 @@ public class CardAddActivity extends MenuToolbar {
     }
 
     private void getParameters() {
-        idAtual = getIntent().getLongExtra(DBASE_ID, 0);
+        idActual = getIntent().getLongExtra(DBASE_ID, 0);
 
     }
 

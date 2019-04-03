@@ -28,7 +28,7 @@
         android:paddingEnd="30dp">
 
         <TextView
-            android:id="@+id/celula_cartao"
+            android:id="@+id/cel_card"
             style="@style/Text_Description"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
@@ -39,7 +39,7 @@
             android:textSize="12sp" />
 
         <LinearLayout
-            android:id="@+id/ll_celula_tipo"
+            android:id="@+id/ll_cel_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -48,7 +48,7 @@
 
 
             <TextView
-                android:id="@+id/celula_tipo"
+                android:id="@+id/cel_type"
                 style="@style/Text_Description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

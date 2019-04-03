@@ -35,13 +35,13 @@ public class MenuToolbar extends MainUtilities {
         switch (nameActivity) {
             //Quando estiver na Activity selecionada o menu referente ao item dela fica invisivel;
             case NOTES_ADD_ACTIVITY: {
-                MenuItem itemNotas = menu.findItem(R.id.action_notas);
-                itemNotas.setVisible(false);
+                MenuItem itemNotes = menu.findItem(R.id.action_notes);
+                itemNotes.setVisible(false);
                 break;
             }
             case CARD_ADD_ACTIVITY: {
-                MenuItem itemCartao = menu.findItem(R.id.action_cartao);
-                itemCartao.setVisible(false);
+                MenuItem itemCard = menu.findItem(R.id.action_card);
+                itemCard.setVisible(false);
                 break;
             }
         }
@@ -61,17 +61,17 @@ public class MenuToolbar extends MainUtilities {
             actionMenuToolbar(HOME);
             return true;
         }
-        if (id == R.id.action_galeria) {
+        if (id == R.id.action_gallery) {
             actionMenuToolbar(GALLERY);
             return true;
         }
 
-        if (id == R.id.action_notas) {
+        if (id == R.id.action_notes) {
             actionMenuToolbar(NOTES);
             return true;
         }
 
-        if (id == R.id.action_cartao) {
+        if (id == R.id.action_card) {
             actionMenuToolbar(CARD);
             return true;
         }

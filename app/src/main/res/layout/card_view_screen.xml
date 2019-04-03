@@ -41,7 +41,6 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,12 +78,12 @@
                 android:gravity="start">
 
                 <CheckBox
-                    android:id="@+id/cb_credito"
+                    android:id="@+id/cb_credit"
                     style="@style/Text_Description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorWhite"
-                    android:text="@string/cb_credito"
+                    android:text="@string/cb_credit"
                     android:textSize="20sp"
                     tools:targetApi="lollipop" />
 
@@ -97,13 +96,13 @@
                 android:gravity="end">
 
                 <CheckBox
-                    android:id="@+id/cb_debito"
+                    android:id="@+id/cb_debit"
                     style="@style/Text_Description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:buttonTint="@color/colorWhite"
-                    android:text="@string/cb_debito"
+                    android:text="@string/cb_debit"
                     android:textSize="20sp"
                     tools:targetApi="lollipop" />
 
@@ -118,20 +117,20 @@
             android:padding="20dp">
 
             <Button
-                android:id="@+id/btn_editar"
+                android:id="@+id/btn_edit"
                 style="@style/Button_2_Sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_edit"
-                android:text="@string/tv_editar" />
+                android:text="@string/tv_edit" />
 
             <Button
-                android:id="@+id/btn_deletar"
+                android:id="@+id/btn_delete"
                 style="@style/Button_2_Sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_delete"
-                android:text="@string/tv_deletar" />
+                android:text="@string/tv_delete" />
         </LinearLayout>
 
     </LinearLayout>

@@ -43,8 +43,6 @@ import com.onimus.munote.files.FileUtilities;
 import com.onimus.munote.files.MoneyTextWatcher;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,8 +50,10 @@ import java.util.Date;
 import java.util.Locale;
 
 import static com.onimus.munote.Constants.*;
+import static com.onimus.munote.files.ConvertType.convertToDate;
 import static com.onimus.munote.files.MoneyTextWatcher.formatPrice;
 import static com.onimus.munote.files.MoneyTextWatcher.getCurrencySymbol;
+import static com.onimus.munote.files.SpinnerIndex.getSpinnerIndex;
 
 public class NotesEditActivity extends MenuToolbar {
 
@@ -61,20 +61,16 @@ public class NotesEditActivity extends MenuToolbar {
     private NotesDao notesDao;
     private Notes nAux;
     private CardDao cardDao;
-    private RecordSpinnerCardAdapter adapter;
-    private ArrayList<HMAuxCard> hmAux;
     //
     private File imgFile;
     //
     private File photoFile1;
-    //
-    private DatePickerDialog datePickerDialog;
     private Calendar calendar;
     //
     private EditText et_title_invoice;
     private EditText et_value;
     private EditText et_desc_invoice;
-    private Button btn_selec_date;
+    private Button btn_select_date;
     private TextView tv_select_card;
     private TextView tv_click_image;
     private TextView tv_sp_disabled;
@@ -89,14 +85,14 @@ public class NotesEditActivity extends MenuToolbar {
     private LinearLayout ll_hint_spinner;
     //
     private Spinner sp_card;
-    private Spinner sp_parcelas;
+    private Spinner sp_parcels;
     //
-    private ImageButton ib_foto;
+    private ImageButton ib_photo;
     //
-    private int idCartao;
-    private long idAtual;
-    private String caminhoSemPath;
-    private String caminho;
+    private long idCard;
+    private long idActual;
+    private String noPath;
+    private String newPath;
     //
     private Toolbar toolbar;
 
@@ -110,7 +106,7 @@ public class NotesEditActivity extends MenuToolbar {
 
     //se a tela morrer, faz cast e recria a tela;
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putString(NO_PATH, caminhoSemPath);
+        outState.putString(NO_PATH, noPath);
 
         super.onSaveInstanceState(outState);
     }
@@ -126,12 +122,12 @@ public class NotesEditActivity extends MenuToolbar {
         et_title_invoice = findViewById(R.id.et_title_invoice);
         et_value = findViewById(R.id.et_value);
         et_desc_invoice = findViewById(R.id.et_desc_invoice);
-        btn_selec_date = findViewById(R.id.btn_selec_date);
+        btn_select_date = findViewById(R.id.btn_select_date);
         sp_card = findViewById(R.id.sp_card);
-        sp_parcelas = findViewById(R.id.sp_parcelas);
+        sp_parcels = findViewById(R.id.sp_parcels);
         view_sp_disabled = findViewById(R.id.view_sp_disabled);
         tv_sp_disabled = findViewById(R.id.tv_sp_disabled);
-        ib_foto = findViewById(R.id.ib_foto);
+        ib_photo = findViewById(R.id.ib_photo);
         ll_hint_spinner = findViewById(R.id.ll_hint_spinner);
         tv_select_card = findViewById(R.id.tv_select_card);
         tv_click_image = findViewById(R.id.tv_click_image);
@@ -139,26 +135,24 @@ public class NotesEditActivity extends MenuToolbar {
         rb_debit = findViewById(R.id.rb_debit);
         tv_value = findViewById(R.id.tv_value);
         //
-        et_value.addTextChangedListener(new MoneyTextWatcher(et_value));
-        //
-        tv_value.setText((getString(R.string.tv_value) + " (" + getCurrencySymbol() + "):"));
-        //
         loadAdmob();
-        //
     }
 
     private void startAction(Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
         //
+        et_value.addTextChangedListener(new MoneyTextWatcher(et_value));
+        tv_value.setText((getString(R.string.tv_value) + " (" + getCurrencySymbol() + "):"));
+        //
         setArrowToSpinnerLowerVersion();
         setSpinnerCard();
         setSpinnerParcel();
+        //
+        if (idActual != -1) {
 
-        if (idAtual != -1) {
-
-            nAux = notesDao.getNotesById(idAtual);
-            idCartao = (int) nAux.getIdCard();
-            caminho = nAux.getPhotoNotes();
+            nAux = notesDao.getNotesById(idActual);
+            idCard = nAux.getIdCard();
+            newPath = nAux.getPhotoNotes();
             //
             createDirectoryImage();
             checkCard();
@@ -167,18 +161,18 @@ public class NotesEditActivity extends MenuToolbar {
         }
         //
         File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
-        imgFile = new File(path, caminho);
-        //checa o caminho da imagem e retorna boolean
-        if (setImageSaveToImageButton(caminho, imgFile)) {
-            setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, NOTES, caminhoSemPath);
+        imgFile = new File(path, newPath);
+        //checa o newPath da imagem e retorna boolean
+        if (setImageSaveToImageButton(newPath, imgFile)) {
+            setAlertDialogUpdateOnClickActivity(R.id.btn_save, NotesActivity.class, context, idActual, NOTES, noPath);
         } else {
-            setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, NOTES, caminho);
+            setAlertDialogUpdateOnClickActivity(R.id.btn_save, NotesActivity.class, context, idActual, NOTES, newPath);
         }
 
-        setActionOnClick(R.id.btn_selec_date, new OnButtonClickActionCalendar());
+        setActionOnClick(R.id.btn_select_date, new OnButtonClickActionCalendar());
         //Se existir imagem já salva é possivel visualiza-la
-        setActionOnClick(R.id.ib_foto, new OnButtonClickActionImage(imgFile));
-        setActionOnClick(R.id.btn_cancelar, new OnButtonClickActionCancel());
+        setActionOnClick(R.id.ib_photo, new OnButtonClickActionImage(imgFile));
+        setActionOnClick(R.id.btn_cancel, new OnButtonClickActionCancel());
         setActionOnClick(R.id.btn_picture, new OnButtonClickActionPicture(savedInstanceState));
         //Quando o Cartão possui credito ou debito, realiza a ação no RadioButton de desabilitar o spinner e o outro radiobutton
         setActionOnClick(R.id.rb_credit, new OnRadioButtonClickActionCredit());
@@ -190,27 +184,29 @@ public class NotesEditActivity extends MenuToolbar {
         try {
             imageUtilities.createDirectory(FOLDER_NAME_NOTES);
             photoFile1 = imageUtilities.createImageFile();
-            caminhoSemPath = ImageUtilities.returnCaminhoSemPath();
+            noPath = ImageUtilities.returnNoPath();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void setSpinnerParcel() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.parcelas_array, R.layout.celula_spinner_parcelas_layout);
-        adapter.setDropDownViewResource(R.layout.celular_spinner_dropdown_parcelas_layout);
-        sp_parcelas.setAdapter(adapter);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.parcels_array, R.layout.cel_spinner_parcels_layout);
+        adapter.setDropDownViewResource(R.layout.cel_spinner_dropdown_parcels_layout);
+        sp_parcels.setAdapter(adapter);
     }
 
     private void setSpinnerCard() {
-        adapter = new RecordSpinnerCardAdapter(context, R.layout.celula_spinner_card_layout, cardDao.getListCard());
+        RecordSpinnerCardAdapter adapter = new RecordSpinnerCardAdapter(context, R.layout.cel_spinner_card_layout, cardDao.getListCard());
         sp_card.setAdapter(adapter);
     }
 
     private void setField() {
-        sp_card.setSelection(getSpinnerIndex(sp_card, String.valueOf(idCartao)));
-        sp_parcelas.setSelection(nAux.getParcels() - 1);
+        ArrayList<HMAuxCard> hmAux = cardDao.getListCard();
+        //recupera a posição do ID do cartão
+        sp_card.setSelection(getSpinnerIndex(sp_card, idCard, hmAux, CardDao.ID_CARD));
+        sp_parcels.setSelection(nAux.getParcels() - 1);
 
         if (nAux.getType() == 1) {
             rb_credit.setChecked(true);
@@ -234,25 +230,25 @@ public class NotesEditActivity extends MenuToolbar {
         et_value.setText(price);
         et_desc_invoice.setText(nAux.getDescNotes());
         //formata a data
-        String data = formatDate(String.valueOf((int) nAux.getDay() + "/" + nAux.getMonth() + "/" + nAux.getYear()));
-        btn_selec_date.setText(data);
+        String data = formatDate(String.valueOf(nAux.getDay() + "/" + nAux.getMonth() + "/" + nAux.getYear()));
+        btn_select_date.setText(data);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PICTURE && resultCode == RESULT_OK) {
 
             //tira o background
-            ib_foto.setBackgroundResource(0);
+            ib_photo.setBackgroundResource(0);
             //envia a foto tirada para o ImageButton
-            imageUtilities.setPhotoToBitmap(context, ib_foto);
+            imageUtilities.setPhotoToBitmap(context, ib_photo);
             //Torna o imagem
-            ib_foto.setEnabled(true);
-            ib_foto.setClickable(true);
+            ib_photo.setEnabled(true);
+            ib_photo.setClickable(true);
 
             tv_click_image.setVisibility(View.VISIBLE);
-            setAlertDialogUpdateOnClickActivity(R.id.btn_salvar, NotesActivity.class, context, idAtual, NOTES, caminhoSemPath, imgFile);
+            setAlertDialogUpdateOnClickActivity(R.id.btn_save, NotesActivity.class, context, idActual, NOTES, noPath, imgFile);
 
-            setActionOnClick(R.id.ib_foto, new OnButtonClickActionImage(photoFile1));
+            setActionOnClick(R.id.ib_photo, new OnButtonClickActionImage(photoFile1));
 
         } else {
             setMessage(R.string.operation_cancel);
@@ -260,31 +256,14 @@ public class NotesEditActivity extends MenuToolbar {
     }
 
     private void getParameters() {
-        idAtual = getIntent().getLongExtra(DBASE_ID, 0);
-    }
-
-    //Verifica em qual posição o IDCartão desejado está;
-    public int getSpinnerIndex(Spinner spinner, String myString) {
-        int index = 0;
-        hmAux = cardDao.getListCard();
-
-        for (int i = 0; i < spinner.getCount(); i++) {
-            HMAuxCard model = hmAux.get(i);
-            String modelS = model.get(CardDao.ID_CARD);
-            if (modelS != null) {
-                if (modelS.equals(myString)) {
-                    index = i;
-                }
-            }
-        }
-        return index;
+        idActual = getIntent().getLongExtra(DBASE_ID, 0);
     }
 
     private class OnButtonClickActionImage implements View.OnClickListener {
-        private File imagemFile;
+        private File imageFile;
 
-        public OnButtonClickActionImage(File imagemFile) {
-            this.imagemFile = imagemFile;
+        private OnButtonClickActionImage(File imageFile) {
+            this.imageFile = imageFile;
         }
 
         @Override
@@ -295,7 +274,7 @@ public class NotesEditActivity extends MenuToolbar {
             //IMPORTANTE PRA CONSEGUIR LER A IMAGEM:
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            intent.setDataAndType(FileUtilities.getUri(getApplicationContext(), imagemFile), "image/*");
+            intent.setDataAndType(FileUtilities.getUri(getApplicationContext(), imageFile), "image/*");
             startActivity(intent);
 
         }
@@ -315,12 +294,12 @@ public class NotesEditActivity extends MenuToolbar {
             //Analisa savedInstance para recuperar os valores e inicializar as variaveis
             if (savedInstanceState != null) {
                 //
-                caminhoSemPath = savedInstanceState.getString(NO_PATH);
+                noPath = savedInstanceState.getString(NO_PATH);
 
             } else if (ImageUtilities.checkDirectory()) {
                 try {
                     imageUtilities.createDirectory(FOLDER_NAME_NOTES);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -330,18 +309,18 @@ public class NotesEditActivity extends MenuToolbar {
     }
 
     private void dispatchTakePictureIntent() {
-        Intent fotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
-        if (fotoIntent.resolveActivity(getPackageManager()) != null) {
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            File photoFile = null;
+            File photoFile;
 
             photoFile = photoFile1;
             // Continue only if the File was successfully created
             if (photoFile != null) {
 
-                fotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileUtilities.getUri(getApplicationContext(), photoFile));
-                startActivityForResult(fotoIntent, REQUEST_TAKE_PICTURE);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileUtilities.getUri(getApplicationContext(), photoFile));
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
             }
         }
     }
@@ -370,25 +349,19 @@ public class NotesEditActivity extends MenuToolbar {
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
-            datePickerDialog = new DatePickerDialog(NotesEditActivity.this,
+            //
+            DatePickerDialog datePickerDialog = new DatePickerDialog(NotesEditActivity.this,
                     new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                             calendar.set(year, month, day);
                             String format = "dd/MM/yyyy";
-                            SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.ENGLISH);
-                            Date date;
+                            Date date = convertToDate(format, calendar.getTime());
+                            String dayS = new SimpleDateFormat("dd", Locale.ENGLISH).format(date);
+                            String monthS = new SimpleDateFormat("MM", Locale.ENGLISH).format(date);
+                            String yearS = new SimpleDateFormat("yyyy", Locale.ENGLISH).format(date);
 
-                            try {
-                                date = sdf.parse(sdf.format(calendar.getTime()));
-                                String dayS = new SimpleDateFormat("dd", Locale.ENGLISH).format(date);
-                                String monthS = new SimpleDateFormat("MM", Locale.ENGLISH).format(date);
-                                String yearS = new SimpleDateFormat("yyyy", Locale.ENGLISH).format(date);
-
-                                btn_selec_date.setText((dayS + "/" + monthS + "/" + yearS));
-                            } catch (ParseException ignored) {
-
-                            }
+                            btn_select_date.setText((dayS + "/" + monthS + "/" + yearS));
                         }
                     }, year, month, day);
             datePickerDialog.show();
@@ -400,7 +373,7 @@ public class NotesEditActivity extends MenuToolbar {
         @Override
         public void onClick(View v) {
             ImageUtilities.deleteImage();
-            callListView(NotesViewActivity.class, idAtual);
+            callListView(NotesViewActivity.class, idActual);
 
         }
     }
@@ -426,8 +399,8 @@ public class NotesEditActivity extends MenuToolbar {
             tv_select_card.setEnabled(true);
             tv_select_card.setText(getString(R.string.tv_no_card));
             ImageUtilities.deleteImage();
-            setAlertDialogOnClickActivity(CardAddActivity.class, NotesViewActivity.class, idAtual, NOTES_TO_CARD);
-        } else if (idCartao == -1) {
+            setAlertDialogOnClickActivity(CardAddActivity.class, NotesViewActivity.class, idActual, NOTES_TO_CARD);
+        } else if (idCard == -1L) {
             ll_hint_spinner.setEnabled(true);
             ll_hint_spinner.setVisibility(View.VISIBLE);
             sp_card.setEnabled(true);
@@ -448,7 +421,7 @@ public class NotesEditActivity extends MenuToolbar {
         @Override
         public void onClick(View v) {
             tv_sp_disabled.setEnabled(true);
-            sp_parcelas.setEnabled(true);
+            sp_parcels.setEnabled(true);
             view_sp_disabled.setVisibility(View.INVISIBLE);
 
         }
@@ -460,15 +433,15 @@ public class NotesEditActivity extends MenuToolbar {
         public void onClick(View v) {
             view_sp_disabled.setVisibility(View.VISIBLE);
             tv_sp_disabled.setEnabled(false);
-            sp_parcelas.setSelection(0);
-            sp_parcelas.setEnabled(false);
+            sp_parcels.setSelection(0);
+            sp_parcels.setEnabled(false);
 
         }
     }
 
     public void onBackPressed() {
         ImageUtilities.deleteImage();
-        callListView(NotesViewActivity.class, idAtual);
+        callListView(NotesViewActivity.class, idActual);
 
     }
 }

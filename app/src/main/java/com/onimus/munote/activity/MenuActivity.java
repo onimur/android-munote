@@ -43,7 +43,7 @@ public class MenuActivity extends MenuToolbar {
 
     private LinearLayout ll_btn_menu;
     private Button btn_request_permission;
-    private Button btn_menu_galeria;
+    private Button btn_menu_gallery;
     private Button btn_menu_invoice;
     private Button btn_menu_card;
     private Button btn_menu_bank;
@@ -73,7 +73,7 @@ public class MenuActivity extends MenuToolbar {
 
     private void startVariables() {
         ll_btn_menu = findViewById(R.id.ll_btn_menu);
-        btn_menu_galeria = findViewById(R.id.btn_menu_galeria);
+        btn_menu_gallery = findViewById(R.id.btn_menu_gallery);
         btn_menu_invoice = findViewById(R.id.btn_menu_invoice);
         btn_menu_card = findViewById(R.id.btn_menu_card);
         btn_menu_bank = findViewById(R.id.btn_menu_bank);
@@ -81,7 +81,7 @@ public class MenuActivity extends MenuToolbar {
     }
 
     private void checkPermissions() {
-        ll_btn_menu.removeView(btn_menu_galeria);
+        ll_btn_menu.removeView(btn_menu_gallery);
         ll_btn_menu.removeView(btn_menu_invoice);
         ll_btn_menu.removeView(btn_menu_card);
         ll_btn_menu.removeView(btn_menu_bank);
@@ -89,13 +89,13 @@ public class MenuActivity extends MenuToolbar {
 
         //Se tiver as permissões os botões serão habilitados
         if (Permission.hasPermissions(this, permissions())) {
-            ll_btn_menu.addView(btn_menu_galeria);
+            ll_btn_menu.addView(btn_menu_gallery);
             ll_btn_menu.addView(btn_menu_invoice);
             ll_btn_menu.addView(btn_menu_card);
             ll_btn_menu.addView(btn_menu_bank);
 
 
-            setActionOnClick(btn_menu_galeria, new OnButtonClickGallery());
+            setActionOnClick(btn_menu_gallery, new OnButtonClickGallery());
             setActionOnClickActivity(btn_menu_invoice, NotesActivity.class);
             setActionOnClickActivity(btn_menu_card, CardActivity.class);
             // setActionOnClickActivity(R.id.btn_menu_bank, BankActivity.class);
