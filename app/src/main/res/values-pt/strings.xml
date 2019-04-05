@@ -14,7 +14,7 @@
 <resources>
 
     <string name="operation_cancel">Operação Cancelada</string>
-    <string name="title_invoice">Pagamentos</string>
+    <string name="title_invoice">Pagamentos com Cartão</string>
     <string name="btn_picture">Tire Foto</string>
     <string name="error_folder_creater">Erro: Pasta não encontrada</string>
 

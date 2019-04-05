@@ -19,11 +19,6 @@
                     <solid android:color="@color/color_normal_button" />
                 </shape>
             </item>
-            <item android:height="2dp" android:bottom="8dp" android:gravity="bottom" android:left="100dp" android:right="100dp">
-                <shape>
-                    <gradient android:centerColor="#CCFAFAFA" android:endColor="#00FFFFFF" android:startColor="#00FFFFFF" />
-                </shape>
-            </item>
         </layer-list>
     </item>
 
@@ -32,12 +27,13 @@
             <item>
                 <shape>
                     <corners android:radius="8dp" />
-                    <solid android:color="@color/color_normal_button" />
+                    <solid android:color="#59000000" />
                 </shape>
             </item>
-            <item android:height="2dp" android:bottom="8dp" android:gravity="bottom" android:left="100dp" android:right="100dp">
+            <item android:bottom="2dp" android:right="2dp">
                 <shape>
-                    <gradient android:centerColor="#33FAFAFA" android:endColor="#00FFFFFF" android:startColor="#00FFFFFF" />
+                    <solid android:color="@color/color_normal_button" />
+                    <corners android:radius="5dp" />
                 </shape>
             </item>
         </layer-list>
@@ -50,11 +46,6 @@
                 <shape>
                     <corners android:radius="8dp" />
                     <solid android:color="#424958" />
-                </shape>
-            </item>
-            <item android:height="2dp" android:bottom="8dp" android:gravity="bottom" android:left="100dp" android:right="100dp">
-                <shape>
-                    <gradient android:centerColor="#33FAFAFA" android:endColor="#00FFFFFF" android:startColor="#00FFFFFF" />
                 </shape>
             </item>
         </layer-list>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ /*
   ~  * Created by Murillo Comino on 09/02/19 12:26
@@ -17,13 +16,8 @@
         <layer-list>
             <item>
                 <shape>
-                    <corners android:radius="8dp"/>
+                    <corners android:radius="8dp" />
                     <solid android:color="@color/color_button_pressed" />
-                </shape>
-            </item>
-            <item android:height="2dp" android:gravity="bottom" android:bottom="8dp" android:left="115dp" android:right="20dp">
-                <shape>
-                    <gradient android:startColor="#00FFFFFF" android:centerColor="#CCFAFAFA"  android:endColor="#00FFFFFF"/>
                 </shape>
             </item>
         </layer-list>
@@ -32,13 +26,8 @@
         <layer-list>
             <item>
                 <shape>
-                    <corners android:radius="8dp" />
+                    <corners android:radius="5dp" />
                     <solid android:color="@color/color_normal_button" />
-                </shape>
-            </item>
-            <item android:height="2dp" android:gravity="bottom" android:bottom="8dp" android:left="115dp" android:right="20dp">
-                <shape>
-                    <gradient android:startColor="#00FFFFFF" android:centerColor="#33FAFAFA" android:endColor="#00FFFFFF" />
                 </shape>
             </item>
         </layer-list>

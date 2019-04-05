@@ -21,7 +21,7 @@
             </item>
             <item>
                 <shape>
-                    <gradient android:centerColor="#33FAFAFA" android:endColor="#00FFFFFF" android:startColor="#00FFFFFF" />
+                    <gradient android:centerColor="#1AFAFAFA" android:endColor="#00FFFFFF" android:startColor="#00FFFFFF" />
                 </shape>
             </item>
         </layer-list>
@@ -31,6 +31,12 @@
             <item>
                 <shape>
                     <corners android:radius="8dp" />
+                    <solid android:color="#59000000" />
+                </shape>
+            </item>
+            <item android:bottom="2dp" android:right="2dp">
+                <shape>
+                    <corners android:radius="5dp" />
                     <solid android:color="@color/color_normal_button" />
                 </shape>
             </item>

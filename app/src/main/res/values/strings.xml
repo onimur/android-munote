@@ -13,7 +13,7 @@
     <string name="app_name" translatable="false">MUnote</string>
 
     <string name="operation_cancel">Operation cancel</string>
-    <string name="title_invoice">Payments</string>
+    <string name="title_invoice">Payments Card</string>
     <string name="btn_picture">Take a Picture</string>
     <string name="error_folder_creater">Error: Folder not found</string>
     <string name="warning_install_es_file_explorer">Please install ES File Explorer</string>
