@@ -458,7 +458,7 @@ public class MainUtilities extends AppCompatActivity {
             startActivity(Intent.createChooser(intent, "Open folder"));
 
         } else {
-            setMessage(R.string.install_ES_File);
+            setMessage(getApplicationContext() ,R.string.install_ES_File, false);
         }
     }
 
@@ -624,26 +624,26 @@ public class MainUtilities extends AppCompatActivity {
                 select_date = btn_select_date.getText().toString();
                 //
                 if (title_invoice.trim().isEmpty()) {
-                    setMessage(R.string.toast_title_invoice);
+                    setMessage(getApplicationContext(), R.string.toast_title_invoice, false);
                     return false;
                 }
                 //
                 if (value.trim().isEmpty() || value.equals("0.00")) {
-                    setMessage(R.string.toast_value_required);
+                    setMessage(getApplicationContext(), R.string.toast_value_required, false);
                     return false;
                 }
                 //
                 if (tv_select_card.getText().equals(getString(R.string.tv_choose_card)) && ll_hint_spinner.isEnabled()) {
-                    setMessage(R.string.toast_ll_hint_spinner_enabled);
+                    setMessage(getApplicationContext(), R.string.toast_ll_hint_spinner_enabled, false);
                     return false;
 
                 }
                 if (tv_select_card.getText().equals(getString(R.string.tv_no_card))) {
-                    setMessage(R.string.message_register_card);
+                    setMessage(getApplicationContext(), R.string.message_register_card, false);
                     return false;
 
                 } else if (select_date.equals(getString(R.string.tv_select_date))) {
-                    setMessage(R.string.toat_select_date);
+                    setMessage(getApplicationContext(), R.string.toat_select_date, false);
                     return false;
                 }
                 //
@@ -662,12 +662,12 @@ public class MainUtilities extends AppCompatActivity {
                 desc_card = et_desc_card.getText().toString();
 
                 if (desc_card.trim().isEmpty()) {
-                    setMessage(R.string.toast_desc_card);
+                    setMessage(getApplicationContext(), R.string.toast_desc_card, false);
                     return false;
                 }
 
                 if (!cb_debit.isChecked() && !cb_credit.isChecked()) {
-                    setMessage(R.string.toast_cb_checked);
+                    setMessage(getApplicationContext(), R.string.toast_cb_checked, false);
 
                     return false;
                 }
@@ -771,8 +771,8 @@ public class MainUtilities extends AppCompatActivity {
         //se o path for vazio ou se o path existir, mas a foto não.
         if (path.equals("") || !imgFile.exists()) {
             tv_click_image.setVisibility(View.INVISIBLE);
-            ib_photo.getLayoutParams().height = (int) (setWidthScreen() / 1.5);
-            ib_photo.getLayoutParams().width = (int) (setWidthScreen() / 1.5);
+            ib_photo.getLayoutParams().height = (int) (getWidthScreen() / 1.5);
+            ib_photo.getLayoutParams().width = (int) (getWidthScreen() / 1.5);
             ib_photo.setBackgroundResource(R.drawable.logo_512);
             ib_photo.setClickable(false);
             ib_photo.setEnabled(false);
@@ -796,8 +796,8 @@ public class MainUtilities extends AppCompatActivity {
         //se o way for vazio ou se o way existir, mas a foto não.
         if (!imgFile.exists()) {
             tv_click_image.setVisibility(View.INVISIBLE);
-            ib_photo.getLayoutParams().height = (int) (setWidthScreen() / 1.5);
-            ib_photo.getLayoutParams().width = (int) (setWidthScreen() / 1.5);
+            ib_photo.getLayoutParams().height = (int) (getWidthScreen() / 1.5);
+            ib_photo.getLayoutParams().width = (int) (getWidthScreen() / 1.5);
             ib_photo.setBackgroundResource(R.drawable.logo_512);
             ib_photo.setClickable(false);
 
@@ -810,9 +810,14 @@ public class MainUtilities extends AppCompatActivity {
         }
     }
 
-    public int setWidthScreen() {
+    public int getWidthScreen() {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         return displayMetrics.widthPixels;
+    }
+
+    public int getHeightScreen() {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        return displayMetrics.heightPixels;
     }
 
     //formata a data para Ex: 01/01/2019 ao invés de ficar 1/1/2019
@@ -822,12 +827,14 @@ public class MainUtilities extends AppCompatActivity {
         return new SimpleDateFormat(format, Locale.ENGLISH).format(date);
     }
 
-    public void setMessage(int idMessage) {
-        Toast.makeText(this, getString(idMessage), Toast.LENGTH_SHORT).show();
-    }
+    public void setMessage(Context context, int idMessage, boolean isLong) {
 
-    public void setMessage(Context context, int idMessage) {
-        Toast.makeText(context, context.getString(idMessage), Toast.LENGTH_SHORT).show();
+        if (isLong) {
+           Toast.makeText(context, context.getString(idMessage), Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(context, context.getString(idMessage), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @SuppressWarnings("deprecation")

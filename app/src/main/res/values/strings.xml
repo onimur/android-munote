@@ -135,5 +135,6 @@
     <string name="text_permission_granted">Permission granted successfully</string>
     <string name="text_dialog_permission">We need take picture, read and write on external storage for performing necessary task. Please permit the permission through Settings screen.\n\nSelect Permissions -> Enable permission</string>
     <string name="text_permit_manually">Permit Manually</string>
+    <string name="toast_necessary_accept">To continue you must accept the terms</string>
 
 </resources>

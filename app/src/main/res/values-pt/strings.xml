@@ -14,7 +14,7 @@
 <resources>
 
     <string name="operation_cancel">Operação Cancelada</string>
-    <string name="title_invoice">Pagamentos com Cartão</string>
+    <string name="title_invoice">Pagamentos Cartão</string>
     <string name="btn_picture">Tire Foto</string>
     <string name="error_folder_creater">Erro: Pasta não encontrada</string>
 
@@ -119,4 +119,5 @@
     <string name="text_dialog_permission">Precisamos tirar foto, ler e escrever no armazenamento externo para realizar a tarefa necessária. Por favor, conceda a permissão através de Tela de configurações. \n \nSelecione permissões -> Ativar permissão</string>
     <string name="text_permit_manually">Permitir Manualmente</string>
     <string name="text_cred_deb">Crédito e Débito</string>
+    <string name="toast_necessary_accept">Para continuar é necessário aceitar os termos</string>
 </resources>

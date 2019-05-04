@@ -191,7 +191,7 @@ public class NotesAddActivity extends MenuToolbar {
             setActionOnClick(R.id.ib_photo, new OnButtonClickActionImage(imgFile));
 
         } else {
-            setMessage(R.string.operation_cancel);
+            setMessage(context, R.string.operation_cancel, false);
         }
     }
 

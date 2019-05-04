@@ -251,7 +251,7 @@ public class NotesEditActivity extends MenuToolbar {
             setActionOnClick(R.id.ib_photo, new OnButtonClickActionImage(photoFile1));
 
         } else {
-            setMessage(R.string.operation_cancel);
+            setMessage(context, R.string.operation_cancel, false);
         }
     }
 

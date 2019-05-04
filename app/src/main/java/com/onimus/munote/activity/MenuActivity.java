@@ -175,7 +175,7 @@ public class MenuActivity extends MenuToolbar {
             //Se o contador for igual a quantidade de permissão então Permissão foi um sucesso
             if (count == permissions.length) {
                 Log.i(LOG_I, getString(R.string.text_permission_granted));
-                Toast.makeText(this, getString(R.string.text_permission_granted), Toast.LENGTH_LONG).show();
+                setMessage(getApplicationContext(), R.string.text_permission_granted, true);
             } else {
                 Permission.setShouldShowStatus(this, permissions);
             }

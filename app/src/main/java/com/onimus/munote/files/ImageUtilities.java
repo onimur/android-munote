@@ -136,7 +136,7 @@ public class ImageUtilities {
                 }
 
             } else {
-                mainUtilities.setMessage(context, R.string.error_folder_creater);
+                mainUtilities.setMessage(context, R.string.error_folder_creater, false);
 
             }
             iv_photo.setImageBitmap(bitmap);
@@ -163,7 +163,7 @@ public class ImageUtilities {
 
 
             } else {
-                mainUtilities.setMessage(context, R.string.error_folder_creater);
+                mainUtilities.setMessage(context, R.string.error_folder_creater, false);
             }
             iv_photo.setImageBitmap(bitmap);
 

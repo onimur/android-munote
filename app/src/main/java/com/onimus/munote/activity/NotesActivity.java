@@ -173,6 +173,7 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
         public void onClick(View v) {
             // Mostra o dialogo que contém o filtro
             mFilterDialog.show(getSupportFragmentManager(), TAG_FILTER_DIALOG);
+
         }
     }
 
