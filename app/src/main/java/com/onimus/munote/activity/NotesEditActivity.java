@@ -113,10 +113,12 @@ public class NotesEditActivity extends MenuToolbar {
 
     private void startVariables() {
         context = getBaseContext();
+        //
         getParameters();
         //
         notesDao = new NotesDao(context);
         cardDao = new CardDao(context);
+
 
         toolbar = findViewById(R.id.toolbar);
         et_title_invoice = findViewById(R.id.et_title_invoice);
@@ -144,7 +146,7 @@ public class NotesEditActivity extends MenuToolbar {
         et_value.addTextChangedListener(new MoneyTextWatcher(et_value));
         tv_value.setText((getString(R.string.tv_value) + " (" + getCurrencySymbol() + "):"));
         //
-        setArrowToSpinnerLowerVersion();
+        setArrowToSpinnerLowerVersion(2);
         setSpinnerCard();
         setSpinnerParcel();
         //

@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_card"
                 android:text="@string/title_registered_card" />
+<!--
 
             <Button
                 android:id="@+id/btn_menu_bank"
@@ -68,6 +69,8 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_bank"
                 android:text="@string/title_bank" />
+
+                -->
 
             <Button
                 android:id="@+id/btn_request_permission"

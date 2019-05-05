@@ -46,7 +46,7 @@ public class MenuActivity extends MenuToolbar {
     private Button btn_menu_gallery;
     private Button btn_menu_invoice;
     private Button btn_menu_card;
-    private Button btn_menu_bank;
+   // private Button btn_menu_bank;
 
     @Override
     protected void onResume() {
@@ -76,7 +76,7 @@ public class MenuActivity extends MenuToolbar {
         btn_menu_gallery = findViewById(R.id.btn_menu_gallery);
         btn_menu_invoice = findViewById(R.id.btn_menu_invoice);
         btn_menu_card = findViewById(R.id.btn_menu_card);
-        btn_menu_bank = findViewById(R.id.btn_menu_bank);
+      //  btn_menu_bank = findViewById(R.id.btn_menu_bank);
         btn_request_permission = findViewById(R.id.btn_request_permission);
     }
 
@@ -84,7 +84,7 @@ public class MenuActivity extends MenuToolbar {
         ll_btn_menu.removeView(btn_menu_gallery);
         ll_btn_menu.removeView(btn_menu_invoice);
         ll_btn_menu.removeView(btn_menu_card);
-        ll_btn_menu.removeView(btn_menu_bank);
+      //  ll_btn_menu.removeView(btn_menu_bank);
         ll_btn_menu.removeView(btn_request_permission);
 
         //Se tiver as permissões os botões serão habilitados
@@ -92,7 +92,7 @@ public class MenuActivity extends MenuToolbar {
             ll_btn_menu.addView(btn_menu_gallery);
             ll_btn_menu.addView(btn_menu_invoice);
             ll_btn_menu.addView(btn_menu_card);
-            ll_btn_menu.addView(btn_menu_bank);
+           // ll_btn_menu.addView(btn_menu_bank);
 
 
             setActionOnClick(btn_menu_gallery, new OnButtonClickGallery());

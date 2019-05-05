@@ -748,18 +748,18 @@ public class MainUtilities extends AppCompatActivity {
         return true;
     }
 
-    public void setArrowToSpinnerLowerVersion() {
-        ImageView iv_arrow;
-        ImageView iv_arrow2;
-
-        iv_arrow = findViewById(R.id.iv_arrow1);
-        iv_arrow2 = findViewById(R.id.iv_arrow2);
-
+    public void setArrowToSpinnerLowerVersion(int qtd) {
         if (isAndroidMarshmallowOrSuperiorVersion()) {
-            iv_arrow.setEnabled(false);
-            iv_arrow2.setEnabled(false);
-            iv_arrow.setVisibility(View.INVISIBLE);
-            iv_arrow2.setVisibility(View.INVISIBLE);
+            ImageView[] iv_arrow;
+            iv_arrow = new ImageView[qtd];
+
+            for(int i=0; i< iv_arrow.length; i++) {
+                String imageId = "iv_arrow" + (i + 1);
+                int resID = getResources().getIdentifier(imageId, "id", getPackageName());
+                iv_arrow[i] = findViewById(resID);
+                iv_arrow[i].setEnabled(false);
+                iv_arrow[i].setVisibility(View.INVISIBLE);
+            }
         }
     }
 

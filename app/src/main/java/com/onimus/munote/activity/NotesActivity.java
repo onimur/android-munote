@@ -52,7 +52,8 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
     private TextView tv_total;
     private TextView tv_symbol1;
 
-    private FilterDialogFragment mFilterDialog;
+    //
+    private FilterDialogFragment mFilterDialog = new FilterDialogFragment( );
     private NotesActivityViewModel mViewModel;
     private RecordListNotesAdapter adapter;
     //
@@ -86,8 +87,7 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
     private void startAction() {
         // View model
         mViewModel = ViewModelProviders.of(this).get(NotesActivityViewModel.class);
-        //
-        mFilterDialog = new FilterDialogFragment();
+        mFilterDialog = new FilterDialogFragment( );
         //
         createDirectoryDbase(context);
         toolbar.setTitle(R.string.title_invoice);

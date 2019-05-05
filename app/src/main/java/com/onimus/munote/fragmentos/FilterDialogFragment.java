@@ -1,8 +1,10 @@
 package com.onimus.munote.fragmentos;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
@@ -91,6 +93,14 @@ public class FilterDialogFragment extends DialogFragment {
         }
     }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        //Estilo para tirar o Titulo do dialog, pois em algumas API aparece em branco
+        return  new Dialog(getActivity(), R.style.DialogStyle);
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onResume() {
@@ -127,7 +137,7 @@ public class FilterDialogFragment extends DialogFragment {
         yearActual = Calendar.getInstance().get(Calendar.YEAR);
         monthActual = (Calendar.getInstance().get(Calendar.MONTH) + 1);
         //
-        setArrowToSpinnerLowerVersion();
+        setArrowToSpinnerLowerVersion(4);
         setSpinnerCard();
         setSpinnerYear();
         setSpinnerMonth();
@@ -273,26 +283,18 @@ public class FilterDialogFragment extends DialogFragment {
         return filters;
     }
 
-    public void setArrowToSpinnerLowerVersion() {
-        ImageView iv_arrow;
-        ImageView iv_arrow2;
-        ImageView iv_arrow3;
-        ImageView iv_arrow4;
-
-        iv_arrow = view.findViewById(R.id.iv_arrow1);
-        iv_arrow2 = view.findViewById(R.id.iv_arrow2);
-        iv_arrow3 = view.findViewById(R.id.iv_arrow3);
-        iv_arrow4 = view.findViewById(R.id.iv_arrow4);
-
+    public void setArrowToSpinnerLowerVersion(int qtd) {
         if (isAndroidMarshmallowOrSuperiorVersion()) {
-            iv_arrow.setEnabled(false);
-            iv_arrow2.setEnabled(false);
-            iv_arrow3.setEnabled(false);
-            iv_arrow4.setEnabled(false);
-            iv_arrow.setVisibility(View.INVISIBLE);
-            iv_arrow2.setVisibility(View.INVISIBLE);
-            iv_arrow3.setVisibility(View.INVISIBLE);
-            iv_arrow4.setVisibility(View.INVISIBLE);
+            ImageView[] iv_arrow;
+            iv_arrow = new ImageView[qtd];
+
+            for(int i=0; i< iv_arrow.length; i++) {
+                String buttonID = "iv_arrow" + (i + 1);
+                int resID = getResources().getIdentifier(buttonID, "id", context.getPackageName());
+                iv_arrow[i] = view.findViewById(resID);
+                iv_arrow[i].setEnabled(false);
+                iv_arrow[i].setVisibility(View.INVISIBLE);
+            }
         }
     }
 

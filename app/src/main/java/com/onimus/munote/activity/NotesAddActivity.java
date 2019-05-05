@@ -34,6 +34,7 @@ import com.onimus.munote.R;
 import com.onimus.munote.bancos.banco.RecordSpinnerCardAdapter;
 import com.onimus.munote.bancos.dao.CardDao;
 import com.onimus.munote.files.ImageUtilities;
+import com.onimus.munote.files.MainUtilities;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.files.FileUtilities;
 import com.onimus.munote.files.MoneyTextWatcher;
@@ -134,7 +135,7 @@ public class NotesAddActivity extends MenuToolbar {
         //
         setSupportActionBar(toolbar);
         //
-        setArrowToSpinnerLowerVersion();
+        setArrowToSpinnerLowerVersion(2);
         setSpinnerCard();
         setSpinnerParcel();
         //Verifica se tem cartão cadastrado, se não tiver desabilita o Spinner.
