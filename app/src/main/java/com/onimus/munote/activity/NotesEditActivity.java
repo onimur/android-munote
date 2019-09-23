@@ -18,7 +18,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -140,6 +140,7 @@ public class NotesEditActivity extends MenuToolbar {
         loadAdmob();
     }
 
+    @SuppressWarnings("deprecation")
     private void startAction(Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
         //
@@ -182,7 +183,7 @@ public class NotesEditActivity extends MenuToolbar {
     }
 
     private void createDirectoryImage() {
-        imageUtilities = new ImageUtilities();
+        imageUtilities = new ImageUtilities(context);
         try {
             imageUtilities.createDirectory(FOLDER_NAME_NOTES);
             photoFile1 = imageUtilities.createImageFile();
@@ -232,17 +233,18 @@ public class NotesEditActivity extends MenuToolbar {
         et_value.setText(price);
         et_desc_invoice.setText(nAux.getDescNotes());
         //formata a data
-        String data = formatDate(String.valueOf(nAux.getDay() + "/" + nAux.getMonth() + "/" + nAux.getYear()));
+        String data = formatDate(nAux.getDay() + "/" + nAux.getMonth() + "/" + nAux.getYear());
         btn_select_date.setText(data);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_TAKE_PICTURE && resultCode == RESULT_OK) {
 
             //tira o background
             ib_photo.setBackgroundResource(0);
             //envia a foto tirada para o ImageButton
-            imageUtilities.setPhotoToBitmap(context, ib_photo);
+            imageUtilities.setPhotoToBitmap(ib_photo);
             //Torna o imagem
             ib_photo.setEnabled(true);
             ib_photo.setClickable(true);
@@ -343,7 +345,7 @@ public class NotesEditActivity extends MenuToolbar {
 
         }
     }
-
+    @SuppressWarnings("all")
     private class OnButtonClickActionCalendar implements View.OnClickListener {
         @Override
         public void onClick(View view) {

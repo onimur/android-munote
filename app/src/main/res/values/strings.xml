@@ -92,7 +92,7 @@
     <string name="alert_message_update_invoice">Do you really want to update the payments?</string>
     <string name="alert_register_card">You don\'t have a registered card. Do you want to register a card?</string>
     <string name="title_registered_card">Registered Cards</string>
-    <string name="install_ES_File">Please install the ES File Explorer</string>
+    <string name="install_ES_File">Please install some File Manager</string>
     <string name="desc_installments">Installments:</string>
     <string name="text_year">Year:</string>
     <string name="text_month">Month:</string>

@@ -16,7 +16,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import com.onimus.munote.R;
 import com.onimus.munote.bancos.dao.CardDao;

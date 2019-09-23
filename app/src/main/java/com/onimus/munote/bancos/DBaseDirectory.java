@@ -13,20 +13,29 @@
 package com.onimus.munote.bancos;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
 import com.onimus.munote.files.FileUtilities;
 
 import java.io.File;
+import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
 
 public class DBaseDirectory {
 
+    @SuppressWarnings("deprecation")
     public static void createDirectoryDbase(Context context) {
         String folderall = FOLDER_NAME + FOLDER_NAME_DBASE;
-        File path = Environment.getExternalStorageDirectory();
+        File path;
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            path = Environment.getExternalStorageDirectory();
+        } else {
+            path = Objects.requireNonNull(context.getExternalFilesDir(null)).getAbsoluteFile();
+        }
+
         File dir = new File(path, folderall);
 
         if (!dir.exists()) {

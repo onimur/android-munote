@@ -12,16 +12,10 @@ import java.util.Locale;
 
 public class MoneyTextWatcher implements TextWatcher {
     private final WeakReference<EditText> editTextWeakReference;
-    private final Locale locale;
-
-/*    public MoneyTextWatcher(EditText editText, Locale locale) {
-        this.editTextWeakReference = new WeakReference<EditText>(editText);
-        this.locale = locale != null ? locale : Locale.getDefault();
-    }*/
+    private final Locale locale = Locale.getDefault();
 
     public MoneyTextWatcher(EditText editText) {
         this.editTextWeakReference = new WeakReference<>(editText);
-        this.locale = Locale.getDefault();
     }
 
     @Override
@@ -40,10 +34,10 @@ public class MoneyTextWatcher implements TextWatcher {
         if (editText == null) return;
         editText.removeTextChangedListener(this);
 
-        BigDecimal parsed = parseToBigDecimal(editable.toString(), locale);
+        BigDecimal parsed = parseToBigDecimal(editable.toString());
         String formatted = NumberFormat.getCurrencyInstance(locale).format(parsed);
         //Remove o símbolo da moeda e espaçamento pra evitar bug
-        String replaceable = String.format("[%s\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
+        String replaceable = String.format("[%s\\s]", getCurrencySymbol());
         String cleanString = formatted.replaceAll(replaceable, "");
 
         editText.setText(cleanString);
@@ -51,8 +45,8 @@ public class MoneyTextWatcher implements TextWatcher {
         editText.addTextChangedListener(this);
     }
 
-    private BigDecimal parseToBigDecimal(String value, Locale locale) {
-        String replaceable = String.format("[%s,.\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
+    private BigDecimal parseToBigDecimal(String value) {
+        String replaceable = String.format("[%s,.\\s]", getCurrencySymbol());
 
         String cleanString = value.replaceAll(replaceable, "");
 
@@ -89,7 +83,7 @@ public class MoneyTextWatcher implements TextWatcher {
 
     static String formatPriceSave(String price) {
         //Ex - price = $ 5555555
-        //return = 55555,55
+        //return = 55555.55 para salvar no banco de dados
         String replaceable = String.format("[%s,.\\s]", getCurrencySymbol());
         String cleanString = price.replaceAll(replaceable, "");
         StringBuilder stringBuilder = new StringBuilder(cleanString.replaceAll(" ", ""));
@@ -97,7 +91,7 @@ public class MoneyTextWatcher implements TextWatcher {
         return String.valueOf(stringBuilder.insert(cleanString.length() - 2, '.'));
 
     }
-
+    @SuppressWarnings("all")
     public static String getCurrencySymbol() {
         return NumberFormat.getCurrencyInstance(Locale.getDefault()).getCurrency().getSymbol();
 

@@ -18,7 +18,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,7 +34,6 @@ import com.onimus.munote.R;
 import com.onimus.munote.bancos.banco.RecordSpinnerCardAdapter;
 import com.onimus.munote.bancos.dao.CardDao;
 import com.onimus.munote.files.ImageUtilities;
-import com.onimus.munote.files.MainUtilities;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.files.FileUtilities;
 import com.onimus.munote.files.MoneyTextWatcher;
@@ -124,6 +123,7 @@ public class NotesAddActivity extends MenuToolbar {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////
+    @SuppressWarnings("deprecation")
     private void startAction(final Bundle savedInstanceState) {
         et_value.setHint((getCurrencySymbol() + " " + getString(R.string.et_value)));
         et_value.addTextChangedListener(new MoneyTextWatcher(et_value));
@@ -170,7 +170,7 @@ public class NotesAddActivity extends MenuToolbar {
     }
 
     private void createDirectoryImage() {
-        imageUtilities = new ImageUtilities();
+        imageUtilities = new ImageUtilities(context);
         try {
             imageUtilities.createDirectory(FOLDER_NAME_NOTES);
             photoFile1 = imageUtilities.createImageFile();
@@ -184,9 +184,10 @@ public class NotesAddActivity extends MenuToolbar {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_TAKE_PICTURE && resultCode == RESULT_OK) {
             ib_photo.setBackgroundResource(0);
-            imageUtilities.setPhotoToBitmap(context, ib_photo);
+            imageUtilities.setPhotoToBitmap(ib_photo);
             ib_photo.setClickable(true);
             tv_click_image.setVisibility(View.VISIBLE);
             setActionOnClick(R.id.ib_photo, new OnButtonClickActionImage(imgFile));
@@ -220,6 +221,7 @@ public class NotesAddActivity extends MenuToolbar {
     }
 
     ///////////////////
+    @SuppressWarnings("all")
     private class OnButtonClickActionCalendar implements View.OnClickListener {
         @Override
         public void onClick(View view) {

@@ -84,7 +84,7 @@
     <string name="alert_message_update_invoice">Você tem certeza em atualizar o pagamento?</string>
     <string name="alert_register_card">Você não possui cartão cadastrado. Gostaria de registrar um cartão?</string>
     <string name="title_registered_card">Cartões Registrados</string>
-    <string name="install_ES_File">Por favor, instale o aplicativo ES File Explorer</string>
+    <string name="install_ES_File">Por favor, instale algum Gerenciador de Arquivo</string>
     <string name="desc_installments">Parcelas:</string>
     <string name="text_total">Total:</string>
     <string name="text_year">Ano:</string>

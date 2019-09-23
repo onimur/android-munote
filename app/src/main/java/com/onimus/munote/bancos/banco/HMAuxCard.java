@@ -12,7 +12,7 @@
 
 package com.onimus.munote.bancos.banco;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.onimus.munote.bancos.dao.CardDao;

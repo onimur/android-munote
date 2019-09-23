@@ -4,10 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +83,7 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         this.context = context;
         super.onAttach(context);
 
@@ -95,17 +95,17 @@ public class FilterDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
+    @SuppressWarnings("all")
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //Estilo para tirar o Titulo do dialog, pois em algumas API aparece em branco
-        return  new Dialog(getActivity(), R.style.DialogStyle);
-
+            return  new Dialog(Objects.requireNonNull(getActivity()), R.style.DialogStyle);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
+    @SuppressWarnings("all")
     public void onResume() {
         super.onResume();
-        Objects.requireNonNull(getDialog().getWindow()).setLayout(
+        (getDialog()).getWindow().setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
     }
@@ -137,7 +137,7 @@ public class FilterDialogFragment extends DialogFragment {
         yearActual = Calendar.getInstance().get(Calendar.YEAR);
         monthActual = (Calendar.getInstance().get(Calendar.MONTH) + 1);
         //
-        setArrowToSpinnerLowerVersion(4);
+        setArrowToSpinnerLowerVersion();
         setSpinnerCard();
         setSpinnerYear();
         setSpinnerMonth();
@@ -176,7 +176,6 @@ public class FilterDialogFragment extends DialogFragment {
         sp_year.setSelection(SpinnerIndex.getSpinnerIndex(sp_year, yearActual, hmAux, NotesDao.YEAR));
         sp_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 sp_year.setSelection(position);
 
@@ -243,7 +242,7 @@ public class FilterDialogFragment extends DialogFragment {
         });
     }
 
-    public Filters getFilters() {
+    private Filters getFilters() {
         Filters filters = new Filters();
 
         if (view != null) {
@@ -282,11 +281,10 @@ public class FilterDialogFragment extends DialogFragment {
 
         return filters;
     }
-
-    public void setArrowToSpinnerLowerVersion(int qtd) {
+    private void setArrowToSpinnerLowerVersion() {
         if (isAndroidMarshmallowOrSuperiorVersion()) {
             ImageView[] iv_arrow;
-            iv_arrow = new ImageView[qtd];
+            iv_arrow = new ImageView[4];
 
             for(int i=0; i< iv_arrow.length; i++) {
                 String buttonID = "iv_arrow" + (i + 1);

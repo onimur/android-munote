@@ -16,6 +16,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.ImageView;
@@ -38,6 +39,11 @@ public class ImageUtilities {
 
     private String path1;
     private static String noPath;
+    private Context context;
+
+    public ImageUtilities(Context context) {
+        this.context = context;
+    }
 
     public void createDirectory(String nomePasta) {
 
@@ -65,10 +71,16 @@ public class ImageUtilities {
         fileDir = dir;
     }
 
+    @SuppressWarnings("deprecation")
     private File createReturnDir(String pathDir) {
         File path;
         File dir;
-        path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){
+            path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        } else {
+            path = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        }
+
         dir = new File(path, pathDir);
 
         return dir;
@@ -89,7 +101,7 @@ public class ImageUtilities {
         return noPath;
     }
 
-    public void setPhotoToBitmap(Context context, ImageView iv_photo) {
+    public void setPhotoToBitmap(ImageView iv_photo) {
         int widthPhoto;
         int heightPhoto;
 

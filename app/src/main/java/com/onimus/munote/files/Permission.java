@@ -17,12 +17,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 
 import static com.onimus.munote.Constants.*;
 
-//Código para pedir permissão ao usuário
+//Código para pedir permissões ao usuário
 public class Permission {
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
@@ -35,7 +35,7 @@ public class Permission {
         return true;
     }
 
-    //salva se o usuários cancela as permissões
+    //salva se o usuário cancela as permissões
     public static void setShouldShowStatus(Context context, String... permissions) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_USER, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -56,7 +56,7 @@ public class Permission {
     public static boolean neverAskAgainSelected(Activity activity, String... permission) {
         int t = 0;
         //conta quantos verdadeiros retornam do método acima, se tiver a mesma quantidade
-        //de verdadeiro e permissões, então o usuário clicou na caixa de dialogo de não perguntar novamente
+        //de verdadeiros e permissões, então o usuário clicou na caixa de diálogo de não perguntar novamente
         for (String aPermission : permission) {
             if (neverAskAgainSelected(activity, aPermission)) {
                 t++;

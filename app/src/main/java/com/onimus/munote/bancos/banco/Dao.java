@@ -14,12 +14,14 @@ package com.onimus.munote.bancos.banco;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
 import static com.onimus.munote.Constants.*;
 
 import java.io.File;
+import java.util.Objects;
 
 public class Dao {
 
@@ -30,10 +32,16 @@ public class Dao {
         this.context = context;
     }
 
+    @SuppressWarnings("deprecation")
     protected void openDataBase() {
 
         String folderFull = FOLDER_NAME + FOLDER_NAME_DBASE;
-        File path = Environment.getExternalStorageDirectory();
+        File path;
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){
+            path = Environment.getExternalStorageDirectory();
+        } else {
+            path = Objects.requireNonNull(context.getExternalFilesDir(null)).getAbsoluteFile();
+        }
         File dir = new File(path, folderFull);
 
         if (!dir.exists()) {

@@ -16,7 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -125,7 +125,7 @@ public class NotesViewActivity extends MenuToolbar {
         RecordSpinnerCardAdapter adapter = new RecordSpinnerCardAdapter(context, R.layout.cel_spinner_card_layout, cardDao.getListCard());
         sp_card.setAdapter(adapter);
     }
-
+    @SuppressWarnings("deprecation")
     private void setField() {
         if (idActual != -1L) {
 
@@ -178,7 +178,7 @@ public class NotesViewActivity extends MenuToolbar {
             tv_value2.setText(price);
 
             //formata a data
-            String data = formatDate(String.valueOf(nAux.getDay() + "/" + nAux.getMonth() + "/" + nAux.getYear()));
+            String data = formatDate(nAux.getDay() + "/" + nAux.getMonth() + "/" + nAux.getYear());
             tv_select_date.setText(data);
         }
     }

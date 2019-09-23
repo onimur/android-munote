@@ -1,6 +1,6 @@
 package com.onimus.munote.bancos.model;
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 
 
 public class NotesActivityViewModel extends ViewModel {
