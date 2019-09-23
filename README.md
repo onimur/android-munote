@@ -13,7 +13,7 @@ MUnote is a simple, easy-to-use App that lets you keep track of your credit or d
 New paid account management and control tools coming soon.
 
 ## Getting Started
-#####Using Git Bash
+#### Using Git Bash
 ```
 git clone git@github.com:MurilloComino/android-munote.git
 ```
@@ -50,8 +50,9 @@ gradlew installDebug
 ![](resources/4.gif)
 
 ## Available on Google Play
+
 <div align="center">
-<a href="https://play.google.com/store/apps/details?id=com.onimus.munote"  <img src="resources/google.png" alt="google" width="250" />
+<a href="https://play.google.com/store/apps/details?id=com.onimus.munote"><img src="resources/google.png" alt="google" width="250"></a>
 </div>
 
 
