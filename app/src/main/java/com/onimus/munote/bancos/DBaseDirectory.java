@@ -26,7 +26,6 @@ import static com.onimus.munote.Constants.*;
 
 public class DBaseDirectory {
 
-    @SuppressWarnings("deprecation")
     public static void createDirectoryDbase(Context context) {
         String folderall = FOLDER_NAME + FOLDER_NAME_DBASE;
         File path;

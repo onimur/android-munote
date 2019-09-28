@@ -55,6 +55,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.ConvertType.convertToDate;
@@ -218,7 +219,6 @@ public class MainUtilities extends AppCompatActivity {
     }
 
     //Alerta para quando tem ação de delete.
-    @SuppressWarnings("deprecation")
     public void setAlertDialogDeleteOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idActual, final String putType) {
         setActionOnClick(btn, new View.OnClickListener() {
             @Override
@@ -433,10 +433,15 @@ public class MainUtilities extends AppCompatActivity {
     }
 
     //Action pra click do botão e inicar alguma ação/intent ao invés de startar uma Activity
-    @SuppressWarnings("deprecation")
     public void openESFileExplorer() {
+        File path;
 
-        Uri selectedUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME);
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        } else {
+            path = Objects.requireNonNull(this.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsoluteFile();
+        }
+        Uri selectedUri = Uri.parse(path + "/" + FOLDER_NAME);
         Intent intent = new Intent(Intent.ACTION_VIEW);
 
         intent.setDataAndType(selectedUri, "resource/folder");

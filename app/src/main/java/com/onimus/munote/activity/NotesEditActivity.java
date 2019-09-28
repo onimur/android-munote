@@ -15,6 +15,7 @@ package com.onimus.munote.activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -48,6 +49,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.ConvertType.convertToDate;
@@ -140,7 +142,6 @@ public class NotesEditActivity extends MenuToolbar {
         loadAdmob();
     }
 
-    @SuppressWarnings("deprecation")
     private void startAction(Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
         //
@@ -163,8 +164,14 @@ public class NotesEditActivity extends MenuToolbar {
             setField();
         }
         //
-        File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
-        imgFile = new File(path, newPath);
+        File path;
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        } else {
+            path = Objects.requireNonNull(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsoluteFile();
+        }
+        File dir = new File((path + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
+        imgFile = new File(dir, newPath);
         //checa o newPath da imagem e retorna boolean
         if (setImageSaveToImageButton(newPath, imgFile)) {
             setAlertDialogUpdateOnClickActivity(R.id.btn_save, NotesActivity.class, context, idActual, NOTES, noPath);

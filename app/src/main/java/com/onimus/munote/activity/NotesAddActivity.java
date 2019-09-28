@@ -15,6 +15,7 @@ package com.onimus.munote.activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -44,6 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.bancos.DBaseDirectory.createDirectoryDbase;
@@ -123,7 +125,6 @@ public class NotesAddActivity extends MenuToolbar {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////
-    @SuppressWarnings("deprecation")
     private void startAction(final Bundle savedInstanceState) {
         et_value.setHint((getCurrencySymbol() + " " + getString(R.string.et_value)));
         et_value.addTextChangedListener(new MoneyTextWatcher(et_value));
@@ -142,8 +143,15 @@ public class NotesAddActivity extends MenuToolbar {
         //Recupera o tipo de cartão
         checkCard();
         //
-        File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
-        imgFile = new File(path, noPath);
+        File path;
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        } else {
+            path = Objects.requireNonNull(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsoluteFile();
+    }
+        File dir = new File((path + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
+
+        imgFile = new File(dir, noPath);
         setImageSaveToImageButton(imgFile);
         //
         setActionOnClick(R.id.btn_select_date, new OnButtonClickActionCalendar());

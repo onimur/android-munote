@@ -14,6 +14,7 @@ package com.onimus.munote.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import androidx.appcompat.widget.Toolbar;
@@ -35,6 +36,7 @@ import com.onimus.munote.files.FileUtilities;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.MoneyTextWatcher.formatTextPrice;
@@ -125,7 +127,7 @@ public class NotesViewActivity extends MenuToolbar {
         RecordSpinnerCardAdapter adapter = new RecordSpinnerCardAdapter(context, R.layout.cel_spinner_card_layout, cardDao.getListCard());
         sp_card.setAdapter(adapter);
     }
-    @SuppressWarnings("deprecation")
+
     private void setField() {
         if (idActual != -1L) {
 
@@ -133,9 +135,14 @@ public class NotesViewActivity extends MenuToolbar {
             //
             long idCard = nAux.getIdCard();
             String getPath = nAux.getPhotoNotes();
-            //
-            File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
-            imgFile = new File(path, getPath);
+            File path;
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            } else {
+                path = Objects.requireNonNull(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsoluteFile();
+            }
+            File dir = new File((path + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
+            imgFile = new File(dir, getPath);
 
             setImageSaveToImageButton(getPath, imgFile);
             //

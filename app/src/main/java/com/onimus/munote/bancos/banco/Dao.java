@@ -32,16 +32,17 @@ public class Dao {
         this.context = context;
     }
 
-    @SuppressWarnings("deprecation")
     protected void openDataBase() {
 
         String folderFull = FOLDER_NAME + FOLDER_NAME_DBASE;
         File path;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
             path = Environment.getExternalStorageDirectory();
         } else {
             path = Objects.requireNonNull(context.getExternalFilesDir(null)).getAbsoluteFile();
         }
+
         File dir = new File(path, folderFull);
 
         if (!dir.exists()) {

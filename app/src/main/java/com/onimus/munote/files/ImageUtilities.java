@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
 
@@ -71,15 +72,16 @@ public class ImageUtilities {
         fileDir = dir;
     }
 
-    @SuppressWarnings("deprecation")
     private File createReturnDir(String pathDir) {
         File path;
         File dir;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
             path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         } else {
-            path = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            path = new File(Objects.requireNonNull(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsolutePath());
         }
+
+
 
         dir = new File(path, pathDir);
 
