@@ -13,9 +13,7 @@
 package com.onimus.munote.activity;
 
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
@@ -26,9 +24,11 @@ import com.onimus.munote.R;
 import com.onimus.munote.bancos.banco.HMAuxCard;
 import com.onimus.munote.bancos.banco.RecordListCardAdapter;
 import com.onimus.munote.bancos.dao.CardDao;
+import com.onimus.munote.files.ManageDirectory;
 import com.onimus.munote.files.MenuToolbar;
 
-import static com.onimus.munote.bancos.DBaseDirectory.createDirectoryDbase;
+import static com.onimus.munote.Constants.FOLDER_NAME;
+import static com.onimus.munote.Constants.FOLDER_NAME_DBASE;
 import static com.onimus.munote.files.ConvertType.convertToLong;
 
 public class CardActivity extends MenuToolbar {
@@ -59,8 +59,6 @@ public class CardActivity extends MenuToolbar {
         lv_card = findViewById(R.id.lv_card);
         toolbar = findViewById(R.id.toolbar);
         //
-        createDirectoryDbase(context);
-        //
         loadAdmob();
         //
         RecordListCardAdapter adapter = new RecordListCardAdapter(context, R.layout.cel_listview_card_layout, cardDao.getListCard());
@@ -70,7 +68,6 @@ public class CardActivity extends MenuToolbar {
     private void startAction() {
 
         lv_card.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HMAuxCard item = (HMAuxCard) parent.getItemAtPosition(position);

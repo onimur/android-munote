@@ -16,9 +16,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.os.Build;
-import android.os.Environment;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.onimus.munote.R;
@@ -28,25 +25,25 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
 
 public class ImageUtilities {
     private static File image;
     private String pathYearMonth;
-    private String pathDir;
     private static File fileDir;
 
     private String path1;
     private static String noPath;
     private Context context;
+    private ManageDirectory md;
 
     public ImageUtilities(Context context) {
         this.context = context;
+        md = new ManageDirectory(context);
     }
 
-    public void createDirectory(String nomePasta) {
+    public void createDirectory(String folderName) {
 
         File dir;
 
@@ -57,45 +54,21 @@ public class ImageUtilities {
         timeYear = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
         timeMonth = new SimpleDateFormat("MMMM", Locale.ENGLISH).format(new Date());
         pathYearMonth = timeYear + "/" + timeMonth;
-        timeAll = FOLDER_NAME + nomePasta + pathYearMonth;
+        timeAll = FOLDER_NAME + folderName + pathYearMonth;
 
         //Cria pasta
-        dir = createReturnDir(timeAll);
-
-        //Verifica se a pasta não existe e não foi criado
-        if (!dir.exists()) {
-            if (!dir.mkdirs()) {
-                Log.d(LOG_D, "Folder not created");
-            }
-        }
-        pathDir = dir.getAbsolutePath();
+        dir = md.createInPicture(timeAll);
         fileDir = dir;
-    }
-
-    private File createReturnDir(String pathDir) {
-        File path;
-        File dir;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-            path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        } else {
-            path = new File(Objects.requireNonNull(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsolutePath());
-        }
-
-
-
-        dir = new File(path, pathDir);
-
-        return dir;
     }
 
     public File createImageFile() {
         // Create an image file name
         String timeFileName = new SimpleDateFormat("dd_HHmmss", Locale.getDefault()).format(new Date()) + ".jpg";
-        image = new File(pathDir, timeFileName);
+        image = md.createFile(fileDir, timeFileName);
 
         // Save a file: path for use with ACTION_VIEW intents
         path1 = image.getAbsolutePath();
-        noPath = pathYearMonth + "/" + timeFileName;
+        noPath = pathYearMonth + File.separator + timeFileName;
         return image;
     }
 
@@ -140,7 +113,7 @@ public class ImageUtilities {
             if (!path1.isEmpty()) {
                 try {
                     //Salva a imagem rotacionada no arquivo que já havia sido criado
-                    File file = new File(path1);
+                    File file = md.createFile(path1);
                     FileOutputStream fOut = new FileOutputStream(file);
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 70, fOut);
                     fOut.flush();
@@ -166,7 +139,7 @@ public class ImageUtilities {
             if (!path1.isEmpty()) {
                 try {
                     //Salva a imagem no arquivo que já havia sido criado
-                    File file = new File(path1);
+                    File file = md.createFile(path1);
                     FileOutputStream fOut = new FileOutputStream(file);
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 70, fOut);
                     fOut.flush();
@@ -174,8 +147,6 @@ public class ImageUtilities {
                 } catch (Exception ignored) {
 
                 }
-
-
             } else {
                 mainUtilities.setMessage(context, R.string.error_folder_creater, false);
             }

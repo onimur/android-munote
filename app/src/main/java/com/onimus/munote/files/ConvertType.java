@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.onimus.munote.Constants.LOG_E;
+import static com.onimus.munote.Constants.TAG;
 
 public class ConvertType {
 
@@ -15,7 +15,7 @@ public class ConvertType {
         try {
             return Integer.parseInt(number);
         } catch (Exception e) {
-            Log.e(LOG_E, "Error to convert integer");
+            Log.e(TAG, "Error to convert integer");
             return -1;
         }
     }
@@ -25,7 +25,7 @@ public class ConvertType {
             return Long.valueOf(number);
         } catch (Exception e) {
 
-            Log.e(LOG_E, "Error to convert Long");
+            Log.e(TAG, "Error to convert Long");
             return -1L;
         }
     }
@@ -37,7 +37,7 @@ public class ConvertType {
 
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.e(LOG_E, "Error to convert Date");
+            Log.e(TAG, "Error to convert Date");
             return null;
         }
     }
@@ -49,7 +49,7 @@ public class ConvertType {
 
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.e(LOG_E, "Error to convert Date");
+            Log.e(TAG, "Error to convert Date");
             return null;
         }
     }

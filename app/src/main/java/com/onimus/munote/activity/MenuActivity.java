@@ -30,6 +30,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.onimus.munote.Constants;
 import com.onimus.munote.R;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.files.Permission;
@@ -173,7 +174,7 @@ public class MenuActivity extends MenuToolbar {
             }
             //Se o contador for igual a quantidade de permissão então Permissão foi um sucesso
             if (count == permissions.length) {
-                Log.i(LOG_I, getString(R.string.text_permission_granted));
+                Log.i(Constants.TAG, getString(R.string.text_permission_granted));
                 setMessage(getApplicationContext(), R.string.text_permission_granted, true);
             } else {
                 Permission.setShouldShowStatus(this, permissions);

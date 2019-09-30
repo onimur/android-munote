@@ -19,7 +19,7 @@ import com.onimus.munote.bancos.dao.CardDao;
 
 import java.util.HashMap;
 
-import static com.onimus.munote.Constants.LOG_E;
+import static com.onimus.munote.Constants.TAG;
 
 public class HMAuxCard extends HashMap<String, String> {
     @NonNull
@@ -29,7 +29,7 @@ public class HMAuxCard extends HashMap<String, String> {
         if (r != null){
             return  r;
         } else {
-            Log.e(LOG_E, "Error HMAuxCard toString() - null");
+            Log.e(TAG, "Error HMAuxCard toString() - null");
             return "";
         }
 

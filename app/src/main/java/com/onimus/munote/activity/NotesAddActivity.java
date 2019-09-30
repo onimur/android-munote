@@ -15,11 +15,11 @@ package com.onimus.munote.activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
+
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,6 +35,7 @@ import com.onimus.munote.R;
 import com.onimus.munote.bancos.banco.RecordSpinnerCardAdapter;
 import com.onimus.munote.bancos.dao.CardDao;
 import com.onimus.munote.files.ImageUtilities;
+import com.onimus.munote.files.ManageDirectory;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.files.FileUtilities;
 import com.onimus.munote.files.MoneyTextWatcher;
@@ -45,10 +46,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
-import static com.onimus.munote.bancos.DBaseDirectory.createDirectoryDbase;
 import static com.onimus.munote.files.ConvertType.convertToDate;
 import static com.onimus.munote.files.MoneyTextWatcher.getCurrencySymbol;
 
@@ -74,13 +73,14 @@ public class NotesAddActivity extends MenuToolbar {
     private Toolbar toolbar;
     //
     private String noPath;
-    private File photoFile1;
+    private File photoFile;
     private File imgFile;
     private ImageUtilities imageUtilities;
     //
     private long idActual;
     //
     private CardDao cardDao;
+    private ManageDirectory md;
 
     //
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +104,7 @@ public class NotesAddActivity extends MenuToolbar {
         context = getBaseContext();
         //
         cardDao = new CardDao(context);
+        md = new ManageDirectory(context);
         //
         getParameters();
         //
@@ -131,7 +132,6 @@ public class NotesAddActivity extends MenuToolbar {
         //
         tv_value.setText((getString(R.string.tv_value) + " (" + getCurrencySymbol() + "):"));
         //
-        createDirectoryDbase(context);
         createDirectoryImage();
         //
         setSupportActionBar(toolbar);
@@ -143,15 +143,9 @@ public class NotesAddActivity extends MenuToolbar {
         //Recupera o tipo de cartão
         checkCard();
         //
-        File path;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-            path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        } else {
-            path = Objects.requireNonNull(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsoluteFile();
-    }
-        File dir = new File((path + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
-
-        imgFile = new File(dir, noPath);
+        String path = FOLDER_NAME + FOLDER_NAME_NOTES;
+        File dir = md.createInPicture(path);
+        imgFile = md.createFile(dir, noPath);
         setImageSaveToImageButton(imgFile);
         //
         setActionOnClick(R.id.btn_select_date, new OnButtonClickActionCalendar());
@@ -181,7 +175,7 @@ public class NotesAddActivity extends MenuToolbar {
         imageUtilities = new ImageUtilities(context);
         try {
             imageUtilities.createDirectory(FOLDER_NAME_NOTES);
-            photoFile1 = imageUtilities.createImageFile();
+            photoFile = imageUtilities.createImageFile();
             noPath = ImageUtilities.returnNoPath();
 
         } catch (Exception e) {
@@ -210,10 +204,6 @@ public class NotesAddActivity extends MenuToolbar {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile;
-
-            photoFile = photoFile1;
             // Continue only if the File was successfully created
             if (photoFile != null) {
 

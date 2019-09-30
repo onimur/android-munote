@@ -14,10 +14,10 @@ package com.onimus.munote.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
+
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -31,12 +31,12 @@ import com.onimus.munote.bancos.banco.RecordSpinnerCardAdapter;
 import com.onimus.munote.bancos.dao.CardDao;
 import com.onimus.munote.bancos.dao.NotesDao;
 import com.onimus.munote.bancos.model.Notes;
+import com.onimus.munote.files.ManageDirectory;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.files.FileUtilities;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.MoneyTextWatcher.formatTextPrice;
@@ -70,6 +70,8 @@ public class NotesViewActivity extends MenuToolbar {
     private Toolbar toolbar;
     //
     private View view_sp_disabled;
+    //
+    private ManageDirectory md;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,7 @@ public class NotesViewActivity extends MenuToolbar {
         context = getBaseContext();
         notesDao = new NotesDao(context);
         cardDao = new CardDao(context);
+        md = new ManageDirectory(context);
         getParameters();
 
         toolbar = findViewById(R.id.toolbar);
@@ -107,7 +110,7 @@ public class NotesViewActivity extends MenuToolbar {
     private void startAction() {
         setSupportActionBar(toolbar);
         //
-        tv_value.setText((getString(R.string.tv_value) + " ("+ getCurrencySymbol() + "):"));
+        tv_value.setText((getString(R.string.tv_value) + " (" + getCurrencySymbol() + "):"));
         setSpinnerCard();
         setSpinnerParcel();
         setField();
@@ -135,14 +138,9 @@ public class NotesViewActivity extends MenuToolbar {
             //
             long idCard = nAux.getIdCard();
             String getPath = nAux.getPhotoNotes();
-            File path;
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            } else {
-                path = Objects.requireNonNull(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsoluteFile();
-            }
-            File dir = new File((path + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
-            imgFile = new File(dir, getPath);
+            String path = FOLDER_NAME + FOLDER_NAME_NOTES;
+            File dir = md.createInPicture(path);
+            imgFile = md.createFile(dir, getPath);
 
             setImageSaveToImageButton(getPath, imgFile);
             //

@@ -19,7 +19,7 @@ import com.onimus.munote.bancos.dao.NotesDao;
 
 import java.util.HashMap;
 
-import static com.onimus.munote.Constants.LOG_E;
+import static com.onimus.munote.Constants.TAG;
 
 
 public class HMAuxNotes extends HashMap<String, String> {
@@ -30,7 +30,7 @@ public class HMAuxNotes extends HashMap<String, String> {
         if (r != null) {
             return r;
         } else {
-            Log.e(LOG_E, "Error HMAuxNotes toString - null");
+            Log.e(TAG, "Error HMAuxNotes toString - null");
             return "";
         }
     }

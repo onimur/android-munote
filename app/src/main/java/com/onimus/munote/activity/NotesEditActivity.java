@@ -15,11 +15,11 @@ package com.onimus.munote.activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
+
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,6 +39,7 @@ import com.onimus.munote.bancos.dao.CardDao;
 import com.onimus.munote.bancos.dao.NotesDao;
 import com.onimus.munote.bancos.model.Notes;
 import com.onimus.munote.files.ImageUtilities;
+import com.onimus.munote.files.ManageDirectory;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.files.FileUtilities;
 import com.onimus.munote.files.MoneyTextWatcher;
@@ -49,7 +50,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.ConvertType.convertToDate;
@@ -66,7 +66,7 @@ public class NotesEditActivity extends MenuToolbar {
     //
     private File imgFile;
     //
-    private File photoFile1;
+    private File photoFile;
     private Calendar calendar;
     //
     private EditText et_title_invoice;
@@ -97,6 +97,7 @@ public class NotesEditActivity extends MenuToolbar {
     private String newPath;
     //
     private Toolbar toolbar;
+    private ManageDirectory md;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +121,7 @@ public class NotesEditActivity extends MenuToolbar {
         //
         notesDao = new NotesDao(context);
         cardDao = new CardDao(context);
-
+        md = new ManageDirectory(context);
 
         toolbar = findViewById(R.id.toolbar);
         et_title_invoice = findViewById(R.id.et_title_invoice);
@@ -164,14 +165,8 @@ public class NotesEditActivity extends MenuToolbar {
             setField();
         }
         //
-        File path;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-            path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        } else {
-            path = Objects.requireNonNull(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsoluteFile();
-        }
-        File dir = new File((path + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
-        imgFile = new File(dir, newPath);
+        File dir = md.createInPicture(FOLDER_NAME + FOLDER_NAME_NOTES);
+        imgFile = md.createFile(dir, newPath);
         //checa o newPath da imagem e retorna boolean
         if (setImageSaveToImageButton(newPath, imgFile)) {
             setAlertDialogUpdateOnClickActivity(R.id.btn_save, NotesActivity.class, context, idActual, NOTES, noPath);
@@ -193,7 +188,7 @@ public class NotesEditActivity extends MenuToolbar {
         imageUtilities = new ImageUtilities(context);
         try {
             imageUtilities.createDirectory(FOLDER_NAME_NOTES);
-            photoFile1 = imageUtilities.createImageFile();
+            photoFile = imageUtilities.createImageFile();
             noPath = ImageUtilities.returnNoPath();
 
         } catch (Exception e) {
@@ -259,7 +254,7 @@ public class NotesEditActivity extends MenuToolbar {
             tv_click_image.setVisibility(View.VISIBLE);
             setAlertDialogUpdateOnClickActivity(R.id.btn_save, NotesActivity.class, context, idActual, NOTES, noPath, imgFile);
 
-            setActionOnClick(R.id.ib_photo, new OnButtonClickActionImage(photoFile1));
+            setActionOnClick(R.id.ib_photo, new OnButtonClickActionImage(photoFile));
 
         } else {
             setMessage(context, R.string.operation_cancel, false);
@@ -323,13 +318,8 @@ public class NotesEditActivity extends MenuToolbar {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile;
-
-            photoFile = photoFile1;
             // Continue only if the File was successfully created
             if (photoFile != null) {
-
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileUtilities.getUri(getApplicationContext(), photoFile));
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
             }
@@ -352,6 +342,7 @@ public class NotesEditActivity extends MenuToolbar {
 
         }
     }
+
     @SuppressWarnings("all")
     private class OnButtonClickActionCalendar implements View.OnClickListener {
         @Override

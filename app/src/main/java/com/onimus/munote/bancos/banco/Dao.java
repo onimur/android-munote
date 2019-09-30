@@ -14,14 +14,12 @@ package com.onimus.munote.bancos.banco;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
-import android.os.Environment;
-import android.util.Log;
+
+import com.onimus.munote.files.ManageDirectory;
 
 import static com.onimus.munote.Constants.*;
 
 import java.io.File;
-import java.util.Objects;
 
 public class Dao {
 
@@ -33,23 +31,9 @@ public class Dao {
     }
 
     protected void openDataBase() {
-
-        String folderFull = FOLDER_NAME + FOLDER_NAME_DBASE;
-        File path;
-
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-            path = Environment.getExternalStorageDirectory();
-        } else {
-            path = Objects.requireNonNull(context.getExternalFilesDir(null)).getAbsoluteFile();
-        }
-
-        File dir = new File(path, folderFull);
-
-        if (!dir.exists()) {
-            if (!dir.mkdirs()) {
-                Log.d(LOG_D, "Folder not created");
-            }
-        }
+        String pathDB = FOLDER_NAME + FOLDER_NAME_DBASE;
+        ManageDirectory md = new ManageDirectory(context);
+        File dir = md.createInRoot(pathDB);
 
         String dBasePath = dir.getPath() + "/" + DBASE_NAME;
 

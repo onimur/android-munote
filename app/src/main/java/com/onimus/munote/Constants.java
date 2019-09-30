@@ -46,9 +46,7 @@ public class Constants {
     public static final String TAG_ADMOB = "AdMob";
     //Permissões
     public static final int REQUEST_PERMISSIONS = 1;
-    public static final String LOG_I = "LOG_I";
-    public static final String LOG_E = "LOG_E";
-    public static final String LOG_D = "LOG_D";
+    public static final String TAG = "Onimus";
     public static final String SHARED_PREFERENCES_USER = "user_preferences";
     public static final String SPLASH_FIRST_ENTRY = "splash_first_entry";
     public static final String PERMISSION_FIRST_ENTRY_ACTIVITY = "permissionFirstEntry";

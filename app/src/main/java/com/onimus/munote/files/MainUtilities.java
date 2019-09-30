@@ -22,9 +22,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -55,7 +56,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.ConvertType.convertToDate;
@@ -254,8 +254,10 @@ public class MainUtilities extends AppCompatActivity {
                                 notesDao = new NotesDao(context);
                                 Notes notes = notesDao.getNotesById(idActual);
                                 String newPath = notes.getPhotoNotes();
-                                File path = new File((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + FOLDER_NAME + FOLDER_NAME_NOTES));
-                                File imgFile = new File(path, newPath);
+                                ManageDirectory md = new ManageDirectory(context);
+                                String path = FOLDER_NAME + FOLDER_NAME_NOTES;
+                                File dir = md.createInPicture(path);
+                                File imgFile = md.createFile(dir, newPath);
                                 ImageUtilities.deleteImage(imgFile);
                                 notesDao.deleteNotes(idActual);
                                 break;
@@ -434,13 +436,8 @@ public class MainUtilities extends AppCompatActivity {
 
     //Action pra click do botão e inicar alguma ação/intent ao invés de startar uma Activity
     public void openESFileExplorer() {
-        File path;
-
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-            path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        } else {
-            path = Objects.requireNonNull(this.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsoluteFile();
-        }
+        ManageDirectory md = new ManageDirectory(this);
+        File path = md.takeAPIPatch(ManageDirectory.PICTURE);
         Uri selectedUri = Uri.parse(path + "/" + FOLDER_NAME);
         Intent intent = new Intent(Intent.ACTION_VIEW);
 
@@ -450,7 +447,7 @@ public class MainUtilities extends AppCompatActivity {
             startActivity(Intent.createChooser(intent, "Open folder"));
 
         } else {
-            setMessage(getApplicationContext() ,R.string.install_ES_File, false);
+            setMessage(getApplicationContext(), R.string.install_ES_File, false);
         }
     }
 
@@ -746,7 +743,7 @@ public class MainUtilities extends AppCompatActivity {
             ImageView[] iv_arrow;
             iv_arrow = new ImageView[qtd];
 
-            for(int i=0; i< iv_arrow.length; i++) {
+            for (int i = 0; i < iv_arrow.length; i++) {
                 String imageId = "iv_arrow" + (i + 1);
                 int resID = getResources().getIdentifier(imageId, "id", getPackageName());
                 iv_arrow[i] = findViewById(resID);
@@ -824,7 +821,7 @@ public class MainUtilities extends AppCompatActivity {
     public void setMessage(Context context, int idMessage, boolean isLong) {
 
         if (isLong) {
-           Toast.makeText(context, context.getString(idMessage), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, context.getString(idMessage), Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(context, context.getString(idMessage), Toast.LENGTH_SHORT).show();
         }

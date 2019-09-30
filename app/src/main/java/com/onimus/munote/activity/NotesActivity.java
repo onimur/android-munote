@@ -28,13 +28,13 @@ import com.onimus.munote.bancos.banco.RecordListNotesAdapter;
 import com.onimus.munote.bancos.dao.NotesDao;
 import com.onimus.munote.bancos.model.NotesActivityViewModel;
 import com.onimus.munote.bancos.model.Filters;
+import com.onimus.munote.files.ManageDirectory;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.fragmentos.FilterDialogFragment;
 
 import java.util.Calendar;
 
 import static com.onimus.munote.Constants.*;
-import static com.onimus.munote.bancos.DBaseDirectory.createDirectoryDbase;
 import static com.onimus.munote.bancos.dao.NotesDao.TOTAL;
 import static com.onimus.munote.files.ChangeMonth.changeMonthToExtension;
 import static com.onimus.munote.files.ConvertType.convertToLong;
@@ -89,7 +89,6 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
         mViewModel = ViewModelProviders.of(this).get(NotesActivityViewModel.class);
         mFilterDialog = new FilterDialogFragment( );
         //
-        createDirectoryDbase(context);
         toolbar.setTitle(R.string.title_invoice);
         setSupportActionBar(toolbar);
         //
