@@ -26,7 +26,7 @@ import static com.onimus.munote.Constants.*;
 @SuppressLint("Registered")
 public class MenuToolbar extends MainUtilities {
 
-    final String nameActivity = getClass().getSimpleName();
+    private final String nameActivity = getClass().getSimpleName();
 
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -79,7 +79,7 @@ public class MenuToolbar extends MainUtilities {
         return super.onOptionsItemSelected(item);
     }
 
-    public void actionMenuToolbar(String category) {
+    private void actionMenuToolbar(String category) {
 
         switch (nameActivity) {
             //No momento que acessa o menu o usuário está na NotesAddActivity;

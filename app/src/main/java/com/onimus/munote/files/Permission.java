@@ -46,7 +46,7 @@ public class Permission {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static boolean neverAskAgainSelected(Activity activity, String permission) {
+    private static boolean neverAskAgainSelected(Activity activity, String permission) {
         boolean prevShouldShowStatus = getRationaleDisplayStatus(activity, permission);
         boolean currShouldShowStatus = activity.shouldShowRequestPermissionRationale(permission);
         return prevShouldShowStatus != currShouldShowStatus;

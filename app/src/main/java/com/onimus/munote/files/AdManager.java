@@ -6,7 +6,7 @@ import com.google.android.gms.ads.AdListener;
 
 import static com.onimus.munote.Constants.*;
 
-public class AdManager extends AdListener {
+class AdManager extends AdListener {
     @Override
     public void onAdClosed() {
         super.onAdClosed();

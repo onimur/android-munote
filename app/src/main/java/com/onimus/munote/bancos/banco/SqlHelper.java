@@ -21,7 +21,7 @@ import static android.content.ContentValues.TAG;
 
 
 
-public class SqlHelper extends SQLiteOpenHelper {
+class SqlHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_CARD =      "[cartao]";
     private static final String TABLE_CARD_BCK =  "[cartao_bck]";

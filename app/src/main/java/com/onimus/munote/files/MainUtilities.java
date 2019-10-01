@@ -66,39 +66,39 @@ import static com.onimus.munote.files.MoneyTextWatcher.formatPriceSave;
 @SuppressLint("Registered")
 public class MainUtilities extends AppCompatActivity {
 
-    public static void setActionOnClick(final View view, View.OnClickListener action) {
+    protected static void setActionOnClick(final View view, View.OnClickListener action) {
         if (view != null) {
             view.setOnClickListener(action);
         }
     }
 
-    public void setActionOnClick(final int btn, View.OnClickListener action) {
+    protected void setActionOnClick(final int btn, View.OnClickListener action) {
         View v = findViewById(btn);
         setActionOnClick(v, action);
     }
 
-    public void setActionOnClick(final int btn, AdapterView.OnItemSelectedListener action) {
+    protected void setActionOnClick(final int btn, AdapterView.OnItemSelectedListener action) {
         AdapterView v = findViewById(btn);
         setActionOnClick(v, action);
     }
 
-    public static void setActionOnClick(final AdapterView view, AdapterView.OnItemSelectedListener action) {
+    private static void setActionOnClick(final AdapterView view, AdapterView.OnItemSelectedListener action) {
         if (view != null) {
             view.setOnItemSelectedListener(action);
         }
     }
 
-    public void setActionOnClickActivity(final View view, final Class<?> _class) {
+    protected void setActionOnClickActivity(final View view, final Class<?> _class) {
         setActionOnClick(view, v -> callActivity(getApplicationContext(), _class));
     }
 
-    public void setActionOnClickActivity(final int btn, final Class<?> _class, final long id) {
+    protected void setActionOnClickActivity(final int btn, final Class<?> _class, final long id) {
         setActionOnClick(btn, v -> callListView(_class, id));
     }
 
     //Esse retorno não necessita de botão, utilizado pra outros métodos e também pra quando o usuário
     //aperta o botão de retorno do celular, ou em algum item do menutoolbar.
-    public void setAlertDialogToReturnOnClickActivity(final Class<?> _class, final String putType) {
+    protected void setAlertDialogToReturnOnClickActivity(final Class<?> _class, final String putType) {
         //Pega o String contido nos id das R.string.
         String idTitle = getString(R.string.alert_title_cancel);
         String idMessage = getString(R.string.alert_message_return);
@@ -152,13 +152,13 @@ public class MainUtilities extends AppCompatActivity {
     }
 
     //Inicia o alerta ao clicar em algum botão, e se clicar em ok, cancela operação retornando pra activity desejada.
-    public void setAlertDialogToReturnOnClickActivity(
+    protected void setAlertDialogToReturnOnClickActivity(
             final int btn, final Class<?> _class, final String putType) {
         setActionOnClick(btn, v -> setAlertDialogToReturnOnClickActivity(_class, putType));
     }
 
     //Alerta para quando tem ação no "SIM" e no "NÃO";
-    public void setAlertDialogOnClickActivity(
+    protected void setAlertDialogOnClickActivity(
             final Class<?> _classF, final Class<?> _classR,
             final long idActual, final String putType) {
         if (NOTES_TO_CARD.equals(putType)) {//Pega o String contido nos id das R.string.
@@ -190,7 +190,7 @@ public class MainUtilities extends AppCompatActivity {
     }
 
     //Alerta para quando tem ação de delete.
-    public void setAlertDialogDeleteOnClickActivity(
+    protected void setAlertDialogDeleteOnClickActivity(
             final int btn, final Class<?> _class, final Context context,
             final long idActual, final String putType) {
         setActionOnClick(btn, v -> {
@@ -248,7 +248,7 @@ public class MainUtilities extends AppCompatActivity {
         });
     }
 
-    public void setAlertDialogUpdateOnClickActivity(
+    protected void setAlertDialogUpdateOnClickActivity(
             final int btn, final Class<?> _class, final Context context,
             final long idActual, final String putType) {
         setActionOnClick(btn, v -> {
@@ -287,7 +287,7 @@ public class MainUtilities extends AppCompatActivity {
         });
     }
 
-    public void setAlertDialogUpdateOnClickActivity(
+    protected void setAlertDialogUpdateOnClickActivity(
             final int btn, final Class<?> _class, final Context context, final long idActual,
             final String putType, final String path) {
         setActionOnClick(btn, v -> {
@@ -335,7 +335,7 @@ public class MainUtilities extends AppCompatActivity {
         });
     }
 
-    public void setAlertDialogUpdateOnClickActivity(
+    protected void setAlertDialogUpdateOnClickActivity(
             final int btn, final Class<?> _class, final Context context,
             final long idActual, final String putType, final String noPath, final File imgFile) {
         setActionOnClick(btn, v -> {
@@ -376,7 +376,7 @@ public class MainUtilities extends AppCompatActivity {
     }
 
 
-    public void callListView(Class<?> _class, long id) {
+    protected void callListView(Class<?> _class, long id) {
         Intent mIntent = new Intent(getApplicationContext(), _class);
         mIntent.putExtra(DBASE_ID, id);
         //
@@ -386,7 +386,7 @@ public class MainUtilities extends AppCompatActivity {
     }
 
     //Action pra click do botão e inicar alguma ação/intent ao invés de startar uma Activity
-    public void openESFileExplorer() {
+    protected void openESFileExplorer() {
         ManageDirectory md = new ManageDirectory(this);
         File path = md.takeAPIPatch(ManageDirectory.PICTURE);
         Uri selectedUri = Uri.parse(path + "/" + FOLDER_NAME);
@@ -403,7 +403,7 @@ public class MainUtilities extends AppCompatActivity {
     }
 
 
-    public void clearField(EditText et, boolean b) {
+    protected void clearField(EditText et, boolean b) {
         //limpa edittext e se for definido como true então o Focus volta pro editext;
         et.getText().clear();
 
@@ -412,12 +412,12 @@ public class MainUtilities extends AppCompatActivity {
         }
     }
 
-    public void clearField(CheckBox cb) {
+    protected void clearField(CheckBox cb) {
         //limpa checkbox
         cb.setChecked(false);
     }
 
-    public void callActivity(Context context, final Class<?> _class) {
+    protected void callActivity(Context context, final Class<?> _class) {
         Intent mIntent = new Intent(context, _class);
         startActivity(mIntent);
         //
@@ -689,7 +689,7 @@ public class MainUtilities extends AppCompatActivity {
         return true;
     }
 
-    public void setArrowToSpinnerLowerVersion(int qtd) {
+    protected void setArrowToSpinnerLowerVersion(int qtd) {
         if (isAndroidMarshmallowOrSuperiorVersion()) {
             ImageView[] iv_arrow;
             iv_arrow = new ImageView[qtd];
@@ -704,7 +704,7 @@ public class MainUtilities extends AppCompatActivity {
         }
     }
 
-    public boolean setImageSaveToImageButton(final String path, final File imgFile) {
+    protected boolean setImageSaveToImageButton(final String path, final File imgFile) {
         TextView tv_click_image = findViewById(R.id.tv_click_image);
         ImageButton ib_photo = findViewById(R.id.ib_photo);
 
@@ -729,7 +729,7 @@ public class MainUtilities extends AppCompatActivity {
         }
     }
 
-    public void setImageSaveToImageButton(final File imgFile) {
+    protected void setImageSaveToImageButton(final File imgFile) {
         TextView tv_click_image = findViewById(R.id.tv_click_image);
         ImageButton ib_photo = findViewById(R.id.ib_photo);
 
@@ -751,12 +751,12 @@ public class MainUtilities extends AppCompatActivity {
         }
     }
 
-    public int getWidthScreen() {
+    private int getWidthScreen() {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         return displayMetrics.widthPixels;
     }
 
-    public int getHeightScreen() {
+    protected int getHeightScreen() {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         return displayMetrics.heightPixels;
     }
@@ -780,7 +780,7 @@ public class MainUtilities extends AppCompatActivity {
     }
 
     @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html) {
+    protected static Spanned fromHtml(String html) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
         } else {
@@ -788,7 +788,7 @@ public class MainUtilities extends AppCompatActivity {
         }
     }
 
-    public void loadAdmob() {
+    protected void loadAdmob() {
         AdView mAdView = findViewById(R.id.adView);
 
         mAdView.setAdListener(new AdManager());

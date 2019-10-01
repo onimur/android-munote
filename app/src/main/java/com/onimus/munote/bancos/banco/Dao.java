@@ -25,7 +25,7 @@ public class Dao {
     private final Context context;
     protected SQLiteDatabase db;
 
-    public Dao(Context context) {
+    protected Dao(Context context) {
         this.context = context;
     }
 

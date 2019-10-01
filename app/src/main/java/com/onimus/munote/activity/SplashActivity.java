@@ -26,8 +26,8 @@ import static com.onimus.munote.Constants.*;
 public class SplashActivity extends MenuToolbar {
 
     private TextView tv_progress;
-    int progressCount = 0;
-    final Handler h = new Handler();
+    private int progressCount = 0;
+    private final Handler h = new Handler();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
