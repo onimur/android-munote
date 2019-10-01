@@ -72,7 +72,7 @@ dependencies {
     // Android architecture components
     implementation 'androidx.lifecycle:lifecycle-runtime:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    annotationProcessor 'androidx.lifecycle-commom-java8:lifecycle-compiler:2.1.0'
+    annotationProcessor 'androidx.lifecycle:lifecycle-common-java8:2.1.0'
     implementation 'com.google.android.material:material:1.0.0'
     //Ads
     implementation 'com.google.android.gms:play-services-ads:18.2.0'
