@@ -19,9 +19,9 @@ import androidx.appcompat.widget.Toolbar;
 import android.widget.ListView;
 
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.banco.HMAuxCard;
-import com.onimus.munote.bancos.banco.RecordListCardAdapter;
-import com.onimus.munote.bancos.dao.CardDao;
+import com.onimus.munote.database.database.HMAuxCard;
+import com.onimus.munote.database.database.RecordListCardAdapter;
+import com.onimus.munote.database.dao.CardDao;
 import com.onimus.munote.files.MenuToolbar;
 
 import static com.onimus.munote.files.ConvertType.convertToLong;

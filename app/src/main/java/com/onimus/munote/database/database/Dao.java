@@ -10,7 +10,7 @@
  *
  */
 
-package com.onimus.munote.bancos.banco;
+package com.onimus.munote.database.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

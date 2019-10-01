@@ -10,32 +10,30 @@
  *
  */
 
-package com.onimus.munote.bancos.banco;
+package com.onimus.munote.database.database;
 
 import android.content.Context;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.dao.CardDao;
+import com.onimus.munote.database.dao.CardDao;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static com.onimus.munote.files.ConvertType.convertToInt;
+import static java.util.Objects.requireNonNull;
 
-public class RecordSpinnerCardAdapter extends BaseAdapter {
+public class RecordListCardAdapter extends BaseAdapter {
 
     private final Context context;
     private final int layout;
     private final ArrayList<HMAuxCard> hmAux;
 
-    public RecordSpinnerCardAdapter(Context context, int layout, ArrayList<HMAuxCard> hmAux) {
+    public RecordListCardAdapter(Context context, int layout, ArrayList<HMAuxCard> hmAux) {
         this.hmAux = hmAux;
         this.context = context;
         this.layout = layout;
@@ -59,7 +57,6 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
     private class ViewHolder {
 
         TextView cel_card, cel_type;
-        LinearLayout ll_cel_type, ll_main_sp_card;
     }
 
     @Override
@@ -70,11 +67,9 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
 
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = Objects.requireNonNull(inflater).inflate(layout, viewGroup, false);
+            row = requireNonNull(inflater).inflate(layout, null);
             holder.cel_card = row.findViewById(R.id.cel_card);
             holder.cel_type = row.findViewById(R.id.cel_type);
-            holder.ll_cel_type = row.findViewById(R.id.ll_cel_type);
-            holder.ll_main_sp_card = row.findViewById(R.id.ll_main_sp_card);
 
             row.setTag(holder);
         } else {
@@ -82,13 +77,9 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
         }
 //monta a listview
         HMAuxCard model = hmAux.get(i);
-        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 36, row.getResources().getDisplayMetrics());
-        holder.cel_card.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        holder.ll_cel_type.removeView(holder.cel_type);
-        holder.ll_cel_type.addView(holder.cel_type);
-        holder.ll_cel_type.setBackgroundResource(R.color.colorWhiteTransparence);
 
         holder.cel_card.setText(model.get(CardDao.DESC_CARD));
+        //  holder.cel_type.setText(model.get(CardDao.TIPOCRED));
         if (convertToInt(model.get(CardDao.TYPE)) == 1) {
             holder.cel_type.setText(context.getString(R.string.cb_credit));
         }
@@ -96,15 +87,9 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
             holder.cel_type.setText(context.getString(R.string.cb_debit));
         }
         if (convertToInt(model.get(CardDao.TYPE)) == 3) {
-            holder.cel_type.setText(context.getString(R.string.text_cred_deb));
-        }
-        if (convertToInt(model.get(CardDao.TYPE)) == -1) {
-            holder.cel_card.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height));
-            holder.ll_cel_type.removeView(holder.cel_type);
-            holder.cel_type.setText("");
+            holder.cel_type.setText(context.getString(R.string.cb_string_creditdebit));
         }
 
         return row;
     }
-
 }

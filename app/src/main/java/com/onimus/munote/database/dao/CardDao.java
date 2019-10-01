@@ -10,7 +10,7 @@
  *
  */
 
-package com.onimus.munote.bancos.dao;
+package com.onimus.munote.database.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -19,9 +19,9 @@ import android.util.Log;
 
 
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.banco.Dao;
-import com.onimus.munote.bancos.banco.HMAuxCard;
-import com.onimus.munote.bancos.model.Card;
+import com.onimus.munote.database.database.Dao;
+import com.onimus.munote.database.database.HMAuxCard;
+import com.onimus.munote.database.model.Card;
 
 import java.util.ArrayList;
 

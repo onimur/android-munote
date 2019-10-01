@@ -10,16 +10,16 @@
  *
  */
 
-package com.onimus.munote.bancos.dao;
+package com.onimus.munote.database.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.onimus.munote.bancos.banco.Dao;
-import com.onimus.munote.bancos.banco.HMAuxNotes;
-import com.onimus.munote.bancos.model.Notes;
+import com.onimus.munote.database.database.Dao;
+import com.onimus.munote.database.database.HMAuxNotes;
+import com.onimus.munote.database.model.Notes;
 
 import java.util.ArrayList;
 

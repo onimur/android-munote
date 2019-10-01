@@ -45,11 +45,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.onimus.munote.BuildConfig;
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.banco.HMAuxCard;
-import com.onimus.munote.bancos.dao.CardDao;
-import com.onimus.munote.bancos.dao.NotesDao;
-import com.onimus.munote.bancos.model.Card;
-import com.onimus.munote.bancos.model.Notes;
+import com.onimus.munote.database.database.HMAuxCard;
+import com.onimus.munote.database.dao.CardDao;
+import com.onimus.munote.database.dao.NotesDao;
+import com.onimus.munote.database.model.Card;
+import com.onimus.munote.database.model.Notes;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

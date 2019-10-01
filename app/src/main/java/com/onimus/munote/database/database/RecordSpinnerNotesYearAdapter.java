@@ -10,7 +10,7 @@
  *
  */
 
-package com.onimus.munote.bancos.banco;
+package com.onimus.munote.database.database;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,21 +20,18 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.dao.NotesDao;
+import com.onimus.munote.database.dao.NotesDao;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.onimus.munote.files.ChangeMonth.changeMonthToExtension;
-import static com.onimus.munote.files.ConvertType.convertToInt;
-
-public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
+public class RecordSpinnerNotesYearAdapter extends BaseAdapter {
 
     private final Context context;
     private final int layout;
     private final ArrayList<HMAuxNotes> hmAux;
 
-    public RecordSpinnerNotesMonthAdapter(Context context, int layout, ArrayList<HMAuxNotes> hmAux) {
+    public RecordSpinnerNotesYearAdapter(Context context, int layout, ArrayList<HMAuxNotes> hmAux) {
         this.hmAux = hmAux;
         this.context = context;
         this.layout = layout;
@@ -55,15 +52,9 @@ public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
         return i;
     }
 
-    public void updateDataChanged(ArrayList<HMAuxNotes> newlist) {
-        hmAux.clear();
-        hmAux.addAll(newlist);
-        this.notifyDataSetChanged();
-    }
-
     private class ViewHolder {
 
-        TextView cel_month;
+        TextView cel_year;
     }
 
     @Override
@@ -75,7 +66,7 @@ public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = Objects.requireNonNull(inflater).inflate(layout, viewGroup, false);
-            holder.cel_month = row.findViewById(R.id.cel_month);
+            holder.cel_year = row.findViewById(R.id.cel_year);
 
             row.setTag(holder);
         } else {
@@ -83,9 +74,9 @@ public class RecordSpinnerNotesMonthAdapter extends BaseAdapter {
         }
 //monta a listview
         HMAuxNotes model = hmAux.get(i);
-        int month = convertToInt(model.get(NotesDao.MONTH));
 
-        holder.cel_month.setText(changeMonthToExtension(month, context));
+        holder.cel_year.setText(model.get(NotesDao.YEAR));
         return row;
     }
+
 }

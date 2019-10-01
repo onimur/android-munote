@@ -10,12 +10,12 @@
  *
  */
 
-package com.onimus.munote.bancos.banco;
+package com.onimus.munote.database.database;
 
 import androidx.annotation.NonNull;
 import android.util.Log;
 
-import com.onimus.munote.bancos.dao.NotesDao;
+import com.onimus.munote.database.dao.NotesDao;
 
 import java.util.HashMap;
 

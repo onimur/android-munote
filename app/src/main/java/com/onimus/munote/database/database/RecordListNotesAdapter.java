@@ -10,7 +10,7 @@
  *
  */
 
-package com.onimus.munote.bancos.banco;
+package com.onimus.munote.database.database;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,7 +20,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.dao.NotesDao;
+import com.onimus.munote.database.dao.NotesDao;
 
 import java.util.ArrayList;
 import java.util.Objects;

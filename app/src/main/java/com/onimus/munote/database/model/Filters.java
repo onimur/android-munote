@@ -1,10 +1,10 @@
-package com.onimus.munote.bancos.model;
+package com.onimus.munote.database.model;
 
 
 import android.content.Context;
 
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.dao.NotesDao;
+import com.onimus.munote.database.dao.NotesDao;
 
 import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.ChangeMonth.changeMonthToExtension;

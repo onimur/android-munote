@@ -10,7 +10,7 @@
  *
  */
 
-package com.onimus.munote.bancos.model;
+package com.onimus.munote.database.model;
 
 
 public class Notes {

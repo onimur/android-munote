@@ -18,14 +18,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.banco.HMAuxCard;
-import com.onimus.munote.bancos.banco.HMAuxNotes;
-import com.onimus.munote.bancos.banco.RecordSpinnerCardAdapter;
-import com.onimus.munote.bancos.banco.RecordSpinnerNotesMonthAdapter;
-import com.onimus.munote.bancos.banco.RecordSpinnerNotesYearAdapter;
-import com.onimus.munote.bancos.dao.CardDao;
-import com.onimus.munote.bancos.dao.NotesDao;
-import com.onimus.munote.bancos.model.Filters;
+import com.onimus.munote.database.database.HMAuxCard;
+import com.onimus.munote.database.database.HMAuxNotes;
+import com.onimus.munote.database.database.RecordSpinnerCardAdapter;
+import com.onimus.munote.database.database.RecordSpinnerNotesMonthAdapter;
+import com.onimus.munote.database.database.RecordSpinnerNotesYearAdapter;
+import com.onimus.munote.database.dao.CardDao;
+import com.onimus.munote.database.dao.NotesDao;
+import com.onimus.munote.database.model.Filters;
 import com.onimus.munote.files.SpinnerIndex;
 
 import java.util.ArrayList;

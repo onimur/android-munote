@@ -2,8 +2,8 @@ package com.onimus.munote.files;
 
 import android.widget.Spinner;
 
-import com.onimus.munote.bancos.banco.HMAuxCard;
-import com.onimus.munote.bancos.banco.HMAuxNotes;
+import com.onimus.munote.database.database.HMAuxCard;
+import com.onimus.munote.database.database.HMAuxNotes;
 
 import java.util.ArrayList;
 

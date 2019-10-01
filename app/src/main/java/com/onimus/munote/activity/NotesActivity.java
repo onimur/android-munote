@@ -22,18 +22,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.banco.HMAuxNotes;
-import com.onimus.munote.bancos.banco.RecordListNotesAdapter;
-import com.onimus.munote.bancos.dao.NotesDao;
-import com.onimus.munote.bancos.model.NotesActivityViewModel;
-import com.onimus.munote.bancos.model.Filters;
+import com.onimus.munote.database.database.HMAuxNotes;
+import com.onimus.munote.database.database.RecordListNotesAdapter;
+import com.onimus.munote.database.dao.NotesDao;
+import com.onimus.munote.database.model.NotesActivityViewModel;
+import com.onimus.munote.database.model.Filters;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.fragmentos.FilterDialogFragment;
 
 import java.util.Calendar;
 
 import static com.onimus.munote.Constants.*;
-import static com.onimus.munote.bancos.dao.NotesDao.TOTAL;
+import static com.onimus.munote.database.dao.NotesDao.TOTAL;
 import static com.onimus.munote.files.ChangeMonth.changeMonthToExtension;
 import static com.onimus.munote.files.ConvertType.convertToLong;
 import static com.onimus.munote.files.MoneyTextWatcher.formatTextPrice;

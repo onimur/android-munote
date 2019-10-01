@@ -26,11 +26,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.banco.HMAuxCard;
-import com.onimus.munote.bancos.banco.RecordSpinnerCardAdapter;
-import com.onimus.munote.bancos.dao.CardDao;
-import com.onimus.munote.bancos.dao.NotesDao;
-import com.onimus.munote.bancos.model.Notes;
+import com.onimus.munote.database.database.HMAuxCard;
+import com.onimus.munote.database.database.RecordSpinnerCardAdapter;
+import com.onimus.munote.database.dao.CardDao;
+import com.onimus.munote.database.dao.NotesDao;
+import com.onimus.munote.database.model.Notes;
 import com.onimus.munote.files.ManageDirectory;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.files.FileUtilities;

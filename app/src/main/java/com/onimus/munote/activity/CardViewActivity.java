@@ -19,8 +19,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.dao.CardDao;
-import com.onimus.munote.bancos.model.Card;
+import com.onimus.munote.database.dao.CardDao;
+import com.onimus.munote.database.model.Card;
 import com.onimus.munote.files.MenuToolbar;
 
 import static com.onimus.munote.Constants.*;

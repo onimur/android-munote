@@ -32,8 +32,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.onimus.munote.R;
-import com.onimus.munote.bancos.banco.RecordSpinnerCardAdapter;
-import com.onimus.munote.bancos.dao.CardDao;
+import com.onimus.munote.database.database.RecordSpinnerCardAdapter;
+import com.onimus.munote.database.dao.CardDao;
 import com.onimus.munote.files.ImageUtilities;
 import com.onimus.munote.files.ManageDirectory;
 import com.onimus.munote.files.MenuToolbar;
