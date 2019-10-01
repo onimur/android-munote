@@ -18,7 +18,6 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,7 +27,6 @@ import com.onimus.munote.bancos.banco.RecordListNotesAdapter;
 import com.onimus.munote.bancos.dao.NotesDao;
 import com.onimus.munote.bancos.model.NotesActivityViewModel;
 import com.onimus.munote.bancos.model.Filters;
-import com.onimus.munote.files.ManageDirectory;
 import com.onimus.munote.files.MenuToolbar;
 import com.onimus.munote.fragmentos.FilterDialogFragment;
 
@@ -97,14 +95,10 @@ public class NotesActivity extends MenuToolbar implements FilterDialogFragment.F
         setActionOnClick(R.id.btn_clear_filter, new OnClearFilterClickAction());
 
 
-        lv_note.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_note.setOnItemClickListener((parent, view, position, id) -> {
+            HMAuxNotes item = (HMAuxNotes) parent.getItemAtPosition(position);
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                HMAuxNotes item = (HMAuxNotes) parent.getItemAtPosition(position);
-
-                callListView(NotesViewActivity.class, convertToLong(item.get(NotesDao.ID_NOTES)));
-            }
+            callListView(NotesViewActivity.class, convertToLong(item.get(NotesDao.ID_NOTES)));
         });
 
     }

@@ -2,11 +2,9 @@ package com.onimus.munote.fragmentos;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -110,12 +108,6 @@ public class FilterDialogFragment extends DialogFragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-    }
-
     private void startVariables() {
         sp_card = view.findViewById(R.id.sp_card);
         sp_year = view.findViewById(R.id.sp_year);
@@ -143,23 +135,15 @@ public class FilterDialogFragment extends DialogFragment {
         setSpinnerMonth();
         setSpinnerSortBy();
 
-        btn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mFilterListener != null) {
-                    mFilterListener.onFilter(getFilters());
-                }
-
-                dismiss();
+        btn_search.setOnClickListener(v -> {
+            if (mFilterListener != null) {
+                mFilterListener.onFilter(getFilters());
             }
+
+            dismiss();
         });
 
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        btn_cancel.setOnClickListener(v -> dismiss());
     }
 
     private void setSpinnerSortBy() {

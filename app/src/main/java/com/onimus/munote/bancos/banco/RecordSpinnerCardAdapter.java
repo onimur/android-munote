@@ -25,14 +25,15 @@ import com.onimus.munote.R;
 import com.onimus.munote.bancos.dao.CardDao;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.onimus.munote.files.ConvertType.convertToInt;
 
 public class RecordSpinnerCardAdapter extends BaseAdapter {
 
-    private Context context;
-    private int layout;
-    private ArrayList<HMAuxCard> hmAux;
+    private final Context context;
+    private final int layout;
+    private final ArrayList<HMAuxCard> hmAux;
 
     public RecordSpinnerCardAdapter(Context context, int layout, ArrayList<HMAuxCard> hmAux) {
         this.hmAux = hmAux;
@@ -69,7 +70,7 @@ public class RecordSpinnerCardAdapter extends BaseAdapter {
 
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(layout, viewGroup, false);
+            row = Objects.requireNonNull(inflater).inflate(layout, viewGroup, false);
             holder.cel_card = row.findViewById(R.id.cel_card);
             holder.cel_type = row.findViewById(R.id.cel_type);
             holder.ll_cel_type = row.findViewById(R.id.ll_cel_type);

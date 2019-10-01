@@ -266,7 +266,7 @@ public class NotesEditActivity extends MenuToolbar {
     }
 
     private class OnButtonClickActionImage implements View.OnClickListener {
-        private File imageFile;
+        private final File imageFile;
 
         private OnButtonClickActionImage(File imageFile) {
             this.imageFile = imageFile;
@@ -293,7 +293,7 @@ public class NotesEditActivity extends MenuToolbar {
             this.savedInstanceState = savedInstanceState;
         }
 
-        Bundle savedInstanceState;
+        final Bundle savedInstanceState;
 
         @Override
         public void onClick(View v) {

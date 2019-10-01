@@ -45,8 +45,8 @@ public class SqlHelper extends SQLiteOpenHelper {
     //COLUMN TYPE pra table notas também
     private static final String COLUMN_PARCELS =    "[parcelas]";
 
-    SqlHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    SqlHelper(Context context, String name, int version) {
+        super(context, name, null, version);
     }
 
     @Override

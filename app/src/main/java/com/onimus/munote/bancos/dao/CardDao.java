@@ -33,7 +33,7 @@ public class CardDao extends Dao {
     public static final String ID_CARD = "idcartao";
     public static final String DESC_CARD = "descartao";
     public static final String TYPE = "tipo";
-    private Context context;
+    private final Context context;
 
     public CardDao(Context context) {
         super(context);

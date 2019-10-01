@@ -15,7 +15,6 @@ package com.onimus.munote.files;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -90,22 +89,11 @@ public class MainUtilities extends AppCompatActivity {
     }
 
     public void setActionOnClickActivity(final View view, final Class<?> _class) {
-        setActionOnClick(view, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                callActivity(getApplicationContext(), _class);
-            }
-        });
+        setActionOnClick(view, v -> callActivity(getApplicationContext(), _class));
     }
 
     public void setActionOnClickActivity(final int btn, final Class<?> _class, final long id) {
-        setActionOnClick(btn, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callListView(_class, id);
-            }
-        });
+        setActionOnClick(btn, v -> callListView(_class, id));
     }
 
     //Esse retorno não necessita de botão, utilizado pra outros métodos e também pra quando o usuário
@@ -123,42 +111,38 @@ public class MainUtilities extends AppCompatActivity {
         builder.setMessage(idMessage).setTitle(idTitle);
 
         //Adiciona os botões
-        builder.setPositiveButton(idOK, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int is) {
+        builder.setPositiveButton(idOK, (dialog, is) -> {
 
-                switch (putType) {
-                    //vem do CardAddActivity e retorna pra CardActivity;
-                    case CARD: {
+            switch (putType) {
+                //vem do CardAddActivity e retorna pra CardActivity;
+                case CARD: {
 
-                        callActivity(getApplicationContext(), _class);
-                        //
-                        break;
-                    }
-                    //vem de CardAddActivity e ao clicar no item notas do MenuToolbar vai pra NotesAddActivity;
-                    case CARD_TO_NOTES: {
-                        callListView(_class, -1L);
-                        break;
-                    }
-                    //vem do NotesAddActivity e retorna pra NotesActivity;
-                    case NOTES: {
-                        ImageUtilities.deleteImage();
-                        callActivity(getApplicationContext(), _class);
-                        break;
-                    }
-                    //vem do NotesAddActivity e ao clicar no item cartao do MenuToolbar vai pra CardAddActivity;
-                    case NOTES_TO_CARD: {
-                        ImageUtilities.deleteImage();
-                        callListView(_class, -1L);
-                        break;
-                    }
-
+                    callActivity(getApplicationContext(), _class);
+                    //
+                    break;
                 }
+                //vem de CardAddActivity e ao clicar no item notas do MenuToolbar vai pra NotesAddActivity;
+                case CARD_TO_NOTES: {
+                    callListView(_class, -1L);
+                    break;
+                }
+                //vem do NotesAddActivity e retorna pra NotesActivity;
+                case NOTES: {
+                    ImageUtilities.deleteImage();
+                    callActivity(getApplicationContext(), _class);
+                    break;
+                }
+                //vem do NotesAddActivity e ao clicar no item cartao do MenuToolbar vai pra CardAddActivity;
+                case NOTES_TO_CARD: {
+                    ImageUtilities.deleteImage();
+                    callListView(_class, -1L);
+                    break;
+                }
+
             }
         });
-        builder.setNegativeButton(idCancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int is) {
+        builder.setNegativeButton(idCancel, (dialog, is) -> {
 
-            }
         });
 
         builder.setIcon(R.mipmap.logo_round);
@@ -168,18 +152,15 @@ public class MainUtilities extends AppCompatActivity {
     }
 
     //Inicia o alerta ao clicar em algum botão, e se clicar em ok, cancela operação retornando pra activity desejada.
-    public void setAlertDialogToReturnOnClickActivity(final int btn, final Class<?> _class, final String putType) {
-        setActionOnClick(btn, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setAlertDialogToReturnOnClickActivity(_class, putType);
-
-            }
-        });
+    public void setAlertDialogToReturnOnClickActivity(
+            final int btn, final Class<?> _class, final String putType) {
+        setActionOnClick(btn, v -> setAlertDialogToReturnOnClickActivity(_class, putType));
     }
 
     //Alerta para quando tem ação no "SIM" e no "NÃO";
-    public void setAlertDialogOnClickActivity(final Class<?> _classF, final Class<?> _classR, final long idActual, final String putType) {
+    public void setAlertDialogOnClickActivity(
+            final Class<?> _classF, final Class<?> _classR,
+            final long idActual, final String putType) {
         if (NOTES_TO_CARD.equals(putType)) {//Pega o String contido nos id das R.string.
             String idTitle = getString(R.string.tv_no_card);
             String idMessage = getString(R.string.alert_register_card);
@@ -192,18 +173,8 @@ public class MainUtilities extends AppCompatActivity {
             builder.setMessage(idMessage).setTitle(idTitle);
 
             //Adiciona os botões
-            builder.setPositiveButton(idOK, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int is) {
-
-                    callListView(_classF, -1L);
-                }
-            });
-            builder.setNegativeButton(idCancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int is) {
-                    callListView(_classR, idActual);
-
-                }
-            });
+            builder.setPositiveButton(idOK, (dialog, is) -> callListView(_classF, -1L));
+            builder.setNegativeButton(idCancel, (dialog, is) -> callListView(_classR, idActual));
 
             builder.setIcon(R.mipmap.logo_round);
             // 3. Obtenha o AlertDialog de create () e mostre
@@ -219,206 +190,186 @@ public class MainUtilities extends AppCompatActivity {
     }
 
     //Alerta para quando tem ação de delete.
-    public void setAlertDialogDeleteOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idActual, final String putType) {
-        setActionOnClick(btn, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    public void setAlertDialogDeleteOnClickActivity(
+            final int btn, final Class<?> _class, final Context context,
+            final long idActual, final String putType) {
+        setActionOnClick(btn, v -> {
 
-                //Pega o String contido nos id das R.string.
-                String idTitle = getString(R.string.alert_title_delete);
-                String idMessage = getString(R.string.alert_message_delete);
-                String idOK = getString(R.string.alert_ok);
-                String idCancel = getString(R.string.alert_cancel);
+            //Pega o String contido nos id das R.string.
+            String idTitle = getString(R.string.alert_title_delete);
+            String idMessage = getString(R.string.alert_message_delete);
+            String idOK = getString(R.string.alert_ok);
+            String idCancel = getString(R.string.alert_cancel);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainUtilities.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainUtilities.this);
 
-                // 2. Una vários métodos de setter para definir as características do diálogo
-                builder.setMessage(idMessage).setTitle(idTitle);
+            // 2. Una vários métodos de setter para definir as características do diálogo
+            builder.setMessage(idMessage).setTitle(idTitle);
 
-                //Adiciona os botões
-                builder.setPositiveButton(idOK, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int is) {
-                        switch (putType) {
-                            case CARD: {
-                                CardDao cardDao;
-                                cardDao = new CardDao(context);
-                                cardDao.deleteCard(idActual);
+            //Adiciona os botões
+            builder.setPositiveButton(idOK, (dialog, is) -> {
+                switch (putType) {
+                    case CARD: {
+                        CardDao cardDao;
+                        cardDao = new CardDao(context);
+                        cardDao.deleteCard(idActual);
 
-                                NotesDao notesDao;
-                                notesDao = new NotesDao(context);
-                                notesDao.updateDeletedCard(idActual);
-                                break;
-                            }
-                            case NOTES: {
-                                NotesDao notesDao;
-                                notesDao = new NotesDao(context);
-                                Notes notes = notesDao.getNotesById(idActual);
-                                String newPath = notes.getPhotoNotes();
-                                ManageDirectory md = new ManageDirectory(context);
-                                String path = FOLDER_NAME + FOLDER_NAME_NOTES;
-                                File dir = md.createInPicture(path);
-                                File imgFile = md.createFile(dir, newPath);
-                                ImageUtilities.deleteImage(imgFile);
-                                notesDao.deleteNotes(idActual);
-                                break;
-
-                            }
-                        }
-                        callActivity(getApplicationContext(), _class);
-
+                        NotesDao notesDao;
+                        notesDao = new NotesDao(context);
+                        notesDao.updateDeletedCard(idActual);
+                        break;
                     }
-                });
-                builder.setNegativeButton(idCancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int is) {
+                    case NOTES: {
+                        NotesDao notesDao;
+                        notesDao = new NotesDao(context);
+                        Notes notes = notesDao.getNotesById(idActual);
+                        String newPath = notes.getPhotoNotes();
+                        ManageDirectory md = new ManageDirectory(context);
+                        String path = FOLDER_NAME + FOLDER_NAME_NOTES;
+                        File dir = md.createInPicture(path);
+                        File imgFile = md.createFile(dir, newPath);
+                        ImageUtilities.deleteImage(imgFile);
+                        notesDao.deleteNotes(idActual);
+                        break;
 
-                    }
-                });
-
-                builder.setIcon(R.mipmap.logo_round);
-                // 3. Obtenha o AlertDialog de create () e mostre
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
-    }
-
-    public void setAlertDialogUpdateOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idActual, final String putType) {
-        setActionOnClick(btn, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (CARD.equals(putType)) {
-                    if (validation(putType)) {
-                        //Pega o String contido nos id das R.string.
-                        String idTitle = getString(R.string.alert_title_update);
-                        String idMessage = getString(R.string.alert_message_update);
-                        String idOK = getString(R.string.alert_ok);
-                        String idCancel = getString(R.string.alert_cancel);
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainUtilities.this);
-
-                        // 2. Una vários métodos de setter para definir as características do diálogo
-                        builder.setMessage(idMessage).setTitle(idTitle);
-
-                        //Adiciona os botões
-                        builder.setPositiveButton(idOK, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int is) {
-
-                                saveCard(idActual, context);
-                                callListView(_class, idActual);
-
-                            }
-                        });
-                        builder.setNegativeButton(idCancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int is) {
-                            }
-                        });
-
-                        builder.setIcon(R.mipmap.logo_round);
-                        // 3. Obtenha o AlertDialog de create () e mostre
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    }
-                    ////////
-                }
-
-            }
-        });
-    }
-
-    public void setAlertDialogUpdateOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idActual, final String putType, final String path) {
-        setActionOnClick(btn, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (NOTES.equals(putType)) {
-                    if (validation(putType)) {
-                        //Pega o String contido nos id das R.string.
-                        String idTitle = getString(R.string.alert_title_update);
-                        String idMessage = getString(R.string.alert_message_update_invoice);
-                        String idOK = getString(R.string.alert_ok);
-                        String idCancel = getString(R.string.alert_cancel);
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainUtilities.this);
-
-                        // 2. Una vários métodos de setter para definir as características do diálogo
-                        builder.setMessage(idMessage).setTitle(idTitle);
-
-                        //Adiciona os botões
-                        builder.setPositiveButton(idOK, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int is) {
-                                //Verifica se o imageview foi alterado, se for main então não, se for new, ele foi alterado;
-                                //Se for main a imagem gerada precisa ser deletada e o way da imagem no banco de dados
-                                // precisa ser deletado, se for new será salva;
-
-                                //  if (tagName.equals("main")) {
-                                //     ImageUtilities.deleteImage();
-                                //   saveNotes(idActual, context);
-                                //    } else {
-
-                                saveNotes(idActual, context, path);
-                                //    }
-                                callActivity(context, _class);
-
-                            }
-                        });
-                        builder.setNegativeButton(idCancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int is) {
-
-                            }
-                        });
-                        builder.setIcon(R.mipmap.logo_round);
-                        // 3. Obtenha o AlertDialog de create () e mostre
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
                     }
                 }
+                callActivity(getApplicationContext(), _class);
 
+            });
+            builder.setNegativeButton(idCancel, (dialog, is) -> {
 
-            }
+            });
+
+            builder.setIcon(R.mipmap.logo_round);
+            // 3. Obtenha o AlertDialog de create () e mostre
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
     }
 
-    public void setAlertDialogUpdateOnClickActivity(final int btn, final Class<?> _class, final Context context, final long idActual, final String putType, final String noPath, final File imgFile) {
-        setActionOnClick(btn, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    public void setAlertDialogUpdateOnClickActivity(
+            final int btn, final Class<?> _class, final Context context,
+            final long idActual, final String putType) {
+        setActionOnClick(btn, v -> {
 
-                if (NOTES.equals(putType)) {
-                    if (validation(putType)) {
-                        //Pega o String contido nos id das R.string.
-                        String idTitle = getString(R.string.alert_title_update);
-                        String idMessage = getString(R.string.alert_message_update_invoice);
-                        String idOK = getString(R.string.alert_ok);
-                        String idCancel = getString(R.string.alert_cancel);
+            if (CARD.equals(putType)) {
+                if (validation(putType)) {
+                    //Pega o String contido nos id das R.string.
+                    String idTitle = getString(R.string.alert_title_update);
+                    String idMessage = getString(R.string.alert_message_update);
+                    String idOK = getString(R.string.alert_ok);
+                    String idCancel = getString(R.string.alert_cancel);
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainUtilities.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainUtilities.this);
 
-                        // 2. Una vários métodos de setter para definir as características do diálogo
-                        builder.setMessage(idMessage).setTitle(idTitle);
+                    // 2. Una vários métodos de setter para definir as características do diálogo
+                    builder.setMessage(idMessage).setTitle(idTitle);
 
-                        //Adiciona os botões
-                        builder.setPositiveButton(idOK, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int is) {
+                    //Adiciona os botões
+                    builder.setPositiveButton(idOK, (dialog, is) -> {
 
-                                ImageUtilities.deleteImage(imgFile);
+                        saveCard(idActual, context);
+                        callListView(_class, idActual);
 
-                                saveNotes(idActual, context, noPath);
+                    });
+                    builder.setNegativeButton(idCancel, (dialog, is) -> {
+                    });
 
-                                callActivity(context, _class);
+                    builder.setIcon(R.mipmap.logo_round);
+                    // 3. Obtenha o AlertDialog de create () e mostre
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                ////////
+            }
 
-                            }
-                        });
-                        builder.setNegativeButton(idCancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int is) {
+        });
+    }
 
-                            }
-                        });
-                        builder.setIcon(R.mipmap.logo_round);
-                        // 3. Obtenha o AlertDialog de create () e mostre
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    }
+    public void setAlertDialogUpdateOnClickActivity(
+            final int btn, final Class<?> _class, final Context context, final long idActual,
+            final String putType, final String path) {
+        setActionOnClick(btn, v -> {
+
+            if (NOTES.equals(putType)) {
+                if (validation(putType)) {
+                    //Pega o String contido nos id das R.string.
+                    String idTitle = getString(R.string.alert_title_update);
+                    String idMessage = getString(R.string.alert_message_update_invoice);
+                    String idOK = getString(R.string.alert_ok);
+                    String idCancel = getString(R.string.alert_cancel);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainUtilities.this);
+
+                    // 2. Una vários métodos de setter para definir as características do diálogo
+                    builder.setMessage(idMessage).setTitle(idTitle);
+
+                    //Adiciona os botões
+                    builder.setPositiveButton(idOK, (dialog, is) -> {
+                        //Verifica se o imageview foi alterado, se for main então não, se for new, ele foi alterado;
+                        //Se for main a imagem gerada precisa ser deletada e o way da imagem no banco de dados
+                        // precisa ser deletado, se for new será salva;
+
+                        //  if (tagName.equals("main")) {
+                        //     ImageUtilities.deleteImage();
+                        //   saveNotes(idActual, context);
+                        //    } else {
+
+                        saveNotes(idActual, context, path);
+                        //    }
+                        callActivity(context, _class);
+
+                    });
+                    builder.setNegativeButton(idCancel, (dialog, is) -> {
+
+                    });
+                    builder.setIcon(R.mipmap.logo_round);
+                    // 3. Obtenha o AlertDialog de create () e mostre
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+
+
+        });
+    }
+
+    public void setAlertDialogUpdateOnClickActivity(
+            final int btn, final Class<?> _class, final Context context,
+            final long idActual, final String putType, final String noPath, final File imgFile) {
+        setActionOnClick(btn, v -> {
+
+            if (NOTES.equals(putType)) {
+                if (validation(putType)) {
+                    //Pega o String contido nos id das R.string.
+                    String idTitle = getString(R.string.alert_title_update);
+                    String idMessage = getString(R.string.alert_message_update_invoice);
+                    String idOK = getString(R.string.alert_ok);
+                    String idCancel = getString(R.string.alert_cancel);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainUtilities.this);
+
+                    // 2. Una vários métodos de setter para definir as características do diálogo
+                    builder.setMessage(idMessage).setTitle(idTitle);
+
+                    //Adiciona os botões
+                    builder.setPositiveButton(idOK, (dialog, is) -> {
+
+                        ImageUtilities.deleteImage(imgFile);
+
+                        saveNotes(idActual, context, noPath);
+
+                        callActivity(context, _class);
+
+                    });
+                    builder.setNegativeButton(idCancel, (dialog, is) -> {
+
+                    });
+                    builder.setIcon(R.mipmap.logo_round);
+                    // 3. Obtenha o AlertDialog de create () e mostre
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             }
         });

@@ -25,12 +25,13 @@ import com.onimus.munote.bancos.dao.CardDao;
 import java.util.ArrayList;
 
 import static com.onimus.munote.files.ConvertType.convertToInt;
+import static java.util.Objects.requireNonNull;
 
 public class RecordListCardAdapter extends BaseAdapter {
 
-    private Context context;
-    private int layout;
-    private ArrayList<HMAuxCard> hmAux;
+    private final Context context;
+    private final int layout;
+    private final ArrayList<HMAuxCard> hmAux;
 
     public RecordListCardAdapter(Context context, int layout, ArrayList<HMAuxCard> hmAux) {
         this.hmAux = hmAux;
@@ -66,7 +67,7 @@ public class RecordListCardAdapter extends BaseAdapter {
 
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(layout, null);
+            row = requireNonNull(inflater).inflate(layout, null);
             holder.cel_card = row.findViewById(R.id.cel_card);
             holder.cel_type = row.findViewById(R.id.cel_type);
 

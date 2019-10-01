@@ -23,12 +23,13 @@ import com.onimus.munote.R;
 import com.onimus.munote.bancos.dao.NotesDao;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RecordSpinnerNotesYearAdapter extends BaseAdapter {
 
-    private Context context;
-    private int layout;
-    private ArrayList<HMAuxNotes> hmAux;
+    private final Context context;
+    private final int layout;
+    private final ArrayList<HMAuxNotes> hmAux;
 
     public RecordSpinnerNotesYearAdapter(Context context, int layout, ArrayList<HMAuxNotes> hmAux) {
         this.hmAux = hmAux;
@@ -64,7 +65,7 @@ public class RecordSpinnerNotesYearAdapter extends BaseAdapter {
 
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(layout, viewGroup, false);
+            row = Objects.requireNonNull(inflater).inflate(layout, viewGroup, false);
             holder.cel_year = row.findViewById(R.id.cel_year);
 
             row.setTag(holder);

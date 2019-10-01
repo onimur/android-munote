@@ -1,6 +1,5 @@
 package com.onimus.munote.activity;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -67,37 +66,28 @@ public class DialogContractActivity extends MenuToolbar {
                 .setView(view)
                 .setCancelable(false)
                 .setPositiveButton(R.string.text_ok, null)
-                .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //Ao cancelar o dialogo é cancelado e o aplicativo fechado
-                        storeDialogStatus(false);
-                        dialog.cancel();
-                        DialogContractActivity.this.finish();
-                    }
+                .setNegativeButton(R.string.btn_cancel, (dialog, which) -> {
+                    //Ao cancelar o dialogo é cancelado e o aplicativo fechado
+                    storeDialogStatus(false);
+                    dialog.cancel();
+                    DialogContractActivity.this.finish();
                 });
 
         final AlertDialog mDialog = builder.create();
         //Criei o método do Button Postive aqui para quando clicar em ok e o checkbox não tiver sido
         //selecionado, então manda um toast e não fecha o alert dialog
-        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button ok = mDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!cb_contract.isChecked()) {
-                            storeDialogStatus(false);
-                            setMessage(getApplicationContext(), R.string.toast_necessary_accept, true);
-                        } else {
-                            storeDialogStatus(true);
-                            //carrega a próxima activity
-                            callActivity(getBaseContext(), MenuActivity.class);
-                        }
-                    }
-                });
-            }
+        mDialog.setOnShowListener(dialog -> {
+            Button ok = mDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            ok.setOnClickListener(v -> {
+                if (!cb_contract.isChecked()) {
+                    storeDialogStatus(false);
+                    setMessage(getApplicationContext(), R.string.toast_necessary_accept, true);
+                } else {
+                    storeDialogStatus(true);
+                    //carrega a próxima activity
+                    callActivity(getBaseContext(), MenuActivity.class);
+                }
+            });
         });
 
         mDialog.show();

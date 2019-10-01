@@ -23,15 +23,16 @@ import com.onimus.munote.R;
 import com.onimus.munote.bancos.dao.NotesDao;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.onimus.munote.files.MoneyTextWatcher.formatTextPrice;
 import static com.onimus.munote.files.MoneyTextWatcher.getCurrencySymbol;
 
 public class RecordListNotesAdapter extends BaseAdapter {
 
-    private Context context;
-    private int layout;
-    private ArrayList<HMAuxNotes> hmAux;
+    private final Context context;
+    private final int layout;
+    private final ArrayList<HMAuxNotes> hmAux;
 
     public RecordListNotesAdapter(Context context, int layout, ArrayList<HMAuxNotes> hmAux) {
         this.hmAux = hmAux;
@@ -73,7 +74,7 @@ public class RecordListNotesAdapter extends BaseAdapter {
 
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(layout, null);
+            row = Objects.requireNonNull(inflater).inflate(layout, null);
             holder.cel_day_notes = row.findViewById(R.id.cel_day_notes);
             holder.cel_title_notes = row.findViewById(R.id.cel_title_notes);
             holder.cel_desc_notes = row.findViewById(R.id.cel_desc_notes);

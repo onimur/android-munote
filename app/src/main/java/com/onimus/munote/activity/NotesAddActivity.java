@@ -253,7 +253,7 @@ public class NotesAddActivity extends MenuToolbar {
             this.savedInstanceState = savedInstanceState;
         }
 
-        Bundle savedInstanceState;
+        final Bundle savedInstanceState;
 
         @Override
         public void onClick(View v) {
@@ -352,7 +352,7 @@ public class NotesAddActivity extends MenuToolbar {
     }
 
     private class OnButtonClickActionImage implements View.OnClickListener {
-        private File imageFile;
+        private final File imageFile;
 
         private OnButtonClickActionImage(File imageFile) {
             this.imageFile = imageFile;

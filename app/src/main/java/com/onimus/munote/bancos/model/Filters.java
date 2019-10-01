@@ -9,9 +9,6 @@ import com.onimus.munote.bancos.dao.NotesDao;
 import static com.onimus.munote.Constants.*;
 import static com.onimus.munote.files.ChangeMonth.changeMonthToExtension;
 
-/**
- * Object for passing filters around.
- */
 public class Filters {
 
     private long idCard = -2L;

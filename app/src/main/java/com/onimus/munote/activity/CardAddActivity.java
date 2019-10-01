@@ -66,12 +66,12 @@ public class CardAddActivity extends MenuToolbar {
     private void startAction() {
 
         setSupportActionBar(toolbar);
-        setActionOnClick(R.id.btn_clear, new OnButtonClickActionLimpar());
+        setActionOnClick(R.id.btn_clear, new OnButtonClickActionClear());
         setAlertDialogToReturnOnClickActivity(R.id.btn_cancel, CardActivity.class, CARD);
         setActionOnClick(R.id.btn_save, new OnButtonClickActionSave());
     }
 
-    private class OnButtonClickActionLimpar implements View.OnClickListener {
+    private class OnButtonClickActionClear implements View.OnClickListener {
         @Override
         public void onClick(View v) {
 

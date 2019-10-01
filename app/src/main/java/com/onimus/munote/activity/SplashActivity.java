@@ -27,7 +27,7 @@ public class SplashActivity extends MenuToolbar {
 
     private TextView tv_progress;
     int progressCount = 0;
-    Handler h = new Handler();
+    final Handler h = new Handler();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,24 +59,20 @@ public class SplashActivity extends MenuToolbar {
 
     private void setSplash() {
         // Inicia um Processo em segundo plano
-        new Thread(new Runnable() {
-            public void run() {
-                doWork();
+        new Thread(() -> {
+            doWork();
 
-                startApp();
+            startApp();
 
-            }
         }).start();
     }
 
     private void doWork() {
         while (progressCount < 100) {
             progressCount += 4;
-            h.post(new Runnable() {
-                public void run() {
-                    //Atualiza o TextView com a porcentagem do Progresso
-                    tv_progress.setText(String.valueOf(progressCount + "%"));
-                }
+            h.post(() -> {
+                //Atualiza o TextView com a porcentagem do Progresso
+                tv_progress.setText((progressCount + "%"));
             });
             try {
                 //Realiza Processo o processo

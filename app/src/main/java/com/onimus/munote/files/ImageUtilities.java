@@ -35,8 +35,8 @@ public class ImageUtilities {
 
     private String path1;
     private static String noPath;
-    private Context context;
-    private ManageDirectory md;
+    private final Context context;
+    private final ManageDirectory md;
 
     public ImageUtilities(Context context) {
         this.context = context;

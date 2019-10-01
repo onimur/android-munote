@@ -13,7 +13,6 @@
 package com.onimus.munote.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -144,19 +143,16 @@ public class MenuActivity extends MenuToolbar {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.text_dialog_permission));
         builder.setCancelable(false);
-        builder.setPositiveButton(R.string.text_permit_manually, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                intent.addCategory(Intent.CATEGORY_DEFAULT);
-                intent.setData(Uri.parse("package:" + getPackageName()));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        builder.setPositiveButton(R.string.text_permit_manually, (dialog, which) -> {
+            dialog.dismiss();
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 
-                startActivityForResult(intent, REQUEST_PERMISSIONS);
-            }
+            startActivityForResult(intent, REQUEST_PERMISSIONS);
         });
         builder.setNegativeButton(getString(R.string.alert_title_cancel), null);
         builder.show();

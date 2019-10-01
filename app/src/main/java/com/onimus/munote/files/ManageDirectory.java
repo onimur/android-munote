@@ -23,7 +23,7 @@ import java.util.Objects;
 import static com.onimus.munote.Constants.*;
 
 public class ManageDirectory {
-    private Context context;
+    private final Context context;
     static final String PICTURE = "picture";
     private static final String ROOT = "root";
 
@@ -46,13 +46,13 @@ public class ManageDirectory {
 
     File takeAPIPatch(String whichDirectory) {
         if (whichDirectory.equals(PICTURE)) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                 return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
             } else {
                 return Objects.requireNonNull(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsoluteFile();
             }
         } else if (whichDirectory.equals(ROOT)) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                 return Environment.getExternalStorageDirectory();
             } else {
                 return Objects.requireNonNull(context.getExternalFilesDir(null)).getAbsoluteFile();

@@ -14,7 +14,6 @@ package com.onimus.munote.bancos.banco;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-
 import com.onimus.munote.files.ManageDirectory;
 
 import static com.onimus.munote.Constants.*;
@@ -23,7 +22,7 @@ import java.io.File;
 
 public class Dao {
 
-    private Context context;
+    private final Context context;
     protected SQLiteDatabase db;
 
     public Dao(Context context) {
@@ -40,7 +39,6 @@ public class Dao {
         SqlHelper varHelp = new SqlHelper(
                 context,
                 dBasePath,
-                null,
                 DBASE_VERSION
         );
 

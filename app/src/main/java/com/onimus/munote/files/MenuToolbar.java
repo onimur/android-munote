@@ -26,7 +26,7 @@ import static com.onimus.munote.Constants.*;
 @SuppressLint("Registered")
 public class MenuToolbar extends MainUtilities {
 
-    String nameActivity = getClass().getSimpleName();
+    final String nameActivity = getClass().getSimpleName();
 
     public boolean onCreateOptionsMenu(Menu menu) {
 
