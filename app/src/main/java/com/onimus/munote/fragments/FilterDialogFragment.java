@@ -1,4 +1,4 @@
-package com.onimus.munote.fragmentos;
+package com.onimus.munote.fragments;
 
 import android.app.Dialog;
 import android.content.Context;

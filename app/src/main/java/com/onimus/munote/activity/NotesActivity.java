@@ -28,7 +28,7 @@ import com.onimus.munote.database.dao.NotesDao;
 import com.onimus.munote.database.model.NotesActivityViewModel;
 import com.onimus.munote.database.model.Filters;
 import com.onimus.munote.files.MenuToolbar;
-import com.onimus.munote.fragmentos.FilterDialogFragment;
+import com.onimus.munote.fragments.FilterDialogFragment;
 
 import java.util.Calendar;
 
