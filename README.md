@@ -56,15 +56,17 @@ gradlew installDebug
 </div>
 
 
-## Main methods used
+## Present Content
 - [SQLiteDatabase](https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase)
 - [ListView](https://developer.android.com/reference/android/widget/ListView)
 - [Toolbar](https://developer.android.com/reference/android/widget/Toolbar)
 - [Runtime Permissions](https://developer.android.com/guide/topics/permissions/overview)
 - [AlertDialog](https://developer.android.com/reference/android/app/AlertDialog)
-- [AdMob](https://developer.android.com/distribute/best-practices/earn/show-ads-admob)
 - [Fragments](https://developer.android.com/reference/android/support/v4/app/Fragment.html)
 - [Spinner](https://developer.android.com/reference/android/widget/Spinner)
+- [AdMob](https://developer.android.com/distribute/best-practices/earn/show-ads-admob)
+- [Google Analytics](https://firebase.google.com/docs/analytics/)
+- [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics)
 
 
 
