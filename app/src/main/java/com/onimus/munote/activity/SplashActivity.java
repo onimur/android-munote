@@ -18,12 +18,15 @@ import android.os.Handler;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.onimus.munote.R;
 import com.onimus.munote.files.MenuToolbar;
 
 import static com.onimus.munote.Constants.*;
 
 public class SplashActivity extends MenuToolbar {
+
+    public static final String ID_NAME ="firstCheck";
 
     private TextView tv_progress;
     private int progressCount = 0;
@@ -35,6 +38,11 @@ public class SplashActivity extends MenuToolbar {
         // Mostra a tela de Splash
         setContentView(R.layout.splash_screen);
 
+        // Obtain the FirebaseAnalytics instance.
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, ID_NAME);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         tv_progress = findViewById(R.id.tv_progress);
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713

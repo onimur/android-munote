@@ -64,3 +64,5 @@ lint/tmp/
 keystore.properties
 munotes.jks
 Imagens/
+app/google-services.json
+app/src/main/assets/containers/GTM-WQBLHPH.json
