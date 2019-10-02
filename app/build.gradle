@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 /*
  *
  *  * Created by Murillo Comino on 09/02/19 12:26
@@ -11,18 +12,14 @@ apply plugin: 'com.android.application'
  *
  */
 
-// Carrega a chave API-key, que está em um arquivo ignorado pelo git
-/*def keystorePropertiesFile = rootProject.file("keystore.properties");
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))*/
+// Enable Crashlytics NDK reporting
+crashlytics {
+    enableNdk true
+}
 
 android {
     signingConfigs {
         config {
-/*            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']*/
         }
     }
 
@@ -80,16 +77,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     //Ads
     implementation 'com.google.android.gms:play-services-ads:18.2.0'
+    //Crashlytics
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
 
-/*configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        def requested = details.requested
-        if (requested.group == 'com.android.support') {
-            details.useVersion '26.1.0'
-        }
-
-    }
-}*/
