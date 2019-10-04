@@ -3,7 +3,9 @@ package com.onimus.munote.activity;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AlertDialog;
+
 import android.text.Layout;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.onimus.munote.R;
+import com.onimus.munote.files.LollipopFixedWebView;
 import com.onimus.munote.files.MenuToolbar;
 
 import static com.onimus.munote.Constants.*;
@@ -86,6 +89,7 @@ public class DialogContractActivity extends MenuToolbar {
                     storeDialogStatus(true);
                     //carrega a próxima activity
                     callActivity(getBaseContext(), MenuActivity.class);
+                    dialog.dismiss();
                 }
             });
         });
@@ -104,7 +108,7 @@ public class DialogContractActivity extends MenuToolbar {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             textView.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
         } else {
-            WebView webView = new WebView(view.getContext());
+            WebView webView = new LollipopFixedWebView(view.getContext());
             webView.setVerticalScrollBarEnabled(false);
 
             linearLayout.removeView(textView);
