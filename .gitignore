@@ -61,9 +61,11 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
+#My files
 keystore.properties
 munotes.jks
-Imagens/
+readme/
 app/google-services.json
 app/src/main/assets/containers/GTM-WQBLHPH.json
 *.pepk
+/script_robo.json
