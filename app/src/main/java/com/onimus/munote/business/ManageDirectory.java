@@ -17,48 +17,47 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import java.io.File;
 import java.util.Objects;
 
-import static com.onimus.munote.Constants.*;
+import static com.onimus.munote.Constants.TAG;
 
 public class ManageDirectory {
     private final Context context;
-    static final String PICTURE = "picture";
-    private static final String ROOT = "root";
 
     public ManageDirectory(Context context) {
         this.context = context;
     }
 
-    public File createInRoot(String path) {
-        File pathRoot = takeAPIPatch(ROOT);
+    public File createPublicDirectoryFileForVariousApi(String path) {
+        File pathRoot = takeAPIPatch(null);
         Log.i(TAG, "Root");
         return createFolder(pathRoot, path);
     }
 
-    public File createInPicture(String path) {
-        File pathPicture = takeAPIPatch(PICTURE);
-        Log.i(TAG, "Pictures");
+    public File createPublicDirectoryFileForVariousApi(String path, String environmentDir) {
+        File pathPicture = takeAPIPatch(environmentDir);
+        Log.i(TAG, environmentDir);
         return createFolder(pathPicture, path);
 
     }
 
-    File takeAPIPatch(String whichDirectory) {
-        if (whichDirectory.equals(PICTURE)) {
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+    private File takeAPIPatch(@Nullable String whichDirectory) {
+        if (whichDirectory != null) {
+            if (isAndroidPieOrLowerVersion()) {
+                return Environment.getExternalStoragePublicDirectory(whichDirectory);
             } else {
-                return Objects.requireNonNull(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)).getAbsoluteFile();
+                return Objects.requireNonNull(context.getExternalFilesDir(whichDirectory)).getAbsoluteFile();
             }
-        } else if (whichDirectory.equals(ROOT)) {
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+        } else {
+            if (isAndroidPieOrLowerVersion()) {
                 return Environment.getExternalStorageDirectory();
             } else {
                 return Objects.requireNonNull(context.getExternalFilesDir(null)).getAbsoluteFile();
             }
         }
-        return null;
     }
 
     private File createFolder(File pathMain, String path) {
@@ -94,5 +93,10 @@ public class ManageDirectory {
         } else {
             Log.i(TAG, "File exists or was created in " + dir.getAbsolutePath());
         }
+    }
+
+    /////////////////////////////////////////
+    private boolean isAndroidPieOrLowerVersion() {
+        return Build.VERSION.SDK_INT <= Build.VERSION_CODES.P;
     }
 }

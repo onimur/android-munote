@@ -16,6 +16,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.os.Environment;
 import android.widget.ImageView;
 
 import com.onimus.munote.R;
@@ -57,7 +58,7 @@ public class ImageUtilities {
         timeAll = FOLDER_NAME + folderName + pathYearMonth;
 
         //Cria pasta
-        dir = md.createInPicture(timeAll);
+        dir = md.createPublicDirectoryFileForVariousApi(timeAll, Environment.DIRECTORY_PICTURES);
         fileDir = dir;
     }
 

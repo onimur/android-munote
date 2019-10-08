@@ -14,11 +14,15 @@ package com.onimus.munote.repository.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
 import com.onimus.munote.business.ManageDirectory;
 
-import static com.onimus.munote.Constants.*;
-
 import java.io.File;
+
+import static com.onimus.munote.Constants.DBASE_NAME;
+import static com.onimus.munote.Constants.DBASE_VERSION;
+import static com.onimus.munote.Constants.FOLDER_NAME;
+import static com.onimus.munote.Constants.FOLDER_NAME_DBASE;
 
 public class Dao {
 
@@ -32,7 +36,7 @@ public class Dao {
     protected void openDataBase() {
         String pathDB = FOLDER_NAME + FOLDER_NAME_DBASE;
         ManageDirectory md = new ManageDirectory(context);
-        File dir = md.createInRoot(pathDB);
+        File dir = md.createPublicDirectoryFileForVariousApi(pathDB);
 
         String dBasePath = dir.getPath() + "/" + DBASE_NAME;
 

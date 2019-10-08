@@ -15,9 +15,7 @@ package com.onimus.munote.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.Toolbar;
-
+import android.os.Environment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -25,20 +23,25 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.onimus.munote.R;
-import com.onimus.munote.repository.database.HMAuxCard;
-import com.onimus.munote.repository.database.RecordSpinnerCardAdapter;
-import com.onimus.munote.repository.dao.CardDao;
-import com.onimus.munote.repository.dao.NotesDao;
-import com.onimus.munote.repository.model.Notes;
+import com.onimus.munote.business.FileUtilities;
 import com.onimus.munote.business.ManageDirectory;
 import com.onimus.munote.business.MenuToolbar;
-import com.onimus.munote.business.FileUtilities;
+import com.onimus.munote.repository.dao.CardDao;
+import com.onimus.munote.repository.dao.NotesDao;
+import com.onimus.munote.repository.database.HMAuxCard;
+import com.onimus.munote.repository.database.RecordSpinnerCardAdapter;
+import com.onimus.munote.repository.model.Notes;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import static com.onimus.munote.Constants.*;
+import static com.onimus.munote.Constants.DBASE_ID;
+import static com.onimus.munote.Constants.FOLDER_NAME;
+import static com.onimus.munote.Constants.FOLDER_NAME_NOTES;
+import static com.onimus.munote.Constants.NOTES;
 import static com.onimus.munote.business.MoneyTextWatcher.formatTextPrice;
 import static com.onimus.munote.business.MoneyTextWatcher.getCurrencySymbol;
 import static com.onimus.munote.business.SpinnerIndex.getSpinnerIndex;
@@ -139,7 +142,7 @@ public class NotesViewActivity extends MenuToolbar {
             long idCard = nAux.getIdCard();
             String getPath = nAux.getPhotoNotes();
             String path = FOLDER_NAME + FOLDER_NAME_NOTES;
-            File dir = md.createInPicture(path);
+            File dir = md.createPublicDirectoryFileForVariousApi(path, Environment.DIRECTORY_PICTURES);
             imgFile = md.createFile(dir, getPath);
 
             setImageSaveToImageButton(getPath, imgFile);

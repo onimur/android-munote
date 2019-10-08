@@ -21,10 +21,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.os.Environment;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -41,13 +38,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.onimus.munote.BuildConfig;
 import com.onimus.munote.R;
-import com.onimus.munote.repository.database.HMAuxCard;
 import com.onimus.munote.repository.dao.CardDao;
 import com.onimus.munote.repository.dao.NotesDao;
+import com.onimus.munote.repository.database.HMAuxCard;
 import com.onimus.munote.repository.model.Card;
 import com.onimus.munote.repository.model.Notes;
 
@@ -56,7 +56,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.onimus.munote.Constants.*;
+import static com.onimus.munote.Constants.CARD;
+import static com.onimus.munote.Constants.CARD_TO_NOTES;
+import static com.onimus.munote.Constants.DBASE_ID;
+import static com.onimus.munote.Constants.FOLDER_NAME;
+import static com.onimus.munote.Constants.FOLDER_NAME_NOTES;
+import static com.onimus.munote.Constants.NOTES;
+import static com.onimus.munote.Constants.NOTES_TO_CARD;
+import static com.onimus.munote.Constants.SPINNER_ACTION_CRED_DEB;
 import static com.onimus.munote.business.ConvertType.convertToDate;
 import static com.onimus.munote.business.ConvertType.convertToInt;
 import static com.onimus.munote.business.ConvertType.convertToLong;
@@ -226,7 +233,7 @@ public class MainUtilities extends AppCompatActivity {
                         String newPath = notes.getPhotoNotes();
                         ManageDirectory md = new ManageDirectory(context);
                         String path = FOLDER_NAME + FOLDER_NAME_NOTES;
-                        File dir = md.createInPicture(path);
+                        File dir = md.createPublicDirectoryFileForVariousApi(path, Environment.DIRECTORY_PICTURES);
                         File imgFile = md.createFile(dir, newPath);
                         ImageUtilities.deleteImage(imgFile);
                         notesDao.deleteNotes(idActual);
@@ -388,8 +395,9 @@ public class MainUtilities extends AppCompatActivity {
     //Action pra click do botão e inicar alguma ação/intent ao invés de startar uma Activity
     protected void openESFileExplorer() {
         ManageDirectory md = new ManageDirectory(this);
-        File path = md.takeAPIPatch(ManageDirectory.PICTURE);
-        Uri selectedUri = Uri.parse(path + "/" + FOLDER_NAME);
+        String path = md.createPublicDirectoryFileForVariousApi(FOLDER_NAME, Environment.DIRECTORY_PICTURES).getAbsolutePath();
+        Uri selectedUri = Uri.parse(path);
+
         Intent intent = new Intent(Intent.ACTION_VIEW);
 
         intent.setDataAndType(selectedUri, "resource/folder");

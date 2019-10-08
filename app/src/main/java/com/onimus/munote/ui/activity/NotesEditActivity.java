@@ -16,10 +16,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
-
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,17 +30,19 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.onimus.munote.R;
-import com.onimus.munote.repository.database.HMAuxCard;
-import com.onimus.munote.repository.database.RecordSpinnerCardAdapter;
-import com.onimus.munote.repository.dao.CardDao;
-import com.onimus.munote.repository.dao.NotesDao;
-import com.onimus.munote.repository.model.Notes;
+import com.onimus.munote.business.FileUtilities;
 import com.onimus.munote.business.ImageUtilities;
 import com.onimus.munote.business.ManageDirectory;
 import com.onimus.munote.business.MenuToolbar;
-import com.onimus.munote.business.FileUtilities;
 import com.onimus.munote.business.MoneyTextWatcher;
+import com.onimus.munote.repository.dao.CardDao;
+import com.onimus.munote.repository.dao.NotesDao;
+import com.onimus.munote.repository.database.HMAuxCard;
+import com.onimus.munote.repository.database.RecordSpinnerCardAdapter;
+import com.onimus.munote.repository.model.Notes;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -51,7 +51,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.onimus.munote.Constants.*;
+import static com.onimus.munote.Constants.DBASE_ID;
+import static com.onimus.munote.Constants.FOLDER_NAME;
+import static com.onimus.munote.Constants.FOLDER_NAME_NOTES;
+import static com.onimus.munote.Constants.NOTES;
+import static com.onimus.munote.Constants.NOTES_TO_CARD;
+import static com.onimus.munote.Constants.NO_PATH;
+import static com.onimus.munote.Constants.REQUEST_TAKE_PICTURE;
+import static com.onimus.munote.Constants.SPINNER_ACTION_CRED_DEB;
 import static com.onimus.munote.business.ConvertType.convertToDate;
 import static com.onimus.munote.business.MoneyTextWatcher.formatPrice;
 import static com.onimus.munote.business.MoneyTextWatcher.getCurrencySymbol;
@@ -165,7 +172,7 @@ public class NotesEditActivity extends MenuToolbar {
             setField();
         }
         //
-        File dir = md.createInPicture(FOLDER_NAME + FOLDER_NAME_NOTES);
+        File dir = md.createPublicDirectoryFileForVariousApi(FOLDER_NAME + FOLDER_NAME_NOTES, Environment.DIRECTORY_PICTURES);
         imgFile = md.createFile(dir, newPath);
         //checa o newPath da imagem e retorna boolean
         if (setImageSaveToImageButton(newPath, imgFile)) {
