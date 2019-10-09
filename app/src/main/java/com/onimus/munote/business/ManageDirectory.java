@@ -43,8 +43,19 @@ public class ManageDirectory {
         return createFolder(pathPicture, path);
 
     }
+    public File createFile(File pathMain, String fileName) {
+        File dir = new File(pathMain, fileName);
+        checkFileLog(dir);
+        return dir;
+    }
 
-    private File takeAPIPatch(@Nullable String whichDirectory) {
+    File createFile(String fullPath) {
+        File dir = new File(fullPath);
+        checkFileLog(dir);
+        return dir;
+    }
+
+    File takeAPIPatch(@Nullable String whichDirectory) {
         if (whichDirectory != null) {
             if (isAndroidPieOrLowerVersion()) {
                 return Environment.getExternalStoragePublicDirectory(whichDirectory);
@@ -60,7 +71,7 @@ public class ManageDirectory {
         }
     }
 
-    private File createFolder(File pathMain, String path) {
+    File createFolder(File pathMain, String path) {
         File dir = new File(pathMain, path);
         if (!dir.exists()) {
             Log.i(TAG, "Folder not created");
@@ -75,18 +86,6 @@ public class ManageDirectory {
         return dir;
     }
 
-    public File createFile(File pathMain, String fileName) {
-        File dir = new File(pathMain, fileName);
-        checkFileLog(dir);
-        return dir;
-    }
-
-    File createFile(String fullPath) {
-        File dir = new File(fullPath);
-        checkFileLog(dir);
-        return dir;
-    }
-
     private void checkFileLog(File dir) {
         if (!dir.exists()) {
             Log.e(TAG, "File not created");
@@ -95,7 +94,6 @@ public class ManageDirectory {
         }
     }
 
-    /////////////////////////////////////////
     private boolean isAndroidPieOrLowerVersion() {
         return Build.VERSION.SDK_INT <= Build.VERSION_CODES.P;
     }
